@@ -1,4 +1,4 @@
-요구사항 명세서
+요구사항 명세서(마이페이지)
 스토리보드
 	DB Modeling
 	Class Diagram
