@@ -5,8 +5,7 @@ public class MTL {
 	private String id;
 	private String tlname;
 
-	public MTL() {
-	}
+	public MTL() { }
 
 	public MTL(int tlidx, String id, String tlname) {
 		super();
