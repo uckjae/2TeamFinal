@@ -1121,6 +1121,5 @@
 	<c:import url="/common/Bottom.jsp" />
 
 	<script src="js/main.js"></script>
-
 </body>
 </html>
