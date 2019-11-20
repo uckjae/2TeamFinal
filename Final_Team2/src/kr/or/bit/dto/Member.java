@@ -4,7 +4,7 @@ public class Member {
 	private String id;
 	private String pwd;
 	private String name;
-	private String bitth;
+	private String birth;
 	private boolean gender;
 	private String address;
 	private String email;
@@ -13,13 +13,13 @@ public class Member {
 
 	public Member() { }
 
-	public Member(String id, String pwd, String name, String bitth, boolean gender, String address, String email,
+	public Member(String id, String pwd, String name, String birth, boolean gender, String address, String email,
 			boolean isKakao, boolean isAdmin) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
-		this.bitth = bitth;
+		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
 		this.email = email;
@@ -52,11 +52,11 @@ public class Member {
 	}
 
 	public String getBitth() {
-		return bitth;
+		return birth;
 	}
 
-	public void setBitth(String bitth) {
-		this.bitth = bitth;
+	public void setBitth(String birth) {
+		this.birth = birth;
 	}
 
 	public boolean isGender() {
@@ -101,7 +101,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", pwd=" + pwd + ", name=" + name + ", bitth=" + bitth + ", gender=" + gender
+		return "Member [id=" + id + ", pwd=" + pwd + ", name=" + name + ", birth=" + birth + ", gender=" + gender
 				+ ", address=" + address + ", email=" + email + ", isKakao=" + isKakao + ", isAdmin=" + isAdmin + "]";
 	}
 }
