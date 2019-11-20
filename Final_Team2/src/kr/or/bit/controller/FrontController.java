@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.or.bit.action.*;
-import kr.or.bit.service.*;
+import kr.or.bit.action.Action;
+import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.LoginService;
+import kr.or.bit.service.LogoutService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -43,8 +45,8 @@ public class FrontController extends HttpServlet {
 		/* LOGOUT */
 		//  진헹
 		else if (url_Command.equals("/Logout.do")) {
-		
-			
+			action = new LogoutService();
+			forward = action.execute(request, response);
 		}
 		
 		/* REGISTER */

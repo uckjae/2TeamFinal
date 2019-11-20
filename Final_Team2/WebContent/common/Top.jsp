@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%-- <c:set var="member" value="${sessionScope.member}" />
+<c:set var="member" value="${sessionScope.member}" />
 <c:choose>
-	<c:set var="isAdmin" value="false" />
 	<c:when test="${member != null}">
 		<c:set var="isLogin" value="true" />
-
 	</c:when>
 	<c:otherwise>
 		<c:set var="isLogin" value="false" />
 	</c:otherwise>
-</c:choose>  --%> 
+</c:choose>  
 
 <!DOCTYPE html>
 <html>
@@ -39,11 +37,11 @@
 					<li class="nav-item"><a href="#blog-section" class="nav-link"><span>Blog</span></a></li>
 					<li class="nav-item"><a href="#contact-section"
 						class="nav-link"><span>Contact</span></a></li>
-					<%-- <c:choose>
+					 <c:choose>
 						<c:when test="${isLogin== 'true'}">
 							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
 							<c:choose>
-								<c:when test="${isAdmin== 'true'}">
+								<c:when test="${memeber.isAdmin}">
 									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>관리자</span></a></li>
 								</c:when>
 								<c:otherwise>
@@ -54,7 +52,7 @@
 						<c:otherwise>
 							<li class="nav-item"><a href="Login.do" class="nav-link"><span>Login</span></a></li>
 						</c:otherwise>
-					</c:choose> --%>
+					</c:choose> 
 
 				</ul>
 			</div>
