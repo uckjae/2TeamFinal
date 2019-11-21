@@ -3,11 +3,11 @@ package kr.or.bit.dto;
 import java.util.Date;
 
 public class Board {
-	private int bindx;
+	private int bIndx;
 	private String id;
 	private String title;
 	private String content;
-	private Date wdate;
+	private Date wDate;
 	private int rnum;
 	private int bcode;
 
@@ -15,21 +15,21 @@ public class Board {
 
 	public Board(int bindx, String id, String title, String content, Date wdate, int rnum, int bcode) {
 		super();
-		this.bindx = bindx;
+		this.bIndx = bindx;
 		this.id = id;
 		this.title = title;
 		this.content = content;
-		this.wdate = wdate;
+		this.wDate = wdate;
 		this.rnum = rnum;
 		this.bcode = bcode;
 	}
 
 	public int getBindx() {
-		return bindx;
+		return bIndx;
 	}
 
 	public void setBindx(int bindx) {
-		this.bindx = bindx;
+		this.bIndx = bindx;
 	}
 
 	public String getId() {
@@ -57,11 +57,11 @@ public class Board {
 	}
 
 	public Date getWdate() {
-		return wdate;
+		return wDate;
 	}
 
 	public void setWdate(Date wdate) {
-		this.wdate = wdate;
+		this.wDate = wdate;
 	}
 
 	public int getRnum() {
@@ -82,7 +82,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bindx=" + bindx + ", id=" + id + ", title=" + title + ", content=" + content + ", wdate=" + wdate
+		return "Board [bindx=" + bIndx + ", id=" + id + ", title=" + title + ", content=" + content + ", wdate=" + wDate
 				+ ", rnum=" + rnum + ", bcode=" + bcode + "]";
 	}
 }
