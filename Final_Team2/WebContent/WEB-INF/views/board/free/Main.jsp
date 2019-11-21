@@ -3,10 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Free Board</title>
+	
 </head>
 <body>
-	자유 게시판 메인
+	<div class="container">
+		<h3>자유 게시판</h3>
+	</div>
+	
+	
 </body>
 </html>
+

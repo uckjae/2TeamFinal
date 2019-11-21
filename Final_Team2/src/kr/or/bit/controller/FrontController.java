@@ -69,6 +69,9 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/FreeBoardDetail.do")) {
 			
 		}
+		else if (url_Command.equals("/FreeBoardWrite")) {
+			
+		}
 		// Photo Board
 		else if (url_Command.equals("/PhotoBoardList.do")) {
 			forward = new ActionForward();
@@ -96,7 +99,7 @@ public class FrontController extends HttpServlet {
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
+			forward.setPath("/WEB-INF/views/board/qna/Write.jsp");
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
 			
@@ -126,7 +129,22 @@ public class FrontController extends HttpServlet {
 			
 			
 		}
-
+		//여행리스트 폴더 보여주기 화면 
+		else if (url_Command.equals("/MTList.do")) {			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/mypage/MyTravelList.jsp");	
+			
+		}
+		//여행리스트 폴더 추가하기
+		else if (url_Command.equals("/MTList.do")) {			
+			
+			
+		}
+		//여행리스트 폴더 삭제하기
+		//여행리스트 리스트 상세보기
+		//여행리스트 리스트 추가하기 
+		//여행리스트 리스트 삭제하기
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
