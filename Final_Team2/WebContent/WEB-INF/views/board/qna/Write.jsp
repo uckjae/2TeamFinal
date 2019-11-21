@@ -37,7 +37,7 @@
     <!-- Contant -->
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
-            <h1 class="text-center mb-3 bread">Q & A</h1>
+            <h1 class="text-center mb-3 bread">Q & A 작성</h1>
             <form action="QnABoardWrite.do" class="p-5 bg-light" method="post">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">
@@ -47,7 +47,7 @@
 					<input type="radio" id="isPublic" name="isPublic" value="1">
 				</label>
 				<label> 비공개
-					<input type="radio" id="isPublic" name="isPublic" value="0">
+					<input type="radio" id="isPublic" name="isPublic" value="0" checked>
 				</label>
 				</div>
                 <div class="mt-3 text-center">
