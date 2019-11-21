@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
 import kr.or.bit.service.QnABoardWriteService;
@@ -71,7 +72,8 @@ public class FrontController extends HttpServlet {
 			
 		}
 		else if (url_Command.equals("/FreeBoardWrite.do")) {
-			
+			action = new FreeBoardWriteService();
+			forward = action.execute(request, response);
 		}
 		// Photo Board
 		else if (url_Command.equals("/PhotoBoardList.do")) {
@@ -145,10 +147,6 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/mypage/MyTravelListFolder.jsp");			
 		}
 		//여행리스트 폴더 추가하기
-		else if (url_Command.equals("/MTList.do")) {			
-			
-			
-		}
 		//여행리스트 폴더 삭제하기
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			
