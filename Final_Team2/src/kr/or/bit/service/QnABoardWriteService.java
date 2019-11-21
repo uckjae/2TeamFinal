@@ -20,9 +20,7 @@ public class QnABoardWriteService implements Action {
 		String memberId=(String) request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("summernote");
-System.out.println(memberId);
-System.out.println(title);
-System.out.println(content);
+
 		BoardDao dao = new BoardDao();
 		boolean result = dao.insertQnABoard(memberId, title, content);
 		

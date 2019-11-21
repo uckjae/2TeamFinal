@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
 import kr.or.bit.service.QnABoardWriteService;
@@ -71,7 +72,8 @@ public class FrontController extends HttpServlet {
 			
 		}
 		else if (url_Command.equals("/FreeBoardWrite.do")) {
-			
+			action = new FreeBoardWriteService();
+			forward = action.execute(request, response);
 		}
 		// Photo Board
 		else if (url_Command.equals("/PhotoBoardList.do")) {
@@ -98,7 +100,8 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
 		}
 		else if (url_Command.equals("/NoticeBoardDetail.do")) {
-			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/notice/Detail.jsp");
 		}
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
