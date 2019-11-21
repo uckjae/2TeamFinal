@@ -44,10 +44,10 @@
 				</textarea>
 				<div class="mt-3 text-right">
 				<label > 공개
-					<input type="radio" id="isSecret" name="isPublic" value="1">
+					<input type="radio" id="isPublic" name="isPublic" value="1">
 				</label>
 				<label> 비공개
-					<input type="radio" id="isSecret" name="isPublic" value="0">
+					<input type="radio" id="isPublic" name="isPublic" value="0">
 				</label>
 				</div>
                 <div class="mt-3 text-center">
