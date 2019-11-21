@@ -1,7 +1,7 @@
 package kr.or.bit.dto;
 
 public class Photo {
-	private int photoId;
+	private int photoId;//PHTOID_SEQ
 	private int bIdx;
 	private String photoName;
 

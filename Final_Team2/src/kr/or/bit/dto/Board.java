@@ -3,7 +3,7 @@ package kr.or.bit.dto;
 import java.util.Date;
 
 public class Board {
-	private int bIndx;
+	private int bIndx;//BIDX_SEQ
 	private String id;
 	private String title;
 	private String content;
