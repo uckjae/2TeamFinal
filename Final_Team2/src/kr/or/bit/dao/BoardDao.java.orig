@@ -289,7 +289,8 @@ public class BoardDao {
 	// 여행리스트 폴더 보기
 	public List<MTList> mTLFolderList() {
 		return null;
-	}
+<<<<<<< HEAD
+	}	
 	//여행리스트  폴더 만들기
 	public MTList mTLFolderAdd() {
 		return null;
@@ -298,8 +299,17 @@ public class BoardDao {
 	public MTList mTLFolderEdit() {
 		return null;
 	}
+	//여행리스트  폴더 삭제하기 
+=======
+	}
+
+	// 여행리스트 폴더 추가하기
+	public MTList mTLFolderAdd() {
+		return null;
+	}
 
 	// 여행리스트 폴더 삭제하기
+>>>>>>> 7e37237a92387433d922fce5416871d0f83d2b1e
 	public MTList mTLFolderDelete() {
 		return null;
 	}
