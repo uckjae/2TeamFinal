@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- https://codepen.io/uckjae/pen/WNNmMEO (타임라인 참조사이트링크) -->
 	<c:import url="/common/HeadTag.jsp" />
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/timeLine.css">
@@ -17,7 +16,7 @@
 	
 	<!-- Vertical Timeline -->
 	<div class="content">
-  <div id="conference-timeline">
+  	<div id="conference-timeline">
     <div class="timeline-start">Start</div>
     <div class="conference-center-line"></div>
     <div class="conference-timeline-content">

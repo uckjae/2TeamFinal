@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
+import kr.or.bit.service.MyCourseBoardWriteService;
+import kr.or.bit.service.QnABoardWriteService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -69,6 +72,10 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/FreeBoardDetail.do")) {
 			
 		}
+		else if (url_Command.equals("/FreeBoardWrite.do")) {
+			action = new FreeBoardWriteService();
+			forward = action.execute(request, response);
+		}
 		// Photo Board
 		else if (url_Command.equals("/PhotoBoardList.do")) {
 			forward = new ActionForward();
@@ -76,6 +83,9 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/PhotoBoardDetail.do")) {
 			
+		}else if (url_Command.equals("/PhotoWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/photo/PWrite.jsp");
 		}
 		// My Course Board
 		else if (url_Command.equals("/MyCourseBoardList.do")) {
@@ -85,13 +95,22 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/MyCourseBoardDetail.do")) {
 			
 		}
+		else if (url_Command.equals("/MyCourseBoardWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/mycourse/Write.jsp");
+		}
+		else if (url_Command.equals("/MyCourseBoardWriteOk.do")) {
+			action = new MyCourseBoardWriteService();
+			forward = action.execute(request, response);
+		}
 		// Notice Board
 		else if (url_Command.equals("/NoticeBoardList.do")) {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
 		}
 		else if (url_Command.equals("/NoticeBoardDetail.do")) {
-			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/notice/Detail.jsp");
 		}
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
@@ -100,6 +119,10 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
 			
+		}
+		else if (url_Command.equals("/QnABoardWrite.do")) {
+			action = new QnABoardWriteService();
+			forward = action.execute(request, response);
 		}
 		
 		/* ADMIN */
@@ -126,7 +149,23 @@ public class FrontController extends HttpServlet {
 			
 			
 		}
-
+		
+		//여행리스트 폴더 보여주기 화면 
+		else if (url_Command.equals("/MTFolderList.do")) {			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/mypage/MyTravelListFolder.jsp");			
+		}
+		//여행리스트 폴더 추가하기
+		//여행리스트 폴더 삭제하기
+		//여행리스트 리스트 상세보기
+		else if (url_Command.equals("/MTList.do")) {			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/mypage/MyTravelList.jsp");	
+			
+		}
+		//여행리스트 리스트 추가하기 
+		//여행리스트 리스트 삭제하기
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
