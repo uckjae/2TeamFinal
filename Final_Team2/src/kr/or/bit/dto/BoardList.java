@@ -1,7 +1,7 @@
 package kr.or.bit.dto;
 
 public class BoardList {
-	private int bcode;
-	private String bname;
-	private int btype;
+	private int bCode;
+	private String bName;
+	private int bType;
 }

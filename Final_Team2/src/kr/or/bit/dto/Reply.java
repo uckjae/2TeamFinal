@@ -3,46 +3,46 @@ package kr.or.bit.dto;
 import java.util.Date;
 
 public class Reply {
-	private int ridx;
-	private int bidx;
-	private String rcontent;
+	private int rIdx;
+	private int bIdx;
+	private String rContent;
 	private String id;
-	private Date rwdate;
+	private Date rWDate;
 
 	public Reply() {
 	}
 
-	public Reply(int ridx, int bidx, String rcontent, String id, Date rwdate) {
+	public Reply(int rIdx, int bIdx, String rContent, String id, Date rWDate) {
 		super();
-		this.ridx = ridx;
-		this.bidx = bidx;
-		this.rcontent = rcontent;
+		this.rIdx = rIdx;
+		this.bIdx = bIdx;
+		this.rContent = rContent;
 		this.id = id;
-		this.rwdate = rwdate;
+		this.rWDate = rWDate;
 	}
 
-	public int getRidx() {
-		return ridx;
+	public int getrIdx() {
+		return rIdx;
 	}
 
-	public void setRidx(int ridx) {
-		this.ridx = ridx;
+	public void setrIdx(int rIdx) {
+		this.rIdx = rIdx;
 	}
 
-	public int getBidx() {
-		return bidx;
+	public int getbIdx() {
+		return bIdx;
 	}
 
-	public void setBidx(int bidx) {
-		this.bidx = bidx;
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
 	}
 
-	public String getRcontent() {
-		return rcontent;
+	public String getrContent() {
+		return rContent;
 	}
 
-	public void setRcontent(String rcontent) {
-		this.rcontent = rcontent;
+	public void setrContent(String rContent) {
+		this.rContent = rContent;
 	}
 
 	public String getId() {
@@ -53,18 +53,18 @@ public class Reply {
 		this.id = id;
 	}
 
-	public Date getRwdate() {
-		return rwdate;
+	public Date getrWDate() {
+		return rWDate;
 	}
 
-	public void setRwdate(Date rwdate) {
-		this.rwdate = rwdate;
+	public void setrWDate(Date rWDate) {
+		this.rWDate = rWDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Reply [ridx=" + ridx + ", bidx=" + bidx + ", rcontent=" + rcontent + ", id=" + id + ", rwdate=" + rwdate
+		return "Reply [rIdx=" + rIdx + ", bIdx=" + bIdx + ", rContent=" + rContent + ", id=" + id + ", rWDate=" + rWDate
 				+ "]";
 	}
-
+		
 }

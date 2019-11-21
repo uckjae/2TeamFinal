@@ -1,38 +1,38 @@
 package kr.or.bit.dto;
 
 public class FreeBoard extends Board {
-	private int fidx;
-	private int bidx;
+	private int fIdx;
+	private int bIdx;
 	private int refer;
 	private int depth;
 	private int step;
 
 	public FreeBoard() {
 	}
-
-	public FreeBoard(int fidx, int bidx, int refer, int depth, int step) {
+	
+	public FreeBoard(int fIdx, int bIdx, int refer, int depth, int step) {
 		super();
-		this.fidx = fidx;
-		this.bidx = bidx;
+		this.fIdx = fIdx;
+		this.bIdx = bIdx;
 		this.refer = refer;
 		this.depth = depth;
 		this.step = step;
 	}
 
-	public int getFidx() {
-		return fidx;
+	public int getfIdx() {
+		return fIdx;
 	}
 
-	public void setFidx(int fidx) {
-		this.fidx = fidx;
+	public void setfIdx(int fIdx) {
+		this.fIdx = fIdx;
 	}
 
-	public int getBidx() {
-		return bidx;
+	public int getbIdx() {
+		return bIdx;
 	}
 
-	public void setBidx(int bidx) {
-		this.bidx = bidx;
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
 	}
 
 	public int getRefer() {
@@ -61,7 +61,9 @@ public class FreeBoard extends Board {
 
 	@Override
 	public String toString() {
-		return "FreeBoard [fidx=" + fidx + ", bidx=" + bidx + ", refer=" + refer + ", depth=" + depth + ", step=" + step
+		return "FreeBoard [fIdx=" + fIdx + ", bIdx=" + bIdx + ", refer=" + refer + ", depth=" + depth + ", step=" + step
 				+ "]";
 	}
+
+	
 }

@@ -8,28 +8,28 @@ public class Board {
 	private String title;
 	private String content;
 	private Date wDate;
-	private int rnum;
-	private int bcode;
+	private int rNum;
+	private int bCode;
 
 	public Board() { }
 
-	public Board(int bindx, String id, String title, String content, Date wdate, int rnum, int bcode) {
+	public Board(int bindx, String id, String title, String content, Date wDate, int rNum, int bCode) {
 		super();
 		this.bIndx = bindx;
 		this.id = id;
 		this.title = title;
 		this.content = content;
-		this.wDate = wdate;
-		this.rnum = rnum;
-		this.bcode = bcode;
+		this.wDate = wDate;
+		this.rNum = rNum;
+		this.bCode = bCode;
 	}
 
-	public int getBindx() {
+	public int getbIndx() {
 		return bIndx;
 	}
 
-	public void setBindx(int bindx) {
-		this.bIndx = bindx;
+	public void setbIndx(int bIndx) {
+		this.bIndx = bIndx;
 	}
 
 	public String getId() {
@@ -56,33 +56,35 @@ public class Board {
 		this.content = content;
 	}
 
-	public Date getWdate() {
+	public Date getwDate() {
 		return wDate;
 	}
 
-	public void setWdate(Date wdate) {
-		this.wDate = wdate;
+	public void setwDate(Date wDate) {
+		this.wDate = wDate;
 	}
 
-	public int getRnum() {
-		return rnum;
+	public int getrNum() {
+		return rNum;
 	}
 
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
 	}
 
-	public int getBcode() {
-		return bcode;
+	public int getbCode() {
+		return bCode;
 	}
 
-	public void setBcode(int bcode) {
-		this.bcode = bcode;
+	public void setbCode(int bCode) {
+		this.bCode = bCode;
 	}
 
 	@Override
 	public String toString() {
-		return "Board [bindx=" + bIndx + ", id=" + id + ", title=" + title + ", content=" + content + ", wdate=" + wDate
-				+ ", rnum=" + rnum + ", bcode=" + bcode + "]";
+		return "Board [bIndx=" + bIndx + ", id=" + id + ", title=" + title + ", content=" + content + ", wDate=" + wDate
+				+ ", rNum=" + rNum + ", bCode=" + bCode + "]";
 	}
+
+	
 }

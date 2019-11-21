@@ -1,47 +1,35 @@
 package kr.or.bit.dto;
 
 public class NoticeBoard extends Board {
-	private int nidx;
-	private int bidx;
-	private boolean isStop;
+	private int nIdx;
+	private int bIdx;
+	private boolean isTop;
 
 	public NoticeBoard() {
 	}
 
-	public NoticeBoard(int nidx, int bidx, boolean isStop) {
+	public NoticeBoard(int nIdx, int bIdx, boolean isTop) {
 		super();
-		this.nidx = nidx;
-		this.bidx = bidx;
-		this.isStop = isStop;
+		this.nIdx = nIdx;
+		this.bIdx = bIdx;
+		this.isTop = isTop;
 	}
 
-	public int getNidx() {
-		return nidx;
+	public int getnIdx() {
+		return nIdx;
 	}
 
-	public void setNidx(int nidx) {
-		this.nidx = nidx;
+	public int getbIdx() {
+		return bIdx;
 	}
 
-	public int getBidx() {
-		return bidx;
-	}
-
-	public void setBidx(int bidx) {
-		this.bidx = bidx;
-	}
-
-	public boolean isStop() {
-		return isStop;
-	}
-
-	public void setStop(boolean isStop) {
-		this.isStop = isStop;
+	public boolean isTop() {
+		return isTop;
 	}
 
 	@Override
 	public String toString() {
-		return "NoticeBoard [nidx=" + nidx + ", bidx=" + bidx + ", isStop=" + isStop + "]";
+		return "NoticeBoard [nIdx=" + nIdx + ", bIdx=" + bIdx + ", isTop=" + isTop + "]";
 	}
-
+		
 }
