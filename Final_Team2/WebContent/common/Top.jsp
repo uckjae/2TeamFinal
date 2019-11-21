@@ -58,11 +58,11 @@
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 게시판</a>
 						<div class="dropdown-menu">
-	              			<a class="dropdown-item" href="#" target="_blank">자유게시판</a>	
-	              			<a class="dropdown-item" href="#" target="_blank">포토게시판</a>	
-	              			<a class="dropdown-item" href="#" target="_blank">나만의 코스</a>	
-	              			<a class="dropdown-item" href="#" target="_blank">공지사항</a>	
-	              			<a class="dropdown-item" href="#" target="_blank">Q & A</a>	
+	              			<a class="dropdown-item" href="FreeBoardList.do" target="_blank">자유게시판</a>	
+	              			<a class="dropdown-item" href="PhotoBoardList.do" target="_blank">포토게시판</a>	
+	              			<a class="dropdown-item" href="MyCourseBoardList.do" target="_blank">나만의 코스</a>	
+	              			<a class="dropdown-item" href="NoticeBoardList.do" target="_blank">공지사항</a>	
+	              			<a class="dropdown-item" href="QnABoardList.do" target="_blank">Q & A</a>	
               			</div>				
 					</li>
 					
