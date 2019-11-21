@@ -16,7 +16,6 @@ public class DBHelper {
 			Context initContext = new InitialContext();
 			DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
 			Connection conn = source.getConnection();
-			System.out.println("conn : "+conn);
 			return conn;
 		} catch (Exception ex) {
 			System.out.println("connection" + ex.getMessage());

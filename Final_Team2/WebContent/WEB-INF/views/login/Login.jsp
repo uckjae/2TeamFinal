@@ -24,7 +24,7 @@
         <div class="row justify-content-center pb-5">
             <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
                 <h2 class="text-center mb-3">Login</h2>
-                <form action="LoginOk.do" class="search-property-1">
+                <form action="LoginOk.do" class="search-property-1" method="post">
                     <div class="row">
                         <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">

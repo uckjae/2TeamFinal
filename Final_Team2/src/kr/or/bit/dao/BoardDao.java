@@ -95,7 +95,7 @@ public class BoardDao {
 	}
 	
 	// Q&A 게시판 글쓰기
-	public boolean insertQnABoard() {
+	public boolean insertQnABoard(String memberId, String title, String content) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
@@ -105,6 +105,10 @@ public class BoardDao {
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+
 			resultRow = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
