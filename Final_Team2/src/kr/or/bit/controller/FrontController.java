@@ -106,7 +106,7 @@ public class FrontController extends HttpServlet {
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/qna/Write.jsp");
+			forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
 			

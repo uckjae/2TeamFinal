@@ -20,9 +20,10 @@ public class QnABoardWriteService implements Action {
 		String memberId=(String) request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("summernote");
+		Boolean isPublic = Integer.parseInt(request.getParameter("isPublic")) == 0 ? false : true;
 
 		BoardDao dao = new BoardDao();
-		boolean result = dao.insertQnABoard(memberId, title, content);
+		boolean result = dao.insertQnABoard(memberId, title, content, isPublic);
 		
 		String msg = "";
 		String url = "";

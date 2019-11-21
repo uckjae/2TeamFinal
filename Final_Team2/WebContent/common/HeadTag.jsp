@@ -3,12 +3,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Template  -->
-	<link
-		href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
-		rel="stylesheet">
-	<link
-		href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i"
-		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
+			rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i"
+			rel="stylesheet">
 	
 	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.css">
@@ -25,6 +23,7 @@
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
 	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
@@ -39,6 +38,4 @@
 	<script src="js/scrollax.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
-
-	<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
