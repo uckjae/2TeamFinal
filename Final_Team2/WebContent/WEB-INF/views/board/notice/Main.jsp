@@ -63,7 +63,7 @@
         </tbody>
       </table>
       <div class="text-center">
-         <a class="d-block small mt-3" href="Detail.jsp">상세보기
+         <a class="d-block small mt-3" href="NoticeBoardDetail.do">상세보기
             Account</a>
       </div>
 	</div>
