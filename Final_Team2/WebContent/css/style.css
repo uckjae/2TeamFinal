@@ -9753,21 +9753,21 @@ textarea.form-control {
     clear: both;
     list-style: none; }
     .comment-list li .vcard {
-      width: 80px;
+      width: 100px;
       float: left; }
       .comment-list li .vcard img {
-        width: 50px;
+        width: 100px;
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: right;
-      width: calc(100% - 80px); }
+      width: calc(100% - 150px); }
       .comment-list li .comment-body h3 {
         font-size: 20px; }
       .comment-list li .comment-body .meta {
         text-transform: uppercase;
-        font-size: 13px;
+        font-size: 15px;
         letter-spacing: .1em;
-        color: #ccc; }
+         }
       .comment-list li .comment-body .reply {
         padding: 5px 10px;
         background: #e6e6e6;
