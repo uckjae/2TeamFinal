@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 import kr.or.bit.dto.MCBoard;
@@ -203,6 +204,7 @@ public class BoardDao {
 	}	
 	//여행리스트 상세보기 
 	public MTLContent mTListContent() {
+		
 		return null;
 	}
 	//여행리스트  추가하기 
