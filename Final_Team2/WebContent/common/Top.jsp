@@ -46,8 +46,8 @@
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 코스</a>
 						<div class="dropdown-menu">
-	              			<a class="dropdown-item" href="#" target="_blank">여행코스</a>	
-	              			<a class="dropdown-item" href="#" target="_blank">가이드북 다운로드</a>	
+	              			<a class="dropdown-item" href="#" >여행코스</a>	
+	              			<a class="dropdown-item" href="#" >가이드북 다운로드</a>	
               			</div>				
 					</li>
 					
@@ -58,11 +58,11 @@
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 게시판</a>
 						<div class="dropdown-menu">
-	              			<a class="dropdown-item" href="FreeBoardList.do" target="_blank">자유게시판</a>	
-	              			<a class="dropdown-item" href="PhotoBoardList.do" target="_blank">포토게시판</a>	
-	              			<a class="dropdown-item" href="MyCourseBoardList.do" target="_blank">나만의 코스</a>	
-	              			<a class="dropdown-item" href="NoticeBoardList.do" target="_blank">공지사항</a>	
-	              			<a class="dropdown-item" href="QnABoardList.do" target="_blank">Q & A</a>	
+	              			<a class="dropdown-item" href="FreeBoardList.do" target="_self">자유게시판</a>	
+	              			<a class="dropdown-item" href="PhotoBoardList.do" target="_self">포토게시판</a>	
+	              			<a class="dropdown-item" href="MyCourseBoardList.do" target="_self">나만의 코스</a>	
+	              			<a class="dropdown-item" href="NoticeBoardList.do" target="_self">공지사항</a>	
+	              			<a class="dropdown-item" href="QnABoardList.do" target="_self">Q & A</a>	
               			</div>				
 					</li>
 					
@@ -76,9 +76,9 @@
 									<li class="nav-item dropdown">
 										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 관리자</a>
 										<div class="dropdown-menu">
-					              			<a class="dropdown-item" href="#" target="_blank">관리자</a>	
-					              			<a class="dropdown-item" href="#" target="_blank">회원관리</a>	
-					              			<a class="dropdown-item" href="#" target="_blank">통계관린</a>	
+					              			<a class="dropdown-item" href="#" target="_self">관리자</a>	
+					              			<a class="dropdown-item" href="#" target="_self">회원관리</a>	
+					              			<a class="dropdown-item" href="#" target="_self">통계관린</a>	
 				              			</div>				
 									</li>
 								</c:when>
@@ -86,8 +86,8 @@
 									<li class="nav-item dropdown">
 										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> My page</a>
 										<div class="dropdown-menu">
-					              			<a class="dropdown-item" href="#" target="_blank">내정보조회</a>	
-					              			<a class="dropdown-item" href="#" target="_blank">내 여행리스트</a>	
+					              			<a class="dropdown-item" href="#" target="_self">내정보조회</a>	
+					              			<a class="dropdown-item" href="#" target="_self">내 여행리스트</a>	
 				              			</div>				
 									</li>
 								</c:otherwise>
