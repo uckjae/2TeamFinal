@@ -9760,14 +9760,14 @@ textarea.form-control {
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: right;
-      width: calc(100% - 120px); }
+      width: calc(100% - 150px); }
       .comment-list li .comment-body h3 {
         font-size: 20px; }
       .comment-list li .comment-body .meta {
         text-transform: uppercase;
-        font-size: 13px;
+        font-size: 15px;
         letter-spacing: .1em;
-        color: #ccc; }
+         }
       .comment-list li .comment-body .reply {
         padding: 5px 10px;
         background: #e6e6e6;
