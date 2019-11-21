@@ -1,46 +1,48 @@
 package kr.or.bit.dto;
 
 public class MCBoard {
-	private int mcidx;
-	private int bidx;
-	private int likenum;
+	private int mCidx;
+	private int bIdx;
+	private int likeNum;
 
 	public MCBoard() {
 	}
 
-	public MCBoard(int mcidx, int bidx, int likenum) {
+	public MCBoard(int mCidx, int bIdx, int likeNum) {
 		super();
-		this.mcidx = mcidx;
-		this.bidx = bidx;
-		this.likenum = likenum;
+		this.mCidx = mCidx;
+		this.bIdx = bIdx;
+		this.likeNum = likeNum;
 	}
 
-	public int getMcidx() {
-		return mcidx;
+	public int getmCidx() {
+		return mCidx;
 	}
 
-	public void setMcidx(int mcidx) {
-		this.mcidx = mcidx;
+	public void setmCidx(int mCidx) {
+		this.mCidx = mCidx;
 	}
 
-	public int getBidx() {
-		return bidx;
+	public int getbIdx() {
+		return bIdx;
 	}
 
-	public void setBidx(int bidx) {
-		this.bidx = bidx;
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
 	}
 
-	public int getLikenum() {
-		return likenum;
+	public int getLikeNum() {
+		return likeNum;
 	}
 
-	public void setLikenum(int likenum) {
-		this.likenum = likenum;
+	public void setLikeNum(int likeNum) {
+		this.likeNum = likeNum;
 	}
 
 	@Override
 	public String toString() {
-		return "MCBoard [mcidx=" + mcidx + ", bidx=" + bidx + ", likenum=" + likenum + "]";
+		return "MCBoard [mCidx=" + mCidx + ", bIdx=" + bIdx + ", likeNum=" + likeNum + "]";
 	}
+
+	
 }

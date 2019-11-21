@@ -1,47 +1,47 @@
 package kr.or.bit.dto;
 
 public class Photo {
-	private int photoid;
-	private int bidx;
-	private String photoname;
+	private int photoId;
+	private int bIdx;
+	private String photoName;
 
 	public Photo() {
 	}
 
-	public Photo(int photoid, int bidx, String photoname) {
+	public Photo(int photoId, int bIdx, String photoName) {
 		super();
-		this.photoid = photoid;
-		this.bidx = bidx;
-		this.photoname = photoname;
+		this.photoId = photoId;
+		this.bIdx = bIdx;
+		this.photoName = photoName;
 	}
 
-	public int getPhotoid() {
-		return photoid;
+	public int getPhotoId() {
+		return photoId;
 	}
 
-	public void setPhotoid(int photoid) {
-		this.photoid = photoid;
+	public void setPhotoId(int photoId) {
+		this.photoId = photoId;
 	}
 
-	public int getBidx() {
-		return bidx;
+	public int getbIdx() {
+		return bIdx;
 	}
 
-	public void setBidx(int bidx) {
-		this.bidx = bidx;
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
 	}
 
-	public String getPhotoname() {
-		return photoname;
+	public String getPhotoName() {
+		return photoName;
 	}
 
-	public void setPhotoname(String photoname) {
-		this.photoname = photoname;
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
 	}
 
 	@Override
 	public String toString() {
-		return "Photo [photoid=" + photoid + ", bidx=" + bidx + ", photoname=" + photoname + "]";
+		return "Photo [photoId=" + photoId + ", bIdx=" + bIdx + ", photoName=" + photoName + "]";
 	}
-
+		
 }

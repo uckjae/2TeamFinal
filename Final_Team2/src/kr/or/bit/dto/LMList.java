@@ -1,26 +1,26 @@
 package kr.or.bit.dto;
 
 public class LMList {
-	private int mcidx;
+	private int mCIdx;
 	private String id;
 	private boolean isLike;
 
 	public LMList() {
 	}
-
-	public LMList(int mcidx, String id, boolean isLike) {
+		
+	public LMList(int mCIdx, String id, boolean isLike) {
 		super();
-		this.mcidx = mcidx;
+		this.mCIdx = mCIdx;
 		this.id = id;
 		this.isLike = isLike;
 	}
 
-	public int getMcidx() {
-		return mcidx;
+	public int getmCIdx() {
+		return mCIdx;
 	}
 
-	public void setMcidx(int mcidx) {
-		this.mcidx = mcidx;
+	public void setmCIdx(int mCIdx) {
+		this.mCIdx = mCIdx;
 	}
 
 	public String getId() {
@@ -41,6 +41,9 @@ public class LMList {
 
 	@Override
 	public String toString() {
-		return "LMList [mcidx=" + mcidx + ", id=" + id + ", isLike=" + isLike + "]";
+		return "LMList [mCIdx=" + mCIdx + ", id=" + id + ", isLike=" + isLike + "]";
 	}
+
+	
+	
 }
