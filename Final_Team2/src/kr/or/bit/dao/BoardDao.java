@@ -37,8 +37,6 @@ public class BoardDao {
 	// 자유 게시판 글쓰기
 	public boolean freeContentWrite(String id, String title, String content) {
 		int resultRow = 0;
-		int resultRow1 = 0;
-		int resultRow2 = 0;
 		int refer = 0;
 		Connection connection = DBHelper.getConnection();
 		//select max(board_num) from board
@@ -62,15 +60,14 @@ public class BoardDao {
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
-			resultRow1 = pstmt.executeUpdate();
+			resultRow = pstmt.executeUpdate();
 
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
-			resultRow2 = pstmt.executeUpdate();
+			resultRow = pstmt.executeUpdate();
 
-			if(resultRow1 != 0 && resultRow2 != 0) {
+			if(resultRow > 0) {
 				connection.commit();
-				resultRow = 1;
 			}
 		} catch (Exception e) {
 			try {
