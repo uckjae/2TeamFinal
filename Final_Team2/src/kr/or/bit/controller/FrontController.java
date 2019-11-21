@@ -40,6 +40,7 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/LoginOk.do")) {
 			action = new LoginService();
 			forward = action.execute(request, response);
+			System.out.println("getPath : "+forward.getPath());
 		} 
 		
 		/* LOGOUT */
