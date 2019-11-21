@@ -47,7 +47,7 @@ DROP TABLE LMList
 	CASCADE CONSTRAINTS;
 
 /* QnABoard */
-DROP TABLE NoticeBoard2 
+DROP TABLE QnABoard 
 	CASCADE CONSTRAINTS;
 
 /* Board */
@@ -417,28 +417,28 @@ COMMENT ON COLUMN LMList.ID IS '아이디';
 COMMENT ON COLUMN LMList.isLike IS '추천여부';
 
 /* QnABoard */
-CREATE TABLE NoticeBoard2 (
+CREATE TABLE QnABoard (
 	NIdx NUMBER NOT NULL, /* 공지사항게시판식별번호 */
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	isPublic CHAR(1) NOT NULL /* 공개여부 */
 );
 
-COMMENT ON TABLE NoticeBoard2 IS 'QnABoard';
+COMMENT ON TABLE QnABoard IS 'QnABoard';
 
-COMMENT ON COLUMN NoticeBoard2.NIdx IS '공지사항게시판식별번호';
+COMMENT ON COLUMN QnABoard.NIdx IS '공지사항게시판식별번호';
 
-COMMENT ON COLUMN NoticeBoard2.BIDX IS '글번호';
+COMMENT ON COLUMN QnABoard.BIDX IS '글번호';
 
-COMMENT ON COLUMN NoticeBoard2.isPublic IS '공개여부';
+COMMENT ON COLUMN QnABoard.isPublic IS '공개여부';
 
-CREATE UNIQUE INDEX PK_NoticeBoard2
-	ON NoticeBoard2 (
+CREATE UNIQUE INDEX PK_QnABoard
+	ON QnABoard (
 		NIdx ASC
 	);
 
-ALTER TABLE NoticeBoard2
+ALTER TABLE QnABoard
 	ADD
-		CONSTRAINT PK_NoticeBoard2
+		CONSTRAINT PK_QnABoard
 		PRIMARY KEY (
 			NIdx
 		);
