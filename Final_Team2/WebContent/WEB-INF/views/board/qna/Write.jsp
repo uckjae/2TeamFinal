@@ -28,18 +28,11 @@
 
     <!-- Contant -->
     <div class="content">
+    <div class="comment-form-wrap pt-xl-2">
         <h1 class="text-center mb-3 bread">Q & A</h1>
-        <div class="comment-form-wrap pt-xl-2">
             <form action="#" class="p-5 bg-light">
-                <div class="col-lg-12 align-items-end mb-3">
-                    <div class="form-group">
-                        <label for="#">제목</label>
-                            <input type="text" class="form-control" id="pwd" name="pwd"
-                                placeholder="enter yout password">
-
-                    </div>
-                </div>
-
+                <input type="text" class="form-control" id="pwd" name="pwd" placeholder="글 제목">
+				<textarea rows="10" cols="60"  id="content" name="content" ></textarea>
             </form>
         </div>
     </div>
