@@ -93,7 +93,8 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/board/mycourse/Main.jsp");
 		}
 		else if (url_Command.equals("/MyCourseBoardDetail.do")) {
-			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/mycourse/Detail.jsp");
 		}
 		else if (url_Command.equals("/MyCourseBoardWrite.do")) {
 			forward = new ActionForward();

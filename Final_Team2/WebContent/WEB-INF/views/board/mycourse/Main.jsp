@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	마이 코스 메인
+	<a href="MyCourseBoardWrite.do">작성하기</a>
 </body>
 </html>

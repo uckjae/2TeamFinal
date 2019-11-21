@@ -16,7 +16,7 @@
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-	
+	<form id="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
   	<div id="conference-timeline">
@@ -24,13 +24,14 @@
     <div class="conference-center-line"></div>
     <div class="conference-timeline-content">
       <!-- Article -->
-      <form id="inputForm" action="" enctype="multipart/form-data">
+      
+      <input type="text" name="title">
       <div class="timeline-article">
         <div class="content-left-container">
-            <textarea name="content" form="inform" cols="40" rows="5"></textarea>
+            <textarea name="content" form="inform" cols="25" rows="5"></textarea>
              <span class="article-number">01</span>
           <input type="file" id="photo" name="photo" accept="image/*">
-          <input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">
+          <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         
         <div class="meta-date">
@@ -43,24 +44,26 @@
       <div class="content timeline-article">
         
         <div class="content-right-container">
-          <textarea name="content" form="inform" cols="40" rows="5"></textarea>
+          <textarea name="content" form="inform" cols="25" rows="5"></textarea>
              <span class="article-number">02</span>
           <input type="file" id="photo" name="photo" accept="image/*">
-          <input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">
+          <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         <div class="meta-date">
           <img alt="여행지 사진" src="">
         </div>
       </div>
       <!-- // Article -->
-    </form>  
+   
     
       <!-- // Article -->
     </div>
     <div class="timeline-end">End</div>
+    <input type="submit" class="btn btn-primary btn-block" value="작성하기">
+    <input type="reset" class="btn btn-danger btn-block" value="취소하기">
   </div>
   </div>
   <!-- // Vertical Timeline -->
-  
+  </form>  
 </body>
 </html>
