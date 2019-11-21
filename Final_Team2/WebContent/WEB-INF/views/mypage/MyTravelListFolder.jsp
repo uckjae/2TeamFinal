@@ -27,49 +27,38 @@
     <!-- Contant -->
     <div class="container">
     <div id="main">
-	<br><br><br><br><br>
-		<h1> 마이 트레블 리스트 폴더</h1>
+	<br><br><br><br>
+		<h1><i class="flaticon-world"></i> &nbsp; &nbsp;나의 여행 리스트 폴더</h1>
+		
 		<button type="button" class="btn btn-primary">폴더 추가하기</button>
-		    <!--  	<div class="col-md-12 tour-wrap">-->
-    				<table class="table" style ="text-align:center;">
-					    
+
+    				<table class="table" style ="text-align:center;">				    
 					      <tr>
+					      <th><i class="flaticon-folder"></i></th>
 				      	  <th >NO</th>
-				      	  <th >이미지</th>
-				      	  <th >여행지</th>
-				      	  <th >날짜</th>
-					      <th >장소</th>
-					      <th >참조사이트</th>
+				      	  <th >폴더 제목</th>
+				      	  <th></th>
 					      </tr>
 					      <tr>
+					      	<td> </td>
 					        <td>1</td>
-					        <td>이미지</td>
-					        <td>딸기축제</td>
-					        <td>2/12</td>
-					        <td>성남</td>
-					        <td>www.berry.com</td>
-					      </tr>				  
-					  </table>
-    		<!-- 	</div> -->
-    		 
-    		   <ul class="comment-list">
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/berry.jpg" alt="trip image">
-                  </div>
-                  <div class="comment-body">
-                    <h4>딸기축제</h4>
-                    <div class="meta">2/12</div>
-                    <p> 경기도 성남시 이조네 딸기밭 &nbsp; &nbsp; &nbsp;
-                    <a href="#"  class= "btn btn-primary">www.berry.com</a>                    
-                    <button type="button" class="btn btn-secondary">삭제</button>                    
-                    </p>
-                  </div>
-                </li>
-    		</ul>
+					       <td> <a href="MTList.do">가족과 함께</a></td>
+					        <td><button type="button" class="btn btn-primary">수정</button> &nbsp; &nbsp; &nbsp;
+					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
+					      </tr>
+					      <tr>
+					      	<td> </td>
+					        <td>1</td>
+					       <td> <a href="MTList.do">친구와 함께</a></td>
+					       <td><button type="button" class="btn btn-primary">수정</button> &nbsp; &nbsp; &nbsp;
+					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
+					      </tr>
+					      			  				  
+					  </table>					   
+
+    			
     		
-    		
-    		
+    		  		
 		   </div>		
 	  </div>
 	
