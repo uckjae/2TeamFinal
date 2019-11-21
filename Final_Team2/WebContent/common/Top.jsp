@@ -25,7 +25,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.jsp">Team2</a>
+			<a class="navbar-brand" href="index.jsp">이곳저곳</a>
 			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
 				type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false"
@@ -76,9 +76,9 @@
 									<li class="nav-item dropdown">
 										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 관리자</a>
 										<div class="dropdown-menu">
-					              			<a class="dropdown-item" href="#" target="_blank">멤버</a>	
 					              			<a class="dropdown-item" href="#" target="_blank">관리자</a>	
-					              			<a class="dropdown-item" href="#" target="_blank">통계</a>	
+					              			<a class="dropdown-item" href="#" target="_blank">회원관리</a>	
+					              			<a class="dropdown-item" href="#" target="_blank">통계관린</a>	
 				              			</div>				
 									</li>
 								</c:when>
@@ -86,7 +86,7 @@
 									<li class="nav-item dropdown">
 										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> My page</a>
 										<div class="dropdown-menu">
-					              			<a class="dropdown-item" href="#" target="_blank">회원정보조회</a>	
+					              			<a class="dropdown-item" href="#" target="_blank">내정보조회</a>	
 					              			<a class="dropdown-item" href="#" target="_blank">내 여행리스트</a>	
 				              			</div>				
 									</li>

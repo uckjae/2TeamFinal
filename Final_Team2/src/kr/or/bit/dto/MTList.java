@@ -1,7 +1,7 @@
 package kr.or.bit.dto;
 
 public class MTList {
-	private int tLidx;
+	private int tLidx;//TLIDX_SEQ
 	private String id;
 	private String tLName;
 

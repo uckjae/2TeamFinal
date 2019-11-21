@@ -3,7 +3,7 @@ package kr.or.bit.dto;
 import java.util.Date;
 
 public class MTLContent {
-	private int tLCidx;
+	private int tLCidx;//TLCIDX_SEQ
 	private int tLidx;
 	private String spotName;
 	private String image;

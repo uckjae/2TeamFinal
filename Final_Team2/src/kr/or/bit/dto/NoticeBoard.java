@@ -1,7 +1,7 @@
 package kr.or.bit.dto;
 
 public class NoticeBoard extends Board {
-	private int nIdx;
+	private int nIdx;//NIDX_SEQ
 	private int bIdx;
 	private boolean isTop;
 
