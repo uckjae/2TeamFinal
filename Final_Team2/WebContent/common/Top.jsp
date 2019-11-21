@@ -1,13 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="member" value="${sessionScope.member}" />
+<c:set var="memberId" value="${sessionScope.memberId}" />
+<c:set var="admin" value="${sessionScope.isAdmin}" />
 <c:choose>
-	<c:when test="${member != null}">
+	<c:when test="${memberId != null}">
 		<c:set var="isLogin" value="true" />
 	</c:when>
 	<c:otherwise>
 		<c:set var="isLogin" value="false" />
+	</c:otherwise>
+</c:choose>  
+<c:choose>
+	<c:when test="${admin != null && admin}">
+		<c:set var="isAdmin" value="true" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="isAdmin" value="false" />
 	</c:otherwise>
 </c:choose>  
 
@@ -41,7 +50,7 @@
 						<c:when test="${isLogin== 'true'}">
 							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
 							<c:choose>
-								<c:when test="${memeber.isAdmin}">
+								<c:when test="${isAdmin== 'true'}">
 									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>관리자</span></a></li>
 								</c:when>
 								<c:otherwise>
