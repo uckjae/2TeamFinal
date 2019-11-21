@@ -62,6 +62,10 @@
 			</c:forEach>
         </tbody>
       </table>
+      <div class="text-center">
+         <a class="d-block small mt-3" href="Detail.jsp">상세보기
+            Account</a>
+      </div>
 	</div>
 	  
 </body>
