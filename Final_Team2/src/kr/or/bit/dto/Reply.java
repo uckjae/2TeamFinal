@@ -3,7 +3,7 @@ package kr.or.bit.dto;
 import java.util.Date;
 
 public class Reply {
-	private int rIdx;
+	private int rIdx;//RIDX_SEQ
 	private int bIdx;
 	private String rContent;
 	private String id;

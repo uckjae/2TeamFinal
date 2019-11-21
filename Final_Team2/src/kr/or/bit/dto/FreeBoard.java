@@ -1,7 +1,7 @@
 package kr.or.bit.dto;
 
 public class FreeBoard extends Board {
-	private int fIdx;
+	private int fIdx;//FIDX_SEQ
 	private int bIdx;
 	private int refer;
 	private int depth;

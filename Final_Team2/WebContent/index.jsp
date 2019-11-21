@@ -5,7 +5,7 @@
 <html>
 <head>
 <c:import url="/common/HeadTag.jsp" />
-<title>Team2</title>
+<title>이곳저곳</title>
 <style type="text/css">
 	html, body{
 		height: 100%;

@@ -1,7 +1,7 @@
 package kr.or.bit.dto;
 
 public class MCBoard {
-	private int mCidx;
+	private int mCidx;//MCIDX_SEQ
 	private int bIdx;
 	private int likeNum;
 
