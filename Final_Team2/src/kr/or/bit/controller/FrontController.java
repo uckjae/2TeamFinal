@@ -40,7 +40,6 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/LoginOk.do")) {
 			action = new LoginService();
 			forward = action.execute(request, response);
-			System.out.println("getPath : "+forward.getPath());
 		} 
 		
 		/* LOGOUT */
@@ -53,10 +52,53 @@ public class FrontController extends HttpServlet {
 		/* REGISTER */
 		//  화면
 		else if (url_Command.equals("/Register.do")) {
-		
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/register/Register.jsp");
 		}
 		//  진행
 		else if (url_Command.equals("/RegisterOk.do")) {
+			
+		}
+		
+		/* BOARD */
+		// Free Board
+		else if (url_Command.equals("/FreeBoardList.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/free/Main.jsp");
+		}
+		else if (url_Command.equals("/FreeBoardDetail.do")) {
+			
+		}
+		// Photo Board
+		else if (url_Command.equals("/PhotoBoardList.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/photo/Main.jsp");
+		}
+		else if (url_Command.equals("/PhotoBoardDetail.do")) {
+			
+		}
+		// My Course Board
+		else if (url_Command.equals("/MyCourseBoardList.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/mycourse/Main.jsp");
+		}
+		else if (url_Command.equals("/MyCourseBoardDetail.do")) {
+			
+		}
+		// Notice Board
+		else if (url_Command.equals("/NoticeBoardList.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
+		}
+		else if (url_Command.equals("/NoticeBoardDetail.do")) {
+			
+		}
+		// QnA Board
+		else if (url_Command.equals("/QnABoardList.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
+		}
+		else if (url_Command.equals("/QnABoardDetail.do")) {
 			
 		}
 		
