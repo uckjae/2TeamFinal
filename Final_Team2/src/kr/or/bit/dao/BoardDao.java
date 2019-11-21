@@ -168,8 +168,8 @@ public class BoardDao {
 	public MTList mTLFolderAdd() {
 		return null;
 	}
-	//여행리스트  폴더 추가하기 
-	public MTList mTLFolderDelte() {
+	//여행리스트  폴더 삭제하기 
+	public MTList mTLFolderDelete() {
 		return null;
 	}	
 	//여행리스트 상세보기 
