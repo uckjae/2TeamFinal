@@ -1,5 +1,9 @@
 package kr.or.bit.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
@@ -8,6 +12,7 @@ import kr.or.bit.dto.MTLContent;
 import kr.or.bit.dto.MTList;
 import kr.or.bit.dto.NoticeBoard;
 import kr.or.bit.dto.Photo;
+import kr.or.bit.utils.DBHelper;
 
 public class BoardDao {
 
@@ -83,26 +88,46 @@ public class BoardDao {
 	public List<Board> qnaBoardList() {
 		return null;
 	}	
+	
 	//Q&A 게시판 게시글 상세보기 
-	public Board qnaContent() {
+	public Board getQnABoard() {
 		return null;
 	}
-	//Q&A  게시판 글쓰기 
-	public int qnaWrite() {
-		return 0;
+	
+	// Q&A 게시판 글쓰기
+	public boolean insertQnABoard() {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String sql= "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
+						+"VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultRow > 0 ? true : false;
 	}
+	
 	//Q&A  게시판 게시글 조회수 증가 
 	public boolean getQnaReadNum() {
 		return false;
 	}
+	
 	//Q&A  게시판 게시글 삭제하기 
-	public int qnaDelete() {
+	public int deleteQnABoard() {
 		return 0;
 	}
+	
 	//Q&A  게시판 게시글 수정하기 
-	public int qnaEdit() {
+	public int updateQnABoard() {
 		return 0;
 	}
+	
 	////Q&A 게시판 끝 
 	
 	//포토게시판 
