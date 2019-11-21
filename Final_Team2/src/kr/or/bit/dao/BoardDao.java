@@ -4,6 +4,8 @@ import java.util.List;
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 import kr.or.bit.dto.MCBoard;
+import kr.or.bit.dto.MTLContent;
+import kr.or.bit.dto.MTList;
 import kr.or.bit.dto.NoticeBoard;
 import kr.or.bit.dto.Photo;
 
@@ -156,4 +158,32 @@ public class BoardDao {
 		return 0;
 	}
 	//나만의 코스 게시판  끝 
+	
+	//내 여행리스트
+	//여행리스트 폴더 보기 
+	public List<MTList> mTLFolderList() {
+		return null;
+	}	
+	//여행리스트  폴더 추가하기 
+	public MTList mTLFolderAdd() {
+		return null;
+	}
+	//여행리스트  폴더 추가하기 
+	public MTList mTLFolderDelte() {
+		return null;
+	}	
+	//여행리스트 상세보기 
+	public MTLContent mTListContent() {
+		return null;
+	}
+	//여행리스트  추가하기 
+	public int mTListContentAdd() {
+		return 0;
+	}
+	//여행리스트 삭제하기
+	public int mTListContentDelete() {
+		return 0;
+	}
+	//내 여행리스트 끝 
+	
 }
