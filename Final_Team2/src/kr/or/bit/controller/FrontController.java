@@ -104,6 +104,9 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/QnABoardDetail.do")) {
 			
 		}
+		else if (url_Command.equals("/QnABoardWrite.do")) {
+			
+		}
 		
 		/* ADMIN */
 		// MemberList 화면
