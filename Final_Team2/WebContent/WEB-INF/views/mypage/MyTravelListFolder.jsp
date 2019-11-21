@@ -43,14 +43,17 @@
 					      	<td> </td>
 					        <td>1</td>
 					       <td> <a href="MTList.do">가족과 함께</a></td>
-					       <td><button type="button" class="btn btn-secondary">삭제</button></td>
+					        <td><button type="button" class="btn btn-primary">수정</button> &nbsp; &nbsp; &nbsp;
+					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					      <tr>
 					      	<td> </td>
 					        <td>1</td>
 					       <td> <a href="MTList.do">친구와 함께</a></td>
-					       <td><button type="button" class="btn btn-secondary">삭제</button></td>
-					      </tr>				  				  
+					       <td><button type="button" class="btn btn-primary">수정</button> &nbsp; &nbsp; &nbsp;
+					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
+					      </tr>
+					      			  				  
 					  </table>					   
 
     			

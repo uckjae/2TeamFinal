@@ -225,8 +225,12 @@ public class BoardDao {
 	public List<MTList> mTLFolderList() {
 		return null;
 	}	
-	//여행리스트  폴더 추가하기 
+	//여행리스트  폴더 만들기
 	public MTList mTLFolderAdd() {
+		return null;
+	}
+	//여행리스트 폴더 수정하기
+	public MTList mTLFolderEdit() {
 		return null;
 	}
 	//여행리스트  폴더 삭제하기 
