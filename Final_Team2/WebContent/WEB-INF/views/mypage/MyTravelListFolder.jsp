@@ -28,7 +28,7 @@
     <div class="container">
     <div id="main">
 	<br><br><br><br><br>
-		<h1> 마이 트레블 리스트 </h1>
+		<h1> 마이 트레블 리스트 폴더</h1>
 		<button type="button" class="btn btn-primary">폴더 추가하기</button>
 		    <!--  	<div class="col-md-12 tour-wrap">-->
     				<table class="table" style ="text-align:center;">

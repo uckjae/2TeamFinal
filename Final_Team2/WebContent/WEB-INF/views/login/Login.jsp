@@ -40,7 +40,7 @@
                                 <label for="#">Password</label>
                                 <div class="form-field">
                                     <div class="icon"><span class="ion-ios-calendar"></span></div>
-                                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="enter yout password">
+                                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="enter your password">
                                 </div>
                             </div>
                         </div>
