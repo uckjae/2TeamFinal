@@ -46,13 +46,17 @@ DROP TABLE MCBoard
 DROP TABLE LMList 
 	CASCADE CONSTRAINTS;
 
+/* QnABoard */
+DROP TABLE NoticeBoard2 
+	CASCADE CONSTRAINTS;
+
 /* Board */
 CREATE TABLE Board (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
 	Title VARCHAR2(100) NOT NULL, /* 글제목 */
 	Content VARCHAR2(4000) NOT NULL, /* 글내용 */
-	WDate DATE NOT NULL, /* 작성일 */
+	WDate TIMESTAMP DEFAULT SYSTIMESTAMP, /* 작성일 */
 	RNum NUMBER NOT NULL, /* 조회수 */
 	BCode NUMBER NOT NULL /* 게시판코드 */
 );
@@ -124,7 +128,7 @@ CREATE TABLE Reply (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	RContent VARCHAR2(500) NOT NULL, /* 댓글내용 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
-	RWDate DATE NOT NULL /* 작성일 */
+	RWDate TIMESTAMP DEFAULT SYSTIMESTAMP /* 작성일 */
 );
 
 COMMENT ON TABLE Reply IS 'Reply';
@@ -232,9 +236,10 @@ ALTER TABLE Photo
 /* Member */
 CREATE TABLE Member (
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
-	PWD VARCHAR2(100) NOT NULL, /* 비밀번호 */
-	Name VARCHAR2(15),  /* 이름 */
+	PWD VARCHAR2(30) NOT NULL, /* 비밀번호 */
+	Name VARCHAR2(15) NOT NULL, /* 이름 */
 	Birth CHAR(6), /* 생년월일 */
+	HireDate DATE DEFAULT SYSDATE, /* 가입일 */
 	Gender CHAR(1), /* 성별 */
 	Address VARCHAR2(50), /* 주소 */
 	Email VARCHAR2(100), /* 이메일 */
@@ -251,6 +256,8 @@ COMMENT ON COLUMN Member.PWD IS '비밀번호';
 COMMENT ON COLUMN Member.Name IS '이름';
 
 COMMENT ON COLUMN Member.Birth IS '생년월일';
+
+COMMENT ON COLUMN Member.HireDate IS '가입일';
 
 COMMENT ON COLUMN Member.Gender IS '성별';
 
@@ -343,8 +350,8 @@ ALTER TABLE MTLContent
 /* NoticeBoard */
 CREATE TABLE NoticeBoard (
 	NIdx NUMBER NOT NULL, /* 공지사항게시판식별번호 */
-	BIDX NUMBER, /* 글번호 */
-	isTop CHAR(1) /* 상단위치여부 */
+	BIDX NUMBER NOT NULL, /* 글번호 */
+	isTop CHAR(1) NOT NULL /* 상단위치여부 */
 );
 
 COMMENT ON TABLE NoticeBoard IS 'NoticeBoard';
@@ -408,6 +415,33 @@ COMMENT ON COLUMN LMList.MCIdx IS '나만의코스게시판식별번호';
 COMMENT ON COLUMN LMList.ID IS '아이디';
 
 COMMENT ON COLUMN LMList.isLike IS '추천여부';
+
+/* QnABoard */
+CREATE TABLE NoticeBoard2 (
+	NIdx NUMBER NOT NULL, /* 공지사항게시판식별번호 */
+	BIDX NUMBER NOT NULL, /* 글번호 */
+	isPublic CHAR(1) NOT NULL /* 공개여부 */
+);
+
+COMMENT ON TABLE NoticeBoard2 IS 'QnABoard';
+
+COMMENT ON COLUMN NoticeBoard2.NIdx IS '공지사항게시판식별번호';
+
+COMMENT ON COLUMN NoticeBoard2.BIDX IS '글번호';
+
+COMMENT ON COLUMN NoticeBoard2.isPublic IS '공개여부';
+
+CREATE UNIQUE INDEX PK_NoticeBoard2
+	ON NoticeBoard2 (
+		NIdx ASC
+	);
+
+ALTER TABLE NoticeBoard2
+	ADD
+		CONSTRAINT PK_NoticeBoard2
+		PRIMARY KEY (
+			NIdx
+		);
 
 ALTER TABLE Board
 	ADD
@@ -538,6 +572,16 @@ ALTER TABLE LMList
 		REFERENCES Member (
 			ID
 		);
+
+ALTER TABLE NoticeBoard2
+	ADD
+		CONSTRAINT FK_Board_TO_NoticeBoard2
+		FOREIGN KEY (
+			BIDX
+		)
+		REFERENCES Board (
+			BIDX
+		);
 		
 /* INIT DATA */		
 INSERT INTO BOARDTYPE(BTYPE,BTYPENAME) VALUES(10, '일반');
@@ -555,6 +599,7 @@ COMMIT;
 
 CREATE SEQUENCE BIdx_SEQ;--게시판
 CREATE SEQUENCE FIdx_SEQ;--자유게시판
+CREATE SEQUENCE QIdx_SEQ;--QnA게시판
 CREATE SEQUENCE NIdx_SEQ;--공지사항게시판
 CREATE SEQUENCE MCIdx_SEQ;--나만의코스 게시판
 CREATE SEQUENCE TLIdx_SEQ;--나의여행리스트
