@@ -233,7 +233,7 @@ ALTER TABLE Photo
 CREATE TABLE Member (
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
 	PWD VARCHAR2(100) NOT NULL, /* 비밀번호 */
-	Name VARCHAR2(15)  /* 이름 */
+	Name VARCHAR2(15),  /* 이름 */
 	Birth CHAR(6), /* 생년월일 */
 	Gender CHAR(1), /* 성별 */
 	Address VARCHAR2(50), /* 주소 */
