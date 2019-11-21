@@ -14,6 +14,7 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
+import kr.or.bit.service.MyCourseBoardWriteService;
 import kr.or.bit.service.QnABoardWriteService;
 
 @WebServlet("*.do")
@@ -93,6 +94,14 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/MyCourseBoardDetail.do")) {
 			
+		}
+		else if (url_Command.equals("/MyCourseBoardWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/mycourse/Write.jsp");
+		}
+		else if (url_Command.equals("/MyCourseBoardWriteOk.do")) {
+			action = new MyCourseBoardWriteService();
+			forward = action.execute(request, response);
 		}
 		// Notice Board
 		else if (url_Command.equals("/NoticeBoardList.do")) {
