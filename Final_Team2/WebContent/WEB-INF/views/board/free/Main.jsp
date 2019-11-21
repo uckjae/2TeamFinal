@@ -47,8 +47,13 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="container">
+			<a href="FreeBoardWrite.do">
+				<input type="button" value="글작성" id="fboard" name="fboard">
+			</a>
+		</div>
 	</div>
-	
+
 </body>
 </html>
 
