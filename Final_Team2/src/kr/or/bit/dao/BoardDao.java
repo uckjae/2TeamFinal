@@ -96,22 +96,35 @@ public class BoardDao {
 	}
 	
 	// Q&A 게시판 글쓰기
-	public boolean insertQnABoard(String memberId, String title, String content) {
+	public boolean insertQnABoard(String memberId, String title, String content, boolean isPublic) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql= "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
-						+"VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
+		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
+								+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
+		String subSql = "INSERT INTO QNABOARD (QIDX, BIDX, ISPUBLIC) "
+							+ "VALUES (QIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
 		
 		try {
-			pstmt = connection.prepareStatement(sql);
+			connection.setAutoCommit(false);
+			
+			pstmt = connection.prepareStatement(boardSql);
 			pstmt.setString(1, memberId);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			
 
+			pstmt = connection.prepareStatement(subSql);
+			pstmt.setBoolean(1, isPublic);
+			
 			resultRow = pstmt.executeUpdate();
+			connection.commit();
 		} catch (Exception e) {
+			try { connection.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
+			
 			e.printStackTrace();
 		}
 
