@@ -76,6 +76,9 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/PhotoBoardDetail.do")) {
 			
+		}else if (url_Command.equals("/PhotoWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/photo/PWrite.jsp");
 		}
 		// My Course Board
 		else if (url_Command.equals("/MyCourseBoardList.do")) {
