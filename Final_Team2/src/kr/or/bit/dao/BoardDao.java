@@ -1,6 +1,7 @@
 package kr.or.bit.dao;
 
 import java.util.List;
+
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 import kr.or.bit.dto.MCBoard;

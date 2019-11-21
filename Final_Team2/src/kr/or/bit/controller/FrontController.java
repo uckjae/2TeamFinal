@@ -13,6 +13,7 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
+import kr.or.bit.service.QnABoardWriteService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -79,6 +80,9 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/PhotoBoardDetail.do")) {
 			
+		}else if (url_Command.equals("/PhotoWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/photo/PWrite.jsp");
 		}
 		// My Course Board
 		else if (url_Command.equals("/MyCourseBoardList.do")) {
@@ -103,6 +107,10 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
 			
+		}
+		else if (url_Command.equals("/QnABoardWrite.do")) {
+			action = new QnABoardWriteService();
+			forward = action.execute(request, response);
 		}
 		
 		/* ADMIN */
