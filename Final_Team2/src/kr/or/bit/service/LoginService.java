@@ -14,16 +14,16 @@ public class LoginService implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("in service");
+
 		ActionForward forward = new ActionForward();
 
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		System.out.println(id+" "+pwd);
-		MemberDao dao = new MemberDao();
-		Member member = dao.login();
+		
 
-		System.out.println(member.getId());
+		MemberDao dao = new MemberDao();
+		Member member = dao.login(id, pwd);
+		System.out.println("member : " + member);
 		if (member != null) {
 			request.getSession().setAttribute("memberId", member.getId());
 			request.getSession().setAttribute("isAdmin", member.isAdmin());

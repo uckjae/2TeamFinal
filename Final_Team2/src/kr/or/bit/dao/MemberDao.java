@@ -10,9 +10,9 @@ import kr.or.bit.utils.DBHelper;
 
 public class MemberDao {
 
-	public Member login() {
+	public Member login(String id, String pwd) {
 		Member member = null;
-
+		System.out.println("id : " + id + "pwd : " + pwd);
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -20,13 +20,16 @@ public class MemberDao {
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
-
+			
 			if (rs.next()) {
 				member = new Member();
 				member.setId(rs.getString(1));
 				member.setAdmin(rs.getBoolean(2));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

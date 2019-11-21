@@ -48,15 +48,15 @@
 						class="nav-link"><span>Contact</span></a></li>
 					 <c:choose>
 						<c:when test="${isLogin== 'true'}">
-							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
 							<c:choose>
 								<c:when test="${isAdmin== 'true'}">
-									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>관리자</span></a></li>
+									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Admin</span></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>마이페이지</span></a></li>
+									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>My page</span></a></li>
 								</c:otherwise>
 							</c:choose>
+							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a href="Login.do" class="nav-link"><span>Login</span></a></li>
