@@ -18,7 +18,21 @@
         jQuery(function($){
             $("#datatable").DataTable();
         });
-</script>
+	</script>
+<!-- 
+	 <tr>
+          <td width="20%" align="center">글내용</td>
+          <td width="80%" align="left"><textarea rows="10" cols="60" name="content" class="ckeditor" id="summernote"></textarea></td>
+     </tr>
+     
+     $(document).ready(function() {
+	$('#summernote').summernote({
+		placeholder: '내용을 입력하세요',
+		tabsize: 2,
+		height: 200
+	 });
+});
+	 -->
 </head>
 <body>
 	<!-- Top -->
@@ -47,8 +61,13 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="container">
+			<a href="FreeBoardWrite.do">
+				<input type="button" value="글작성" id="fboard" name="fboard">
+			</a>
+		</div>
 	</div>
-	
+
 </body>
 </html>
 
