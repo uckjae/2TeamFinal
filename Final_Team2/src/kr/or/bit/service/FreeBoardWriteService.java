@@ -13,6 +13,7 @@ public class FreeBoardWriteService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		
+		
 		return null;
 	}
 	

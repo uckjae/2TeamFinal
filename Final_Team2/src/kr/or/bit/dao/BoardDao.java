@@ -1,6 +1,7 @@
 package kr.or.bit.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,25 +29,56 @@ public class BoardDao {
 		return null;
 	}
 	//자유 게시판 글쓰기 
-	public int freeContentWrite() {
+	public boolean freeContentWrite(String id, String title, String content) {
 		int resultRow = 0;
+		int resultRow1 = 0;
+		int resultRow2 = 0;
+		int refer = 0;
 		Connection connection = DBHelper.getConnection();
+		//select max(board_num) from board
+		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
-		
-		String sql = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4";
-		
+		String referNum = "SELECT MAX(FIDX) FROM FREEBOARD";
+		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUE(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
 		try {
-			pstmt = connection.prepareStatement(sql);
+			pstmt = connection.prepareStatement(referNum);
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				refer = resultSet.getInt(1) + 1;
+			}else{
+				refer = 1;
+			}
 			
-			pstmt.executeQuery();
+			connection.setAutoCommit(false);
 			
+			pstmt = connection.prepareStatement(sql1);
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			resultRow1 = pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(sql2);
+			pstmt.setInt(1, refer);
+			resultRow2 = pstmt.executeUpdate();
+			
+			if(resultRow1 != 0 && resultRow2 != 0) {
+				connection.commit();
+				resultRow = 1;
+			}
 		}catch (Exception e) {
-			
+			try {
+				connection.rollback();
+			}catch (Exception e1) {
+				e1.getStackTrace();
+			}
 		}finally {
-			
+			DBHelper.close(pstmt);
+			DBHelper.close(resultSet);
+			DBHelper.close(connection);
 		}
 		
-		return 0;
+		return resultRow > 0 ? true : false;
 	}
 	//자유 게시판 게시글 조회수 증가 
 	public boolean getFreeReadNum() {
