@@ -40,7 +40,6 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/LoginOk.do")) {
 			action = new LoginService();
 			forward = action.execute(request, response);
-			System.out.println("getPath : "+forward.getPath());
 		} 
 		
 		/* LOGOUT */
@@ -53,7 +52,8 @@ public class FrontController extends HttpServlet {
 		/* REGISTER */
 		//  화면
 		else if (url_Command.equals("/Register.do")) {
-		
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/register/Register.jsp");
 		}
 		//  진행
 		else if (url_Command.equals("/RegisterOk.do")) {

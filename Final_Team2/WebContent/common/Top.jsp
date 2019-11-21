@@ -67,7 +67,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a href="#" class="nav-link"> <span>회원가입</span></a>
+						<a href="Register.do" class="nav-link"> <span>회원가입</span></a>
 					</li>
 					 <c:choose>
 						<c:when test="${isLogin== 'true'}">
