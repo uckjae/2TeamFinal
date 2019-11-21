@@ -418,14 +418,14 @@ COMMENT ON COLUMN LMList.isLike IS '추천여부';
 
 /* QnABoard */
 CREATE TABLE QnABoard (
-	NIdx NUMBER NOT NULL, /* 공지사항게시판식별번호 */
+	QIdx NUMBER NOT NULL, /* QnA게시판식별번호 */
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	isPublic CHAR(1) NOT NULL /* 공개여부 */
 );
 
 COMMENT ON TABLE QnABoard IS 'QnABoard';
 
-COMMENT ON COLUMN QnABoard.NIdx IS '공지사항게시판식별번호';
+COMMENT ON COLUMN QnABoard.NIdx IS 'QnA게시판식별번호';
 
 COMMENT ON COLUMN QnABoard.BIDX IS '글번호';
 
