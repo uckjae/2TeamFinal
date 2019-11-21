@@ -150,4 +150,66 @@ public class MemberDao {
 		
 		return members;
 	}
+	
+	// Admin
+	public boolean insertAdmin(String id, String name, String pwd) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
+	}
+
+	public boolean updateAdmin(String id, String name, String pwd) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
+	}
+
+	public boolean deleteAdminById(String id) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
+	}
+	
 }
