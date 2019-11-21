@@ -5,6 +5,8 @@ $(function(){
 			/* 추가함수 */
 			$("#addSpot").click(function(){
 				let articles = $(".conference-timeline-content").find(".timeline-article").length;
+				let num = articles + 1;
+				console.log(num);
 				if(articles >= 6){
 					alert("최대 6개까지 코스를 등록할수 있습니다.");
 				}
@@ -14,7 +16,7 @@ $(function(){
 						var right = $('<div class="content-right-container">');
 						$(right).prepend($('<input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo" name="photo" accept="image/*">'));
-						$(right).prepend($('<span class="article-number">').text($(articles)+1));
+						$(right).prepend($('<span class="article-number">').text(num));
 						$(right).prepend($('<textarea name="content" form="inform" cols="40" rows="5">'));
 						$(newArticle).prepend(right);
 						$("#inputForm").append(newArticle);
@@ -24,7 +26,7 @@ $(function(){
 						var right = $('<div class="content-left-container">');
 						$(right).prepend($('<input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo" name="photo" accept="image/*">'));
-						$(right).prepend($('<span class="article-number">').text($(articles)+1));
+						$(right).prepend($('<span class="article-number">').text("0"+num));
 						$(right).prepend($('<textarea name="content" form="inform" cols="40" rows="5">'));
 						$(newArticle).prepend(right);
 						$("#inputForm").append(newArticle);
