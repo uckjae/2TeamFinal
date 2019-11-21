@@ -62,7 +62,19 @@
 							<li class="nav-item"><a href="Login.do" class="nav-link"><span>Login</span></a></li>
 						</c:otherwise>
 					</c:choose> 
-
+					<!-- 시작 -->
+					 <li class="nav-item dropdown nav navbar-nav">
+					
+					<li class="nav-item dropdown"><a href="#"
+						class="nav-link  dropdown-toggle"  data-toggle="dropdown">
+						Mypage</a>
+						<div class="dropdown-menu">
+              			<a class="dropdown-item" href="#" target="_blank">회원정보조회</a>	
+              			<a class="dropdown-item" href="#" target="_blank">내 여행리스트</a>	
+              			</div>				
+						</li>
+						
+					<!-- 끝 -->
 				</ul>
 			</div>
 		</div>
