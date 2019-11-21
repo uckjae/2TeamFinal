@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- https://codepen.io/uckjae/pen/WNNmMEO (타임라인 참조사이트링크) -->
 	<c:import url="/common/HeadTag.jsp" />
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/timeLine.css">
@@ -43,7 +44,7 @@
         
         <div class="content-right-container">
           <textarea name="content" form="inform" cols="40" rows="5"></textarea>
-             <span class="article-number">01</span>
+             <span class="article-number">02</span>
           <input type="file" id="photo" name="photo" accept="image/*">
           <input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
