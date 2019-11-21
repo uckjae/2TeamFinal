@@ -69,6 +69,9 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/FreeBoardDetail.do")) {
 			
 		}
+		else if (url_Command.equals("/FreeBoardWrite")) {
+			
+		}
 		// Photo Board
 		else if (url_Command.equals("/PhotoBoardList.do")) {
 			forward = new ActionForward();
