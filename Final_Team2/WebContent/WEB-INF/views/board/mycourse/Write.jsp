@@ -7,7 +7,9 @@
 	<c:import url="/common/HeadTag.jsp" />
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/timeLine.css">
-<title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="js/timeline.js"></script>
+<title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -17,23 +19,21 @@
 	<!-- Vertical Timeline -->
 	<div class="content">
   	<div id="conference-timeline">
-    <div class="timeline-start">Start</div>
+    <div class="timeline-start"><i id="removeSpot"><span class="icon-minus"></span></i>&nbsp;&nbsp;Start&nbsp;&nbsp;<a id="addSpot"><span  class="icon-plus"></span></a></div>
     <div class="conference-center-line"></div>
     <div class="conference-timeline-content">
       <!-- Article -->
-      <form action="" enctype="multipart/form-data">
+      <form id="inputForm" action="" enctype="multipart/form-data">
       <div class="timeline-article">
         <div class="content-left-container">
-          <div class="content-left">
-            <input type="text" id="content" name="content">
+            <textarea name="content" form="inform" cols="40" rows="5"></textarea>
              <span class="article-number">01</span>
-          </div>
           <input type="file" id="photo" name="photo" accept="image/*">
-          <span class="timeline-author">John Doe</span>
+          <input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         
         <div class="meta-date">
-			<img src="" alt="여행지 사진">          ,l
+			<img src="" alt="여행지 사진">
         </div>
       </div>
       <!-- // Article -->
@@ -42,10 +42,10 @@
       <div class="content timeline-article">
         
         <div class="content-right-container">
-          <div class="content-right">
-            <p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. <span class="article-number">02</span></p>
-          </div>
-          <span class="timeline-author">John Doe</span>
+          <textarea name="content" form="inform" cols="40" rows="5"></textarea>
+             <span class="article-number">01</span>
+          <input type="file" id="photo" name="photo" accept="image/*">
+          <input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         <div class="meta-date">
           <img alt="여행지 사진" src="">

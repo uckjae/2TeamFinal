@@ -24,10 +24,28 @@ public class BoardDao {
 	}	
 	//자유 게시판 게시글 상세보기 
 	public FreeBoard freeBoardContent() {
+		
 		return null;
 	}
 	//자유 게시판 글쓰기 
 	public int freeContentWrite() {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String sql = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.executeQuery();
+			
+		}catch (Exception e) {
+			
+		}finally {
+			
+		}
+		
 		return 0;
 	}
 	//자유 게시판 게시글 조회수 증가 
