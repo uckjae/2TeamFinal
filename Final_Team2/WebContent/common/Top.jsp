@@ -35,25 +35,61 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="#services-section"
-						class="nav-link"><span>Services</span></a></li>
-					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-					<li class="nav-item"><a href="#destination-section"
-						class="nav-link"><span>Destination</span></a></li>
-					<li class="nav-item"><a href="#hotel-section" class="nav-link"><span>Hotel</span></a></li>
-					<li class="nav-item"><a href="#restaurant-section"
-						class="nav-link"><span>Restaurant</span></a></li>
-					<li class="nav-item"><a href="#blog-section" class="nav-link"><span>Blog</span></a></li>
-					<li class="nav-item"><a href="#contact-section"
-						class="nav-link"><span>Contact</span></a></li>
+					<li class="nav-item">
+						<a href="#" class="nav-link"> <span>추천 여행지</span></a>
+					</li>
+					
+					<li class="nav-item">
+						<a href="#" class="nav-link"> <span>여행지</span></a>
+					</li>
+					
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 코스</a>
+						<div class="dropdown-menu">
+	              			<a class="dropdown-item" href="#" target="_blank">여행코스</a>	
+	              			<a class="dropdown-item" href="#" target="_blank">가이드북 다운로드</a>	
+              			</div>				
+					</li>
+					
+					<li class="nav-item">
+						<a href="#" class="nav-link"> <span>축제</span></a>
+					</li>
+					
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 게시판</a>
+						<div class="dropdown-menu">
+	              			<a class="dropdown-item" href="#" target="_blank">자유게시판</a>	
+	              			<a class="dropdown-item" href="#" target="_blank">포토게시판</a>	
+	              			<a class="dropdown-item" href="#" target="_blank">나만의 코스</a>	
+	              			<a class="dropdown-item" href="#" target="_blank">공지사항</a>	
+	              			<a class="dropdown-item" href="#" target="_blank">Q & A</a>	
+              			</div>				
+					</li>
+					
+					<li class="nav-item">
+						<a href="#" class="nav-link"> <span>회원가입</span></a>
+					</li>
 					 <c:choose>
 						<c:when test="${isLogin== 'true'}">
 							<c:choose>
 								<c:when test="${isAdmin== 'true'}">
-									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Admin</span></a></li>
+									<li class="nav-item dropdown">
+										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 관리자</a>
+										<div class="dropdown-menu">
+					              			<a class="dropdown-item" href="#" target="_blank">멤버</a>	
+					              			<a class="dropdown-item" href="#" target="_blank">관리자</a>	
+					              			<a class="dropdown-item" href="#" target="_blank">통계</a>	
+				              			</div>				
+									</li>
 								</c:when>
 								<c:otherwise>
-									<li class="nav-item"><a href="Logout.do" class="nav-link"><span>My page</span></a></li>
+									<li class="nav-item dropdown">
+										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> My page</a>
+										<div class="dropdown-menu">
+					              			<a class="dropdown-item" href="#" target="_blank">회원정보조회</a>	
+					              			<a class="dropdown-item" href="#" target="_blank">내 여행리스트</a>	
+				              			</div>				
+									</li>
 								</c:otherwise>
 							</c:choose>
 							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
@@ -62,19 +98,6 @@
 							<li class="nav-item"><a href="Login.do" class="nav-link"><span>Login</span></a></li>
 						</c:otherwise>
 					</c:choose> 
-					<!-- 시작 -->
-					 <li class="nav-item dropdown nav navbar-nav">
-					
-					<li class="nav-item dropdown"><a href="#"
-						class="nav-link  dropdown-toggle"  data-toggle="dropdown">
-						Mypage</a>
-						<div class="dropdown-menu">
-              			<a class="dropdown-item" href="#" target="_blank">회원정보조회</a>	
-              			<a class="dropdown-item" href="#" target="_blank">내 여행리스트</a>	
-              			</div>				
-						</li>
-						
-					<!-- 끝 -->
 				</ul>
 			</div>
 		</div>
