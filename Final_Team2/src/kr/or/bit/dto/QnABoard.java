@@ -1,6 +1,6 @@
 package kr.or.bit.dto;
 
-public class QnABoard {
+public class QnABoard extends Board{
 	private int qIdx; //QIDX_SEQ
 	private int bIdx;
 	private boolean isPublic;
