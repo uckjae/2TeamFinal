@@ -128,7 +128,8 @@ public class FrontController extends HttpServlet {
 		}
 		//여행리스트 폴더 보여주기 화면 
 		else if (url_Command.equals("/MTList.do")) {			
-			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/mypage/MyTravelList.jsp");	
 			
 		}
 		//여행리스트 폴더 추가하기
