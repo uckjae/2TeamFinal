@@ -418,7 +418,7 @@ public class BoardDao {
 		int result = 0;
 		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
 					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
-		String photoSql = "insert into photo (PHOTOID , BIDX_SEQ.CURRVAL , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
+		String photoSql = "insert into photo (PHOTOID , BIDX , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
 		try {
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(bsql);
