@@ -9,7 +9,6 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -53,10 +52,17 @@ public class MyCourseBoardWriteService implements Action{
 			id = (String)request.getSession().getAttribute("memberId");
 			System.out.println("MyCourseBoardWriteService : " + id);
 			title = multi.getParameter("title");
-			for(String text : multi.getParameterValues("content")) {
-				content.append(text);
-				content.append("\"\'\\/"+id+"\"\'\\/");
+			/*
+			 * for(String text : multi.getParameterValues("content")) {
+			 * content.append(text); content.append("\"\'\\/"+id+"\"\'\\/"); }
+			 */
+			for(int i=0; i<multi.getParameterValues("content").length; i++) {
+				content.append("\"\'\\/"+id+"\"\'\\/"+"contentarea");
+				content.append(multi.getParameterValues("contentarea")[i]);
+				content.append("\"\'\\/"+id+"\"\'\\/"+"spot");
+				content.append(multi.getParameterValues("content")[i]);
 			}
+			
 			board.setbIndx(bIdx);
 			board.setId(id);
 			board.setTitle(title);

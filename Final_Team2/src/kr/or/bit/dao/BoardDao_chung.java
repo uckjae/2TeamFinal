@@ -20,7 +20,7 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.utils.DBHelper;
 
-public class BoardDao {
+public class BoardDao_chung {
 
 	// 자유 게시판
 	// 자유 게시판 게시글 목록보기
@@ -42,7 +42,7 @@ public class BoardDao {
 		//select max(board_num) from board
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
-		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
+		String referNum = "SELECT MAX(FIDX) FROM FREEBOARD";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUE(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
 		try {
@@ -50,6 +50,8 @@ public class BoardDao {
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
+			}else{
+				refer = 1;
 			}
 		
 			connection.setAutoCommit(false);
@@ -189,39 +191,8 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 게시글 상세보기
-	public QnABoard getQnABoard(int bIdx) {
-		QnABoard board = null;
-		
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, Q.ISPUBLIC "
-						+ "  FROM QNABOARD Q JOIN BOARD B ON Q.BIDX = B.BIDX "
-						+ "WHERE B.BIDX=?";
-		
-		try {
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setInt(1, bIdx);
-			
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				board = new QnABoard();
-				board.setbIndx(rs.getInt(1));
-				board.setId(rs.getString(2));
-				board.setTitle(rs.getString(3));
-				board.setContent(rs.getString(4));
-				board.setPublic(rs.getBoolean(5));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			DBHelper.close(rs);
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-		
-		return board;
+	public Board getQnABoard() {
+		return null;
 	}
 
 	// Q&A 게시판 글쓰기
@@ -325,26 +296,32 @@ public class BoardDao {
 	// 나만의 코스 게시판 글쓰기
 	public int courseWrite(Board board,MCBoard mCBoard,List<Photo> photos) {
 		int resultRow = 1;
+		System.out.println("1");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
 				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 3, ?, ?,?) ";
 		String mCBSql = "INSERT INTO MCBOARD (MCIDX,BIDX,LIKENUM) "
-				+ "VALUES (MCIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0)";
+				+ "VALUES (MCIDX_SEQ.NEXTVAL, BIDX_SEQ.CURVAL, 0)";
 		String photoSql = "INSERT INTO PHOTO (PHOTOID, BIDX, PHOTONAME) "
-				+ "VALUES (PHOTOID_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL,?)";
+				+ "VALUES (PHOTOID_SEQ.NEXTVAL, BIDX_SEQ.CURVAL,?)";
+		System.out.println("2");
 		try {
+			System.out.println("3");
 			conn = DBHelper.getConnection();
 			conn.setAutoCommit(false);
+			System.out.println("4");
 			pstmt = conn.prepareStatement(boardSql);
 			pstmt.setString(1, board.getId());
 			pstmt.setString(2, board.getTitle());
 			pstmt.setString(3, board.getContent());
 			resultRow*=pstmt.executeUpdate();
+			System.out.println("5" + resultRow);
 			
 			pstmt = conn.prepareStatement(mCBSql);
 			resultRow*=pstmt.executeUpdate();
+			System.out.println("6");
 			
 			for(Photo photo : photos) {
 				System.out.println("for 7");
@@ -388,26 +365,85 @@ public class BoardDao {
 
 	// 내 여행리스트
 	// 여행리스트 폴더 보기
-	public List<MTList> mTLFolderList() {
-		return null;
+	public List<MTList> mTLFolderList(String id) {
+		List<MTList> mtFolderList = null;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		String sql = "select tlidx,tlname from MTLIST where id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				mtFolderList = new ArrayList<MTList>();
+				MTList mtFolder = new MTList();
+				mtFolder.settLidx(rs.getInt(1));
+				mtFolder.settLName(rs.getString(2));
+				mtFolderList.add(mtFolder);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(rs);
+			DBHelper.close(conn);
+		}		
+		return mtFolderList;
 	}
 	//여행리스트  폴더 만들기
-	public MTList mTLFolderAdd() {
-		return null;
+	public int mTLFolderAdd(MTList mtFolder) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int resultRow = 0;
+		String sql = "insert into MTLIST (tlidx,id,tlname) values (TLIdx_SEQ.nextval,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mtFolder.getId());
+			pstmt.setString(2, mtFolder.gettLName());
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		return resultRow;
 	}
 	//여행리스트 폴더 수정하기
-	public MTList mTLFolderEdit() {
-		return null;
+	public int mTLFolderEdit(MTList mtFolder) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int resultRow = 0;
+		String sql = "update mtlist set tlname= ? where id= ? and TLIdx = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mtFolder.gettLName());
+			pstmt.setString(2, mtFolder.getId());
+			pstmt.setInt(3, mtFolder.gettLidx());
+			resultRow =	pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		return resultRow;
 	}
 
 	// 여행리스트 폴더 삭제하기
-	public MTList mTLFolderDelete() {
-		return null;
+	//계층형 삭제 여행리스트 먼저 삭제하고 폴더 삭제하기
+	public int mTLFolderDelete(int tLidx) {
+		Connection  conn = null;
+		PreparedStatement pstmt = null;
+		
+		return 0;
 	}
 
 	// 여행리스트 상세보기
 	public MTLContent mTListContent() {
-
+		
 		return null;
 	}
 
