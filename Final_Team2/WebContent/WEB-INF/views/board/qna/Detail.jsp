@@ -17,6 +17,9 @@
             height: 100%;
         }
     </style>
+    <script type="text/javascript">
+
+    </script>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -30,7 +33,9 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>
                 <input type="text" class="form-control mb-3" id="title" name="title" value="${ qnaDetail.title}" readonly>
-                <textarea rows="10" style="width: 100%" readonly>${qnaDetail.content}</textarea>
+                <textarea id="content" rows="10" style="width: 100%" readonly>
+                	<c:out value="${qnaDetail.content}" escapeXml="false"/>
+                </textarea>
                 <div class="text-right">
                 	<c:if test="${qnaDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                 		  <input type="submit" class="btn btn-primary" value="수정" onclick="location.href='QnABoardWrite.do?cmd=edit&bidx=${qnaDetail.bIdx}'">
