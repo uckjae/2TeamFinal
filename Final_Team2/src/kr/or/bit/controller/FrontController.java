@@ -132,6 +132,9 @@ public class FrontController extends HttpServlet {
 		}else if (url_Command.equals("/QnABoardWriteOk.do")) {
 			action = new QnABoardWriteOkService();
 			forward = action.execute(request, response);
+		}else if (url_Command.equals("/QnABoardDelete.do")) {
+			action = new QnABoardDeleteService();
+			forward = action.execute(request, response);
 		}
 		
 		/* ADMIN */
