@@ -24,28 +24,24 @@ public class BoardDao {
 	// 자유 게시판
 	// 총 게시글 수 구하기
 	public int totalBoardCount() {
-		Connection conn = null;
+		Connection connection = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		ResultSet resultSet = null;
 		int totalcount = 0;
 		try {
-			conn = ds.getConnection(); //dbcp 연결객체 얻기
-			String sql="select count(*) cnt from jspboard";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				totalcount = rs.getInt("cnt");
+			connection = DBHelper.getConnection(); 
+			String sql="SELECT COUNT(*) CNT FROM FREEBOARD";
+			pstmt = connection.prepareStatement(sql);
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				totalcount = resultSet.getInt(1);
 			}
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
-			try {
-				pstmt.close();
-				rs.close();
-				conn.close();//반환  connection pool 에 반환하기
-			}catch (Exception e) {
-				
-			}
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
 		}
 		return totalcount;
 	}
@@ -219,7 +215,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss").parse(rs.getString(5)));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
@@ -265,7 +261,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss").parse(rs.getString(5)));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
