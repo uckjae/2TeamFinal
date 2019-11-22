@@ -21,7 +21,7 @@ public class FreeBoardWriteService implements Action{
 		String url = "";
 		if (write) {
 			msg = "게시글 작성 완료";
-			url = "FreeBoardDetail.do";
+			url = "FreeBoardList.do";
 		} else {
 			msg = "게시글 작성 실패";
 			url = "FreeBoardWrite.do";

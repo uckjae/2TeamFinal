@@ -22,7 +22,37 @@ public class BoardDao {
 	// 자유 게시판
 	// 자유 게시판 게시글 목록보기
 	public List<FreeBoard> freeBoardList() {
-		return null;
+		List<FreeBoard> boardList = new ArrayList<FreeBoard>();
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+		
+		String sql = "SELECT BIDX, TITLE, WDATE, ID, RNUM FROM BOARD";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			resultSet = pstmt.executeQuery();
+			
+			while(resultSet.next()) {
+				FreeBoard freeBoard = new FreeBoard();
+				
+				freeBoard.setbIdx(resultSet.getInt(1));
+				freeBoard.setTitle(resultSet.getString(2));
+				freeBoard.setwDate(resultSet.getDate(3));
+				freeBoard.setId(resultSet.getString(4));
+				freeBoard.setrNum(resultSet.getInt(5));
+				
+				boardList.add(freeBoard);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return boardList;
 	}
 
 	// 자유 게시판 게시글 상세보기

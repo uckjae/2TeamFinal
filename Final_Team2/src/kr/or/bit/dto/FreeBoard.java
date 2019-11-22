@@ -7,8 +7,7 @@ public class FreeBoard extends Board {
 	private int depth;
 	private int step;
 
-	public FreeBoard() {
-	}
+	public FreeBoard() {}
 	
 	public FreeBoard(int fIdx, int bIdx, int refer, int depth, int step) {
 		super();
