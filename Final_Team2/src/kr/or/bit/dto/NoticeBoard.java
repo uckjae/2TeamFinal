@@ -22,6 +22,19 @@ public class NoticeBoard extends Board {
 	public int getbIdx() {
 		return bIdx;
 	}
+	
+
+	public void setnIdx(int nIdx) {
+		this.nIdx = nIdx;
+	}
+
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
+	}
+
+	public void setTop(boolean isTop) {
+		this.isTop = isTop;
+	}
 
 	public boolean isTop() {
 		return isTop;

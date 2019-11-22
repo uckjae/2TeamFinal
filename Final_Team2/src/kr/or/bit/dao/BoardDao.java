@@ -165,7 +165,44 @@ public class BoardDao {
 	// 공지사항
 	// 공지 게시판 게시글 목록보기
 	public List<NoticeBoard> noticeList() {
-		return null;
+		List<NoticeBoard>nboard =new ArrayList<>();
+		
+		Connection connection =DBHelper.getConnection();
+		PreparedStatement pstmt =null;
+		ResultSet rs =null;
+		
+		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.isTop "
+                      +"FROM BOARD B JOIN NOTICEBOARD N ON B.IDX=N.BIDX"
+				      +"WHERE B.BCODE=1";
+		
+		try {
+			pstmt=connection.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				NoticeBoard board = new NoticeBoard();
+				board.setbIdx(rs.getInt(1));
+				board.setId(rs.getString(2));
+				board.setTitle(rs.getString(3));
+				board.setContent(rs.getString(4));
+				board.setwDate(rs.getDate(5));
+				board.setrNum(rs.getInt(6));
+				
+			}
+			
+		}catch(Exception e) {
+			try {
+				connection.rollback();
+			}catch(SQLException e1){
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+			
+		}
+		return nboard;
 	}
 
 	// 공지 게시판 게시글 상세보기
@@ -174,8 +211,39 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기
-	public int noticeWrite() {
-		return 0;
+	public boolean noticeWrite(String id, String title, String content, boolean isTop){
+		int resultRow=0;
+		Connection connection =DBHelper.getConnection();
+		PreparedStatement pstmt =null;
+		
+		String sql1 ="INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE)"
+				+ "VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1)";
+		String sql2 ="INSERT INTO NOTICEBOARD(FIDX,BIDX,ISTOP)"
+				+"VALUES(FIDX_SEQ.NEXTVAL,BIDX_SEQ.CURRVAL,0)";
+		
+		try {
+			connection.setAutoCommit(false);
+			
+			pstmt=connection.prepareStatement(sql1);
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			
+			pstmt=connection.prepareStatement(sql2);
+			pstmt.setBoolean(1, isTop);
+			
+			resultRow=pstmt.executeUpdate();
+			connection.commit();
+		}catch(Exception e) {
+			
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+			
+			
+		}
+		return resultRow > 0 ? true : false;
 	}
 
 	// 공지 게시판 게시글 조회수 증가
