@@ -1,8 +1,7 @@
 package kr.or.bit.dto;
 
-public class MCBoard {
+public class MCBoard extends Board{
 	private int mCidx;//MCIDX_SEQ
-	private int bIdx;
 	private int likeNum;
 
 	public MCBoard() {
@@ -11,7 +10,6 @@ public class MCBoard {
 	public MCBoard(int mCidx, int bIdx, int likeNum) {
 		super();
 		this.mCidx = mCidx;
-		this.bIdx = bIdx;
 		this.likeNum = likeNum;
 	}
 
@@ -21,14 +19,6 @@ public class MCBoard {
 
 	public void setmCidx(int mCidx) {
 		this.mCidx = mCidx;
-	}
-
-	public int getbIdx() {
-		return bIdx;
-	}
-
-	public void setbIdx(int bIdx) {
-		this.bIdx = bIdx;
 	}
 
 	public int getLikeNum() {
@@ -41,7 +31,7 @@ public class MCBoard {
 
 	@Override
 	public String toString() {
-		return "MCBoard [mCidx=" + mCidx + ", bIdx=" + bIdx + ", likeNum=" + likeNum + "]";
+		return "MCBoard [mCidx=" + mCidx + ", likeNum=" + likeNum + "]";
 	}
 
 	

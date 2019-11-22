@@ -56,7 +56,7 @@ $(document).ready(function(){
 <body data-spy="scroll" data-target=".site-navbar-target"
 	data-offset="300">
 	<c:import url="/common/Top.jsp" />
-	<form action="PWriteOk.do" method="post" enctype="multipart/form-data">
+	<form action="PhotoWriteOk.do" method="post" enctype="multipart/form-data">
 		<section class="ftco-section">
 			<div class="container">
 				<div class="text">
