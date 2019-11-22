@@ -28,7 +28,7 @@ public class Board {
 		return bIdx;
 	}
 
-	public void setbIndx(int bIdx) {
+	public void setbIdx(int bIdx) {
 		this.bIdx = bIdx;
 	}
 
