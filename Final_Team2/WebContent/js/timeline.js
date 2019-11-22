@@ -11,25 +11,49 @@ $(function(){
 					alert("최대 6개까지 코스를 등록할수 있습니다.");
 				}
 				else{
-					if(articles%2!=0){
-						var newArticle = $('<div class="timeline-article">');
+					if(articles==2){
+						var newArticle = $('<div class="content timeline-article">');
+						var left = $('<div class="content-left-container">');
+						$(left).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(left).prepend($('<input type="file" id="photo" name="photo3" accept="image/*">'));
+						$(left).prepend($('<span class="article-number">').text("0"+num));
+						$(left).prepend($('<textarea name="contentarea" form="inform" cols="25" rows="5">'));
+						$(newArticle).prepend(left);
+						$(newArticle).append($('<div class="meta-date">').html('<img src="" alt="여행지 사진">'));
+						$(".conference-timeline-content").append(newArticle);
+					}
+					else if(articles==3){
+						var newArticle = $('<div class="content timeline-article">');
 						var right = $('<div class="content-right-container">');
 						$(right).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
-						$(right).prepend($('<input type="file" id="photo" name="photo" accept="image/*">'));
-						$(right).prepend($('<span class="article-number">').text(num));
-						$(right).prepend($('<textarea name="content" form="inform" cols="25" rows="5">'));
+						$(right).prepend($('<input type="file" id="photo" name="photo4" accept="image/*">'));
+						$(right).prepend($('<span class="article-number">').text("0"+num));
+						$(right).prepend($('<textarea name="contentarea" form="inform" cols="25" rows="5">'));
 						$(newArticle).prepend(right);
-						$("#inputForm").append(newArticle);
+						$(newArticle).append($('<div class="meta-date">').html('<img src="" alt="여행지 사진">'));
+						$(".conference-timeline-content").append(newArticle);
+					}
+					else if(articles==4){
+						var newArticle = $('<div class="content timeline-article">');
+						var left = $('<div class="content-left-container">');
+						$(left).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(left).prepend($('<input type="file" id="photo" name="photo5" accept="image/*">'));
+						$(left).prepend($('<span class="article-number">').text("0"+num));
+						$(left).prepend($('<textarea name="contentarea" form="inform" cols="25" rows="5">'));
+						$(newArticle).prepend(left);
+						$(newArticle).append($('<div class="meta-date">').html('<img src="" alt="여행지 사진">'));
+						$(".conference-timeline-content").append(newArticle);
 					}
 					else{
-						var newArticle = $('<div class="timeline-article">');
-						var right = $('<div class="content-left-container">');
+						var newArticle = $('<div class="content timeline-article">');
+						var right = $('<div class="content-right-container">');
 						$(right).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
-						$(right).prepend($('<input type="file" id="photo" name="photo" accept="image/*">'));
+						$(right).prepend($('<input type="file" id="photo" name="photo6" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text("0"+num));
-						$(right).prepend($('<textarea name="content" form="inform" cols="25" rows="5">'));
+						$(right).prepend($('<textarea name="contentarea" form="inform" cols="25" rows="5">'));
 						$(newArticle).prepend(right);
-						$("#inputForm").append(newArticle);
+						$(newArticle).append($('<div class="meta-date">').html('<img src="" alt="여행지 사진">'));
+						$(".conference-timeline-content").append(newArticle);
 					}
 				}
 			});
