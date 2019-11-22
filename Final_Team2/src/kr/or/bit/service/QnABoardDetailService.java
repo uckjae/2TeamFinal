@@ -1,6 +1,6 @@
 package kr.or.bit.service;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,18 +14,21 @@ import kr.or.bit.dao.MemberDao;
 import kr.or.bit.dto.Member;
 import kr.or.bit.dto.QnABoard;
 
-public class QnABoardListService implements Action {
+public class QnABoardDetailService implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
+		int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
+
 		BoardDao dao = new BoardDao();
-		List<QnABoard> qnaList = dao.getQnABoards();
-
-		request.setAttribute("qnaList", qnaList);
-		forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
-
+		QnABoard result = dao.getQnABoard(bIdx);
+		 
+		System.out.println(result.getwDate());
+		request.setAttribute("qnaDetail", result);
+		forward.setPath("/WEB-INF/views/board/qna/Detail.jsp");
+		
 		return forward;
 	}
 }

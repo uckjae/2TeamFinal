@@ -1,9 +1,10 @@
 package kr.or.bit.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Board {
-	private int bIndx;//BIDX_SEQ
+	private int bIdx;//BIDX_SEQ
 	private String id;
 	private String title;
 	private String content;
@@ -13,9 +14,9 @@ public class Board {
 
 	public Board() { }
 
-	public Board(int bindx, String id, String title, String content, Date wDate, int rNum, int bCode) {
+	public Board(int bIdx, String id, String title, String content, Date wDate, int rNum, int bCode) {
 		super();
-		this.bIndx = bindx;
+		this.bIdx = bIdx;
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -24,12 +25,12 @@ public class Board {
 		this.bCode = bCode;
 	}
 
-	public int getbIndx() {
-		return bIndx;
+	public int getbIdx() {
+		return bIdx;
 	}
 
-	public void setbIndx(int bIndx) {
-		this.bIndx = bIndx;
+	public void setbIdx(int bIdx) {
+		this.bIdx = bIdx;
 	}
 
 	public String getId() {
@@ -82,7 +83,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bIndx=" + bIndx + ", id=" + id + ", title=" + title + ", content=" + content + ", wDate=" + wDate
+		return "Board [bIdx=" + bIdx + ", id=" + id + ", title=" + title + ", content=" + content + ", wDate=" + wDate
 				+ ", rNum=" + rNum + ", bCode=" + bCode + "]";
 	}
 

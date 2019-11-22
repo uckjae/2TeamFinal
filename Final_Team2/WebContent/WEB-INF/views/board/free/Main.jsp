@@ -55,6 +55,7 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
+    
 	<!-- Contant -->
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
@@ -93,6 +94,9 @@
                     </tbody>
                 </table>
             </div>
+            <a href="FreeBoardWrite.do">
+            	<input type="button" value="글쓰기" id="fboad" name="fboard">
+            </a>
         </div>
     </div>
 </body>

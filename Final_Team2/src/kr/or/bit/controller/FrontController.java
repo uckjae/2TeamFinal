@@ -11,12 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.service.FreeBoardWriteService;
-import kr.or.bit.service.LoginService;
-import kr.or.bit.service.LogoutService;
-import kr.or.bit.service.MyCourseBoardWriteService;
-import kr.or.bit.service.QnABoardListService;
-import kr.or.bit.service.QnABoardWriteService;
+import kr.or.bit.service.*;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -67,13 +62,17 @@ public class FrontController extends HttpServlet {
 		/* BOARD */
 		// Free Board
 		else if (url_Command.equals("/FreeBoardList.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/free/Main.jsp");
+			action = new FreeBoardListService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDetail.do")) {
 			
 		}
-		else if (url_Command.equals("/FreeBoardWrite.do")) {
+		else if(url_Command.equals("/FreeBoardWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/free/Write.jsp");
+		}
+		else if (url_Command.equals("/FreeBoardWriteOk.do")) {
 			action = new FreeBoardWriteService();
 			forward = action.execute(request, response);
 		}
@@ -110,9 +109,9 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
 		}
-		else if (url_Command.equals("/NoticeBoardDetail.do")) {
+		else if (url_Command.equals("/NoticeBoardWrite.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/notice/Detail.jsp");
+			forward.setPath("/WEB-INF/views/board/notice/Write.jsp");
 		}
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
@@ -120,10 +119,14 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
-			
+			action = new QnABoardDetailService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/QnABoardWrite.do")) {
 			action = new QnABoardWriteService();
+			forward = action.execute(request, response);
+		}else if (url_Command.equals("/QnABoardWriteOk.do")) {
+			action = new QnABoardWriteOkService();
 			forward = action.execute(request, response);
 		}
 		
