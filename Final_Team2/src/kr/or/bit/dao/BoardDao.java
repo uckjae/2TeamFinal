@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class BoardDao {
 
 	// 자유 게시판
 	// 총 게시글 수 구하기
-	public int totalBoardCount() {
+	public int freeBoardTotalBoardCount() {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
@@ -53,7 +52,8 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT FIDX, TITLE, WDATE, ID, RNUM FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX;";
+		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX" 
+					+ "FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -62,11 +62,11 @@ public class BoardDao {
 			while(resultSet.next()) {
 				FreeBoard freeBoard = new FreeBoard();
 				
-				freeBoard.setfIdx(resultSet.getInt(1));
-				freeBoard.setTitle(resultSet.getString(2));
-				freeBoard.setwDate(resultSet.getDate(3));
-				freeBoard.setId(resultSet.getString(4));
-				freeBoard.setrNum(resultSet.getInt(5));
+				freeBoard.setfIdx(resultSet.getInt(7));
+				freeBoard.setTitle(resultSet.getString(3));
+				freeBoard.setwDate(resultSet.getDate(5));
+				freeBoard.setId(resultSet.getString(2));
+				freeBoard.setrNum(resultSet.getInt(6));
 				
 				freeBoardList.add(freeBoard);
 			}
@@ -215,7 +215,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+				board.setwDate(rs.getDate(5));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
@@ -261,7 +261,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+				board.setwDate(rs.getDate(5));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
@@ -344,44 +344,8 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 글쓰기
-	public int photoWrite(String memberId,String title, String content, String photoName) {
-		Connection conn = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
-					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
-		String photoSql = "insert into photo (PHOTOID , BIDX_SEQ.CURRVAL , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
-		try {
-			conn.setAutoCommit(false);
-			pstmt = conn.prepareStatement(bsql);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, title);
-			pstmt.setString(3, content);
-			pstmt.executeUpdate();
-			System.out.println("title : " + title);
-			pstmt = conn.prepareStatement(photoSql);
-			pstmt.setString(1, photoName);
-			
-			result = pstmt.executeUpdate();
-			
-			conn.commit();
-			
-		}catch (Exception e) {
-			try {
-				conn.rollback();
-			}catch (SQLException s) {
-				System.out.println("s : " + s.getMessage());
-			}
-			
-			System.out.println("e : " + e.getMessage());
-		}finally {
-		DBHelper.close(conn);
-		DBHelper.close(pstmt);
-		}
-		
-		
-		return result;
-		
+	public int photoWrite() {
+		return 0;
 	}
 
 	// 포토 게시판 게시글 조회수 증가

@@ -78,7 +78,7 @@
                         <tr>
                        		<td>1</td>
                             <td class="sorting_1"><a href="FreeBoardDetail.do">HelloWorld</a></td>
-                            <td>19/11/22</td>
+                            <td>19-1-/22</td>
                             <td>Mr.uck</td>
                             <td>777</td>
                             <td class="iconColumn">
@@ -95,8 +95,10 @@
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
                         		<td>${board.bIdx}</td>
-                        		<td>${board.title}</td>
-                        		<td>${board.wDate}</td>
+                        		<td class="sorting_1"><a href="FreeBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
+                        		<td>
+                            		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                            	</td>
                         		<td>${board.id}</td>
                         		<td>${board.rNum}</td>
                         	</tr>

@@ -1,30 +1,32 @@
 package kr.or.bit.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
-import kr.or.bit.dto.FreeBoard;
+import kr.or.bit.dto.MTList;
 
-public class FreeBoardListService implements Action{
+public class MTLFolderListService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
+		BoardDao boardDao = new BoardDao();
+		List<MTList> mTList = boardDao.mTLFolderList(request.getParameter("userid"));
+		request.setAttribute("mTList", mTList);
 		
-		BoardDao dao = new BoardDao();
-		
-		List<FreeBoard> freeBoardList = dao.freeBoardList();
-		System.out.println("사이즈 : "+freeBoardList.size());
-		request.setAttribute("freeBoardList", freeBoardList);
-		forward.setPath("/WEB-INF/views/board/free/Main.jsp");
-		
+		forward.setRedirect(false);
+		forward.setPath("/WEB-INF/views/mypage/MyTravelListFolder.jsp");
 		return forward;
 	}
-	
+
 }
+
+
+
+
+
+
