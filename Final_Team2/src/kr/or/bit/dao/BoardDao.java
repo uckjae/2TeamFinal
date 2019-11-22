@@ -22,7 +22,7 @@ public class BoardDao {
 	// 자유 게시판
 	// 자유 게시판 게시글 목록보기
 	public List<FreeBoard> freeBoardList() {
-		List<FreeBoard> boardList = new ArrayList<FreeBoard>();
+		List<FreeBoard> freeBoardList = new ArrayList<FreeBoard>();
 		
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
@@ -43,7 +43,7 @@ public class BoardDao {
 				freeBoard.setId(resultSet.getString(4));
 				freeBoard.setrNum(resultSet.getInt(5));
 				
-				boardList.add(freeBoard);
+				freeBoardList.add(freeBoard);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		return boardList;
+		return freeBoardList;
 	}
 
 	// 자유 게시판 게시글 상세보기
