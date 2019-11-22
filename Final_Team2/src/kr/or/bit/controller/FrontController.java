@@ -114,12 +114,20 @@ public class FrontController extends HttpServlet {
 		}
 		// Notice Board
 		else if (url_Command.equals("/NoticeBoardList.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
+			action = new NoticeBoardListService();
+			forward =action.execute(request, response);
+		}
+		else if(url_Command.equals("/NoticeBoardDetail.do")){
+			action = new NoticeBoardDetailService();
+			forward =action.execute(request, response);
 		}
 		else if (url_Command.equals("/NoticeBoardWrite.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/notice/Write.jsp");
+			action = new NoticeBoardWriteService();
+			forward =action.execute(request, response);
+		}
+		else if(url_Command.equals("/NoticeBoardWriteOk.do")) {
+			action =new NoticeBoardWriteOkService();
+			forward =action.execute(request, response);
 		}
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
