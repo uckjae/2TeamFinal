@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -80,7 +82,9 @@
                     	<tr>
                             <td>${board.bIdx}</td>
                             <td class="sorting_1"><a href="QnABoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
-                            <td>${board.wDate}</td>
+                            <td>
+                            	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                            </td>
                             <td>${board.id}</td>
                             <td>${board.rNum}</td>
                         </tr>

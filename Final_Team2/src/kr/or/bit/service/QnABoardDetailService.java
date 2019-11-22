@@ -1,5 +1,7 @@
 package kr.or.bit.service;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +24,8 @@ public class QnABoardDetailService implements Action {
 
 		BoardDao dao = new BoardDao();
 		QnABoard result = dao.getQnABoard(bIdx);
-
+		/* new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").pa */
+		System.out.println(result.getwDate());
 		request.setAttribute("qnaDetail", result);
 		forward.setPath("/WEB-INF/views/board/qna/Detail.jsp");
 		

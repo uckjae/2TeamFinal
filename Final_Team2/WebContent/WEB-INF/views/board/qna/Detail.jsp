@@ -30,10 +30,8 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>
             <form action="QnABoardWriteOk.do" class="p-5 bg-light" method="post">
-                <input type="text" class="form-control mb-3" id="title" name="title" value="${ qnaDetail.title}">
-                <textarea rows="10" cols="60">
-                	${ qnaDetail.content}
-				</textarea>
+                <input type="text" class="form-control mb-3" id="title" name="title" value="${ qnaDetail.title}" readonly>
+                <textarea rows="10" style="width: 100%" readonly>${qnaDetail.content}</textarea>
                 <div class="text-center">
                     <input type="submit" class="btn btn-primary mr-3" value="작성">
                     <input type="reset" class="btn btn-primary" value="취소" onClick="location.href='QnABoardList.do'">

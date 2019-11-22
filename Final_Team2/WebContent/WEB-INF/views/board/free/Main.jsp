@@ -55,6 +55,7 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
+    
 	<!-- Contant -->
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
