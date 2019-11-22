@@ -359,16 +359,31 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 게시글 삭제하기
-	public boolean deleteQnABoard() {
+	public boolean deleteQnABoard(int bIdx) {
 		int resultRow = 0;
 
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		String sql ="";
+		
+		String qnaSql ="DELETE FROM QNABOARD WHERE BIDX=?";
+		String boardSql ="DELETE FROM BOARD WHERE BIDX=?";
+		
 		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement(qnaSql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
 			
+			pstmt = connection.prepareStatement(boardSql);
+			pstmt.setInt(1, bIdx);
+			resultRow = pstmt.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
+			try { connection.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
+
+			e.printStackTrace();
 		}finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
