@@ -433,14 +433,14 @@ COMMENT ON COLUMN QnABoard.isPublic IS '공개여부';
 
 CREATE UNIQUE INDEX PK_QnABoard
 	ON QnABoard (
-		NIdx ASC
+		QIdx ASC
 	);
 
 ALTER TABLE QnABoard
 	ADD
 		CONSTRAINT PK_QnABoard
 		PRIMARY KEY (
-			NIdx
+			QIdx
 		);
 
 ALTER TABLE Board
@@ -543,6 +543,16 @@ ALTER TABLE NoticeBoard
 			BIDX
 		);
 
+ALTER TABLE QnABoard
+	ADD
+		CONSTRAINT FK_Board_TO_QnABoard
+		FOREIGN KEY (
+			BIDX
+		)
+		REFERENCES Board (
+			BIDX
+		);
+		
 ALTER TABLE MCBoard
 	ADD
 		CONSTRAINT FK_Board_TO_MCBoard

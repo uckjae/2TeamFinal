@@ -1,6 +1,5 @@
 package kr.or.bit.dto;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Board {

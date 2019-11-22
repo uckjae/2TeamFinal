@@ -18,8 +18,9 @@ public class FreeBoardListService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		BoardDao dao = new BoardDao();
-		List<FreeBoard> freeBoardList = dao.freeBoardList();
 		
+		List<FreeBoard> freeBoardList = dao.freeBoardList();
+		System.out.println("사이즈 : "+freeBoardList.size());
 		request.setAttribute("freeBoardList", freeBoardList);
 		forward.setPath("/WEB-INF/views/board/free/Main.jsp");
 		
