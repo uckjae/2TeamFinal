@@ -28,29 +28,26 @@
     <div class="container">
     <div id="main">
 	<br><br><br><br>
-		<h1><i class="flaticon-world"></i> &nbsp; &nbsp;나의 여행 리스트 폴더</h1>
+		<h1><i class="flaticon-world mr-3"></i> 나의 여행 리스트 폴더</h1>
 		
-		<button type="button" class="btn btn-primary">폴더 추가하기</button>
+		<button type="button" class="btn btn-primary mt-1 mb-3">폴더 추가하기</button>
 
     				<table class="table" style ="text-align:center;">				    
-					      <tr>
-					      <th><i class="flaticon-folder"></i></th>
-				      	  <th >NO</th>
+					      <tr>					      
+				      	  <th class="pl-5" >NO</th>
 				      	  <th >폴더 제목</th>
 				      	  <th></th>
 					      </tr>
-					      <tr>
-					      	<td> </td>
-					        <td>1</td>
+					      <tr>					      	
+					        <td class="pl-5">1</td>
 					       <td> <a href="MTList.do">가족과 함께</a></td>
-					        <td><button type="button" class="btn btn-primary">수정</button> &nbsp; &nbsp; &nbsp;
+					        <td><button type="button" class="btn btn-primary mr-3">수정</button> 
 					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					      <tr>
-					      	<td> </td>
-					        <td>1</td>
+					        <td class="pl-5">2</td>
 					       <td> <a href="MTList.do">친구와 함께</a></td>
-					       <td><button type="button" class="btn btn-primary">수정</button> &nbsp; &nbsp; &nbsp;
+					       <td><button type="button" class="btn btn-primary mr-3">수정</button> 
 					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					      			  				  

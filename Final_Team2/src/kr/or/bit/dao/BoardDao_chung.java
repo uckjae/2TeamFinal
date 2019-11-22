@@ -438,7 +438,25 @@ public class BoardDao_chung {
 		Connection  conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
+		String sql_content = "delete from mtlcontent where tlidx =?";
+		String sql_folder = "delete from mtlist where tlidx = ? ";
 		
+		try {
+			//폴더 안에 여행 리스트 삭제 
+			pstmt = conn.prepareStatement(sql_content);
+			pstmt.setInt(1, tLidx);
+			pstmt.executeUpdate();
+			//폴더 삭제 
+			pstmt = conn.prepareStatement(sql_folder);
+			pstmt.setInt(1,tLidx);
+			
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace(); 
+		} finally  {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
 		return resultRow;
 	}
 
@@ -473,7 +491,6 @@ public class BoardDao_chung {
 		}		
 		return mTLContentList;
 	}
-
 	// 여행리스트 추가하기
 	public int mTListContentAdd(MTLContent mTLContent) {
 		Connection conn = DBHelper.getConnection();
@@ -502,8 +519,22 @@ public class BoardDao_chung {
 	}
 
 	// 여행리스트 삭제하기
-	public int mTListContentDelete() {
-		return 0;
+	public int mTListContentDelete(int tLCidx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int resultRow = 0;
+		String sql = "delete from mtlcontent where tLCidx = ?";	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tLCidx);
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		return resultRow;
 	}
 	// 내 여행리스트 끝
 
