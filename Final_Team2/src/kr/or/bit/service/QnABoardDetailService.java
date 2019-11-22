@@ -18,8 +18,7 @@ public class QnABoardDetailService implements Action {
 
 		BoardDao dao = new BoardDao();
 		QnABoard result = dao.getQnABoard(bIdx);
-		 
-		System.out.println(result.getwDate());
+
 		request.setAttribute("qnaDetail", result);
 		forward.setPath("/WEB-INF/views/board/qna/Detail.jsp");
 		
