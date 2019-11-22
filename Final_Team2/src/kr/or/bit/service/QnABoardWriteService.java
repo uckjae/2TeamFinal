@@ -18,19 +18,19 @@ public class QnABoardWriteService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
-		QnABoard qnaBoard = null;
+		QnABoard qnaWrite = null;
 
 		String cmd = request.getParameter("cmd");
 
 		if (cmd.equals("write")) {
-			qnaBoard = new QnABoard();
+			qnaWrite = new QnABoard();
 		} else if (cmd.equals("edit")) {
 			String title = request.getParameter("title");
 			String content = request.getParameter("summernote");
 			Boolean isPublic = Integer.parseInt(request.getParameter("isPublic")) == 0 ? false : true;
 		}
 
-		request.setAttribute("qnaBoard", qnaBoard);
+		request.setAttribute("qnaWrite", qnaWrite);
 		forward.setPath("/WEB-INF/views/board/qna/Write.jsp");
 
 		return forward;

@@ -82,7 +82,7 @@
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
                             <td>${board.qIdx}</td>
-                            <td class="sorting_1"><a href="#">${board.title}</a></td>
+                            <td class="sorting_1"><a href="QnABoardDetail.do?bidx=${board.qIdx}">${board.title}</a></td>
                             <td>${board.wDate}</td>
                             <td>${board.id}</td>
                             <td>${board.rNum}</td>

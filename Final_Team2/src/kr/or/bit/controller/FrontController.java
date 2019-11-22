@@ -119,7 +119,8 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
-			
+			action = new QnABoardDetailService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/QnABoardWrite.do")) {
 			action = new QnABoardWriteService();
