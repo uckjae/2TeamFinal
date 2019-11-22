@@ -168,6 +168,8 @@ public class BoardDao {
 
 	// 자유 게시판 게시글 삭제하기
 	public int freeContentDelete() {
+		
+		
 		return 0;
 	}
 
