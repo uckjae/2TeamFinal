@@ -164,7 +164,7 @@ public class BoardDao_chung {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QnABoard board = new QnABoard();
-				board.setbIndx(rs.getInt(1));
+				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));

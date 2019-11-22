@@ -12,7 +12,7 @@ import kr.or.bit.dao.MemberDao;
 import kr.or.bit.dto.Member;
 import kr.or.bit.dto.QnABoard;
 
-public class QnABoardWriteDetailService implements Action {
+public class QnABoardDetailService implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
@@ -22,9 +22,9 @@ public class QnABoardWriteDetailService implements Action {
 
 		BoardDao dao = new BoardDao();
 		QnABoard result = dao.getQnABoard(bIdx);
-
-
-		forward.setPath("/common/Redirect.jsp");
+		System.out.println(result.getwDate());
+		request.setAttribute("qnaDetail", result);
+		forward.setPath("/WEB-INF/views/board/qna/Detail.jsp");
 		
 		return forward;
 	}

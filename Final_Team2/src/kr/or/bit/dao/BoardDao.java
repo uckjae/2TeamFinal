@@ -1,14 +1,11 @@
 package kr.or.bit.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.swing.internal.plaf.basic.resources.basic;
 
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
@@ -43,8 +40,8 @@ public class BoardDao {
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
 		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
-		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
-		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUE(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
+		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
 		try {
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
@@ -53,17 +50,14 @@ public class BoardDao {
 			}
 		
 			connection.setAutoCommit(false);
-			
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			resultRow = pstmt.executeUpdate();
-
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-
 			if(resultRow > 0) {
 				connection.commit();
 			}
@@ -162,7 +156,7 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QnABoard board = new QnABoard();
-				board.setbIndx(rs.getInt(1));
+				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
@@ -190,13 +184,14 @@ public class BoardDao {
 
 	// Q&A 게시판 게시글 상세보기
 	public QnABoard getQnABoard(int bIdx) {
+		System.out.println("init");
 		QnABoard board = null;
-		
+		System.out.println("bIdx "+bIdx);
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, Q.ISPUBLIC "
+		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, Q.QIDX, Q.ISPUBLIC "
 						+ "  FROM QNABOARD Q JOIN BOARD B ON Q.BIDX = B.BIDX "
 						+ "WHERE B.BIDX=?";
 		
@@ -207,11 +202,14 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				board = new QnABoard();
-				board.setbIndx(rs.getInt(1));
+				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setPublic(rs.getBoolean(5));
+				board.setwDate(rs.getDate(5));
+				board.setrNum(rs.getInt(6));
+				board.setqIdx(rs.getInt(7));
+				board.setPublic(rs.getBoolean(8));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

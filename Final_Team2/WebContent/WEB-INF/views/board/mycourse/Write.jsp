@@ -10,7 +10,56 @@
 	<link rel="stylesheet" href="css/timeLine.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="js/timeline.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$("#photo2").change(function(){
+			console.log("done");
+    		var reader = new FileReader();
+
+    	    reader.onload = function (e) {
+    	        // get loaded data and render thumbnail.
+    	        document.getElementById("view2").src = e.target.result;
+    	    };
+
+    	    // read the image file as a data URL.
+    	    reader.readAsDataURL(this.files[this.files.length-1]);
+    	});
+		$("#photo3").change(function(){
+    		var reader = new FileReader();
+
+    	    reader.onload = function (e) {
+    	        // get loaded data and render thumbnail.
+    	        document.getElementById("view3").src = e.target.result;
+    	    };
+
+    	    // read the image file as a data URL.
+    	    reader.readAsDataURL(this.files[this.files.length-1]);
+    	});
+		$("#photo4").change(function(){
+    		var reader = new FileReader();
+
+    	    reader.onload = function (e) {
+    	        // get loaded data and render thumbnail.
+    	        document.getElementById("view4").src = e.target.result;
+    	    };
+
+    	    // read the image file as a data URL.
+    	    reader.readAsDataURL(this.files[this.files.length-1]);
+    	});
+		$("#photo5").change(function(){
+    		var reader = new FileReader();
+
+    	    reader.onload = function (e) {
+    	        // get loaded data and render thumbnail.
+    	        document.getElementById("view5").src = e.target.result;
+    	    };
+
+    	    // read the image file as a data URL.
+    	    reader.readAsDataURL(this.files[this.files.length-1]);
+    	});
+	});
 	
+	</script>
 <title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -31,12 +80,12 @@
         <div class="content-left-container">
             <textarea name="contentarea" form="inform" cols="25" rows="5"></textarea>
              <span class="article-number">01</span>
-          <input type="file" id="photo" name="photo1" accept="image/*">
+          <input type="file" id="photo0" name="photo0" accept="image/*">
           <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         
         <div class="meta-date">
-			<img class="image2" src="images/scenery.png" alt="여행지 사진">
+			<img class="image2" id="view0" src="images/scenery.png" alt="여행지 사진">
         </div>
       </div>
       <!-- // Article -->
@@ -47,11 +96,11 @@
         <div class="content-right-container">
           <textarea name="contentarea" form="inform" cols="25" rows="5"></textarea>
              <span class="article-number">02</span>
-          <input type="file" id="photo" name="photo2" accept="image/*">
+          <input type="file" id="photo1" name="photo1" accept="image/*">
           <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         <div class="meta-date">
-          <img alt="여행지 사진" class="image2" src="images/scenery.png">
+          <img alt="여행지 사진" id="view1" class="image2" src="images/scenery.png">
         </div>
       </div>
       <!-- // Article -->
