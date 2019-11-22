@@ -20,6 +20,19 @@ $(function(){
 						$(newArticle).prepend(left);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view2" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
+						
+						$("#photo2").change(function(){
+							console.log("done");
+				    		var reader = new FileReader();
+
+				    	    reader.onload = function (e) {
+				    	        // get loaded data and render thumbnail.
+				    	        document.getElementById("view2").src = e.target.result;
+				    	    };
+
+				    	    // read the image file as a data URL.
+				    	    reader.readAsDataURL(this.files[this.files.length-1]);
+				    	});
 					}
 					else if(articles==3){
 						var newArticle = $('<div class="content timeline-article">');
@@ -31,6 +44,18 @@ $(function(){
 						$(newArticle).prepend(right);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view3" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
+						
+						$("#photo3").change(function(){
+				    		var reader = new FileReader();
+
+				    	    reader.onload = function (e) {
+				    	        // get loaded data and render thumbnail.
+				    	        document.getElementById("view3").src = e.target.result;
+				    	    };
+
+				    	    // read the image file as a data URL.
+				    	    reader.readAsDataURL(this.files[this.files.length-1]);
+				    	});
 					}
 					else if(articles==4){
 						var newArticle = $('<div class="content timeline-article">');
@@ -42,6 +67,18 @@ $(function(){
 						$(newArticle).prepend(left);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view4" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
+						
+						$("#photo4").change(function(){
+				    		var reader = new FileReader();
+
+				    	    reader.onload = function (e) {
+				    	        // get loaded data and render thumbnail.
+				    	        document.getElementById("view4").src = e.target.result;
+				    	    };
+
+				    	    // read the image file as a data URL.
+				    	    reader.readAsDataURL(this.files[this.files.length-1]);
+				    	});
 					}
 					else{
 						var newArticle = $('<div class="content timeline-article">');
@@ -53,6 +90,18 @@ $(function(){
 						$(newArticle).prepend(right);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view5" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
+						
+						$("#photo5").change(function(){
+				    		var reader = new FileReader();
+
+				    	    reader.onload = function (e) {
+				    	        // get loaded data and render thumbnail.
+				    	        document.getElementById("view5").src = e.target.result;
+				    	    };
+
+				    	    // read the image file as a data URL.
+				    	    reader.readAsDataURL(this.files[this.files.length-1]);
+				    	});
 					}
 				}
 			});
@@ -92,52 +141,6 @@ $(function(){
 	    	    // read the image file as a data URL.
 	    	    reader.readAsDataURL(this.files[this.files.length-1]);
 	    	});
-			$("#photo2").change(function(){
-				console.log("done");
-	    		var reader = new FileReader();
-
-	    	    reader.onload = function (e) {
-	    	        // get loaded data and render thumbnail.
-	    	        document.getElementById("view2").src = e.target.result;
-	    	    };
-
-	    	    // read the image file as a data URL.
-	    	    reader.readAsDataURL(this.files[this.files.length-1]);
-	    	});
-			$("#photo3").change(function(){
-	    		var reader = new FileReader();
-
-	    	    reader.onload = function (e) {
-	    	        // get loaded data and render thumbnail.
-	    	        document.getElementById("view3").src = e.target.result;
-	    	    };
-
-	    	    // read the image file as a data URL.
-	    	    reader.readAsDataURL(this.files[this.files.length-1]);
-	    	});
-			$("#photo4").change(function(){
-	    		var reader = new FileReader();
-
-	    	    reader.onload = function (e) {
-	    	        // get loaded data and render thumbnail.
-	    	        document.getElementById("view4").src = e.target.result;
-	    	    };
-
-	    	    // read the image file as a data URL.
-	    	    reader.readAsDataURL(this.files[this.files.length-1]);
-	    	});
-			$("#photo5").change(function(){
-	    		var reader = new FileReader();
-
-	    	    reader.onload = function (e) {
-	    	        // get loaded data and render thumbnail.
-	    	        document.getElementById("view5").src = e.target.result;
-	    	    };
-
-	    	    // read the image file as a data URL.
-	    	    reader.readAsDataURL(this.files[this.files.length-1]);
-	    	});
-			
 		});
 
 

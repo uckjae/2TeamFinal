@@ -62,8 +62,8 @@ public class FrontController extends HttpServlet {
 		/* BOARD */
 		// Free Board
 		else if (url_Command.equals("/FreeBoardList.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/free/Main.jsp");
+			action = new FreeBoardListService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDetail.do")) {
 			
