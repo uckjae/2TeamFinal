@@ -296,32 +296,26 @@ public class BoardDao {
 	// 나만의 코스 게시판 글쓰기
 	public int courseWrite(Board board,MCBoard mCBoard,List<Photo> photos) {
 		int resultRow = 1;
-		System.out.println("1");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
 				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 3, ?, ?,?) ";
 		String mCBSql = "INSERT INTO MCBOARD (MCIDX,BIDX,LIKENUM) "
-				+ "VALUES (MCIDX_SEQ.NEXTVAL, BIDX_SEQ.CURVAL, 0)";
+				+ "VALUES (MCIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0)";
 		String photoSql = "INSERT INTO PHOTO (PHOTOID, BIDX, PHOTONAME) "
-				+ "VALUES (PHOTOID_SEQ.NEXTVAL, BIDX_SEQ.CURVAL,?)";
-		System.out.println("2");
+				+ "VALUES (PHOTOID_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL,?)";
 		try {
-			System.out.println("3");
 			conn = DBHelper.getConnection();
 			conn.setAutoCommit(false);
-			System.out.println("4");
 			pstmt = conn.prepareStatement(boardSql);
 			pstmt.setString(1, board.getId());
 			pstmt.setString(2, board.getTitle());
 			pstmt.setString(3, board.getContent());
 			resultRow*=pstmt.executeUpdate();
-			System.out.println("5" + resultRow);
 			
 			pstmt = conn.prepareStatement(mCBSql);
 			resultRow*=pstmt.executeUpdate();
-			System.out.println("6");
 			
 			for(Photo photo : photos) {
 				System.out.println("for 7");

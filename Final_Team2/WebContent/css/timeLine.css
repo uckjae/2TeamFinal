@@ -1,5 +1,10 @@
 @charset "EUC-KR";
 /*===== Vertical Timeline =====*/
+img.image2{
+	width: 100%;
+	height: 100%;
+}
+
 #conference-timeline {
   position: relative;
   max-width: 920px;
@@ -177,4 +182,5 @@
   }
   
 }
+
 /*===== // Resonsive Vertical Timeline =====*/
