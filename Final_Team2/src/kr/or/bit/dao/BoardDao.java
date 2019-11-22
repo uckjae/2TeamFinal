@@ -365,7 +365,7 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 글쓰기
-	public int insertQnABoard(String memberId, String title, String content, boolean isPublic) {
+	public int insertQnABoard(String memberId, String title, String content, int isPublic) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -387,7 +387,7 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 			pstmt = connection.prepareStatement(subSql);
-			pstmt.setBoolean(1, isPublic);
+			pstmt.setInt(1, isPublic);
 			pstmt.executeUpdate();
 
 			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";

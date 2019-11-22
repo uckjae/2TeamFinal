@@ -26,10 +26,6 @@
             });
 
             $('.note-statusbar').hide();
-          
-            $("#frm").submit(function(){
-            	console.log("val "+$(this).val())
-            })
         })
     </script>
 </head>
@@ -43,7 +39,7 @@
 
 	<c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
 	<c:choose>
-		<c:when test="${qnaWrite.id == null }">
+		<c:when test="${qnaWrite.bIdx > 0}">
 			<c:set var="isEdit" value="true"/>
 		</c:when>
 		<c:otherwise>
@@ -61,10 +57,14 @@
                 		Q & A 작성
                  	</c:otherwise>
                 </c:choose> 
-            
             </h1>
-            <form id="frm"  action="QnABoardWriteOk.do" class="p-5 bg-light" method="post">
+            <form action="QnABoardWriteOk.do?cmd=
+            	<c:choose>
+                	 <c:when test="${isEdit}">edit</c:when>
+                	<c:otherwise>write </c:otherwise>
+                </c:choose> " class="p-5 bg-light" method="post">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${qnaWrite.title}">
+                <input type="hidden" id="bIdx" name="bIdx" value="${qnaWrite.bIdx}">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">
                 	${ qnaWrite.content }
 				</textarea>
@@ -85,10 +85,10 @@
                 <div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 
-                		<input type="submit" class="btn btn-primary mr-3" value="작성">
+                		<input type="submit" class="btn btn-primary mr-3" value="수정">
                 	 </c:when>
                 	<c:otherwise> 
-                		<input type="submit" class="btn btn-primary mr-3" value="수정">
+                		<input type="submit" class="btn btn-primary mr-3" value="작성">
                  	</c:otherwise>
                 </c:choose> 
                     
