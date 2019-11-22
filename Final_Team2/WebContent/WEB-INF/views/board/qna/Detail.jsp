@@ -38,8 +38,8 @@
                 </textarea>
                 <div class="text-right">
                 	<c:if test="${qnaDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
-                		  <input type="submit" class="btn btn-primary" value="수정" onclick="location.href='QnABoardWrite.do?cmd=edit&bidx=${qnaDetail.bIdx}'">
-                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='QnABoardDelete.do?bIdx=${qnaDetail.bIdx}'">
+                		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='QnABoardWrite.do?cmd=edit&bidx=${qnaDetail.bIdx}'">
+                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='QnABoardDelete.do?bidx=${qnaDetail.bIdx}'">
                 	</c:if>
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='QnABoardList.do'" >
                 </div>
