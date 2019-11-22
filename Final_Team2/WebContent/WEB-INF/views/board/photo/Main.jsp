@@ -179,7 +179,7 @@
 		    			
     </section>
     <div class="container">
-    <a href="PhotoWrite.do">
+    <a href="PhotoWrite.do?cmd=write">
     	<input type="button" value="글작성" id="photo" name="photo">	
     </a>
     </div>

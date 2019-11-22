@@ -77,7 +77,7 @@
                     <tbody>
                         <tr>
                        		<td>1</td>
-                            <td class="sorting_1"><a href="#">HelloWorld</a></td>
+                            <td class="sorting_1"><a href="FreeBoardDetail.do">HelloWorld</a></td>
                             <td>19/11/22</td>
                             <td>Mr.uck</td>
                             <td>777</td>
