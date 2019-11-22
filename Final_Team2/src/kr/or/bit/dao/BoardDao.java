@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 import kr.or.bit.dto.MCBoard;
@@ -437,7 +439,40 @@ public class BoardDao {
 	// 나만의 코스 게시판
 	// 나만의 코스 게시판 게시글 목록보기
 	public List<MCBoard> courseList() {
-		return null;
+		List<MCBoard> mCBoardLists = new ArrayList<MCBoard>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT B.BIDX,B.ID,B.TITLE,B.CONTENT,B.WDATE,B.RNUM, MC.MCIDX, MC.LIKENUM FROM BOARD B JOIN MCBOARD MC ON B.BIDX = MC.BIDX";
+			conn = DBHelper.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MCBoard board = new MCBoard();
+				board.setbIdx(rs.getInt(1));
+				board.setId(rs.getString(2));
+				board.setTitle(rs.getString(3));
+				board.setContent(rs.getString(4));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+				board.setrNum(rs.getInt(6));
+				board.setmCidx(rs.getInt(7));
+				board.setLikeNum(rs.getInt(8));
+				mCBoardLists.add(board);
+			}
+			
+		}catch(Exception e) {//sqlexception, parseexception
+			System.out.println("courseList() : "+e);
+		}finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		
+		return mCBoardLists;
 	}
 
 	// 나만의 코스 게시판 게시글 상세보기
@@ -470,7 +505,6 @@ public class BoardDao {
 			resultRow*=pstmt.executeUpdate();
 			
 			for(Photo photo : photos) {
-				System.out.println("for 7");
 				pstmt = conn.prepareStatement(photoSql);
 				pstmt.setString(1, photo.getPhotoName());
 				resultRow *= pstmt.executeUpdate();
