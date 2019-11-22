@@ -15,7 +15,7 @@ public class MTLFolderListService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		BoardDao boardDao = new BoardDao();
-		List<MTList> mTList = boardDao.mTLFolderList(request.getParameter("id"));
+		List<MTList> mTList = boardDao.mTLFolderList(request.getParameter("userid"));
 		request.setAttribute("mTList", mTList);
 		
 		forward.setRedirect(false);
