@@ -67,7 +67,7 @@ public class BoardDao {
 				freeBoard.setId(resultSet.getString(2));
 				freeBoard.setTitle(resultSet.getString(3));
 				freeBoard.setContent(resultSet.getString(4));
-				freeBoard.setwDate(resultSet.getDate(5));
+				freeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(5)));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
 
@@ -90,10 +90,30 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "";
+		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM FROM FREEBOARD F JOIN BOARD B ON F.BIDX = B.BIDX WHERE B.BIDX=?";
 		
-		
-		return null;
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				freeBoard.setbIdx(resultSet.getInt(1));
+				freeBoard.setId(resultSet.getString(2));
+				freeBoard.setTitle(resultSet.getString(3));
+				freeBoard.setContent(resultSet.getString(4));
+				freeBoard.setwDate(resultSet.getDate(5));
+				freeBoard.setrNum(resultSet.getInt(6));
+				freeBoard.setfIdx(resultSet.getInt(7));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return freeBoard;
 	}
 
 	// 자유 게시판 글쓰기
@@ -148,6 +168,8 @@ public class BoardDao {
 
 	// 자유 게시판 게시글 삭제하기
 	public int freeContentDelete() {
+		
+		
 		return 0;
 	}
 
@@ -302,7 +324,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(rs.getDate(5));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
@@ -365,7 +387,7 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 글쓰기
-	public int insertQnABoard(String memberId, String title, String content, boolean isPublic) {
+	public int insertQnABoard(String memberId, String title, String content, int isPublic) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -387,7 +409,7 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 			pstmt = connection.prepareStatement(subSql);
-			pstmt.setBoolean(1, isPublic);
+			pstmt.setInt(1, isPublic);
 			pstmt.executeUpdate();
 
 			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
@@ -451,8 +473,40 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 게시글 수정하기
-	public int updateQnABoard() {
-		return 0;
+	public boolean updateQnABoard(int bIdx, String title, String content, int isPublic) {
+		int resultRow=0;
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
+		String qnaSql = "UPDATE QNABOARD SET ISPUBLIC = ? WHERE BIDX = ? ";
+		
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement(boardSql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(qnaSql);
+			pstmt.setInt(1, isPublic);
+			pstmt.setInt(2, bIdx);
+			resultRow = pstmt.executeUpdate();
+			
+			connection.commit();
+		} catch (Exception e) {
+			try { connection.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
+
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
 	}
 
 	//// Q&A 게시판 끝
@@ -501,14 +555,11 @@ public class BoardDao {
 			
 			System.out.println("e : " + e.getMessage());
 		}finally {
-		DBHelper.close(conn);
-		DBHelper.close(pstmt);
+			DBHelper.close(conn);
+			DBHelper.close(pstmt);
 		}
 		
-		
 		return result;
-		
-
 	}
 
 	// 포토 게시판 게시글 조회수 증가
