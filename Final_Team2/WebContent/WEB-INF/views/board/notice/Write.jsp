@@ -39,7 +39,7 @@
     
     <div id="pageContainer">
        <div style="padding-top: 40px; text-align: center">
-    <form name="NTB" action="DetailOk.jsp" method="POST">
+    <form name="NTB" action="WriteOk.jsp" method="POST">
       <table width="80%" border="0" align="center">
          <tr>
             

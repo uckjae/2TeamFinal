@@ -12,11 +12,16 @@
         body {
             height: 100%;
         }
+        .center {
+		  text-align: center;
+		}
     </style>
 
     <script type="text/javascript">
         $(function () {
-            let table = $('#dataTable').DataTable();
+            let table = $('#dataTable').DataTable({
+            	 stateSave: true, // 페이지 상태 저장
+            });
 
             $('#dataTable_filter').prepend(
                 '<select id="select" class="custom-select" style="margin-right : 10px; width: 100px"></select>');
@@ -58,42 +63,36 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
+    <c:set var="qnaList" value="${requestScope.qnaList}"/>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable">
+                <table class="table table-bordered hover" id="dataTable">
                     <thead>
                         <tr>
-                            <th>EMPNO</th>
-                            <th>ENAME</th>
-                            <th>DEPTNO</th>
-                            <th>HIREDATE</th>
-                            <th class="iconColumn" data-orderable="false">EDIT</th>
-                            <th class="iconColumn" data-orderable="false">DELETE</th>
+                            <th>NO</th>
+                            <th>TITLE</th>
+                            <th>WRITE DATE</th>
+                            <th>WRITER</th>
+                            <th>VIEWS</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr>
-                            <td class="sorting_1"><a href="#">EMPNO</a></td>
-                            <td>EMPNO</td>
-                            <td>EMPNO</td>
-                            <td>EMPNO</td>
-                            <td class="iconColumn">
-                                <a href="#">
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
-                            </td>
-                            <td class="iconColumn">
-                                <a href="#" data-toggle="modal" data-target="#deleteModal" data-delete-id="">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
+                    <c:forEach var="board" items="${qnaList}">
+                    	<tr>
+                            <td>${board.qIdx}</td>
+                            <td class="sorting_1"><a href="#">${board.title}</a></td>
+                            <td>${board.wDate}</td>
+                            <td>${board.id}</td>
+                            <td>${board.rNum}</td>
                         </tr>
-
-                    </tbody>
+                    </c:forEach>
+                   </tbody>
                 </table>
+				<div class="text-right mt-3">
+				<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
+				</div>
             </div>
         </div>
     </div>

@@ -21,11 +21,11 @@ public class QnABoardListService implements Action {
 		ActionForward forward = new ActionForward();
 
 		BoardDao dao = new BoardDao();
-		List<QnABoard> qnalist = dao.getQnABoards();
-		request.setAttribute("qnalist", qnalist);
-		
-		forward.setPath("/WEB-INF/views/qna/Main.jsp");
-		
+		List<QnABoard> qnaList = dao.getQnABoards();
+
+		request.setAttribute("qnaList", qnaList);
+		forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
+
 		return forward;
 	}
 }
