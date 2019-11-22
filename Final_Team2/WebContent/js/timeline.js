@@ -14,20 +14,20 @@ $(function(){
 					if(articles%2!=0){
 						var newArticle = $('<div class="timeline-article">');
 						var right = $('<div class="content-right-container">');
-						$(right).prepend($('<input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(right).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo" name="photo" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text(num));
-						$(right).prepend($('<textarea name="content" form="inform" cols="40" rows="5">'));
+						$(right).prepend($('<textarea name="content" form="inform" cols="25" rows="5">'));
 						$(newArticle).prepend(right);
 						$("#inputForm").append(newArticle);
 					}
 					else{
 						var newArticle = $('<div class="timeline-article">');
 						var right = $('<div class="content-left-container">');
-						$(right).prepend($('<input type="text" name="spot" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(right).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo" name="photo" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text("0"+num));
-						$(right).prepend($('<textarea name="content" form="inform" cols="40" rows="5">'));
+						$(right).prepend($('<textarea name="content" form="inform" cols="25" rows="5">'));
 						$(newArticle).prepend(right);
 						$("#inputForm").append(newArticle);
 					}

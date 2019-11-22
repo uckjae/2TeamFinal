@@ -5,16 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.dao.BoardDao;
 
-public class FreeBoardWriteService implements Action{
-
+public class PhotoBoardWriteService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
+
+		String title = request.getParameter("title");
+		BoardDao dao = new BoardDao();
 		
-		
-		
-		return null;
+		return forward;
 	}
-	
 }
