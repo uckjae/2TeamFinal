@@ -171,7 +171,7 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 삭제하기
-	public boolean freeBoardDelete() {
+	public boolean freeBoardDelete(int bIdx) {
 		int resultRow = 0;
 		
 		Connection connection = DBHelper.getConnection();
@@ -194,7 +194,11 @@ public class BoardDao {
 				connection.commit();
 			}
 		}catch(Exception e) {
-			connection.rollback();
+			try {
+				connection.rollback();
+			}catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally {
 			DBHelper.close(pstmt);

@@ -31,7 +31,7 @@
                                 <label for="#">ID</label>
                                 <div class="form-field">
                                     <div class="icon"><span class="ion-ios-search"></span></div>
-                                    <input type="text" class="form-control" id="id" name="id" placeholder="enter your id">
+                                    <input type="text" class="form-control" id="id" name="id" placeholder="enter your id" autofocus>
                                 </div>
                             </div>
                         </div>
