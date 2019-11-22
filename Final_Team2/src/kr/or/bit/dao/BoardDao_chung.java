@@ -475,8 +475,30 @@ public class BoardDao_chung {
 	}
 
 	// 여행리스트 추가하기
-	public int mTListContentAdd() {
-		return 0;
+	public int mTListContentAdd(MTLContent mTLContent) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int resultRow = 0;
+		String sql = "insert into mtlcontent (tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink) values \r\n" + 
+				"(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'mm/dd'),?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, mTLContent.gettLidx());
+			pstmt.setString(2, mTLContent.getSpotName());
+			pstmt.setString(3, mTLContent.getImage());
+			pstmt.setDate(4, (Date) mTLContent.getSpotDate());
+			pstmt.setString(5, mTLContent.getSpotAddr());
+			pstmt.setString(6, mTLContent.getSpotLink());
+			
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		return resultRow;
 	}
 
 	// 여행리스트 삭제하기

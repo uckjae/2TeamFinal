@@ -27,7 +27,6 @@
     <div class="conference-timeline-content">
       <!-- Article -->
       
-      <input type="text" name="title">
       <div class="timeline-article">
         <div class="content-left-container">
             <textarea name="contentarea" form="inform" cols="25" rows="5"></textarea>

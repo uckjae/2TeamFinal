@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -190,7 +191,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(rs.getDate(5));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
@@ -214,7 +215,6 @@ public class BoardDao {
 
 	// Q&A 게시판 게시글 상세보기
 	public QnABoard getQnABoard(int bIdx) {
-		System.out.println("init");
 		QnABoard board = null;
 		System.out.println("bIdx "+bIdx);
 		Connection connection = DBHelper.getConnection();
@@ -236,7 +236,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(rs.getDate(5));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
