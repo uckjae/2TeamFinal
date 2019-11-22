@@ -190,8 +190,9 @@ public class BoardDao {
 
 	// Q&A 게시판 게시글 상세보기
 	public QnABoard getQnABoard(int bIdx) {
+		System.out.println("init");
 		QnABoard board = null;
-		
+		System.out.println("bIdx "+bIdx);
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
