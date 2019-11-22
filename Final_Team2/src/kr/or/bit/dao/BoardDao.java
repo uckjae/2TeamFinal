@@ -84,8 +84,8 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 상세보기
-	public FreeBoard freeBoardContent() {
-
+	public FreeBoard freeBoardDetail(int bIdx) {
+		
 		return null;
 	}
 
