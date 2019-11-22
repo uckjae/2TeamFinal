@@ -82,7 +82,8 @@
                     	<tr>
                             <td>${board.bIdx}</td>
                             <td class="sorting_1"><a href="QnABoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
-                            <td>${board.wDate}
+                            <td>
+                            	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             </td>
                             <td>${board.id}</td>
                             <td>${board.rNum}</td>
@@ -90,9 +91,11 @@
                     </c:forEach>
                    </tbody>
                 </table>
-				<div class="text-right mt-3">
-				<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
-				</div>
+                <c:if test="${sessionScope.memberId !=null}">
+                	<div class="text-right mt-3">
+						<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
+					</div>
+                </c:if>
             </div>
         </div>
     </div>
