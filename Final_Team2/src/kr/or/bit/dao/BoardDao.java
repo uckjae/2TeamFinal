@@ -167,9 +167,45 @@ public class BoardDao {
 	// 공지사항
 	// 공지 게시판 게시글 목록보기
 	public List<NoticeBoard> noticeList() {
-		return null;
-	}
+		List<QnABoard> boards = new ArrayList<>();;
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, Q.QIDX, Q.ISPUBLIC "
+						+"  	FROM BOARD B JOIN QNABOARD Q ON B.BIDX = Q.BIDX "
+						+" WHERE B.BCODE = 2";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				QnABoard board = new QnABoard();
+				board.setbIdx(rs.getInt(1));
+				board.setId(rs.getString(2));
+				board.setTitle(rs.getString(3));
+				board.setContent(rs.getString(4));
+				board.setwDate(rs.getDate(5));
+				board.setrNum(rs.getInt(6));
+				board.setqIdx(rs.getInt(7));
+				board.setPublic(rs.getBoolean(8));
+				
+				boards.add(board);
+			}
+			
+		}catch (Exception e) {
+			try { connection.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
 
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return boards;
+	}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeContent() {
 		return null;
