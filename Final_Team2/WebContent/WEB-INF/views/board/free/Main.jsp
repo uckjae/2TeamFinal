@@ -57,6 +57,7 @@
     <c:import url="/common/Top.jsp" />
     
 	<!-- Contant -->
+	<c:set var="freeList" value="${requestScope.freeBoardList}"></c:set>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread"> 자유 게시판 </h1>
@@ -75,8 +76,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="sorting_1"><a href="#">1</a></td>
-                            <td>HelloWorld</td>
+                       		<td>1</td>
+                            <td class="sorting_1"><a href="#">HelloWorld</a></td>
                             <td>19/11/22</td>
                             <td>Mr.uck</td>
                             <td>777</td>
@@ -91,6 +92,15 @@
                                 </a>
                             </td>
                         </tr>
+                        <c:forEach var="board" items="${freeList}">
+                        	<tr>
+                        		<td>${board.bIdx}</td>
+                        		<td>${board.title}</td>
+                        		<td>${board.wDate}</td>
+                        		<td>${board.id}</td>
+                        		<td>${board.rNum}</td>
+                        	</tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
