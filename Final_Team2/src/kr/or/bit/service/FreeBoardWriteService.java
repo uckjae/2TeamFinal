@@ -15,10 +15,8 @@ public class FreeBoardWriteService implements Action{
 		String id = (String)request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
 		BoardDao dao = new BoardDao();
 		boolean write = dao.freeContentWrite(id, title, content);
-		
 		String msg = "";
 		String url = "";
 		if (write) {
@@ -28,12 +26,10 @@ public class FreeBoardWriteService implements Action{
 			msg = "게시글 작성 실패";
 			url = "FreeBoardWrite.do";
 		}
-
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
 
 		forward.setPath("/common/Redirect.jsp");
-		
 		return forward;
 	}
 	
