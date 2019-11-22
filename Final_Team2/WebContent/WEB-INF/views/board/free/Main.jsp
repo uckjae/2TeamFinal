@@ -93,7 +93,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="WEB-INF/views/board/free/Write.jsp">
+            <a href="FreeBoardWrite.do">
             	<input type="button" value="글쓰기" id="fboad" name="fboard">
             </a>
         </div>
