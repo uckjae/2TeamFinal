@@ -28,7 +28,7 @@
     <div class="container">
     <div id="main">
 	<br><br><br><br> 
-		<h1><i class="flaticon-world"></i> &nbsp; &nbsp;나의 여행 리스트</h1>
+		<h1><i class="flaticon-world mr-3"></i>나의 여행 리스트</h1>
 	<br>	 
     		   <ul class="comment-list">
                 <li class="comment">
@@ -38,8 +38,8 @@
                   <div class="comment-body">
                     <h4>딸기축제</h4>
                     <div class="meta">2/12</div>
-                    <p> 경기도 성남시 이조네 딸기밭 &nbsp; &nbsp; &nbsp;
-                    <a href="#"  class= "btn btn-primary">www.berry.com</a>                    
+                    <p> 경기도 성남시 이조네 딸기밭 
+                    <a href="#"  class= "btn btn-primary ml-3 mr-3">www.berry.com</a>                    
                     <button type="button" class="btn btn-secondary">삭제</button>                    
                     </p>
                   </div>
