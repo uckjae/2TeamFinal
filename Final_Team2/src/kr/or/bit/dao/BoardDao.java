@@ -42,7 +42,7 @@ public class BoardDao {
 		//select max(board_num) from board
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
-		String referNum = "SELECT MAX(FIDX) FROM FREEBOARD";
+		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUE(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
 		try {
@@ -50,8 +50,6 @@ public class BoardDao {
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
-			}else{
-				refer = 1;
 			}
 		
 			connection.setAutoCommit(false);

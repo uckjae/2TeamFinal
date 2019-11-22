@@ -93,6 +93,9 @@
                     </tbody>
                 </table>
             </div>
+            <a href="WEB-INF/views/board/free/Write.jsp">
+            	<input type="button" value="글쓰기" id="fboad" name="fboard">
+            </a>
         </div>
     </div>
 </body>
