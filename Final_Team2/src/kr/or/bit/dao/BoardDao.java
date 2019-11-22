@@ -90,10 +90,30 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "";
+		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM FROM FREEBOARD F JOIN BOARD B ON F.BIDX = B.BIDX WHERE B.BIDX=?";
 		
-		
-		return null;
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				freeBoard.setbIdx(resultSet.getInt(1));
+				freeBoard.setId(resultSet.getString(2));
+				freeBoard.setTitle(resultSet.getString(3));
+				freeBoard.setContent(resultSet.getString(4));
+				freeBoard.setwDate(resultSet.getDate(5));
+				freeBoard.setrNum(resultSet.getInt(6));
+				freeBoard.setfIdx(resultSet.getInt(7));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return freeBoard;
 	}
 
 	// 자유 게시판 글쓰기
