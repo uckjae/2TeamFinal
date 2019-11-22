@@ -58,11 +58,11 @@ public class MyCourseBoardWriteService implements Action{
 			 */
 			for(int i=0; i<multi.getParameterValues("content").length; i++) {
 				content.append("\"\'\\/"+id+"\"\'\\/"+"contentarea");
-				content.append(multi.getParameterValues("contentarea")[i]);
+				//content.append(multi.getParameterValues("contentarea")[i]);
 				content.append("\"\'\\/"+id+"\"\'\\/"+"spot");
-				content.append(multi.getParameterValues("content")[i]);
+				//content.append(multi.getParameterValues("content")[i]);
 			}
-			
+			System.out.println("MyCourseBoardWriteService 65 : "+id);
 			board.setbIdx(bIdx);
 			board.setId(id);
 			board.setTitle(title);
