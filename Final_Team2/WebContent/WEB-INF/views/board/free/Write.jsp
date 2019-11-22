@@ -34,10 +34,12 @@
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">게시글 작성</h1>
-            <form action="FreeBoardWrite.do" class="p-5 bg-light" method="post">
+            <form action="FreeBoardWriteOk.do" class="p-5 bg-light" method="post">
             	<table class="table table-bordered" id="dataTable">
             		<tr>
                 		<td><input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목"></td>
+               		</tr>
+               		<tr>
                			<td><textarea rows="10" cols="60" id="summernote" name="summernote"></textarea></td>
                		</tr>
                	</table>
