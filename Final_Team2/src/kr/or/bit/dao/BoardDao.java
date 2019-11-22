@@ -363,6 +363,7 @@ public class BoardDao {
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
 			System.out.println("title : " + title);
+			
 			pstmt = conn.prepareStatement(photoSql);
 			pstmt.setString(1, photoName);
 			
