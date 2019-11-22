@@ -13,10 +13,23 @@ public class FreeBoardDeleteService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
+		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+		
 		BoardDao dao = new BoardDao();
+		boolean freeBoardDelete = dao.freeBoardDelete();
 		
+		String msg = "";
+		if(freeBoardDelete) {
+			msg = "게시글 삭제 완료";
+		} else {
+			msg = "게시글 삭제 실패";
+		}
+		request.setAttribute("board_msg", msg);
+		request.setAttribute("board_url", "FreeBoardList.do");
+
+		forward.setPath("/common/Redirect.jsp");
 		
-		return null;
+		return forward;
 	}
 	
 }

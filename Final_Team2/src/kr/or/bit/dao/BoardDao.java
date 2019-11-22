@@ -24,10 +24,12 @@ public class BoardDao {
 	// 자유 게시판
 	// 총 게시글 수 구하기
 	public int freeBoardTotalBoardCount() {
+		int totalcount = 0;
+		
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
-		int totalcount = 0;
+
 		try {
 			connection = DBHelper.getConnection(); 
 			String sql="SELECT COUNT(*) CNT FROM FREEBOARD";
@@ -120,13 +122,15 @@ public class BoardDao {
 	public boolean freeContentWrite(String id, String title, String content) {
 		int resultRow = 0;
 		int refer = 0;
+		
 		Connection connection = DBHelper.getConnection();
-		//select max(board_num) from board
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
+		
 		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
+		
 		try {
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
@@ -139,7 +143,8 @@ public class BoardDao {
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
-			resultRow = pstmt.executeUpdate();
+			pstmt.executeUpdate();
+			
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
@@ -157,7 +162,6 @@ public class BoardDao {
 			DBHelper.close(resultSet);
 			DBHelper.close(connection);
 		}
-
 		return resultRow > 0 ? true : false;
 	}
 
@@ -167,10 +171,36 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 삭제하기
-	public int freeContentDelete() {
+	public boolean freeBoardDelete() {
+		int resultRow = 0;
 		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
 		
-		return 0;
+		String fsql = "DELETE FROM FREEBOARD WHERE BIDX=?";
+		String bsql = "DELETE FROM BOARD WHERE BIDX=?";
+		
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement(fsql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(bsql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+			
+			if(resultRow > 0) {
+				connection.commit();
+			}
+		}catch(Exception e) {
+			connection.rollback();
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return resultRow > 0 ? true : false;
 	}
 
 	// 자유 게시판 게시글 수정하기

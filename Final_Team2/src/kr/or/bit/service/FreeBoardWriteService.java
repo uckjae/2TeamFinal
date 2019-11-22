@@ -12,11 +12,14 @@ public class FreeBoardWriteService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
+		
 		String id = (String)request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		
 		BoardDao dao = new BoardDao();
 		boolean write = dao.freeContentWrite(id, title, content);
+		
 		String msg = "";
 		String url = "";
 		if (write) {
