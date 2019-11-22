@@ -610,7 +610,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
 		String sql = "insert into mtlcontent (tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink) values \r\n" + 
-				"(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'mm/dd'),?,?)";
+				"(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'yyyy-mm-dd'),?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
