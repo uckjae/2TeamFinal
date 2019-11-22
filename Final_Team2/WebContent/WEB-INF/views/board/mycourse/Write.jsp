@@ -10,14 +10,22 @@
 	<link rel="stylesheet" href="css/timeLine.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="js/timeline.js"></script>
+	<script type="text/javascript">
+		$(function (){
+			$("#contentarea").keypress(function() {
+				console.log($("#contentarea").html());
+			})
+		});
 	
+	
+	</script>
 <title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-	<form id="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
+	<form id="inputForm" name="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
 	<input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
@@ -29,7 +37,7 @@
       
       <div class="timeline-article">
         <div class="content-left-container">
-            <textarea name="contentarea" form="inform" cols="25" rows="5"></textarea>
+            <textarea name="area" cols="25" rows="5" form="inputForm"></textarea>
              <span class="article-number">01</span>
           <input type="file" id="photo0" name="photo0" accept="image/*">
           <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
@@ -45,7 +53,7 @@
       <div class="content timeline-article">
         
         <div class="content-right-container">
-          <textarea name="contentarea" form="inform" cols="25" rows="5"></textarea>
+          <textarea id="area" name="area" cols="25" rows="5" form="inputForm"></textarea>
              <span class="article-number">02</span>
           <input type="file" id="photo1" name="photo1" accept="image/*">
           <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
