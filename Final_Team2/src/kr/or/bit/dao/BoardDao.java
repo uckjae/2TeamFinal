@@ -28,7 +28,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT FIDX, TITLE, WDATE, ID, RNUM FROM BOARD";
+		String sql = "SELECT FIDX, TITLE, WDATE, ID, RNUM FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX;";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
