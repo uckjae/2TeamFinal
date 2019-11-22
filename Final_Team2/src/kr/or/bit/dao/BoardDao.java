@@ -385,7 +385,7 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 글쓰기
-	public int insertQnABoard(String memberId, String title, String content, boolean isPublic) {
+	public int insertQnABoard(String memberId, String title, String content, int isPublic) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -407,7 +407,7 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 			pstmt = connection.prepareStatement(subSql);
-			pstmt.setBoolean(1, isPublic);
+			pstmt.setInt(1, isPublic);
 			pstmt.executeUpdate();
 
 			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
@@ -471,8 +471,40 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 게시글 수정하기
-	public int updateQnABoard() {
-		return 0;
+	public boolean updateQnABoard(int bIdx, String title, String content, int isPublic) {
+		int resultRow=0;
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
+		String qnaSql = "UPDATE QNABOARD SET ISPUBLIC = ? WHERE BIDX = ? ";
+		
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement(boardSql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(qnaSql);
+			pstmt.setInt(1, isPublic);
+			pstmt.setInt(2, bIdx);
+			resultRow = pstmt.executeUpdate();
+			
+			connection.commit();
+		} catch (Exception e) {
+			try { connection.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
+
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
 	}
 
 	//// Q&A 게시판 끝

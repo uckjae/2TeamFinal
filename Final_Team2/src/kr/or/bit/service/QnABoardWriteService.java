@@ -23,7 +23,8 @@ public class QnABoardWriteService implements Action {
 		String cmd = request.getParameter("cmd");
 
 		if (cmd.equals("write")) {
-			qnaWrite = new QnABoard();			
+			qnaWrite = new QnABoard();
+			qnaWrite.setbIdx(-1);
 		}
 		else if (cmd.equals("edit")) {
 			int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
