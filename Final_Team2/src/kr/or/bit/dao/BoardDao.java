@@ -322,7 +322,7 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setwDate(rs.getDate(5));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
@@ -553,14 +553,11 @@ public class BoardDao {
 			
 			System.out.println("e : " + e.getMessage());
 		}finally {
-		DBHelper.close(conn);
-		DBHelper.close(pstmt);
+			DBHelper.close(conn);
+			DBHelper.close(pstmt);
 		}
 		
-		
 		return result;
-		
-
 	}
 
 	// 포토 게시판 게시글 조회수 증가
