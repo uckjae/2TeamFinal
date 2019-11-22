@@ -21,6 +21,33 @@ import kr.or.bit.utils.DBHelper;
 public class BoardDao {
 
 	// 자유 게시판
+	// 총 게시글 수 구하기
+	public int totalBoardCount() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalcount = 0;
+		try {
+			conn = ds.getConnection(); //dbcp 연결객체 얻기
+			String sql="select count(*) cnt from jspboard";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				totalcount = rs.getInt("cnt");
+			}
+		}catch (Exception e) {
+			
+		}finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();//반환  connection pool 에 반환하기
+			}catch (Exception e) {
+				
+			}
+		}
+		return totalcount;
+	}
 	// 자유 게시판 게시글 목록보기
 	public List<FreeBoard> freeBoardList() {
 		List<FreeBoard> freeBoardList = new ArrayList<FreeBoard>();
