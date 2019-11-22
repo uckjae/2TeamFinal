@@ -502,8 +502,22 @@ public class BoardDao_chung {
 	}
 
 	// 여행리스트 삭제하기
-	public int mTListContentDelete() {
-		return 0;
+	public int mTListContentDelete(int tLCidx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int resultRow = 0;
+		String sql = "delete from mtlcontent where tLCidx = ?";	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tLCidx);
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		return resultRow;
 	}
 	// 내 여행리스트 끝
 
