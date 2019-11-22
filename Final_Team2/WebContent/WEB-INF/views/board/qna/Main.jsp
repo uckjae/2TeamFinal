@@ -90,7 +90,7 @@
                     </c:forEach>
                    </tbody>
                 </table>
-				<div class="text-right">
+				<div class="text-right mt-3">
 				<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
 				</div>
             </div>

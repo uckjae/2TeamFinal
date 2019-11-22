@@ -22,9 +22,8 @@ public class QnABoardListService implements Action {
 
 		BoardDao dao = new BoardDao();
 		List<QnABoard> qnaList = dao.getQnABoards();
-		System.out.println("size : " + qnaList.size());
-		request.setAttribute("qnaList", qnaList);
 
+		request.setAttribute("qnaList", qnaList);
 		forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
 
 		return forward;

@@ -17,19 +17,22 @@ public class QnABoardWriteService implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		QnABoard board = new QnABoard();
-		String cmd=(String) request.getSession().getAttribute("cmd");
-		if(cmd.equals("write")) {
-			
-		}else if (cmd.equals("edit")){
+
+		QnABoard qnaBoard = null;
+
+		String cmd = request.getParameter("cmd");
+
+		if (cmd.equals("write")) {
+			qnaBoard = new QnABoard();
+		} else if (cmd.equals("edit")) {
 			String title = request.getParameter("title");
 			String content = request.getParameter("summernote");
 			Boolean isPublic = Integer.parseInt(request.getParameter("isPublic")) == 0 ? false : true;
 		}
 
+		request.setAttribute("qnaBoard", qnaBoard);
+		forward.setPath("/WEB-INF/views/board/qna/Write.jsp");
 
-		forward.setPath("/common/Redirect.jsp");
-		
 		return forward;
 	}
 }
