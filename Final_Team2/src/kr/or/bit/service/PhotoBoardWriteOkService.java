@@ -28,7 +28,7 @@ public class PhotoBoardWriteOkService implements Action{
 			String memberId = (String)request.getSession().getAttribute("memberId");
 			String content = multi.getParameter("content");
 			String title = multi.getParameter("title");
-			String photoName = multi.getParameter("Photo");
+			String photoName = multi.getFilesystemName("Photo");
 			BoardDao dao = new BoardDao();
 			int result = dao.photoWrite(memberId, title, content, photoName);
 			System.out.println("이거 : " + content);
