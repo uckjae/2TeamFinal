@@ -435,16 +435,43 @@ public class BoardDao_chung {
 	// 여행리스트 폴더 삭제하기
 	//계층형 삭제 여행리스트 먼저 삭제하고 폴더 삭제하기
 	public int mTLFolderDelete(int tLidx) {
-		Connection  conn = null;
+		Connection  conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
+		int resultRow = 0;
 		
-		return 0;
+		return resultRow;
 	}
 
 	// 여행리스트 상세보기
-	public MTLContent mTListContent() {
-		
-		return null;
+	public List<MTLContent> mTListContent(int tLidx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MTLContent> mTLContentList = new ArrayList<MTLContent>();
+		String sql = "select tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink from mtlcontent where tlidx = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tLidx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MTLContent mTLContent = new MTLContent();
+				mTLContent.settLCidx(rs.getInt(1));
+				mTLContent.settLidx(rs.getInt(2));
+				mTLContent.setSpotName(rs.getString(3));
+				mTLContent.setImage(rs.getString(4));
+				mTLContent.setSpotDate(rs.getDate(5));
+				mTLContent.setSpotAddr(rs.getString(6));
+				mTLContent.setSpotLink(rs.getString(7));			
+				mTLContentList.add(mTLContent);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(rs);
+			DBHelper.close(conn);
+		}		
+		return mTLContentList;
 	}
 
 	// 여행리스트 추가하기
