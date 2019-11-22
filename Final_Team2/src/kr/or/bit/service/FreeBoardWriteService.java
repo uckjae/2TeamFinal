@@ -22,10 +22,10 @@ public class FreeBoardWriteService implements Action{
 		String msg = "";
 		String url = "";
 		if (write) {
-			msg = "게시글 작성 완료!";
+			msg = "게시글 작성 완료";
 			url = "FreeBoardDetail.do";
 		} else {
-			msg = "Q & A 작성 실패! 글 작성 페이지로 재 이동합니다.";
+			msg = "게시글 작성 실패";
 			url = "FreeBoardWrite.do";
 		}
 

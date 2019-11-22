@@ -24,7 +24,34 @@
             
             $('.note-statusbar').hide();
         })
-    </script>
+        
+ 
+		function check() {
+			if (!bbs.title.value) {
+				alert("제목을 입력하세요");
+				bbs.subject.focus();
+				return false;
+			}
+			if (!bbs.summernote.value) {
+				alert("글 내용을 입력하세요");
+				bbs.writer.focus();
+				return false;
+			}
+			/* if(!bbs.content.value){            
+				alert("글 내용을 입력하세요");
+				bbs.content.focus();
+				return false;
+			} 
+			if (!bbs.pwd.value) {
+				alert("비밀번호를 입력하세요");
+				bbs.pwd.focus();
+				return false;
+			} */
+
+			document.bbs.submit();
+
+		}
+				</script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <!-- Top -->
