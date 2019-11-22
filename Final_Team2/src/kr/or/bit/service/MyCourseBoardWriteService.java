@@ -52,17 +52,15 @@ public class MyCourseBoardWriteService implements Action{
 			id = (String)request.getSession().getAttribute("memberId");
 			System.out.println("MyCourseBoardWriteService : " + id);
 			title = multi.getParameter("title");
-			/*
-			 * for(String text : multi.getParameterValues("content")) {
-			 * content.append(text); content.append("\"\'\\/"+id+"\"\'\\/"); }
-			 */
+			
+			System.out.println("MCBoardWriteService 59 : "+multi.getParameterValues("contentarea"));
 			for(int i=0; i<multi.getParameterValues("content").length; i++) {
 				content.append("\"\'\\/"+id+"\"\'\\/"+"contentarea");
 				content.append(multi.getParameterValues("contentarea")[i]);
 				content.append("\"\'\\/"+id+"\"\'\\/"+"spot");
 				content.append(multi.getParameterValues("content")[i]);
 			}
-			
+			System.out.println("MyCourseBoardWriteService 65 : "+id);
 			board.setbIdx(bIdx);
 			board.setId(id);
 			board.setTitle(title);
