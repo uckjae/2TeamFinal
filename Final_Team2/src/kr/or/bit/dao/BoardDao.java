@@ -223,9 +223,47 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기
-	public int noticeWrite() {
-		return 0;
-	}
+	// 공지 게시판 글쓰기	
+			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
+				int resultRow = 0;
+				Connection connection = DBHelper.getConnection();
+				PreparedStatement pstmt = null;
+
+				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
+						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
+				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
+						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0) ";
+
+				try {
+					connection.setAutoCommit(false);
+
+					pstmt = connection.prepareStatement(Sql1);
+					pstmt.setString(1, Id);
+					pstmt.setString(2, title);
+					pstmt.setString(3, content);
+					pstmt.executeUpdate();
+
+					pstmt = connection.prepareStatement(Sql2);
+					pstmt.setBoolean(0, isTop);
+
+					resultRow = pstmt.executeUpdate();
+					connection.commit();
+				} catch (Exception e) {
+					try {
+						connection.rollback();
+						} 
+					catch (SQLException e1) {
+						e1.printStackTrace();
+						}
+
+					e.printStackTrace();
+				}finally {
+					DBHelper.close(pstmt);
+					DBHelper.close(connection);
+				}
+
+				return resultRow > 0 ? true : false;
+			}
 
 	// 공지 게시판 게시글 조회수 증가
 	public boolean getNoticeReadNum() {
