@@ -167,7 +167,7 @@ public class BoardDao {
 	// 공지사항
 	// 공지 게시판 게시글 목록보기
 	public List<NoticeBoard> noticeList() {
-		List<QnABoard> boards = new ArrayList<>();;
+		List<NoticeBoard> nboard = new ArrayList<>();;
 		
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
@@ -190,7 +190,7 @@ public class BoardDao {
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
 				
-				boards.add(board);
+				nboard.add(board);
 			}
 			
 		}catch (Exception e) {
@@ -204,7 +204,7 @@ public class BoardDao {
 			DBHelper.close(connection);
 		}
 		
-		return boards;
+		return nboard;
 	}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeContent() {
