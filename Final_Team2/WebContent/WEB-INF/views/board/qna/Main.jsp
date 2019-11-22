@@ -63,7 +63,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <c:set var="qnalist" value="${requestScope.qnalist}"/>
+    <c:set var="qnaList" value="${requestScope.qnaList}"/>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>
@@ -79,7 +79,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="board" items="${qnalist }">
+                    <c:forEach var="board" items="${qnaList}">
                     	<tr>
                             <td>${board.qIdx}</td>
                             <td class="sorting_1"><a href="#">${board.title}</a></td>
@@ -91,7 +91,7 @@
                    </tbody>
                 </table>
 				<div class="text-right">
-				<a href="QnABoardWrite.do?cmd=write&memberId" class="btn btn-primary"> 글작성 </a>
+				<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
 				</div>
             </div>
         </div>
