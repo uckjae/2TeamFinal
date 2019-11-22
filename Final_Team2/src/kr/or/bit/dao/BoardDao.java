@@ -84,8 +84,15 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 상세보기
-	public FreeBoard freeBoardContent() {
-
+	public FreeBoard freeBoardDetail(int bIdx) {
+		FreeBoard freeBoard = new FreeBoard();
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+		
+		String sql = "";
+		
+		
 		return null;
 	}
 
@@ -216,9 +223,47 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기
-	public int noticeWrite() {
-		return 0;
-	}
+	// 공지 게시판 글쓰기	
+			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
+				int resultRow = 0;
+				Connection connection = DBHelper.getConnection();
+				PreparedStatement pstmt = null;
+
+				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
+						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
+				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
+						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0) ";
+
+				try {
+					connection.setAutoCommit(false);
+
+					pstmt = connection.prepareStatement(Sql1);
+					pstmt.setString(1, Id);
+					pstmt.setString(2, title);
+					pstmt.setString(3, content);
+					pstmt.executeUpdate();
+
+					pstmt = connection.prepareStatement(Sql2);
+					pstmt.setBoolean(0, isTop);
+
+					resultRow = pstmt.executeUpdate();
+					connection.commit();
+				} catch (Exception e) {
+					try {
+						connection.rollback();
+						} 
+					catch (SQLException e1) {
+						e1.printStackTrace();
+						}
+
+					e.printStackTrace();
+				}finally {
+					DBHelper.close(pstmt);
+					DBHelper.close(connection);
+				}
+
+				return resultRow > 0 ? true : false;
+			}
 
 	// 공지 게시판 게시글 조회수 증가
 	public boolean getNoticeReadNum() {
@@ -424,8 +469,46 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 글쓰기
-	public int photoWrite() {
-		return 0;
+	public int photoWrite(String memberId,String title, String content, String photoName) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
+					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
+		String photoSql = "insert into photo (PHOTOID , BIDX , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
+		try {
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(bsql);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			System.out.println("title : " + title);
+			
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setString(1, photoName);
+			
+			result = pstmt.executeUpdate();
+			
+			conn.commit();
+			
+		}catch (Exception e) {
+			try {
+				conn.rollback();
+			}catch (SQLException s) {
+				System.out.println("s : " + s.getMessage());
+			}
+			
+			System.out.println("e : " + e.getMessage());
+		}finally {
+		DBHelper.close(conn);
+		DBHelper.close(pstmt);
+		}
+		
+		
+		return result;
+		
+
 	}
 
 	// 포토 게시판 게시글 조회수 증가
