@@ -36,7 +36,8 @@ public class QnABoardWriteOkService implements Action {
 			}
 		} else if (cmd.equals("edit")) {
 			bIdx = Integer.parseInt(request.getParameter("bIdx"));
-			if (bIdx > 0) {
+			boolean result = dao.updateQnABoard(bIdx, title, content, isPublic);
+			if (result) {
 				msg = "Q & A 수정 완료!";
 			} else {
 				msg = "Q & A 수정 실패! 글 작성 페이지로 재 이동합니다.";
