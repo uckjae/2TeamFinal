@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
     <c:import url="/common/HeadTag.jsp" />
 
@@ -25,6 +26,10 @@
             });
 
             $('.note-statusbar').hide();
+            
+            $("#frm").submit(function(){
+            	console.log("val "+$(this).val())
+            })
         })
     </script>
 </head>
@@ -35,24 +40,39 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
+
+	<c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A 작성</h1>
-            <form action="QnABoardWriteOk.do" class="p-5 bg-light" method="post">
-                <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
+            <form id="frm"  action="QnABoardWriteOk.do" class="p-5 bg-light" method="post">
+                <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${qnaWrite.title}">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">
 				</textarea>
 				<div class="mt-3 text-right">
-				<label class="mr-3"> 
-					<input type="radio" id="isPublic" name="isPublic" value="1">공개
-				</label>
-				<label> 
-					<input type="radio" id="isPublic" name="isPublic" value="0" checked>비공개
-				</label>
+
+					<label class="mr-3"> 
+						<input type="radio" id="isPublic" name="isPublic" value="1"  
+								<%-- <c:if test="${ qnaWrite.isPublic }"> checked </c:if> --%>
+						>공개
+					</label>
+					<label> 
+						<input type="radio" id="isPublic" name="isPublic" value="0" 
+								<%-- <c:if test="${ !qnaWrite.isPublic }"> checked </c:if> --%>
+						>비공개
+					</label>
+				
 				</div>
                 <div class="text-center">
-                    <input type="submit" class="btn btn-primary mr-3" value="작성">
+                <%--<c:choose>
+                	 <c:when test="${qnaWrite.writer == '' }"> --%>
+                		<input type="submit" class="btn btn-primary mr-3" value="작성">
+                	<%-- </c:when>
+                	<c:otherwise> --%>
+                		<input type="submit" class="btn btn-primary mr-3" value="수정">
+              <%--   	</c:otherwise>
+                </c:choose> --%>
+                    
                     <input type="reset" class="btn btn-primary" value="취소" onClick="location.href='QnABoardList.do'">
                 </div>
             </form>

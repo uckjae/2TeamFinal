@@ -22,12 +22,12 @@ public class QnABoardWriteService implements Action {
 
 		String cmd = request.getParameter("cmd");
 
-		if (cmd.equals("write")) {
+		if (cmd.equals("write"))
 			qnaWrite = new QnABoard();
-		} else if (cmd.equals("edit")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("summernote");
-			Boolean isPublic = Integer.parseInt(request.getParameter("isPublic")) == 0 ? false : true;
+		else if (cmd.equals("edit")) {
+			System.out.println("edit in");
+
+			System.out.println(request.getAttribute("qnaDetail"));
 		}
 
 		request.setAttribute("qnaWrite", qnaWrite);
