@@ -31,31 +31,22 @@
 		<h1><i class="flaticon-world mr-3"></i> 나의 여행 리스트 폴더</h1>
 		
 		<button type="button" class="btn btn-primary mt-1 mb-3">폴더 추가하기</button>
-
+	<c:set var="mTFolderList" value ="${requestScope.mTList}"/>
     				<table class="table" style ="text-align:center;">				    
 					      <tr>					      
 				      	  <th class="pl-5" >NO</th>
 				      	  <th >폴더 제목</th>
 				      	  <th></th>
 					      </tr>
+						<c:forEach var="mTFolder" items = "${ mTFolderList}">
 					      <tr>					      	
-					        <td class="pl-5">1</td>
-					       <td> <a href="MTList.do">가족과 함께</a></td>
+					        <td class="pl-5">${mTFolder.tLidx}</td>
+					       <td> <a href="MTList.do">${ mTFolder.tLName}</a></td>
 					        <td><button type="button" class="btn btn-primary mr-3">수정</button> 
 					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
-					      <tr>
-					        <td class="pl-5">2</td>
-					       <td> <a href="MTList.do">친구와 함께</a></td>
-					       <td><button type="button" class="btn btn-primary mr-3">수정</button> 
-					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
-					      </tr>
-					      			  				  
+					    </c:forEach>  			  				  
 					  </table>					   
-
-    			
-    		
-    		  		
 		   </div>		
 	  </div>
 	
