@@ -43,31 +43,26 @@ public class BoardDao {
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
 		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
-		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUE(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
-		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUE(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
+		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
 		try {
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
-				System.out.println("refer : " + refer);
 			}
 		
 			connection.setAutoCommit(false);
-			System.out.println("Auto Commit False");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			resultRow = pstmt.executeUpdate();
-			System.out.println("execute1");
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-			System.out.println("execute2");
 			if(resultRow > 0) {
 				connection.commit();
-				System.out.println("Commit ok");
 			}
 		} catch (Exception e) {
 			try {
