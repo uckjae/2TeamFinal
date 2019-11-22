@@ -160,15 +160,14 @@ public class FrontController extends HttpServlet {
 		
 		//여행리스트 폴더 보여주기 화면 
 		else if (url_Command.equals("/MTFolderList.do")) {			
-			forward = new ActionForward();
+			action = new MTLFolderListService();
 			forward = action.execute(request, response);			
 		}
 		//여행리스트 폴더 추가하기
 		//여행리스트 폴더 삭제하기
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			
-			action = new MTLFolderListService();
-			forward = action.execute(request, response);		
+					
 		}
 		//여행리스트 리스트 추가하기 
 		//여행리스트 리스트 삭제하기

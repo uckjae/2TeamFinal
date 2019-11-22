@@ -547,30 +547,30 @@ public class BoardDao {
 	// 내 여행리스트
 	// 여행리스트 폴더 보기
 	public List<MTList> mTLFolderList(String id) {
-		List<MTList> mtFolderList = null;
+		List<MTList> mtFolderList = new ArrayList<MTList>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;		
-		String sql = "select tlidx,tlname from MTLIST where id = ?";
+		String sql = "select tlidx,id,tlname from MTLIST where id = ? order by tlidx";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				mtFolderList = new ArrayList<MTList>();
+			while(rs.next()) {			
 				MTList mtFolder = new MTList();
 				mtFolder.settLidx(rs.getInt(1));
-				mtFolder.settLName(rs.getString(2));
+				mtFolder.setId(rs.getString(2));
+				mtFolder.settLName(rs.getString(3));
 				mtFolderList.add(mtFolder);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		}finally {		
 			DBHelper.close(pstmt);
 			DBHelper.close(rs);
 			DBHelper.close(conn);
-		}		
+		}
 		return mtFolderList;
 	}
 	//여행리스트  폴더 만들기
