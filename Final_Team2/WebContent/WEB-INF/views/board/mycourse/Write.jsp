@@ -10,56 +10,7 @@
 	<link rel="stylesheet" href="css/timeLine.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="js/timeline.js"></script>
-	<script type="text/javascript">
-	$(function() {
-		$("#photo2").change(function(){
-			console.log("done");
-    		var reader = new FileReader();
-
-    	    reader.onload = function (e) {
-    	        // get loaded data and render thumbnail.
-    	        document.getElementById("view2").src = e.target.result;
-    	    };
-
-    	    // read the image file as a data URL.
-    	    reader.readAsDataURL(this.files[this.files.length-1]);
-    	});
-		$("#photo3").change(function(){
-    		var reader = new FileReader();
-
-    	    reader.onload = function (e) {
-    	        // get loaded data and render thumbnail.
-    	        document.getElementById("view3").src = e.target.result;
-    	    };
-
-    	    // read the image file as a data URL.
-    	    reader.readAsDataURL(this.files[this.files.length-1]);
-    	});
-		$("#photo4").change(function(){
-    		var reader = new FileReader();
-
-    	    reader.onload = function (e) {
-    	        // get loaded data and render thumbnail.
-    	        document.getElementById("view4").src = e.target.result;
-    	    };
-
-    	    // read the image file as a data URL.
-    	    reader.readAsDataURL(this.files[this.files.length-1]);
-    	});
-		$("#photo5").change(function(){
-    		var reader = new FileReader();
-
-    	    reader.onload = function (e) {
-    	        // get loaded data and render thumbnail.
-    	        document.getElementById("view5").src = e.target.result;
-    	    };
-
-    	    // read the image file as a data URL.
-    	    reader.readAsDataURL(this.files[this.files.length-1]);
-    	});
-	});
 	
-	</script>
 <title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
