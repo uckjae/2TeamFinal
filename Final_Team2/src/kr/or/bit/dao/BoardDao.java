@@ -188,7 +188,7 @@ public class BoardDao {
 			
 			pstmt = connection.prepareStatement(bsql);
 			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
+			resultRow = pstmt.executeUpdate();
 			
 			if(resultRow > 0) {
 				connection.commit();
