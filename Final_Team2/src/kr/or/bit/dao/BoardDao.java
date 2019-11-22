@@ -609,6 +609,7 @@ public class BoardDao {
 		}
 		return mtFolderList;
 	}
+	
 	//여행리스트  폴더 만들기
 	public int mTLFolderAdd(MTList mtFolder) {
 		Connection conn = DBHelper.getConnection();
@@ -628,6 +629,7 @@ public class BoardDao {
 		}
 		return resultRow;
 	}
+	
 	//여행리스트 폴더 수정하기
 	public int mTLFolderEdit(MTList mtFolder) {
 		Connection conn = DBHelper.getConnection();
@@ -708,6 +710,7 @@ public class BoardDao {
 		}		
 		return mTLContentList;
 	}
+	
 	// 여행리스트 추가하기
 	public int mTListContentAdd(MTLContent mTLContent) {
 		Connection conn = DBHelper.getConnection();
