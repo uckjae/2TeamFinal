@@ -1,14 +1,11 @@
 package kr.or.bit.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.swing.internal.plaf.basic.resources.basic;
 
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
@@ -197,7 +194,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, Q.ISPUBLIC "
+		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, Q.QIDX, Q.ISPUBLIC "
 						+ "  FROM QNABOARD Q JOIN BOARD B ON Q.BIDX = B.BIDX "
 						+ "WHERE B.BIDX=?";
 		
@@ -212,7 +209,10 @@ public class BoardDao {
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
-				board.setPublic(rs.getBoolean(5));
+				board.setwDate(rs.getDate(5));
+				board.setrNum(rs.getInt(6));
+				board.setqIdx(rs.getInt(7));
+				board.setPublic(rs.getBoolean(8));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
