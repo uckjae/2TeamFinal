@@ -67,7 +67,7 @@ public class BoardDao {
 				freeBoard.setId(resultSet.getString(2));
 				freeBoard.setTitle(resultSet.getString(3));
 				freeBoard.setContent(resultSet.getString(4));
-				freeBoard.setwDate(resultSet.getDate(5));
+				freeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(5)));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
 
