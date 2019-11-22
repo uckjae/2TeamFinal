@@ -69,6 +69,7 @@
 	<form id="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
+	<input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
   	<div id="conference-timeline">
     <div class="timeline-start"><i id="removeSpot"><span class="icon-minus"></span></i>&nbsp;&nbsp;Start&nbsp;&nbsp;<a id="addSpot"><span  class="icon-plus"></span></a></div>
     <div class="conference-center-line"></div>
