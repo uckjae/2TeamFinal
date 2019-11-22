@@ -26,7 +26,7 @@
             });
 
             $('.note-statusbar').hide();
-            
+          
             $("#frm").submit(function(){
             	console.log("val "+$(this).val())
             })
@@ -42,9 +42,27 @@
     <!-- Contant -->
 
 	<c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
+	<c:choose>
+		<c:when test="${qnaWrite.id == null }">
+			<c:set var="isEdit" value="true"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="isEdit" value="false"/>
+		</c:otherwise>
+	</c:choose>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
-            <h1 class="text-center mb-3 bread">Q & A 작성</h1>
+            <h1 class="text-center mb-3 bread">
+            	<c:choose>
+                	 <c:when test="${isEdit}"> 
+                		Q & A 수정
+                	 </c:when>
+                	<c:otherwise> 
+                		Q & A 작성
+                 	</c:otherwise>
+                </c:choose> 
+            
+            </h1>
             <form id="frm"  action="QnABoardWriteOk.do" class="p-5 bg-light" method="post">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${qnaWrite.title}">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">
@@ -66,7 +84,7 @@
 				</div>
                 <div class="text-center">
                 <c:choose>
-                	 <c:when test="${qnaWrite.id == null }"> 
+                	 <c:when test="${isEdit}"> 
                 		<input type="submit" class="btn btn-primary mr-3" value="작성">
                 	 </c:when>
                 	<c:otherwise> 
