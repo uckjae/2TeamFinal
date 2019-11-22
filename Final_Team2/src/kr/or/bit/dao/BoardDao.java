@@ -24,28 +24,24 @@ public class BoardDao {
 	// 자유 게시판
 	// 총 게시글 수 구하기
 	public int totalBoardCount() {
-		Connection conn = null;
+		Connection connection = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		ResultSet resultSet = null;
 		int totalcount = 0;
 		try {
-			conn = ds.getConnection(); //dbcp 연결객체 얻기
-			String sql="select count(*) cnt from jspboard";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				totalcount = rs.getInt("cnt");
+			connection = DBHelper.getConnection(); 
+			String sql="SELECT COUNT(*) CNT FROM FREEBOARD";
+			pstmt = connection.prepareStatement(sql);
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				totalcount = resultSet.getInt(1);
 			}
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
-			try {
-				pstmt.close();
-				rs.close();
-				conn.close();//반환  connection pool 에 반환하기
-			}catch (Exception e) {
-				
-			}
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
 		}
 		return totalcount;
 	}
@@ -348,8 +344,44 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 글쓰기
-	public int photoWrite() {
-		return 0;
+	public int photoWrite(String memberId,String title, String content, String photoName) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
+					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
+		String photoSql = "insert into photo (PHOTOID , BIDX_SEQ.CURRVAL , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
+		try {
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(bsql);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			System.out.println("title : " + title);
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setString(1, photoName);
+			
+			result = pstmt.executeUpdate();
+			
+			conn.commit();
+			
+		}catch (Exception e) {
+			try {
+				conn.rollback();
+			}catch (SQLException s) {
+				System.out.println("s : " + s.getMessage());
+			}
+			
+			System.out.println("e : " + e.getMessage());
+		}finally {
+		DBHelper.close(conn);
+		DBHelper.close(pstmt);
+		}
+		
+		
+		return result;
+		
 	}
 
 	// 포토 게시판 게시글 조회수 증가
