@@ -359,8 +359,22 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 게시글 삭제하기
-	public int deleteQnABoard() {
-		return 0;
+	public boolean deleteQnABoard() {
+		int resultRow = 0;
+
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		String sql ="";
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
 	}
 
 	// Q&A 게시판 게시글 수정하기
