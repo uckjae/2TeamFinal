@@ -73,7 +73,11 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/FreeBoardDetail.do")) {
 			
 		}
-		else if (url_Command.equals("/FreeBoardWrite.do")) {
+		else if(url_Command.equals("/FreeBoardWrite.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/board/free/Write.jsp");
+		}
+		else if (url_Command.equals("/FreeBoardWriteOk.do")) {
 			action = new FreeBoardWriteService();
 			forward = action.execute(request, response);
 		}
@@ -110,9 +114,9 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
 		}
-		else if (url_Command.equals("/NoticeBoardDetail.do")) {
+		else if (url_Command.equals("/NoticeBoardWrite.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/notice/Detail.jsp");
+			forward.setPath("/WEB-INF/views/board/notice/Write.jsp");
 		}
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
