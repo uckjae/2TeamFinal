@@ -51,9 +51,9 @@
 					<input type="radio" id="isPublic" name="isPublic" value="0" checked>비공개
 				</label>
 				</div>
-                <div class="mt-3 text-center">
+                <div class="text-center">
                     <input type="submit" class="btn btn-primary mr-3" value="작성">
-                    <input type="reset" class="btn btn-primary" value="취소">
+                    <input type="reset" class="btn btn-primary" value="취소" onClick="location.href='QnABoardList.do'">
                 </div>
             </form>
         </div>

@@ -189,8 +189,39 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 게시글 상세보기
-	public Board getQnABoard() {
-		return null;
+	public QnABoard getQnABoard(int bIdx) {
+		QnABoard board = null;
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, Q.ISPUBLIC "
+						+ "  FROM QNABOARD Q JOIN BOARD B ON Q.BIDX = B.BIDX "
+						+ "WHERE B.BIDX=?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				board = new QnABoard();
+				board.setbIndx(rs.getInt(1));
+				board.setId(rs.getString(2));
+				board.setTitle(rs.getString(3));
+				board.setContent(rs.getString(4));
+				board.setPublic(rs.getBoolean(5));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return board;
 	}
 
 	// Q&A 게시판 글쓰기
