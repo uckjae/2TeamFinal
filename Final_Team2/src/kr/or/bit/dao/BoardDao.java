@@ -50,22 +50,24 @@ public class BoardDao {
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
+				System.out.println("refer : " + refer);
 			}
 		
 			connection.setAutoCommit(false);
-			
+			System.out.println("Auto Commit False");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			resultRow = pstmt.executeUpdate();
-
+			System.out.println("execute1");
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-
+			System.out.println("execute2");
 			if(resultRow > 0) {
 				connection.commit();
+				System.out.println("Commit ok");
 			}
 		} catch (Exception e) {
 			try {
@@ -162,7 +164,7 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QnABoard board = new QnABoard();
-				board.setbIndx(rs.getInt(1));
+				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));
@@ -190,8 +192,9 @@ public class BoardDao {
 
 	// Q&A 게시판 게시글 상세보기
 	public QnABoard getQnABoard(int bIdx) {
+		System.out.println("init");
 		QnABoard board = null;
-		
+		System.out.println("bIdx "+bIdx);
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -207,7 +210,7 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				board = new QnABoard();
-				board.setbIndx(rs.getInt(1));
+				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
 				board.setTitle(rs.getString(3));
 				board.setContent(rs.getString(4));

@@ -35,7 +35,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <c:set var="qnaBoard" value="${requestScope.qnaBoard}"/>
+    <c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A 작성</h1>

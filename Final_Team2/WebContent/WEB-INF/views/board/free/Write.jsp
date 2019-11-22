@@ -17,10 +17,13 @@
     </style>
     <script type="text/javascript">
         $(function () {
-            $('#summernote').summernote({
-                height: 310,
-                placeholder: "글을 입력하세요.",
-            });
+            $('#summernote').summernote(
+            	{
+        			placeholder: '내용을 입력하세요',
+        			tabsize: 2,
+        			height: 200
+            	}
+            );
             
             $('.note-statusbar').hide();
         })
@@ -64,10 +67,10 @@
             <form action="FreeBoardWriteOk.do" class="p-5 bg-light" method="post">
             	<table class="table table-bordered" id="dataTable">
             		<tr>
-                		<td><input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목"></td>
+                		<td><input type="text" class="form-control mb-3" id="title" name="title" placeholder="제목"></td>
                		</tr>
                		<tr>
-               			<td><textarea rows="10" cols="60" id="summernote" name="summernote"></textarea></td>
+               			<td><textarea rows="10" cols="60" id="summernote" name="content"></textarea></td>
                		</tr>
                	</table>
 				<div class="mt-3 text-right">

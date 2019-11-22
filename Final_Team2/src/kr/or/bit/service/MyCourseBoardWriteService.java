@@ -63,7 +63,7 @@ public class MyCourseBoardWriteService implements Action{
 				content.append(multi.getParameterValues("content")[i]);
 			}
 			
-			board.setbIndx(bIdx);
+			board.setbIdx(bIdx);
 			board.setId(id);
 			board.setTitle(title);
 			board.setContent(content.toString());
