@@ -50,22 +50,24 @@ public class BoardDao {
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
+				System.out.println("refer : " + refer);
 			}
 		
 			connection.setAutoCommit(false);
-			
+			System.out.println("Auto Commit False");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			resultRow = pstmt.executeUpdate();
-
+			System.out.println("execute1");
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-
+			System.out.println("execute2");
 			if(resultRow > 0) {
 				connection.commit();
+				System.out.println("Commit ok");
 			}
 		} catch (Exception e) {
 			try {
