@@ -25,7 +25,7 @@ public class PhotoBoardWriteService implements Action{
 		}
 		
 		request.setAttribute("photowrite", p);
-		forward.setPath("/WEB-INF/views/board/photo/PWrite.jsp");
+		forward.setPath("/WEB-INF/views/board/photo/Write.jsp");
 		return forward;
 	}
 }
