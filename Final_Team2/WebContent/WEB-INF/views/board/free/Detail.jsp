@@ -32,7 +32,7 @@
                 <div class="text-right">
                 	<c:if test="${freeDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                 		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='FreeBoardWrite.do?cmd=edit&bidx=${freeDetail.bIdx}'">
-                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='FreeBoardDelete.do?bidx=${freeDetail.bIdx}'">
+                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='FreeBoardDelete.do?bIdx=${freeDetail.bIdx}'">
                 	</c:if>
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='FreeBoardList.do'" >
                 </div>
