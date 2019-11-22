@@ -319,8 +319,44 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 글쓰기
-	public int photoWrite() {
-		return 0;
+	public int photoWrite(String memberId,String title, String content, String photoName) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
+					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
+		String photoSql = "insert into photo (PHOTOID , BIDX_SEQ.CURRVAL , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
+		try {
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(bsql);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			System.out.println("title : " + title);
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setString(1, photoName);
+			
+			result = pstmt.executeUpdate();
+			
+			conn.commit();
+			
+		}catch (Exception e) {
+			try {
+				conn.rollback();
+			}catch (SQLException s) {
+				System.out.println("s : " + s.getMessage());
+			}
+			
+			System.out.println("e : " + e.getMessage());
+		}finally {
+		DBHelper.close(conn);
+		DBHelper.close(pstmt);
+		}
+		
+		
+		return result;
+		
 	}
 
 	// 포토 게시판 게시글 조회수 증가

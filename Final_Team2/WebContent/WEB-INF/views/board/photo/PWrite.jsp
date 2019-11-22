@@ -25,9 +25,9 @@ textarea{
 $(document).ready(function(){
 	
 	$("#PhotoGo").click(function(){
-		if($("#Psubject").val() == ""){
+		if($("#title").val() == ""){
 			alert("제목을 입력해주세요");
-			$("Psubject").focus();
+			$("title").focus();
 		}
 	});
 	 
@@ -56,28 +56,26 @@ $(document).ready(function(){
 <body data-spy="scroll" data-target=".site-navbar-target"
 	data-offset="300">
 	<c:import url="/common/Top.jsp" />
-	<form action="PWriteOk.do" method="post" enctype="multipart/form-data"
-		name="boardform">
+	<form action="PWriteOk.do" method="post" enctype="multipart/form-data">
 		<section class="ftco-section">
 			<div class="container">
 				<div class="text">
-				<center>
+			
 					<table border="1" style="width: 800px; height: 800px" >
 					
 						<tr>
 							<td rowspan="3" style="background-color: lightgray" height="0">
 						
-							<img id="viewPhoto" name="viewName" src="" style="max-width: 100%; height: auto; display: block">
+							<img id="viewPhoto" name="viewPhoto" src="" style="max-width: 100%; height: auto; display: block">
 						
 							</td>
 							<td>
-							<input type="text" name="Psubject" id="Psubject" value="" style="width: 100%">
+							<input type="text" name="title" id="title" value="" style="width: 100%">
 							</td>
 						</tr>
 						
 						<tr>
-						<td rowspan="2">
-							
+						<td rowspan="2">				
 							<textarea rows="12" cols="30" id="content" name="content"></textarea>
 							</td>
 						
@@ -87,15 +85,15 @@ $(document).ready(function(){
 						</tr>
 						<tr>
 							<td>
-							<input type="file" name="Filename" id="Photo" aceept="image/*">
+							<input type="file" name="Photo" id="Photo" aceept="image/*">
 							</td>
 							<td>
 							<input id="PhotoGo" type="submit" value="작성완료" class="btn-primary" style="width: 50%;height: 100%">
-							<input type="reset" value="작성취소" class="btn-danger" style="width: 50%; height: 100%">
+							<input type="reset" value="작성취소" class="btn-danger" style="width: 50%; height: 100%">	
 							</td>
 						</tr>
 					</table>
-		</center>
+		
 				</div>
 			</div>
 
