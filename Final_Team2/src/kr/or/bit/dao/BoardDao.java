@@ -5,10 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;

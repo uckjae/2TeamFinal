@@ -18,7 +18,7 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.utils.DBHelper;
 
-public class BoardDao {
+public class test{
 
 	// 자유 게시판
 	// 총 게시글 수 구하기
