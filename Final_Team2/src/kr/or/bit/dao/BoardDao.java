@@ -223,9 +223,47 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기
-	public int noticeWrite() {
-		return 0;
-	}
+	// 공지 게시판 글쓰기	
+			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
+				int resultRow = 0;
+				Connection connection = DBHelper.getConnection();
+				PreparedStatement pstmt = null;
+
+				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
+						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
+				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
+						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0) ";
+
+				try {
+					connection.setAutoCommit(false);
+
+					pstmt = connection.prepareStatement(Sql1);
+					pstmt.setString(1, Id);
+					pstmt.setString(2, title);
+					pstmt.setString(3, content);
+					pstmt.executeUpdate();
+
+					pstmt = connection.prepareStatement(Sql2);
+					pstmt.setBoolean(0, isTop);
+
+					resultRow = pstmt.executeUpdate();
+					connection.commit();
+				} catch (Exception e) {
+					try {
+						connection.rollback();
+						} 
+					catch (SQLException e1) {
+						e1.printStackTrace();
+						}
+
+					e.printStackTrace();
+				}finally {
+					DBHelper.close(pstmt);
+					DBHelper.close(connection);
+				}
+
+				return resultRow > 0 ? true : false;
+			}
 
 	// 공지 게시판 게시글 조회수 증가
 	public boolean getNoticeReadNum() {
@@ -327,16 +365,18 @@ public class BoardDao {
 	}
 
 	// Q&A 게시판 글쓰기
-	public boolean insertQnABoard(String memberId, String title, String content, boolean isPublic) {
-		int resultRow = 0;
+	public int insertQnABoard(String memberId, String title, String content, boolean isPublic) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-
+		ResultSet rs = null;
+		
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
-				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
+								+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
 		String subSql = "INSERT INTO QNABOARD (QIDX, BIDX, ISPUBLIC) "
-				+ "VALUES (QIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
-
+							+ "VALUES (QIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
+		
+		int bIdx = -1;
+		
 		try {
 			connection.setAutoCommit(false);
 
@@ -348,8 +388,15 @@ public class BoardDao {
 
 			pstmt = connection.prepareStatement(subSql);
 			pstmt.setBoolean(1, isPublic);
+			pstmt.executeUpdate();
 
-			resultRow = pstmt.executeUpdate();
+			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+			pstmt = connection.prepareStatement(bIdxSql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				bIdx = rs.getInt(1);
+			}
+
 			connection.commit();
 		} catch (Exception e) {
 			try { connection.rollback(); } 
@@ -361,7 +408,7 @@ public class BoardDao {
 			DBHelper.close(connection);
 		}
 
-		return resultRow > 0 ? true : false;
+		return bIdx;
 	}
 
 	// Q&A 게시판 게시글 조회수 증가
