@@ -53,7 +53,7 @@ public class BoardDao {
 		ResultSet resultSet = null;
 		
 		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX" 
-					+ "FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
+					+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -62,12 +62,14 @@ public class BoardDao {
 			while(resultSet.next()) {
 				FreeBoard freeBoard = new FreeBoard();
 				
-				freeBoard.setfIdx(resultSet.getInt(7));
-				freeBoard.setTitle(resultSet.getString(3));
-				freeBoard.setwDate(resultSet.getDate(5));
+				freeBoard.setbIdx(resultSet.getInt(1));
 				freeBoard.setId(resultSet.getString(2));
+				freeBoard.setTitle(resultSet.getString(3));
+				freeBoard.setContent(resultSet.getString(4));
+				freeBoard.setwDate(resultSet.getDate(5));
 				freeBoard.setrNum(resultSet.getInt(6));
-				
+				freeBoard.setfIdx(resultSet.getInt(7));
+
 				freeBoardList.add(freeBoard);
 			}
 		}catch (Exception e) {
