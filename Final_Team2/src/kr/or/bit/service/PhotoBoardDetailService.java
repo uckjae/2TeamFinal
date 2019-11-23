@@ -1,8 +1,5 @@
 package kr.or.bit.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,20 +8,19 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
 import kr.or.bit.dto.Photo;
 
-public class PhotoBoardListService implements Action{
+public class PhotoBoardDetailService implements Action{
+	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-	
 		ActionForward forward = new ActionForward();
-		BoardDao dao = new BoardDao();
-		List<Photo> photolist = dao.photoList();
+		int bIdx = Integer.parseInt(request.getParameter("bidx"));
 		
-		request.setAttribute("photolist", photolist);
-		forward.setPath("/WEB-INF/views/board/photo/Main.jsp");
-	
-		System.out.println(photolist);
+		BoardDao dao = new BoardDao();
+		Photo content = dao.photoContent(bIdx);
+		
+		request.setAttribute("photoContent", content);
+		forward.setPath("/WEB-INF/views/board/photo/Detail.jsp");
 		
 		
 		return forward;
 	}
 }
-

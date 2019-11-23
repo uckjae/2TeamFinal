@@ -33,6 +33,7 @@ public class PhotoBoardWriteOkService implements Action{
 			int result = dao.photoWrite(memberId, title, content, photoName);
 			System.out.println("이거 : " + content);
 			System.out.println("이거 : " + title);
+			System.out.println("저거 : " + photoName);
 			String msg = "";
 			String url = "";
 			if(result > 0) {

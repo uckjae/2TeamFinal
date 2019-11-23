@@ -588,8 +588,41 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 상세보기
-	public Photo photoContent() {
-		return null;
+	public Photo photoContent(int bIdx) {
+		Photo photo = null;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT B.BIDX, B.ID , B.TITLE , B.CONTENT, B.WDATE, B.RNUM, P.BIDX , P.PHOTOID ,"
+				+ " P.PHOTONAME FROM BOARD B JOIN PHOTO P ON B.BIDX = P.BIDX WHERE B.BIdx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				photo = new Photo();
+				photo.setbIdx(rs.getInt(1));
+				photo.setId(rs.getString(2));
+				photo.setTitle(rs.getString(3));
+				photo.setContent(rs.getString(4));
+				photo.setwDate(rs.getDate(5));
+				photo.setrNum(rs.getInt(6));
+				photo.setPhotoId(rs.getInt(7));
+				photo.setPhotoName(rs.getString(8));
+			}
+		}catch (Exception e) {
+			System.out.println("상세 : " + e.getMessage());
+		}finally {
+			DBHelper.close(conn);
+			DBHelper.close(pstmt);
+			DBHelper.close(rs);
+		}
+		
+		
+		return photo;
 	}
 
 	// 포토 게시판 글쓰기
