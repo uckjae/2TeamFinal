@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import kr.or.bit.dto.Board;
@@ -720,9 +721,50 @@ public class BoardDao {
 		return mCBoardLists;
 	}
 	
-	public List<Photo> courseListPhoto(){
+	public List<Photo> courseListPhotos(){
+		List<Photo> photos = new ArrayList<Photo>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int[] top5LikeNum = new int[5];// 좋아요 값 상위 5개 뽑아서 그것들 사진 하나씩만 가져오는 작업
+		Arrays.fill(top5LikeNum, -1);
+		List<Integer> top5BIdx = new ArrayList<Integer>();
 		
-		return null;
+		List<MCBoard> boardLists = courseList();
+		for(int i=0; i<boardLists.size(); i++) {
+			for(int j=0; j < top5LikeNum.length; j++) {
+				if(boardLists.get(i).getLikeNum()>top5LikeNum[j]) {
+					top5BIdx.add(boardLists.get(i).getbIdx());
+					break;
+				}
+			}
+		}
+		
+		String sql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX = ? AND ROWNUM=1";
+		
+		
+			
+		try {
+			conn = DBHelper.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			for(int i=0; i<top5BIdx.size(); i++) {
+				pstmt.setInt(1, top5BIdx.get(i));
+				rs = pstmt.executeQuery();
+				
+				Photo photo = new Photo();
+				photo.setPhotoId(rs.getInt(1));
+				photo.setbIdx(rs.getInt(2));
+				photo.setPhotoName(rs.getString(3));
+				
+				photos.add(photo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return photos;
 	}
 
 	// 나만의 코스 게시판 게시글 상세보기
