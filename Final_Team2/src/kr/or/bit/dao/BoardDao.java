@@ -120,7 +120,7 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 글쓰기
-	public boolean freeContentWrite(String id, String title, String content) {
+	public int freeContentWrite(String id, String title, String content) {
 		int resultRow = 0;
 		int refer = 0;
 		
@@ -163,7 +163,7 @@ public class BoardDao {
 			DBHelper.close(resultSet);
 			DBHelper.close(connection);
 		}
-		return resultRow > 0 ? true : false;
+		return resultRow;
 	}
 
 	// 자유 게시판 게시글 조회수 증가
@@ -209,8 +209,34 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 수정하기
-	public int freeContentEdit() {
-		return 0;
+	public boolean freeBoardEdit(String title, String content, int bIdx) {
+		int resultRow = 0;
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String bsql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(bsql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bIdx);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			try { 
+				connection.rollback(); 
+			}catch (SQLException e1) { 
+				e1.printStackTrace(); 
+			}
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
 	}
 
 	// 자유 게시판 댓글 달기

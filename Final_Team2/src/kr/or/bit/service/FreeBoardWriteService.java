@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
+import kr.or.bit.dto.FreeBoard;
+import kr.or.bit.dto.QnABoard;
 
 public class FreeBoardWriteService implements Action{
 
@@ -13,26 +15,23 @@ public class FreeBoardWriteService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		String id = (String)request.getSession().getAttribute("memberId");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		FreeBoard freeBoardWrite = null;
 		
-		BoardDao dao = new BoardDao();
-		boolean write = dao.freeContentWrite(id, title, content);
+		String cmd = request.getParameter("cmd");
 		
-		String msg = "";
-		String url = "";
-		if (write) {
-			msg = "게시글 작성 완료";
-			url = "FreeBoardList.do";
-		} else {
-			msg = "게시글 작성 실패";
-			url = "FreeBoardWrite.do";
+		if(cmd.equals("write")) {
+			freeBoardWrite = new FreeBoard();
+			freeBoardWrite.setbIdx(-1);
+		}else if(cmd.equals("edit")) {
+			int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
+			BoardDao dao = new BoardDao();
+			freeBoardWrite = dao.freeBoardDetail(bIdx);
+			System.out.println(freeBoardWrite.toString());
 		}
-		request.setAttribute("board_msg", msg);
-		request.setAttribute("board_url", url);
+		
+		request.setAttribute("freeBoardWrite", freeBoardWrite);
+		forward.setPath("/WEB-INF/views/board/free/Write.jsp");
 
-		forward.setPath("/common/Redirect.jsp");
 		return forward;
 	}
 	
