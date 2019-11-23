@@ -719,6 +719,11 @@ public class BoardDao {
 		
 		return mCBoardLists;
 	}
+	
+	public List<Photo> courseListPhoto(){
+		
+		return null;
+	}
 
 	// 나만의 코스 게시판 게시글 상세보기
 	public MCBoard courseContent() {

@@ -1,10 +1,14 @@
 package kr.or.bit.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.dao.BoardDao;
+import kr.or.bit.dto.MCBoard;
 
 public class MyCourseBoardListService implements Action {
 
@@ -12,7 +16,10 @@ public class MyCourseBoardListService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		
+		BoardDao dao = new BoardDao();
+		List<MCBoard> boardlist = dao.courseList();
+		request.setAttribute("MCBList", boardlist);
+		forward.setPath("/WEB-INF/views/board/mycourse/Main.jsp");
 		
 		return forward;
 	}
