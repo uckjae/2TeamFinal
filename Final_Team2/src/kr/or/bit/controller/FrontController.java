@@ -18,6 +18,7 @@ import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
@@ -120,8 +121,8 @@ public class FrontController extends HttpServlet {
 		}
 		// My Course Board
 		else if (url_Command.equals("/MyCourseBoardList.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/mycourse/Main.jsp");
+			action = new MyCourseBoardListService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/MyCourseBoardDetail.do")) {
 			forward = new ActionForward();

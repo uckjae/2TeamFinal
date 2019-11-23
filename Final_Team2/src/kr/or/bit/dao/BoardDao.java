@@ -794,7 +794,21 @@ public class BoardDao {
 	}
 
 	// 나만의 코스 게시판 게시글 상세보기
-	public MCBoard courseContent() {
+	public MCBoard courseContent(int bIdx) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE FROM BOARD WHERE BIDX=?";
+		
+		try {
+			conn = DBHelper.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			rs = pstmt.executeQuery();
+		}catch(SQLException e) {
+			System.out.println("BoardDao courseContent()"+e.getMessage());
+		}
+		
 		return null;
 	}
 
