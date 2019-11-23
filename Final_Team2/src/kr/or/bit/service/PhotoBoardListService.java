@@ -11,7 +11,7 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
 import kr.or.bit.dto.Photo;
 
-public class PhotoListService implements Action{
+public class PhotoBoardListService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 	
 		ActionForward forward = new ActionForward();
