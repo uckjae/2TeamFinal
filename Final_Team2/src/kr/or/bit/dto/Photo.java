@@ -1,6 +1,6 @@
 package kr.or.bit.dto;
 
-public class Photo {
+public class Photo extends Board{
 	private int photoId;//PHTOID_SEQ
 	private int bIdx;
 	private String photoName;
