@@ -76,15 +76,15 @@
         					<div class="img">
         						<img class="img-fluid" src="upload/${photo.photoName}" alt="코스 대표 사진">
         					</div>
-        					<c:forEach var="mCB" items="MCBList">
-        						<c:if test="${photo.bIdx==mCB.bidx}">
+        					<c:forEach var="board" items="${ MCBList}">
+        						<c:if test="${photo.bIdx eq board.bIdx}">
         							<div class="text">
         								<h4 class="price">
         									<span class="mr-2">추천수</span>
-        									${mCB.likeNum}
+        									${board.likeNum}
         								</h4>
         								<h3>
-        									<a href="MyCourseBoardDetail.do?bidx=${mCB.bIdx}">${mCB.title}</a>
+        									<a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>
@@ -109,7 +109,7 @@
                     <c:forEach var="board" items="${MCBList}">
                     	<tr>
                             <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a href="MyCourseBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
+                            <td class="sorting_1"><a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
                             <td>${board.id}</td>
                             <td>
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
@@ -126,6 +126,9 @@
 					</div>
                 </c:if>
             </div>
+        </div>
+        <div class="row">
+        	<a href="MyCourseBoardWrite.do" style="float: right;"><span>글쓰기</span></a>
         </div>
     </div>
 

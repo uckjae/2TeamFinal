@@ -23,6 +23,7 @@ import kr.or.bit.service.LogoutService;
 import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
 import kr.or.bit.service.NoticeBoardDetailService;
@@ -138,8 +139,8 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/MyCourseBoardDetail.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/mycourse/Detail.jsp");
+			action = new MyCourseBoardDetail();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/MyCourseBoardWrite.do")) {
 			forward = new ActionForward();

@@ -10,16 +10,7 @@
 	<link rel="stylesheet" href="css/timeLine.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="js/timeline.js"></script>
-	<script type="text/javascript">
-		$(function (){
-			$("#contentarea").keypress(function() {
-				console.log($("#contentarea").html());
-			})
-		});
-	
-	
-	</script>
-<title>나만의 코스 작성</title>
+	<title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 

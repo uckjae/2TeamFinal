@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +17,17 @@
     <c:import url="/common/Top.jsp" />
 	
 	<!-- Vertical Timeline -->
+	<c:set var="board" value="${requestScope.board}"/>
+	<c:set var="contents" value="${fn:split(board.content,'a2qw30#')}"/>
+	<c:set var="photos" value="${requestScope.photos }"/>
 	<div class="content">
   <div id="conference-timeline">
     <div class="timeline-start">Start</div>
+    <h3 class="form-control mb-3">${board.title}</h3>
     <div class="conference-center-line"></div>
     <div class="conference-timeline-content">
       <!-- Article -->
+      <c:forEach var="content" items="${contents }">
       <div class="timeline-article">
         <div class="content-left-container">
           <div class="content-left">
@@ -37,6 +43,7 @@
 			<img src="" alt="여행지 사진">          
         </div>
       </div>
+      </c:forEach>
       <!-- // Article -->
       
       <!-- Article -->

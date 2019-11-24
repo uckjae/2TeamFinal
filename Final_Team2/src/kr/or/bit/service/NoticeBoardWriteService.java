@@ -15,18 +15,20 @@ public class NoticeBoardWriteService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		NoticeBoard noticewrite = null;
+		BoardDao dao = null;
 		
 		String cmd =request.getParameter("cmd");
 		System.out.println("cmd:"+cmd);
+		
 		if(cmd.equals("write")) {
 			noticewrite=new NoticeBoard();
 			noticewrite.setbIdx(-1);
-		}else if(cmd.equals("edit")) {
-			int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
-			BoardDao dao = new BoardDao();
-			noticewrite = dao.noticeDetail(bIdx);
-			System.out.println(noticewrite.toString());
 		}
+		else if(cmd.equals("edit")) {
+			int bIdx = Integer.parseInt(request.getParameter("bidx"));			
+			noticewrite = dao.noticeDetail(bIdx);
+		}
+		
 		request.setAttribute("noticewrite", noticewrite);
 		forward.setPath("/WEB-INF/views/board/notice/Write.jsp");
 		
