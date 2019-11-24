@@ -76,15 +76,15 @@
         					<div class="img">
         						<img class="img-fluid" src="upload/${photo.photoName}" alt="코스 대표 사진">
         					</div>
-        					<c:forEach var="mCB" items="MCBList">
-        						<c:if test="${photo.bIdx==mCB.bidx}">
+        					<c:forEach var="board" items="${ MCBList}">
+        						<c:if test="${photo.bIdx eq board.bIdx}">
         							<div class="text">
         								<h4 class="price">
         									<span class="mr-2">추천수</span>
-        									${mCB.likeNum}
+        									${board.likeNum}
         								</h4>
         								<h3>
-        									<a href="MyCourseBoardDetail.do?bidx=${mCB.bIdx}">${mCB.title}</a>
+        									<a href="MyCourseBoardDetail.do?bidx=${board.bIdx}">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>
@@ -115,7 +115,13 @@
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
                             <td>${board.rNum}</td>
-                            <td>${board.likeNum}</td>
+                            <td name="like">${board.likeNum}
+                            	<form name="like_form">
+                            		<input type="hidden" name="command" value="like_it">
+                            		<input type="hidden" name="bIdx" value="${board.bIdx}">
+                            		<input type="button" value="추천" onclick="return like()">
+                            	</form>
+                            </td>
                         </tr>
                     </c:forEach>
                    </tbody>

@@ -752,7 +752,7 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int[] top5LikeNum = new int[5];// 좋아요 값 상위 5개 뽑아서 그것들 사진 하나씩만 가져오는 작업
+		int[] top5LikeNum = new int[4];// 좋아요 값 상위 4개 뽑아서 그것들 사진 하나씩만 가져오는 작업
 		Arrays.fill(top5LikeNum, -1);
 		List<Integer> top5BIdx = new ArrayList<Integer>();
 		
@@ -760,6 +760,7 @@ public class BoardDao {
 		for(int i=0; i<boardLists.size(); i++) {
 			for(int j=0; j < top5LikeNum.length; j++) {
 				if(boardLists.get(i).getLikeNum()>top5LikeNum[j]) {
+					top5LikeNum[j] = boardLists.get(i).getLikeNum();
 					top5BIdx.add(boardLists.get(i).getbIdx());
 					break;
 				}
@@ -776,13 +777,14 @@ public class BoardDao {
 			for(int i=0; i<top5BIdx.size(); i++) {
 				pstmt.setInt(1, top5BIdx.get(i));
 				rs = pstmt.executeQuery();
-				
-				Photo photo = new Photo();
-				photo.setPhotoId(rs.getInt(1));
-				photo.setbIdx(rs.getInt(2));
-				photo.setPhotoName(rs.getString(3));
-				
-				photos.add(photo);
+				while(rs.next()) {
+					Photo photo = new Photo();
+					photo.setPhotoId(rs.getInt(1));
+					photo.setbIdx(rs.getInt(2));
+					photo.setPhotoName(rs.getString(3));
+					System.out.println("board dao courselistphotos()"+photo.toString());
+					photos.add(photo);
+				}
 			}
 			
 		} catch (SQLException e) {
@@ -858,7 +860,12 @@ public class BoardDao {
 		}
 		return resultRow;
 	}
-
+	
+	// 나만의 코스 게시판 좋아요 증가
+	public int getCourseLikeNum() {
+		return 0;
+	}
+	
 	// 나만의 코스 게시판 게시글 조회수 증가
 	public boolean getCourseReadNum() {
 		return false;
