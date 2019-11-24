@@ -24,29 +24,34 @@
 						
 							</td>
 							<td>
-							<input type="text" name="title" id="title" value="${photoContent.title }" style="width: 100%">
+							${photoContent.title }
 							</td>
+							
 						</tr>
 						
 						<tr>
-						<td rowspan="2">				
-							<textarea rows="12" cols="30" id="content" name="content">
-								${photoContent.content }
-							</textarea>
-							</td>
+						<td>${photoContent.wDate }</td>
 						
+						
+						</tr>
+						<tr>
+							<td rowspan="2" rows="12" cols="30">				
+							
+								${photoContent.content }
+							
+							</td>
 						</tr>
 						<tr>
 							
 						</tr>
 						<tr>
-							<td>
+						<td>
 							<input type="file" name="Photo" id="Photo" aceept="image/*">
 							</td>
 							<td>
 							<c:if test="${photoContent.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
-							<input type="button" class="btn btn-primary" value="수정" onclick="location.href='QnABoardWrite.do?cmd=edit&bidx=${qnaDetail.bIdx}'">
-							<input type="button" class="btn btn-primary" value="삭제" onclick="location.href='PhotoBoardDelete.do?bidx=${photoContent.bIdx}'">
+							<input type="button" class="btn btn-primary" value="수정" onclick="location.href='PhotoBoardEdit.do?bidx=${PhotoDetail.bIdx}'">
+							<input type="button" class="btn btn-primary" value="삭제" onclick="location.href='PhotoBoardDelete.do?bidx=${PhotoDetail.bIdx}'">
 							</c:if>
 							<input type="reset" value="수정취소" class="btn-danger" style="width: 50%; height: 100%">	
 							</td>

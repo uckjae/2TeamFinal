@@ -807,8 +807,38 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 삭제하기
-	public int photoDelete() {
-		return 0;
+	public int photoDelete(int bIdx) {
+		int result = 0;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String photoSql ="DELETE FROM PHOTO WHERE BIDX=?";
+		String Sql ="DELETE FROM BOARD WHERE BIDX=?";
+		
+		try {
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(Sql);
+			pstmt.setInt(1, bIdx);
+			result = pstmt.executeUpdate();
+			
+			conn.commit();
+		} catch (Exception e) {
+			try { 
+				conn.rollback(); 
+			
+			}catch(SQLException e1){ 
+				System.out.println(e1.getMessage());
+			}
+
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		return result;
 	}
 
 	// 포토 게시판 게시글 수정하기

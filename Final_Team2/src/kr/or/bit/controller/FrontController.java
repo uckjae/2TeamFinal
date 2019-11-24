@@ -30,6 +30,7 @@ import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
 import kr.or.bit.service.NoticeBoardWriteOkService;
 import kr.or.bit.service.NoticeBoardWriteService;
+import kr.or.bit.service.PhotoBoardDeleteService;
 import kr.or.bit.service.PhotoBoardDetailService;
 import kr.or.bit.service.PhotoBoardListService;
 import kr.or.bit.service.PhotoBoardWriteOkService;
@@ -132,6 +133,9 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}else if (url_Command.equals("/PhotoEditOk.do")) {
 			
+		}else if(url_Command.equals("/PhotoBoardDelete.do")) {
+			action = new PhotoBoardDeleteService();
+			forward = action.execute(request, response);
 		}
 		// My Course Board
 		else if (url_Command.equals("/MyCourseBoardList.do")) {
