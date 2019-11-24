@@ -173,11 +173,6 @@ public class BoardDao {
 		return bIdx;
 	}
 	
-	// 자유 게시판 답글쓰기
-	public void FreeBoardAddWrite() {
-		return;
-	}
-	
 	// 자유 게시판 게시글 조회수 증가
 	public void FreeBoardAddReadNum(int bIdx) {
 		Connection connection = DBHelper.getConnection();
