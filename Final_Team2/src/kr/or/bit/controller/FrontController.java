@@ -107,6 +107,9 @@ public class FrontController extends HttpServlet {
 			action = new FreeBoardWriteOkService();
 			forward = action.execute(request, response);
 		}
+		else if (url_Command.equals("/FreeBoardAddWrite.do")) {
+			
+		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {
 			action = new FreeBoardDeleteService();
 			forward = action.execute(request, response);
