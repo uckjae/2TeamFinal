@@ -17,7 +17,7 @@ public class NoticeBoardWriteOkService implements Action{
 		String cmd =request.getParameter("cmd").trim();
 		String id = (String)request.getSession().getAttribute("id");
 		String title =request.getParameter("title");
-		String content = request.getParameter("content");
+		String content = request.getParameter("summernote");
 		int isTop = Integer.parseInt(request.getParameter("isTop"));
 		
 		int bIdx =0;
@@ -29,23 +29,12 @@ public class NoticeBoardWriteOkService implements Action{
 			bIdx=dao.noticeWrite(id, title, content, isTop);
 			if(bIdx>0) {
 				msg ="공지사항 작성완료!";
+				url = "NoticeBoardDetail.do?bidx=" + bIdx;
 			}else {
 				msg="공지사항 작성실패!";
-			}
-		}else if(cmd.equals("edit")) {
-			bIdx=Integer.parseInt(request.getParameter("bIdx"));
-			boolean result=dao.noticeEdit(bIdx, title, content, isTop);
-			if(result) {
-				msg="공지사항 수정완료!"
-			}else {
-				msg="공지사항 수정실패!";
+				url = "NoticeBoardWrite.do";
 			}
 		}
-		if (bIdx > 0) {
-			url = "NoticeBoardDetail.do?bidx=" + bIdx;
-		}else
-			url = "NoticeBoardWrite.do";
-		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
 		
