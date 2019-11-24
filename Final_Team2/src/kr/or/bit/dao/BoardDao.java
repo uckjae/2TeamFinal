@@ -18,6 +18,7 @@ import kr.or.bit.dto.MTList;
 import kr.or.bit.dto.NoticeBoard;
 import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
+import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
 
 public class BoardDao {
@@ -313,7 +314,7 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public boolean noticeWrite(String id, String title, String content, boolean isTop) {
+			public boolean noticeWrite(String id, String title, String content, int isTop) {
 				int resultRow = 0;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
@@ -321,7 +322,7 @@ public class BoardDao {
 				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
 						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
 				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
-						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0) ";
+						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
 
 				try {
 					connection.setAutoCommit(false);
@@ -333,7 +334,7 @@ public class BoardDao {
 					pstmt.executeUpdate();
 
 					pstmt = connection.prepareStatement(Sql2);
-					pstmt.setBoolean(0, isTop);
+					pstmt.setInt(1, isTop);
 
 					resultRow = pstmt.executeUpdate();
 					connection.commit();
@@ -443,6 +444,7 @@ public class BoardDao {
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
+				board.setReplies(getRepliesByBIdx(bIdx));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1081,6 +1083,41 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
+		
 		return resultRow > 0 ? true : false;
+	}
+	
+	public List<Reply> getRepliesByBIdx(int bIdx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Reply> replies = new ArrayList<Reply>();
+		String sql = " SELECT RIDX, RCONTENT, ID FROM REPLY "
+						+ " WHERE BIDX = ? ORDER BY RIDX ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+		
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Reply reply = new Reply();
+				reply.setrIdx(rs.getInt(1));
+				reply.setrContent(rs.getString(2));
+				reply.setId(rs.getString(3));
+				reply.setbIdx(bIdx);
+				
+				replies.add(reply);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		
+		return replies;
 	}
 }
