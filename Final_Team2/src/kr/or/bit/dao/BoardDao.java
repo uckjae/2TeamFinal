@@ -313,8 +313,8 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public boolean noticeWrite(String id, String title, String content, int isTop) {
-				int resultRow = 0;
+			public int noticeWrite(String id, String title, String content, int isTop) {
+				ResultSet rs = null;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
 
@@ -323,6 +323,8 @@ public class BoardDao {
 				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
 						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
 
+				int bIdx = -1;
+				
 				try {
 					connection.setAutoCommit(false);
 
@@ -334,8 +336,12 @@ public class BoardDao {
 
 					pstmt = connection.prepareStatement(Sql2);
 					pstmt.setInt(1, isTop);
-
-					resultRow = pstmt.executeUpdate();
+					pstmt.executeUpdate();
+					
+					String bIdxSql ="SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+					pstmt = connection.prepareStatement(bIdxSql);
+					rs = pstmt.executeQuery();
+					
 					connection.commit();
 				} catch (Exception e) {
 					try {
@@ -351,7 +357,7 @@ public class BoardDao {
 					DBHelper.close(connection);
 				}
 
-				return resultRow > 0 ? true : false;
+				return bIdx;
 			}
 
 	// 공지 게시판 게시글 조회수 증가
