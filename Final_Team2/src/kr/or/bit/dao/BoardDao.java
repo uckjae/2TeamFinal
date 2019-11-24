@@ -1110,28 +1110,37 @@ public class BoardDao {
 	
 	
 	// 댓글
-	public boolean insertReply(int bIdx, String id, String content) {
-		Connection conn = DBHelper.getConnection();
+	public int insertReply(int bIdx, String id, String content) {
+		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-
-		int resultRow = 0;
+		ResultSet rs=null;
+		int rIdx = -1;
 		String sql = "INSERT INTO REPLY (RIDX, BIDX, ID, RCONTENT) VALUES( RIDX_SEQ.NEXTVAL, ?, ?, ?)";
 
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
 			pstmt.setString(2, id);
 			pstmt.setString(3, content);
 			
-			resultRow = pstmt.executeUpdate();
-		} catch (SQLException e) {
+			int resultRow = pstmt.executeUpdate();
+			if(resultRow>0) {
+				String rIdxSql = "SELECT RIDX_SEQ.CURRVAL FROM DUAL";
+				pstmt = connection.prepareStatement(rIdxSql);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					rIdx = rs.getInt(1);
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			DBHelper.close(rs);
 			DBHelper.close(pstmt);
-			DBHelper.close(conn);
+			DBHelper.close(connection);
 		}
 		
-		return resultRow > 0 ? true : false;
+		return rIdx;
 	}
 	
 	public List<Reply> getRepliesByBIdx(int bIdx) {
@@ -1167,5 +1176,37 @@ public class BoardDao {
 		}		
 		
 		return replies;
+	}
+	
+	public Reply getReply(int rIdx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Reply reply = new Reply();
+		String sql = " SELECT BIDX, RCONTENT, ID, RWDATE FROM REPLY "
+						+ " WHERE RIDX = ? ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rIdx);
+		
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				reply.setrIdx(rIdx);
+				reply.setbIdx(rs.getInt(1));
+				reply.setrContent(rs.getString(2));
+				reply.setId(rs.getString(3));
+				reply.setrWDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(4)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		
+		return reply;
 	}
 }

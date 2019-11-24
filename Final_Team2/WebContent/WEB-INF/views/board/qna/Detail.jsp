@@ -20,7 +20,13 @@
         }
     </style>
     <script type="text/javascript">
-
+    	$(function(){
+    		$("#replybtn").click(function(){
+    			$.ajax({
+    				
+    			});
+    		});
+    	});
     </script>
 </head>
 
@@ -29,7 +35,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 
-    <!-- Contant -->
+    <!-- Content -->
     <c:set var="qnaDetail" value="${requestScope.qnaDetail}"/>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
@@ -48,43 +54,13 @@
         </div>
         
         
-        <div class="p-5 bg-light mt-3">
-	        <form action="BoardReplyWrite.do?cmd=qna&bIdx=${qnaDetail.bIdx}" method="post">
-	        	<div class="form-group">
-		        	<textarea name="content" id="content" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
-	             </div>
-	             <div class="text-right">
-	             	 <input type="submit" class="btn btn-primary " value="REPLY" >
-	             </div>
-	        </form>
-        </div>
+      
         
         <!-- Reply  -->
-        <c:if test="${ qnaDetail.replies.size() > 0}">
-        	<div class="col-md-12 tour-wrap">
-				<div class="pt-5">
-					<h3 class="mb-5" style="border-bottom: 1px solid #f2f2f2;">${ qnaDetail.replies.size() } Reply</h3>
-					<ul class="comment-list">
-					
-					<c:forEach var="reply" items="${ qnaDetail.replies }">
-						<li class="comment box p-2 px-3 bg-light d-flex">
-							<div class="comment-body">
-								<h3 class="bold">${ reply.id }</h3>
-								<div class="meta">
-									<fmt:formatDate value="${reply.rWDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
-								</div>
-								<p>${ reply.rContent }</p>
-								<p>
-									<a href="#" class="reply">Reply</a>
-								</p>
-							</div>
-						</li>
-					</c:forEach>
-					
-					</ul>
-				</div>
-			</div>
-        </c:if>	
+        <c:set var="replies" value="${qnaDetail.replies}" scope="request"/>
+        <jsp:include page="../common/Reply.jsp">
+        	<jsp:param name="bIdx" value="${ qnaDetail.bIdx }"/>
+        </jsp:include>
 	</div>
 
 </body>
