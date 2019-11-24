@@ -178,14 +178,17 @@ public class BoardDao {
 	// 자유 게시판 답글쓰기
 	public FreeBoard FreeBoardReWrite(String id, String title, String content, int bIdx) {
 		int resultRow = 0;
-		int refer = 0;
+		int refer = 0, depth = 0;
+		
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String referNum = "SELECT REFER, DEPTH, STEP FROM FREEBOARD WHERE BIDX=?";
+		String referNum = "SELECT REFER, DEPTH FROM FREEBOARD WHERE BIDX=?";
+		String stepNum = "SELECT STEP FROM FREEBOARD";
+		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
-		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, 0)";
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
 		
 		try {
@@ -194,7 +197,26 @@ public class BoardDao {
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1);
+				depth = resultSet.getInt(2);
 			}
+			
+			pstmt = connection.prepareStatement(stepUp);
+			pstmt.setInt(1, refer);
+			resultSet = pstmt.executeQuery();
+			
+			
+			connection.setAutoCommit(false);
+			
+			pstmt = connection.prepareStatement(sql1);
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(sql2);
+			pstmt.setInt(1, refer);
+			pstmt.setInt(2, depth);
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
