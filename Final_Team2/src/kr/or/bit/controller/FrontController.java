@@ -88,7 +88,6 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/BoardReplyWrite.do")) {
 			action = new BoardReplyService();
 			forward = action.execute(request, response);
-			System.out.println("re:"+forward.getPath());
 		}
 		
 		// Free Board
@@ -169,7 +168,6 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/QnABoardDetail.do")) {
-			System.out.println("in QnABoardDetail.do");
 			action = new QnABoardDetailService();
 			forward = action.execute(request, response);
 		}
