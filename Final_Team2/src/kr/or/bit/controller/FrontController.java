@@ -205,9 +205,9 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);			
 		}
 		//여행리스트 폴더 추가 화면 보여주기 
-		else if (url_Command.equals("/MTFolderList.do")) {			
+		else if (url_Command.equals("/MTFolderListAddForm.do")) {			
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/mypage/MyTravelListFolderAddform.jsp");			
+			forward.setPath("/WEB-INF/views/mypage/MyTravelListFolderAddForm.jsp");			
 		}
 		//여행리스트 폴더 추가하기
 		//여행리스트 폴더 삭제하기

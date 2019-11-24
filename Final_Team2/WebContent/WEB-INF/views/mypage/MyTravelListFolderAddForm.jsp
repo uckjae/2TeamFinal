@@ -28,9 +28,9 @@
     <div class="container">
     <div id="main">
 	<br><br><br><br>
-		<h1><i class="flaticon-world mr-3"></i> 나의 여행 리스트 폴더</h1>
+		<h1><i class="flaticon-world mr-3"></i> 나의 여행 리스트 폴더 추가하기</h1>
 		
-		<button type="button" class="btn btn-primary mt-1 mb-3" onclick="location.href='MTLFolderAdd.do'">폴더 추가하기</button>
+		<button type="button" class="btn btn-primary mt-1 mb-3" >폴더 추가하기</button>
 	<c:set var="mTFolderList" value ="${requestScope.mTList}"/>
     				<table class="table" style ="text-align:center">				    
 					      <tr>					      
