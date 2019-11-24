@@ -28,13 +28,26 @@ public class NoticeBoardWriteOkService implements Action{
 		if(cmd.equals("write")) {
 			bIdx=dao.noticeWrite(id, title, content, isTop);
 			if(bIdx>0) {
-				msg ="공지사항 작성완료!";
-				url = "NoticeBoardDetail.do?bidx=" + bIdx;
+				msg ="공지사항 작성완료!";	
 			}else {
 				msg="공지사항 작성실패!";
-				url = "NoticeBoardWrite.do";
+			}
+		}else if (cmd.equals("edit")) {
+			bIdx = Integer.parseInt(request.getParameter("bIdx"));
+			boolean result = dao.noticeEdit(bIdx, title, content, isTop);
+			if (result) {
+				msg = "공지사항 수정 완료";
+			} else {
+				msg = "공지사항 수정 실패";
 			}
 		}
+		
+		if (bIdx > 0) {
+			url = "NoticeBoardDetail.do?bIdx=" + bIdx;
+		}else {
+			url = "NoticeBoardWrite.do";
+		}
+		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
 		

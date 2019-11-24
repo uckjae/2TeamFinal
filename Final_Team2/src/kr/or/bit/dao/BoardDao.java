@@ -351,7 +351,9 @@ public class BoardDao {
 					String bIdxSql ="SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 					pstmt = connection.prepareStatement(bIdxSql);
 					rs = pstmt.executeQuery();
-					
+					if (rs.next()) {
+						bIdx = rs.getInt(1);
+					}
 					connection.commit();
 				} catch (Exception e) {
 					try {
