@@ -14,6 +14,7 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
+import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
@@ -91,11 +92,11 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if(url_Command.equals("/FreeBoardWrite.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/free/Write.jsp");
+			action = new FreeBoardWriteService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardWriteOk.do")) {
-			action = new FreeBoardWriteService();
+			action = new FreeBoardWriteOkService();
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {

@@ -18,7 +18,7 @@ public class FreeBoardWriteService implements Action{
 		FreeBoard freeBoardWrite = null;
 		
 		String cmd = request.getParameter("cmd");
-		
+		System.out.println("freewritecmd : "+cmd);
 		if(cmd.equals("write")) {
 			freeBoardWrite = new FreeBoard();
 			freeBoardWrite.setbIdx(-1);
