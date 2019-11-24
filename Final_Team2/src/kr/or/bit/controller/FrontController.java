@@ -15,6 +15,7 @@ import kr.or.bit.service.BoardReplyService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
+import kr.or.bit.service.FreeBoardReWriteService;
 import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
@@ -105,6 +106,10 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/FreeBoardWriteOk.do")) {
 			action = new FreeBoardWriteOkService();
+			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/FreeBoardReWrite.do")) {
+			action = new FreeBoardReWriteService();
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {

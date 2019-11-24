@@ -13,20 +13,20 @@ public class FreeBoardWriteService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		ActionForward forward = new ActionForward();
+		int bIdx = 0;
 		
+		ActionForward forward = new ActionForward();
 		FreeBoard freeBoardWrite = null;
+		BoardDao dao = null;
 		
 		String cmd = request.getParameter("cmd");
-		System.out.println("freewritecmd : "+cmd);
+		
 		if(cmd.equals("write")) {
 			freeBoardWrite = new FreeBoard();
 			freeBoardWrite.setbIdx(-1);
 		}else if(cmd.equals("edit")) {
-			int bIdx = Integer.parseInt(request.getParameter("bIdx")) ;
-			BoardDao dao = new BoardDao();
+			bIdx = Integer.parseInt(request.getParameter("bIdx"));
 			freeBoardWrite = dao.freeBoardDetail(bIdx);
-			System.out.println(freeBoardWrite.toString());
 		}
 		
 		request.setAttribute("freeBoardWrite", freeBoardWrite);

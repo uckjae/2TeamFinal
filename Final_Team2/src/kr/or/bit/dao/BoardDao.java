@@ -173,6 +173,11 @@ public class BoardDao {
 		return bIdx;
 	}
 	
+	// 자유 게시판 답글쓰기
+	public FreeBoard FreeBoardAddWrite(int bIdx) {
+		return null;
+	}
+	
 	// 자유 게시판 게시글 조회수 증가
 	public void FreeBoardAddReadNum(int bIdx) {
 		Connection connection = DBHelper.getConnection();
@@ -351,7 +356,9 @@ public class BoardDao {
 					String bIdxSql ="SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 					pstmt = connection.prepareStatement(bIdxSql);
 					rs = pstmt.executeQuery();
-					
+					if (rs.next()) {
+						bIdx = rs.getInt(1);
+					}
 					connection.commit();
 				} catch (Exception e) {
 					try {
@@ -381,11 +388,42 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 게시글 수정하기
-	public int noticeEdit(int bIdx, String title, String content, int isTop) {
-		int resultRow = 0;
+	public boolean noticeEdit(int bIdx, String title, String content, int isTop) {
+		int resultRow=0;
 		
-		return 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String Sql1 = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
+		String Sql2 = "UPDATE NOTICEBOARD SET ISTOP = ? WHERE BIDX = ? ";
+		
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement(Sql1);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(Sql2);
+			pstmt.setInt(1, isTop);
+			pstmt.setInt(2, bIdx);
+			resultRow = pstmt.executeUpdate();
+			
+			connection.commit();
+		} catch (Exception e) {
+			try { connection.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
+
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
 	}
+
 	
 	
 	// 공지사항 끝
