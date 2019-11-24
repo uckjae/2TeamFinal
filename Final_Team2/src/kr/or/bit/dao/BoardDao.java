@@ -124,7 +124,7 @@ public class BoardDao {
 	public int freeContentWrite(String id, String title, String content) {
 		int resultRow = 0;
 		int refer = 0;
-		
+		int bIdx = -1;
 		Connection connection = DBHelper.getConnection();
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
@@ -132,6 +132,7 @@ public class BoardDao {
 		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
+		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 		
 		try {
 			pstmt = connection.prepareStatement(referNum);
@@ -150,9 +151,14 @@ public class BoardDao {
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-			if(resultRow > 0) {
-				connection.commit();
+			
+			pstmt = connection.prepareStatement(bIdxsql);
+			pstmt.executeQuery();
+			if(resultSet.next()) {
+				bIdx = resultSet.getInt(1);
 			}
+			connection.commit();
+			
 		} catch (Exception e) {
 			try {
 				connection.rollback();
@@ -164,7 +170,8 @@ public class BoardDao {
 			DBHelper.close(resultSet);
 			DBHelper.close(connection);
 		}
-		return resultRow;
+		System.out.println("freeconwritebidx : "+ bIdx);
+		return bIdx;
 	}
 
 	// 자유 게시판 게시글 조회수 증가
@@ -307,7 +314,7 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
+			public boolean noticeWrite(String id, String title, String content, int isTop) {
 				int resultRow = 0;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
@@ -315,19 +322,19 @@ public class BoardDao {
 				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
 						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
 				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
-						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0) ";
+						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
 
 				try {
 					connection.setAutoCommit(false);
 
 					pstmt = connection.prepareStatement(Sql1);
-					pstmt.setString(1, Id);
+					pstmt.setString(1, id);
 					pstmt.setString(2, title);
 					pstmt.setString(3, content);
 					pstmt.executeUpdate();
 
 					pstmt = connection.prepareStatement(Sql2);
-					pstmt.setBoolean(0, isTop);
+					pstmt.setInt(1, isTop);
 
 					resultRow = pstmt.executeUpdate();
 					connection.commit();

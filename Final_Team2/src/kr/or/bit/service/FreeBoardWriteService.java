@@ -23,7 +23,7 @@ public class FreeBoardWriteService implements Action{
 			freeBoardWrite = new FreeBoard();
 			freeBoardWrite.setbIdx(-1);
 		}else if(cmd.equals("edit")) {
-			int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
+			int bIdx = Integer.parseInt(request.getParameter("bIdx")) ;
 			BoardDao dao = new BoardDao();
 			freeBoardWrite = dao.freeBoardDetail(bIdx);
 			System.out.println(freeBoardWrite.toString());
