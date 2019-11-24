@@ -28,64 +28,63 @@ html, body {
                 height: 400,
                 placeholder: "글을 입력하세요.",
             }); 
+            
             $('.note-statusbar').hide();
         })
-        
- 
-		function check() {
-			if (!bbs.title.value) {
-				alert("제목을 입력하세요");
-				bbs.subject.focus();
-				return false;
-			}
-			if (!bbs.summernote.value) {
-				alert("글 내용을 입력하세요");
-				bbs.writer.focus();
-				return false;
-			}
-			document.bbs.submit();
-		}
-</script>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		  $('#summernote').summernote();
-	});
 </script>
 </head>
-<body data-spy="scroll" data-target=".site-navbar-target"
-	data-offset="300">
-	<!-- Top -->
-	<c:import url="/common/Top.jsp" />
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    <!-- Top -->
+    <c:import url="/common/Top.jsp" />
+    
+    <!-- Contant -->
+    <c:set var="noticeWrite" value="${requestScope.noticeBoardWrite}"/>
+    <c:choose>
+		<c:when test="${noticeWrite.bIdx > 0}">
+			<c:set var="isEdit" value="true"/> <!--bidx가 0보다 크면 트루 -->
+		</c:when>
+		<c:otherwise>
+			<c:set var="isEdit" value="false"/><!--bidx가 0보다 작거나 0이면 크면 펄스 -->
+		</c:otherwise>
+	</c:choose>
 	
-	<div class="content">
-		<div class="comment-form-wrap pt-xl-2">
-			<h1 class="text-center mb-5 bread">공지사항</h1>
-
-			<form name="NBW" class="p-5 bg-light" action="NoticeBoardWriteOk.do?cmd="
-				method="POST">
-				<table class="table table-bordered" id="dataTable">
-					<tr>
-						<td><input class="form-control" type="text" placeholder="제목">
-						</td>
-					</tr>
-					<tr>
-						<td><textarea id="summernote" rows="10" cols="60"
-								name="content" class="ckeditor">
-                   </textarea></td>
-					</tr>
-				</table>
-
-
-				<div class="mt-5 text-center">
-					<input type="submit" class="btn btn-primary" value="글쓰기">
-						 
-						<input type="reset" class="btn btn-primary" value="취소"onClick="location.href='NoticeBoardList.do'">
-				</div>
-			</form>
-
-		</div>
-	</div>
-
+    <div class="content">
+        <div class="comment-form-wrap pt-xl-2">
+            <h1 class="text-center mb-3 bread">
+            	<c:choose>
+                	 <c:when test="${isEdit}"> 
+                		게시글 수정
+                	 </c:when>
+                	<c:otherwise> 
+                		게시글 작성
+                 	</c:otherwise>
+                </c:choose> 
+            </h1>
+            <form action="NoticeBoardWriteOk.do?cmd=
+               <c:choose>
+                   <c:when test="${isEdit}">edit</c:when>
+                   <c:otherwise>write</c:otherwise>
+               </c:choose>" class="p-5 bg-light" method="post">
+                
+                <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${noticeWrite.title}">
+                <input type="hidden" id="bIdx" name="bIdx" value="${noticeWrite.bIdx}">
+                <textarea rows="10" cols="60" id="summernote" name="summernote">
+                	${noticeWrite.content}
+				</textarea>
+				<div class="text-center">
+                <c:choose>
+                	 <c:when test="${isEdit}"> 
+                		<input type="submit" class="btn btn-primary mr-3" value="수정">
+                	 </c:when>
+                	<c:otherwise> 
+                		<input type="submit" class="btn btn-primary mr-3" value="작성">
+                 	</c:otherwise>
+                </c:choose> 
+                    
+                    <input type="reset" class="btn btn-primary" value="취소" onClick="location.href='NoticeBoardList.do'">
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

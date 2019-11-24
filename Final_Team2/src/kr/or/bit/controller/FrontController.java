@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.service.BoardReplyService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
+import kr.or.bit.service.FreeBoardReWriteService;
 import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
@@ -84,13 +84,7 @@ public class FrontController extends HttpServlet {
 			
 		}
 		
-		/* BOARD */
-		// Reply
-		else if (url_Command.equals("/BoardReplyWrite.do")) {
-			action = new BoardReplyService();
-			forward = action.execute(request, response);
-		}
-		
+		/* BOARD */	
 		// Free Board
 		else if (url_Command.equals("/FreeBoardList.do")) {
 			action = new FreeBoardListService();
@@ -106,6 +100,10 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/FreeBoardWriteOk.do")) {
 			action = new FreeBoardWriteOkService();
+			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/FreeBoardReWrite.do")) {
+			action = new FreeBoardReWriteService();
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {

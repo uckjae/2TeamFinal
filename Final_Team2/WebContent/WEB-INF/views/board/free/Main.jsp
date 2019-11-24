@@ -49,9 +49,6 @@
 			}
 		}
 
-		function readNum(){
-			
-		}
 	});
 </script>
 </head>
@@ -81,7 +78,7 @@
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
                         		<td>${board.bIdx}</td>
-                        		<td class="sorting_1" onclic="readNum()"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
+                        		<td class="sorting_1"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
                         		<td>
                             		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             	</td>
