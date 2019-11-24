@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -68,7 +70,9 @@
 						<li class="comment box p-2 px-3 bg-light d-flex">
 							<div class="comment-body">
 								<h3 class="bold">${ reply.id }</h3>
-								<div class="meta">${ reply.rWDate }</div>
+								<div class="meta">
+									<fmt:formatDate value="${reply.rWDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
+								</div>
 								<p>${ reply.rContent }</p>
 								<p>
 									<a href="#" class="reply">Reply</a>
