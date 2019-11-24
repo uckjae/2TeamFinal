@@ -328,23 +328,24 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public int noticeWrite(String id, String title, String content, int isTop) {
+			public int noticeWrite(String memberId, String title, String content, int isTop) {
 				ResultSet rs = null;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
-
+				int bIdx = -1;
+				
 				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
 						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
 				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
 						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
 
-				int bIdx = -1;
+				
 				
 				try {
 					connection.setAutoCommit(false);
 
 					pstmt = connection.prepareStatement(Sql1);
-					pstmt.setString(1, id);
+					pstmt.setString(1, memberId);
 					pstmt.setString(2, title);
 					pstmt.setString(3, content);
 					pstmt.executeUpdate();

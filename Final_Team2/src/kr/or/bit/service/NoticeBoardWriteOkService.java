@@ -15,19 +15,20 @@ public class NoticeBoardWriteOkService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		String cmd =request.getParameter("cmd").trim();
-		String id = (String)request.getSession().getAttribute("id");
+		String memberId = (String)request.getSession().getAttribute("memberId");
 		String title =request.getParameter("title");
 		String content = request.getParameter("summernote");
 		int isTop = Integer.parseInt(request.getParameter("isTop"));
 		
-		
+		BoardDao dao = new BoardDao();
 		int bIdx =0;
 		String msg="";
 		String url="";
-		BoardDao dao = new BoardDao();
 		
+		System.out.println("writeok:"+cmd);
 		if(cmd.equals("write")) {
-			bIdx=dao.noticeWrite(id, title, content, isTop);
+			bIdx=dao.noticeWrite(memberId, title, content, isTop);
+			System.out.println("bidx:"+bIdx);
 			if(bIdx>0) {
 				msg ="공지사항 작성완료!";	
 			}else {
@@ -46,7 +47,7 @@ public class NoticeBoardWriteOkService implements Action{
 		if (bIdx > 0) {
 			url = "NoticeBoardDetail.do?bIdx=" + bIdx;
 		}else {
-			url = "NoticeBoardWrite.do";
+			url = "NoticeBoardList.do";
 		}
 		
 		request.setAttribute("board_msg", msg);
