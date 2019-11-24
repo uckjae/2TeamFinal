@@ -913,10 +913,11 @@ public class BoardDao {
 		return mtFolderList;
 	}
 	//여행리스트  폴더 만들기
-	public int mTLFolderAdd(MTList mtFolder) {
+	public int mTLFolderAdd(String id, String tlname) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
+		MTList mtFolder = new MTList();
 		String sql = "insert into MTLIST (tlidx,id,tlname) values (TLIdx_SEQ.nextval,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);

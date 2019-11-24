@@ -32,7 +32,7 @@
 		
 		<button type="button" class="btn btn-primary mt-1 mb-3" onclick="location.href='MTFolderListAddForm.do'">폴더 추가하기</button>
 	<c:set var="mTFolderList" value ="${requestScope.mTList}"/>
-    				<table class="table" style ="text-align:center">				    
+    				<table class="table" align="center">				    
 					      <tr>					      
 				      	  <th class="pl-5" >NO</th>
 				      	  <th >폴더 리스트</th>
