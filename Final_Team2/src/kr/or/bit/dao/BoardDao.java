@@ -170,7 +170,6 @@ public class BoardDao {
 			DBHelper.close(resultSet);
 			DBHelper.close(connection);
 		}
-		System.out.println("freeconwritebidx : "+ bIdx);
 		return bIdx;
 	}
 
