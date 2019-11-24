@@ -94,7 +94,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM FROM FREEBOARD F JOIN BOARD B ON F.BIDX = B.BIDX WHERE B.BIDX=?";
+		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX FROM FREEBOARD F JOIN BOARD B ON F.BIDX = B.BIDX WHERE B.BIDX=?";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -174,9 +174,21 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 조회수 증가
-	public boolean FreeBoardAddReadNum() {
+	public void FreeBoardAddReadNum(int bIdx) {
 		
-		return false;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE BOARD SET RNUM = RNUM+1 WHERE BIDX=?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
 	}
 
 	// 자유 게시판 게시글 삭제하기
