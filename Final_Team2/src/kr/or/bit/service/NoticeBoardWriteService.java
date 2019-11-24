@@ -17,7 +17,7 @@ public class NoticeBoardWriteService implements Action{
 		NoticeBoard noticewrite = null;
 		
 		String cmd =request.getParameter("cmd");
-		
+		System.out.println("cmd:"+cmd);
 		if(cmd.equals("write")) {
 			noticewrite=new NoticeBoard();
 			noticewrite.setbIdx(-1);

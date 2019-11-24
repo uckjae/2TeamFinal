@@ -20,6 +20,7 @@ public class NoticeBoardWriteOkService implements Action{
 		String content = request.getParameter("summernote");
 		int isTop = Integer.parseInt(request.getParameter("isTop"));
 		
+		
 		int bIdx =0;
 		String msg="";
 		String url="";
