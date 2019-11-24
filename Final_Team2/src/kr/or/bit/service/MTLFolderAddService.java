@@ -23,7 +23,7 @@ public class MTLFolderAddService implements Action{
 			msg = tlname + "폴더가 생성되었습니다";
 		} else {
 			url = "MTFolderListAddForm.do";
-			msg = "생성에 실패하였습니다.";
+			msg = "폴더 생성에 실패하였습니다.";
 		}
 		request.setAttribute("board_msg",msg );
 		request.setAttribute("board_url", url);
