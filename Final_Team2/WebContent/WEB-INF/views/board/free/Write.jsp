@@ -55,7 +55,7 @@
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form action="QnABoardWriteOk.do?cmd=
+            <form action="FreeBoardWriteOk.do?cmd=
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
                 	<c:otherwise>write </c:otherwise>
