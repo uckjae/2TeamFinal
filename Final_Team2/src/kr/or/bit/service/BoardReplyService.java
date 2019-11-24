@@ -13,6 +13,7 @@ public class BoardReplyService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
+		String cmd = request.getParameter("cmd");
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		String content = request.getParameter("content");
 		String memberId = (String) request.getSession().getAttribute("memberId");
@@ -20,8 +21,14 @@ public class BoardReplyService implements Action {
 		BoardDao dao = new BoardDao();
 		dao.insertReply(bIdx, memberId, content);
 		
-		forward.setPath("QnABoardDetail.do?bIdx=" + bIdx);
+		forward.setRedirect(true);
+		if (cmd.equals("qna")) 
+			forward.setPath("QnABoardDetail.do?bIdx=" + bIdx);
 		
+		// 아래 코드 주석 풀어서 각 보드 연결하셈
+		//else if (cmd.equals("")) 
+		//	 
+
 		return forward;
 	}
 }

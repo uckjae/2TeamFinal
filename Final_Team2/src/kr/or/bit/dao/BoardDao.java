@@ -174,7 +174,8 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 조회수 증가
-	public boolean getFreeReadNum() {
+	public boolean FreeBoardAddReadNum() {
+		
 		return false;
 	}
 
@@ -229,8 +230,7 @@ public class BoardDao {
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, bIdx);
-			pstmt.executeUpdate();
-
+			resultRow = pstmt.executeUpdate();
 		} catch (Exception e) {
 			try { 
 				connection.rollback(); 
@@ -242,7 +242,6 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
 		return resultRow > 0 ? true : false;
 	}
 

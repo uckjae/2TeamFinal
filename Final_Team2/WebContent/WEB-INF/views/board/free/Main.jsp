@@ -49,6 +49,9 @@
 			}
 		}
 
+		function readNum(){
+			
+		}
 	});
 </script>
 </head>
@@ -75,27 +78,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                       		<td>123</td>
-                            <td class="sorting_1"><a href="FreeBoardDetail.do">HelloWorld</a></td>
-                            <td>19-1-/22</td>
-                            <td>Mr.uck</td>
-                            <td>777</td>
-                            <td class="iconColumn">
-                                <a href="#">
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
-                            </td>
-                            <td class="iconColumn">
-                                <a href="#" data-toggle="modal" data-target="#deleteModal" data-delete-id="">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
                         		<td>${board.bIdx}</td>
-                        		<td class="sorting_1"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
+                        		<td class="sorting_1" onclic="readNum()"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
                         		<td>
                             		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             	</td>
