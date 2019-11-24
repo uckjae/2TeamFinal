@@ -371,7 +371,7 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 게시글 수정하기
-	public int noticeEdit() {
+	public int noticeEdit(int bIdx, String title, String content, int isTop) {
 		return 0;
 	}
 	
