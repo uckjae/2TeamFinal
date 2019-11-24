@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.service.BoardReplyService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
@@ -21,6 +20,7 @@ import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
 import kr.or.bit.service.MTLFolderAddService;
+import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
@@ -84,13 +84,7 @@ public class FrontController extends HttpServlet {
 			
 		}
 		
-		/* BOARD */
-		// Reply
-		else if (url_Command.equals("/BoardReplyWrite.do")) {
-			action = new BoardReplyService();
-			forward = action.execute(request, response);
-		}
-		
+		/* BOARD */	
 		// Free Board
 		else if (url_Command.equals("/FreeBoardList.do")) {
 			action = new FreeBoardListService();
@@ -111,6 +105,9 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/FreeBoardReWrite.do")) {
 			action = new FreeBoardReWriteService();
 			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/FreeBoardReWriteOk.do")) {
+			
 		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {
 			action = new FreeBoardDeleteService();
@@ -225,6 +222,11 @@ public class FrontController extends HttpServlet {
 		//여행리스트 폴더 추가하기
 		else if (url_Command.equals("/MTFolderListAdd.do")) {			
 			 action = new MTLFolderAddService();
+			 forward = action.execute(request, response)	;	
+		}
+		//여행리스트 폴더 수정하기 
+		else if (url_Command.equals("/MTFolderListEdit.do")) {			
+			 action = new MTLFolderEditService();
 			 forward = action.execute(request, response)	;	
 		}
 		//여행리스트 폴더 삭제하기
