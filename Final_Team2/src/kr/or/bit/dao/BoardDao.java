@@ -330,23 +330,23 @@ public class BoardDao {
 			ResultSet rs = null;
 			
 			String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
-						  +"FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
-						  +"WHERE B.BCODE = 1";
+						  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
+						  +" WHERE B.BCODE = 1";
 			try {
 				pstmt = connection.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
-					NoticeBoard NoticeBoard = new NoticeBoard();
-					NoticeBoard.setbIdx(rs.getInt(1));
-					NoticeBoard.setId(rs.getString(2));
-					NoticeBoard.setTitle(rs.getString(3));
-					NoticeBoard.setContent(rs.getString(4));
-					NoticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
-					NoticeBoard.setrNum(rs.getInt(6));
-					NoticeBoard.setnIdx(rs.getInt(7));
-					NoticeBoard.setTop(rs.getBoolean(8));
+					NoticeBoard noticeBoard = new NoticeBoard();
+					noticeBoard.setbIdx(rs.getInt(1));
+					noticeBoard.setId(rs.getString(2));
+					noticeBoard.setTitle(rs.getString(3));
+					noticeBoard.setContent(rs.getString(4));
+					noticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+					noticeBoard.setrNum(rs.getInt(6));
+					noticeBoard.setnIdx(rs.getInt(7));
+					noticeBoard.setTop(rs.getBoolean(8));
 					
-					noticeboardList.add(NoticeBoard);
+					noticeboardList.add(noticeBoard);
 				}
 				
 			}catch (Exception e) {
@@ -371,7 +371,7 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public int noticeWrite(String memberId, String title, String content, int isTop) {
+			public int noticeWrite(String memberId, String title, String summernote, int isTop) {
 				ResultSet rs = null;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
@@ -390,7 +390,7 @@ public class BoardDao {
 					pstmt = connection.prepareStatement(Sql1);
 					pstmt.setString(1, memberId);
 					pstmt.setString(2, title);
-					pstmt.setString(3, content);
+					pstmt.setString(3, summernote);
 					pstmt.executeUpdate();
 
 					pstmt = connection.prepareStatement(Sql2);
