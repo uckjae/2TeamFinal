@@ -106,7 +106,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="FreeBoardWrite.do">
+            <a href="FreeBoardWrite.do?cmd=write">
             	<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
             </a>
         </div>

@@ -58,7 +58,7 @@
             <form action="FreeBoardWriteOk.do?cmd=
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
-                	<c:otherwise>write </c:otherwise>
+                	<c:otherwise>write</c:otherwise>
                 </c:choose> " class="p-5 bg-light" method="post">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${freeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${freeWrite.bIdx}">

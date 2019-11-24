@@ -301,11 +301,10 @@ public class BoardDao {
 			return nboard;
 		}
 	// 공지 게시판 게시글 상세보기
-	public NoticeBoard noticeContent() {
+	public NoticeBoard noticeDetail(int bIdx) {
 		return null;
 	}
 
-	// 공지 게시판 글쓰기
 	// 공지 게시판 글쓰기	
 			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
 				int resultRow = 0;
@@ -362,6 +361,8 @@ public class BoardDao {
 	public int noticeEdit() {
 		return 0;
 	}
+	
+	
 	// 공지사항 끝
 
 	// Q&A
