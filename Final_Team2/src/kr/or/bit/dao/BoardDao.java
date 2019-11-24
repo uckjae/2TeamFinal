@@ -276,7 +276,7 @@ public class BoardDao {
 					board.setId(rs.getString(2));
 					board.setTitle(rs.getString(3));
 					board.setContent(rs.getString(4));
-					board.setwDate(rs.getDate(5));
+					board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 					board.setrNum(rs.getInt(6));
 					board.setnIdx(rs.getInt(7));
 					board.setTop(rs.getBoolean(8));
