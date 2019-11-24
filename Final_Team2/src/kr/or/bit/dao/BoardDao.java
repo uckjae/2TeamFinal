@@ -306,7 +306,7 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
+			public boolean noticeWrite(String id, String title, String content, boolean isTop) {
 				int resultRow = 0;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
@@ -320,7 +320,7 @@ public class BoardDao {
 					connection.setAutoCommit(false);
 
 					pstmt = connection.prepareStatement(Sql1);
-					pstmt.setString(1, Id);
+					pstmt.setString(1, id);
 					pstmt.setString(2, title);
 					pstmt.setString(3, content);
 					pstmt.executeUpdate();
