@@ -115,13 +115,7 @@
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
                             <td>${board.rNum}</td>
-                            <td name="like">${board.likeNum}
-                            	<form name="like_form">
-                            		<input type="hidden" name="command" value="like_it">
-                            		<input type="hidden" name="bIdx" value="${board.bIdx}">
-                            		<input type="button" value="추천" onclick="return like()">
-                            	</form>
-                            </td>
+                            <td>${board.likeNum}</td>
                         </tr>
                     </c:forEach>
                    </tbody>

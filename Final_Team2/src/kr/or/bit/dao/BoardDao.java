@@ -862,8 +862,69 @@ public class BoardDao {
 	}
 	
 	// 나만의 코스 게시판 좋아요 증가
-	public int getCourseLikeNum() {
-		return 0;
+	public int getCourseLikeNum(int mCIdx, String id) {
+		int likeNum = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHER MCIDX=?";
+			conn = DBHelper.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(checkSql);
+			pstmt.setInt(1, mCIdx);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				String deleteLikeMemberSql = "DELETE FROM LMLIST WHER ID=?";
+				pstmt = conn.prepareStatement(deleteLikeMemberSql);
+				pstmt.setString(1, id);
+				int deleteLikeMember = pstmt.executeUpdate();
+				System.out.println("boardDao getCourseLikenum() 실패면 0 되면 1"+ deleteLikeMember);
+				
+				String decreaseLikeNumSql = "UPDATE MCBOARD SET LIKENUM = (SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?)-1 WHERE MCIDX=?";
+				pstmt = conn.prepareStatement(decreaseLikeNumSql);
+				pstmt.setInt(1, mCIdx);
+				pstmt.setInt(2, mCIdx);
+				int decreaseLikeNum = pstmt.executeUpdate();
+				System.out.println("boardDao getCourseLikeNum() 실패면 0 되면 1"+decreaseLikeNum);
+			}
+			else {
+				String addLikeMemberSql = "INSERT INTO LMLIST (MCIDX, ID, ISLIKE) VALUES(?, ?, 1)";
+				pstmt = conn.prepareStatement(addLikeMemberSql);
+				pstmt.setInt(1, mCIdx);
+				pstmt.setString(2, id);
+				int addLikeMember = pstmt.executeUpdate();
+				System.out.println("boardDao getCourseLikeNum() 실패면 0 되면 1" + addLikeMember);
+				
+				String increaseLikeNumSql = "UPDATE MCBOARD SET LIKENUM = (SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?)+1 WHERE MCIDX=?";
+				pstmt = conn.prepareStatement(increaseLikeNumSql);
+				pstmt.setInt(1, mCIdx);
+				pstmt.setInt(2, mCIdx);
+				int increaseLikeNum = pstmt.executeUpdate();
+				System.out.println("boardDao getCourseLikeNum() 실패면 0 되면 1" + increaseLikeNum);
+				
+			}
+			
+			String getLikeNumSql = "SELECT LIKENUM FROM MCBOARD WHER MCIDX=?";
+			pstmt = conn.prepareStatement(getLikeNumSql);
+			pstmt.setInt(1, mCIdx);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				likeNum = rs.getInt(1);
+			}
+			
+			
+		}catch(SQLException e) {
+			System.out.println("boardDao getCourseLikeNum() : " + e.getMessage());
+		}finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		
+		return likeNum;
 	}
 	
 	// 나만의 코스 게시판 게시글 조회수 증가
