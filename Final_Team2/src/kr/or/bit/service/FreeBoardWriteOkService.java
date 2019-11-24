@@ -42,7 +42,7 @@ public class FreeBoardWriteOkService implements Action{
 		}
 		
 		if (bIdx > 0) {
-			url = "FreeBoardDetail.do?bidx=" + bIdx;
+			url = "FreeBoardDetail.do?bIdx=" + bIdx;
 		}else {
 			url = "FreeBoardWrite.do";
 		}

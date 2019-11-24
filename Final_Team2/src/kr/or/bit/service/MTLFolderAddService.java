@@ -6,14 +6,19 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
 
-public class MTLFolderAdd implements Action{
+public class MTLFolderAddService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		BoardDao boardDao = new BoardDao();
+		String id = (String)request.getSession().getAttribute("memberId");
+		String tlname = request.getParameter("folderAdd");
+		int resultRow = boardDao.mTLFolderAdd(id, tlname);
 		
-		return null;
+		forward.setRedirect(false);
+		forward.setPath("/WEB-INF/views/mypage/MyTravelListFolder.jsp");
+		return forward;
 	}
 
 }

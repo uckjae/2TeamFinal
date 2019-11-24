@@ -122,6 +122,7 @@ public class BoardDao {
 
 	// 자유 게시판 글쓰기
 	public int freeContentWrite(String id, String title, String content) {
+		//System.out.println("content write");
 		int resultRow = 0;
 		int refer = 0;
 		int bIdx = -1;
@@ -135,30 +136,29 @@ public class BoardDao {
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 		
 		try {
+			//System.out.println("contentwrite try");
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
 			}
-		
+			//System.out.println("refer");
 			connection.setAutoCommit(false);
+			//System.out.println("autocommit false");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
-			
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-			
 			pstmt = connection.prepareStatement(bIdxsql);
-			pstmt.executeQuery();
+			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				bIdx = resultSet.getInt(1);
 			}
 			connection.commit();
-			
 		} catch (Exception e) {
 			try {
 				connection.rollback();
@@ -170,7 +170,6 @@ public class BoardDao {
 			DBHelper.close(resultSet);
 			DBHelper.close(connection);
 		}
-		System.out.println("freeconwritebidx : "+ bIdx);
 		return bIdx;
 	}
 
@@ -314,8 +313,8 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public boolean noticeWrite(String id, String title, String content, int isTop) {
-				int resultRow = 0;
+			public int noticeWrite(String id, String title, String content, int isTop) {
+				ResultSet rs = null;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
 
@@ -324,6 +323,8 @@ public class BoardDao {
 				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
 						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
 
+				int bIdx = -1;
+				
 				try {
 					connection.setAutoCommit(false);
 
@@ -335,8 +336,12 @@ public class BoardDao {
 
 					pstmt = connection.prepareStatement(Sql2);
 					pstmt.setInt(1, isTop);
-
-					resultRow = pstmt.executeUpdate();
+					pstmt.executeUpdate();
+					
+					String bIdxSql ="SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+					pstmt = connection.prepareStatement(bIdxSql);
+					rs = pstmt.executeQuery();
+					
 					connection.commit();
 				} catch (Exception e) {
 					try {
@@ -352,7 +357,7 @@ public class BoardDao {
 					DBHelper.close(connection);
 				}
 
-				return resultRow > 0 ? true : false;
+				return bIdx;
 			}
 
 	// 공지 게시판 게시글 조회수 증가
@@ -915,10 +920,11 @@ public class BoardDao {
 		return mtFolderList;
 	}
 	//여행리스트  폴더 만들기
-	public int mTLFolderAdd(MTList mtFolder) {
+	public int mTLFolderAdd(String id, String tlname) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
+		MTList mtFolder = new MTList();
 		String sql = "insert into MTLIST (tlidx,id,tlname) values (TLIdx_SEQ.nextval,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
