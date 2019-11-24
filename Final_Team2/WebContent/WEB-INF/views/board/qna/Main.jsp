@@ -81,7 +81,7 @@
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
                             <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a href="QnABoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
+                            <td class="sorting_1"><a href="QnABoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
                             <td>
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>

@@ -15,7 +15,7 @@ public class NoticeBoardWriteOkService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		String cmd =request.getParameter("cmd").trim();
-		String Id = (String)request.getSession().getAttribute("memberId");
+		String id = (String)request.getSession().getAttribute("memberId");
 		String title =request.getParameter("title");
 		String content = request.getParameter("content");
 		int isTop = Integer.parseInt(request.getParameter("isTop"));
@@ -26,10 +26,11 @@ public class NoticeBoardWriteOkService implements Action{
 		BoardDao dao = new BoardDao();
 		if(cmd.equals("write")) {
 			bIdx=dao.noticeWrite(id, title, content, isTop);
+			
 		}
 		
 		
-		return null;
+		return forward;
 	}
 
 }

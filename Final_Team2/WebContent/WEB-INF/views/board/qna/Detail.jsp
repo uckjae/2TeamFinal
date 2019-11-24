@@ -51,47 +51,35 @@
 	        	<textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
              </div>
              <div class="text-right">
-             	 <input type="button" class="btn btn-primary " value="REPLY" onclick="location.href='QnABoardWrite.do?cmd=edit&bidx=${qnaDetail.bIdx}'">
+             	 <input type="button" class="btn btn-primary " value="REPLY" onclick="location.href='BoardReplyWrite.do?bIdx=${qnaDetail.bIdx}'">
              </div>
         </div>
         
         <!-- Reply  -->
-		<div class="col-md-12 tour-wrap">
-			<div class="pt-5">
-				<h3 class="mb-5" style="border-bottom: 1px solid #f2f2f2;">3 Reply</h3>
-				
-				<ul class="comment-list">
-					<li class="comment box p-2 px-3 bg-light d-flex">
-						<div class="comment-body">
-							<h3>관리자</h3>
-							<div class="meta">October 03, 2018 at 2:21pm</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Pariatur quidem laborum necessitatibus, ipsam impedit vitae
-								autem, eum officia, fugiat saepe enim sapiente iste iure! Quam
-								voluptas earum impedit necessitatibus, nihil?</p>
-							<p>
-								<a href="#" class="reply">Reply</a>
-							</p>
-						</div>
-					</li>
-
-					<li class="comment">
-						<div class="comment-body">
-							<h3>John Doe</h3>
-							<div class="meta">October 03, 2018 at 2:21pm</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Pariatur quidem laborum necessitatibus, ipsam impedit vitae
-								autem, eum officia, fugiat saepe enim sapiente iste iure! Quam
-								voluptas earum impedit necessitatibus, nihil?</p>
-							<p>
-								<a href="#" class="reply">Reply</a>
-							</p>
-						</div>
-				</ul>
+        <c:if test="${ qnaDetail.replies.size() > 0}">
+        	<div class="col-md-12 tour-wrap">
+				<div class="pt-5">
+					<h3 class="mb-5" style="border-bottom: 1px solid #f2f2f2;">${ qnaDetail.replies.size() } Reply</h3>
+					<ul class="comment-list">
+					
+					<c:forEach var="reply" items="${ qnaDetail.replies }">
+						<li class="comment box p-2 px-3 bg-light d-flex">
+							<div class="comment-body">
+								<h3>${ reply.Id }</h3>
+								<div class="meta">${ reply.rWDate }</div>
+								<p>${ reply.rContent }</p>
+								<p>
+									<a href="#" class="reply">Reply</a>
+								</p>
+							</div>
+						</li>
+					</c:forEach>
+					
+					</ul>
+				</div>
 			</div>
-		</div>
+        </c:if>	
 	</div>
-
 
 </body>
 
