@@ -42,8 +42,8 @@
 					      <tr>					      	
 					        <td class="pl-5">${mTFolder.tLidx}</td>
 					       <td> <a href="MTList.do">${ mTFolder.tLName}</a></td>
-					        <td><button type="button" class="btn btn-primary mr-3">수정</button> 
-					       <button type="button" class="btn btn-secondary">삭제</button></td>					       
+					        <td><button type="button" class="btn btn-primary mr-3">수정</button> </td>	
+					      <td><button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					    </c:forEach>  			  				  
 					  </table>					   
