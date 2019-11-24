@@ -47,12 +47,14 @@
         
         
         <div class="p-5 bg-light mt-3">
-        	<div class="form-group">
-	        	<textarea name="" id="" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
-             </div>
-             <div class="text-right">
-             	 <input type="button" class="btn btn-primary " value="REPLY" onclick="location.href='BoardReplyWrite.do?bIdx=${qnaDetail.bIdx}'">
-             </div>
+	        <form action="BoardReplyWrite.do?bIdx=${qnaDetail.bIdx}" method="post">
+	        	<div class="form-group">
+		        	<textarea name="content" id="content" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
+	             </div>
+	             <div class="text-right">
+	             	 <input type="submit" class="btn btn-primary " value="REPLY" >
+	             </div>
+	        </form>
         </div>
         
         <!-- Reply  -->
@@ -65,7 +67,7 @@
 					<c:forEach var="reply" items="${ qnaDetail.replies }">
 						<li class="comment box p-2 px-3 bg-light d-flex">
 							<div class="comment-body">
-								<h3>${ reply.Id }</h3>
+								<h3 class="bold">${ reply.id }</h3>
 								<div class="meta">${ reply.rWDate }</div>
 								<p>${ reply.rContent }</p>
 								<p>

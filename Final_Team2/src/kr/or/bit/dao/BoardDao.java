@@ -1092,7 +1092,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		
 		List<Reply> replies = new ArrayList<Reply>();
-		String sql = " SELECT RIDX, RCONTENT, ID FROM REPLY "
+		String sql = " SELECT RIDX, RCONTENT, ID, RWDATE FROM REPLY "
 						+ " WHERE BIDX = ? ORDER BY RIDX ";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -1105,6 +1105,7 @@ public class BoardDao {
 				reply.setrIdx(rs.getInt(1));
 				reply.setrContent(rs.getString(2));
 				reply.setId(rs.getString(3));
+				reply.setrWDate(rs.getDate(4));
 				reply.setbIdx(bIdx);
 				
 				replies.add(reply);

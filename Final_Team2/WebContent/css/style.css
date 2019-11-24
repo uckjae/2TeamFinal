@@ -341,6 +341,10 @@ h6, .h6 {
   font-weight: 300;
   line-height: 1.2; }
 
+.bold {
+	 font-weight : bold;
+}
+
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
