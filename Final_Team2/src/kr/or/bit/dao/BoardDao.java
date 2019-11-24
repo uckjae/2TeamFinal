@@ -18,6 +18,7 @@ import kr.or.bit.dto.MTList;
 import kr.or.bit.dto.NoticeBoard;
 import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
+import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
 
 public class BoardDao {
@@ -121,6 +122,7 @@ public class BoardDao {
 
 	// 자유 게시판 글쓰기
 	public int freeContentWrite(String id, String title, String content) {
+		//System.out.println("content write");
 		int resultRow = 0;
 		int refer = 0;
 		int bIdx = -1;
@@ -134,30 +136,29 @@ public class BoardDao {
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 		
 		try {
+			//System.out.println("contentwrite try");
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
 			}
-		
+			//System.out.println("refer");
 			connection.setAutoCommit(false);
+			//System.out.println("autocommit false");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
-			
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-			
 			pstmt = connection.prepareStatement(bIdxsql);
 			pstmt.executeQuery();
 			if(resultSet.next()) {
 				bIdx = resultSet.getInt(1);
 			}
 			connection.commit();
-			
 		} catch (Exception e) {
 			try {
 				connection.rollback();
@@ -449,6 +450,7 @@ public class BoardDao {
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
+				board.setReplies(getRepliesByBIdx(bIdx));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -919,10 +921,11 @@ public class BoardDao {
 		return mtFolderList;
 	}
 	//여행리스트  폴더 만들기
-	public int mTLFolderAdd(MTList mtFolder) {
+	public int mTLFolderAdd(String id, String tlname) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
+		MTList mtFolder = new MTList();
 		String sql = "insert into MTLIST (tlidx,id,tlname) values (TLIdx_SEQ.nextval,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -1086,6 +1089,41 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
+		
 		return resultRow > 0 ? true : false;
+	}
+	
+	public List<Reply> getRepliesByBIdx(int bIdx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Reply> replies = new ArrayList<Reply>();
+		String sql = " SELECT RIDX, RCONTENT, ID FROM REPLY "
+						+ " WHERE BIDX = ? ORDER BY RIDX ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+		
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Reply reply = new Reply();
+				reply.setrIdx(rs.getInt(1));
+				reply.setrContent(rs.getString(2));
+				reply.setId(rs.getString(3));
+				reply.setbIdx(bIdx);
+				
+				replies.add(reply);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		
+		return replies;
 	}
 }
