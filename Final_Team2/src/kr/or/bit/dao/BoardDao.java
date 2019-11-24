@@ -121,6 +121,7 @@ public class BoardDao {
 
 	// 자유 게시판 글쓰기
 	public int freeContentWrite(String id, String title, String content) {
+		//System.out.println("content write");
 		int resultRow = 0;
 		int refer = 0;
 		int bIdx = -1;
@@ -134,30 +135,29 @@ public class BoardDao {
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 		
 		try {
+			//System.out.println("contentwrite try");
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
 			}
-		
+			//System.out.println("refer");
 			connection.setAutoCommit(false);
+			//System.out.println("autocommit false");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
-			
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-			
 			pstmt = connection.prepareStatement(bIdxsql);
 			pstmt.executeQuery();
 			if(resultSet.next()) {
 				bIdx = resultSet.getInt(1);
 			}
 			connection.commit();
-			
 		} catch (Exception e) {
 			try {
 				connection.rollback();
