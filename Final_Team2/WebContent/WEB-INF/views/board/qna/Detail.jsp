@@ -49,7 +49,7 @@
         
         
         <div class="p-5 bg-light mt-3">
-	        <form action="BoardReplyWrite.do?bIdx=${qnaDetail.bIdx}" method="post">
+	        <form action="BoardReplyWrite.do?cmd=qna&bIdx=${qnaDetail.bIdx}" method="post">
 	        	<div class="form-group">
 		        	<textarea name="content" id="content" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
 	             </div>
