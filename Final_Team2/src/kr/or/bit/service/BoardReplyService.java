@@ -13,12 +13,15 @@ public class BoardReplyService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
-		String memberId = (String) request.getSession().getAttribute("memberId");
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+		String content = request.getParameter("content");
+		String memberId = (String) request.getSession().getAttribute("memberId");
 
 		BoardDao dao = new BoardDao();
-		forward.setPath("/common/Redirect.jsp");
-
+		dao.insertReply(bIdx, memberId, content);
+		
+		forward.setPath("QnABoardDetail.do?bIdx=" + bIdx);
+		
 		return forward;
 	}
 }

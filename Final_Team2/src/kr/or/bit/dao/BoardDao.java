@@ -18,6 +18,7 @@ import kr.or.bit.dto.MTList;
 import kr.or.bit.dto.NoticeBoard;
 import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
+import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
 
 public class BoardDao {
@@ -1073,6 +1074,41 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
+		
 		return resultRow > 0 ? true : false;
+	}
+	
+	public List<Reply> getRepliesByBIdx(int bIdx) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Reply> replies = new ArrayList<Reply>();
+		String sql = " SELECT RIDX, RCONTENT, ID FROM REPLY "
+						+ " WHERE BIDX = ? ORDER BY RIDX ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+		
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Reply reply = new Reply();
+				reply.setrIdx(rs.getInt(1));
+				reply.setrContent(rs.getString(2));
+				reply.setId(rs.getString(3));
+				reply.setbIdx(bIdx);
+				
+				replies.add(reply);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}		
+		
+		return replies;
 	}
 }
