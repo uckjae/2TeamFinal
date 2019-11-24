@@ -57,11 +57,12 @@ html, body {
 	data-offset="300">
 	<!-- Top -->
 	<c:import url="/common/Top.jsp" />
+	
 	<div class="content">
 		<div class="comment-form-wrap pt-xl-2">
 			<h1 class="text-center mb-5 bread">공지사항</h1>
 
-			<form name="NBW" class="p-5 bg-light" action="WriteOk.jsp"
+			<form name="NBW" class="p-5 bg-light" action="NoticeBoardWriteOk.do?cmd="
 				method="POST">
 				<table class="table table-bordered" id="dataTable">
 					<tr>
@@ -77,9 +78,9 @@ html, body {
 
 
 				<div class="mt-5 text-center">
-					<input type="submit" class="btn btn-primary" value="글쓰기"
-						onclick="check();"> 
-						<input type="reset" class="btn btn-primary" value="취소">
+					<input type="submit" class="btn btn-primary" value="글쓰기">
+						 
+						<input type="reset" class="btn btn-primary" value="취소"onClick="location.href='NoticeBoardList.do'">
 				</div>
 			</form>
 
