@@ -5,18 +5,11 @@
 <html>
 <head>
 <c:import url="/common/HeadTag.jsp" />
-<meta charset="UTF-8">
-<title>Free Board</title>
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
-<script
-	src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<jsp:include page="/common/DataTableTag.jsp"></jsp:include>
 <!-- include summernote css/js-->
-<link
-	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css"
-	rel="stylesheet">
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
+<title>notice Board</title>
 <style type="text/css">
 html, body {
 	height: 100%;
@@ -68,9 +61,23 @@ html, body {
                 
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${noticeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${noticeWrite.bIdx}">
-                <textarea rows="10" cols="60" id="summernote" name="summernote">
+                <textarea rows="10" cols="60" id="summernote" name="content">
                 	${noticeWrite.content}
 				</textarea>
+				<div class="mt-3 text-right">
+
+					<label class="mr-3"> 
+						<input type="radio" id="isTop" name="isTop" value="1"  
+								<c:if test="${ noticeWrite.isTop() }"> checked </c:if>  
+						>올리자
+					</label>
+					<label> 
+						<input type="radio" id="isTop" name="isTop" value="0" 
+								 <c:if test="${ !noticeWrite.isTop() }"> checked </c:if> 
+						>말자
+					</label>
+				
+				</div>
 				<div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 

@@ -282,8 +282,8 @@ public class BoardDao {
 
 	// 공지사항
 	// 공지 게시판 게시글 목록보기
-		public List<NoticeBoard> noticeList() {
-			List<NoticeBoard> nboard = new ArrayList<>();;
+		public List<NoticeBoard> noticeboardList() {
+			List<NoticeBoard> noticeboardList = new ArrayList<>();;
 			
 			Connection connection = DBHelper.getConnection();
 			PreparedStatement pstmt = null;
@@ -296,17 +296,17 @@ public class BoardDao {
 				pstmt = connection.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
-					NoticeBoard board = new NoticeBoard();
-					board.setbIdx(rs.getInt(1));
-					board.setId(rs.getString(2));
-					board.setTitle(rs.getString(3));
-					board.setContent(rs.getString(4));
-					board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
-					board.setrNum(rs.getInt(6));
-					board.setnIdx(rs.getInt(7));
-					board.setTop(rs.getBoolean(8));
+					NoticeBoard NoticeBoard = new NoticeBoard();
+					NoticeBoard.setbIdx(rs.getInt(1));
+					NoticeBoard.setId(rs.getString(2));
+					NoticeBoard.setTitle(rs.getString(3));
+					NoticeBoard.setContent(rs.getString(4));
+					NoticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+					NoticeBoard.setrNum(rs.getInt(6));
+					NoticeBoard.setnIdx(rs.getInt(7));
+					NoticeBoard.setTop(rs.getBoolean(8));
 					
-					nboard.add(board);
+					noticeboardList.add(NoticeBoard);
 				}
 				
 			}catch (Exception e) {
@@ -323,7 +323,7 @@ public class BoardDao {
 				DBHelper.close(connection);
 			}
 			
-			return nboard;
+			return noticeboardList;
 		}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeDetail(int bIdx) {

@@ -14,7 +14,7 @@ public class MTLFolderEditService implements Action{
 		ActionForward forward = new ActionForward();
 		BoardDao boardDao = new BoardDao();	
 		String tLname = request.getParameter("editFolder");
-		System.out.println("tLName : " + tLname);
+		System.out.println("tLName : " + request.getParameter("tLidx"));
 	//	String id = (String)request.getSession().getAttribute("memberId");
 		int tLidx = Integer.parseInt(request.getParameter("tLidx"));
 		System.out.println("서비스 tLidx" + tLidx);
