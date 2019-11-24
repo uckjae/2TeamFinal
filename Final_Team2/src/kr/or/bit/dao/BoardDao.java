@@ -372,6 +372,8 @@ public class BoardDao {
 
 	// 공지 게시판 게시글 수정하기
 	public int noticeEdit(int bIdx, String title, String content, int isTop) {
+		int resultRow = 0;
+		
 		return 0;
 	}
 	
