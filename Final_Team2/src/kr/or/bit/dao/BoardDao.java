@@ -989,17 +989,21 @@ public class BoardDao {
 		return resultRow;
 	}
 	//여행리스트 폴더 수정하기
-	public int mTLFolderEdit(MTList mtFolder) {
+	public int mTLFolderEdit(int tLidx,String tLname) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		String sql = "update mtlist set tlname= ? where id= ? and TLIdx = ?";
+		ResultSet rs = null;
+		String sql = "update mtlist set tlname= ? where TLIdx = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mtFolder.gettLName());
-			pstmt.setString(2, mtFolder.getId());
-			pstmt.setInt(3, mtFolder.gettLidx());
-			resultRow =	pstmt.executeUpdate();
+			pstmt.setInt(1, tLidx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				pstmt.setString(1, tLname);
+				resultRow =	pstmt.executeUpdate();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
