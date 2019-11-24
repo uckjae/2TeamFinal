@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 import kr.or.bit.dto.MCBoard;
@@ -747,6 +749,7 @@ public class BoardDao {
 		return mCBoardLists;
 	}
 	
+	//나만의코스 메인 사진
 	public List<Photo> courseListPhotos(){
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
@@ -800,18 +803,65 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE FROM BOARD WHERE BIDX=?";
-		
+		String sql = "SELECT B.BIDX,B.ID,B.TITLE,B.CONTENT,B.WDATE, B.RNUM, B.BCODE, MC.MCIDX,"
+				+ " MC.LIKENUM FROM BOARD B JOIN MCBOARD MC ON B.BIDX = MC.BIDX WHERE B.BIDX=?";
+		MCBoard mCBoard = new MCBoard();
 		try {
 			conn = DBHelper.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
 			rs = pstmt.executeQuery();
-		}catch(SQLException e) {
+			while(rs.next()) {
+				mCBoard.setbIdx(rs.getInt(1));
+				mCBoard.setId(rs.getString(2));
+				mCBoard.setTitle(rs.getString(3));
+				mCBoard.setContent(rs.getString(4));
+				mCBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+				mCBoard.setrNum(rs.getInt(6));
+				mCBoard.setbCode(rs.getInt(7));
+				mCBoard.setmCidx(rs.getInt(8));
+				mCBoard.setLikeNum(rs.getInt(9));
+			}
+		}catch(Exception e) {
 			System.out.println("BoardDao courseContent()"+e.getMessage());
 		}
 		
-		return null;
+		return mCBoard;
+	}
+	
+	//나만의 코스 상세보기 사진
+	public List<Photo> courseDetailPhoto(int bidx){
+		List<Photo> photos = new ArrayList<Photo>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=?";
+			conn = DBHelper.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bidx);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Photo photo = new Photo();
+				photo.setPhotoId(rs.getInt(1));
+				photo.setbIdx(rs.getInt(2));
+				photo.setPhotoName(rs.getString(3));
+				
+				photos.add(photo);
+			}
+		
+			
+		}catch(Exception e) {
+			System.out.println("boardDao courseDetailPhoto()" + e.getMessage());
+		}finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		
+		return photos;
 	}
 
 	// 나만의 코스 게시판 글쓰기

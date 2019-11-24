@@ -84,7 +84,7 @@
         									${board.likeNum}
         								</h4>
         								<h3>
-        									<a href="MyCourseBoardDetail.do?bidx=${board.bIdx}">${board.title}</a>
+        									<a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>
@@ -109,7 +109,7 @@
                     <c:forEach var="board" items="${MCBList}">
                     	<tr>
                             <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a href="MyCourseBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
+                            <td class="sorting_1"><a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
                             <td>${board.id}</td>
                             <td>
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
@@ -126,6 +126,9 @@
 					</div>
                 </c:if>
             </div>
+        </div>
+        <div class="row">
+        	<a href="MyCourseBoardWrite.do" style="float: right;"><span>글쓰기</span></a>
         </div>
     </div>
 
