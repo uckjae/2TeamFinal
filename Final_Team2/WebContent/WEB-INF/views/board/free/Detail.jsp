@@ -34,6 +34,7 @@
                 		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='FreeBoardWrite.do?cmd=edit&bIdx=${freeDetail.bIdx}'">
                   		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='FreeBoardDelete.do?bIdx=${freeDetail.bIdx}'">
                 	</c:if>
+                	<input type="button" class="btn btn-primary" value="답글" onclick="location.href='FreeBoardWrite.do?cmd=add&bIdx=${freeDetail.bIdx}'" >
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='FreeBoardList.do'" >
                 </div>
         </div>
