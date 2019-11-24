@@ -24,7 +24,7 @@ public class NoticeBoardWriteService implements Action{
 		}else if(cmd.equals("edit")) {
 			int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
 			BoardDao dao = new BoardDao();
-			noticewrite = dao.notice
+			noticewrite = dao.noticeDetail(bIdx);
 			System.out.println(noticewrite.toString());
 		}
 		request.setAttribute("noticewrite", noticewrite);

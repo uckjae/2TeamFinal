@@ -301,7 +301,7 @@ public class BoardDao {
 			return nboard;
 		}
 	// 공지 게시판 게시글 상세보기
-	public NoticeBoard noticeContent() {
+	public NoticeBoard noticeDetail() {
 		return null;
 	}
 
@@ -362,11 +362,6 @@ public class BoardDao {
 	public int noticeEdit() {
 		return 0;
 	}
-	
-	// 공지 게시판 게시글 수정하기
-		public int noticeDetail() {
-			return 0;
-		}
 	
 	
 	// 공지사항 끝
