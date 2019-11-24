@@ -25,7 +25,9 @@ public class FreeBoardWriteOkService implements Action{
 		String msg = "";
 		String url = "";
 		if (cmd.equals("write")) {
+			System.out.println("write if문");
 			bIdx = dao.freeContentWrite(id, title, content);
+			System.out.println("if문 bidx : " + bIdx);
 			if (bIdx > 0) {
 				msg = "게시글 작성 완료";
 			} else {
