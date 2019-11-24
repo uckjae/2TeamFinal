@@ -75,23 +75,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                       		<td>123</td>
-                            <td class="sorting_1"><a href="FreeBoardDetail.do">HelloWorld</a></td>
-                            <td>19-1-/22</td>
-                            <td>Mr.uck</td>
-                            <td>777</td>
-                            <td class="iconColumn">
-                                <a href="#">
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
-                            </td>
-                            <td class="iconColumn">
-                                <a href="#" data-toggle="modal" data-target="#deleteModal" data-delete-id="">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
                         		<td>${board.bIdx}</td>
@@ -106,7 +89,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="FreeBoardWrite.do">
+            <a href="FreeBoardWrite.do?cmd=write">
             	<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
             </a>
         </div>

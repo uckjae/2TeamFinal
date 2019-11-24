@@ -14,9 +14,14 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
+import kr.or.bit.service.FreeBoardReWriteOkService;
+import kr.or.bit.service.FreeBoardReWriteService;
+import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
+import kr.or.bit.service.MTLFolderAddService;
+import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
@@ -81,7 +86,7 @@ public class FrontController extends HttpServlet {
 			
 		}
 		
-		/* BOARD */
+		/* BOARD */	
 		// Free Board
 		else if (url_Command.equals("/FreeBoardList.do")) {
 			action = new FreeBoardListService();
@@ -92,11 +97,19 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if(url_Command.equals("/FreeBoardWrite.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/free/Write.jsp");
+			action = new FreeBoardWriteService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardWriteOk.do")) {
-			action = new FreeBoardWriteService();
+			action = new FreeBoardWriteOkService();
+			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/FreeBoardReWrite.do")) {
+			action = new FreeBoardReWriteService();
+			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/FreeBoardReWriteOk.do")) {
+			action = new FreeBoardReWriteOkService();
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {
@@ -204,7 +217,21 @@ public class FrontController extends HttpServlet {
 			action = new MTLFolderListService();
 			forward = action.execute(request, response);			
 		}
+		//여행리스트 폴더 추가 화면 보여주기 
+		else if (url_Command.equals("/MTFolderListAddForm.do")) {			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/mypage/MyTravelListFolderAddForm.jsp");			
+		}
 		//여행리스트 폴더 추가하기
+		else if (url_Command.equals("/MTFolderListAdd.do")) {			
+			 action = new MTLFolderAddService();
+			 forward = action.execute(request, response)	;	
+		}
+		//여행리스트 폴더 수정하기 
+		else if (url_Command.equals("/MTFolderListEdit.do")) {			
+			 action = new MTLFolderEditService();
+			 forward = action.execute(request, response)	;	
+		}
 		//여행리스트 폴더 삭제하기
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			

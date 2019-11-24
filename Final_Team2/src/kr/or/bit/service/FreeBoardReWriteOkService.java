@@ -7,54 +7,35 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
 
-public class FreeBoardWriteOkService implements Action{
+public class FreeBoardReWriteOkService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		String cmd = request.getParameter("cmd").trim();
-		System.out.println("writeok : " + cmd);
+		boolean result = false;
+		
 		String id = (String)request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
 		BoardDao dao = new BoardDao();
+		dao.FreeBoardReWrite(id, title, content);
 		
-		int bIdx = 0;
 		String msg = "";
 		String url = "";
-		if (cmd.equals("write")) {
-			bIdx = dao.freeContentWrite(id, title, content);
-			if (bIdx > 0) {
-				msg = "게시글 작성 완료";
-			} else {
-				msg = "게시글 작성 실패";
-			}
-		} else if (cmd.equals("edit")) {
-			bIdx = Integer.parseInt(request.getParameter("bIdx"));
-			boolean result = dao.freeBoardEdit(title, content, bIdx);
-			if (result) {
-				msg = "게시글 수정 완료";
-			} else {
-				msg = "게시글 수정 실패";
-			}
-		}
-		
-		if (bIdx > 0) {
-			url = "FreeBoardDetail.do?bIdx=" + bIdx;
-		}else {
-			url = "FreeBoardWrite.do";
+		if(result) {
+			msg = "답글 작성 완료";
+		} else {
+			msg = "답글 작성 실패";
 		}
 		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
-
+		
 		forward.setPath("/common/Redirect.jsp");
-
+		
 		return forward;
 	}
-	
-	
-	
+
 }

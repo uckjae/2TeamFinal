@@ -17,8 +17,8 @@ public class NoticeBoardListService implements Action{
 		ActionForward forward = new ActionForward();
 
 		BoardDao dao = new BoardDao();
-		List<NoticeBoard> nboard = dao.noticeList();
-		request.setAttribute("noboard", nboard);
+		List<NoticeBoard> noticeboardList = dao.noticeboardList();
+		request.setAttribute("noticeboardList", noticeboardList);
 		forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
 
 		return forward;

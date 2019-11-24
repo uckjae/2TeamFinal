@@ -341,6 +341,10 @@ h6, .h6 {
   font-weight: 300;
   line-height: 1.2; }
 
+.bold {
+	 font-weight : bold;
+}
+
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -9760,7 +9764,7 @@ textarea.form-control {
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: right;
-      width: calc(100% - 150px); }
+      width: calc(100% - 20px); }
       .comment-list li .comment-body h3 {
         font-size: 20px; }
       .comment-list li .comment-body .meta {

@@ -61,8 +61,6 @@
        <div class="comment-form-wrap pt-xl-2">
           <h1 class="text-center mb-3 bread">공지사항</h1> 
 	      <div class="table-responsive">
-	        
-	          
 	          <table class="table table-bordered" id="dataTable">
                 <thead>
                    <tr>
@@ -73,20 +71,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                     <c:forEach var="board" items="${noticeList}">
                      <tr>
-                       <td width="10%">1</td>
-                       <td width="70%">어쩌구</td>
-                       <td width="10%">11-09</td>
-                       <td width="10%">100</td>
+                       <td width="10%">${board.bIdx}</td>
+                       <td class="sorting_1"width="70%"><a href="NoticeBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td>
+                       <td width="10%">
+                       <fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss"/>
+                       </td>
+                       <td width="10%">${board.rNum}</td>
                      </tr>
+                      </c:forEach>
                 </tbody>
              </table>
-             <div class="text-center">
-                 <a class="d-block small mt-3" href="NoticeBoardWrite.do">글쓰기</a>
-              </div>    
-          
-	    </div>
-	  </div>
+             </div>
+            <a href="NoticeBoardWrite.do?cmd=write">
+            	<input type="button" class="btn btn-primary" value="글쓰기" id="nboad" name="nboard">
+            </a>
+        </div>   
     </div>
 	  
 </body>

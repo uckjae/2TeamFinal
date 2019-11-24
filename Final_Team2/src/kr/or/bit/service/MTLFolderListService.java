@@ -18,7 +18,6 @@ public class MTLFolderListService implements Action{
 		String id = (String)request.getSession().getAttribute("memberId");
 		List<MTList> mTFolderList = boardDao.mTLFolderList((String)request.getSession().getAttribute("memberId"));
 		request.setAttribute("mTList", mTFolderList);
-		System.out.println("서비스단: " + mTFolderList);
 		forward.setRedirect(false);
 		forward.setPath("/WEB-INF/views/mypage/MyTravelListFolder.jsp");
 		return forward;

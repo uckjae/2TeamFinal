@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +20,13 @@
         }
     </style>
     <script type="text/javascript">
-
+    	$(function(){
+    		$("#replybtn").click(function(){
+    			$.ajax({
+    				
+    			});
+    		});
+    	});
     </script>
 </head>
 
@@ -27,7 +35,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 
-    <!-- Contant -->
+    <!-- Content -->
     <c:set var="qnaDetail" value="${requestScope.qnaDetail}"/>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
@@ -44,8 +52,16 @@
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='QnABoardList.do'" >
                 </div>
         </div>
-    </div>
-
+        
+        
+      
+        
+        <!-- Reply  -->
+        <c:set var="replies" value="${qnaDetail.replies}" scope="request"/>
+        <jsp:include page="../common/Reply.jsp">
+        	<jsp:param name="bIdx" value="${ qnaDetail.bIdx }"/>
+        </jsp:include>
+	</div>
 
 </body>
 
