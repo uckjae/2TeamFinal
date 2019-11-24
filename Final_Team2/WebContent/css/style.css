@@ -9760,7 +9760,7 @@ textarea.form-control {
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: right;
-      width: calc(100% - 150px); }
+      width: calc(100% - 20px); }
       .comment-list li .comment-body h3 {
         font-size: 20px; }
       .comment-list li .comment-body .meta {

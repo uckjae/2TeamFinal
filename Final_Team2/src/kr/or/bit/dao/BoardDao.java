@@ -283,7 +283,7 @@ public class BoardDao {
 					board.setId(rs.getString(2));
 					board.setTitle(rs.getString(3));
 					board.setContent(rs.getString(4));
-					board.setwDate(rs.getDate(5));
+					board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 					board.setrNum(rs.getInt(6));
 					board.setnIdx(rs.getInt(7));
 					board.setTop(rs.getBoolean(8));
@@ -308,13 +308,12 @@ public class BoardDao {
 			return nboard;
 		}
 	// 공지 게시판 게시글 상세보기
-	public NoticeBoard noticeContent() {
+	public NoticeBoard noticeDetail(int bIdx) {
 		return null;
 	}
 
-	// 공지 게시판 글쓰기
 	// 공지 게시판 글쓰기	
-			public boolean noticeWrite(String Id, String title, String content, boolean isTop) {
+			public boolean noticeWrite(String id, String title, String content, boolean isTop) {
 				int resultRow = 0;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
@@ -328,7 +327,7 @@ public class BoardDao {
 					connection.setAutoCommit(false);
 
 					pstmt = connection.prepareStatement(Sql1);
-					pstmt.setString(1, Id);
+					pstmt.setString(1, id);
 					pstmt.setString(2, title);
 					pstmt.setString(3, content);
 					pstmt.executeUpdate();
@@ -369,6 +368,8 @@ public class BoardDao {
 	public int noticeEdit() {
 		return 0;
 	}
+	
+	
 	// 공지사항 끝
 
 	// Q&A
@@ -1056,4 +1057,29 @@ public class BoardDao {
 		return resultRow;
 	}
 	// 내 여행리스트 끝
+	
+	
+	// 댓글
+	public boolean insertReply(int bIdx, String id, String content) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		int resultRow = 0;
+		String sql = "INSERT INTO REPLY (RIDX, BIDX, ID, RCONTENT) VALUES( RIDX_SEQ.NEXTVAL, ?, ?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			pstmt.setString(2, id);
+			pstmt.setString(3, content);
+			
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		return resultRow > 0 ? true : false;
+	}
 }
