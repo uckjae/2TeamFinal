@@ -154,7 +154,7 @@ public class BoardDao {
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
 			pstmt = connection.prepareStatement(bIdxsql);
-			pstmt.executeQuery();
+			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				bIdx = resultSet.getInt(1);
 			}
