@@ -362,6 +362,13 @@ public class BoardDao {
 	public int noticeEdit() {
 		return 0;
 	}
+	
+	// 공지 게시판 게시글 수정하기
+		public int noticeDetail() {
+			return 0;
+		}
+	
+	
 	// 공지사항 끝
 
 	// Q&A
