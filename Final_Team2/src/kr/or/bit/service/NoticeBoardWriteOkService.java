@@ -15,7 +15,7 @@ public class NoticeBoardWriteOkService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		String cmd =request.getParameter("cmd").trim();
-		String id = (String)request.getSession().getAttribute("memberId");
+		String id = (String)request.getSession().getAttribute("id");
 		String title =request.getParameter("title");
 		String content = request.getParameter("content");
 		int isTop = Integer.parseInt(request.getParameter("isTop"));
@@ -24,11 +24,24 @@ public class NoticeBoardWriteOkService implements Action{
 		String msg="";
 		String url="";
 		BoardDao dao = new BoardDao();
+		
 		if(cmd.equals("write")) {
 			bIdx=dao.noticeWrite(id, title, content, isTop);
-			
+			if(bIdx>0) {
+				msg ="공지사항 작성완료!";
+			}else {
+				msg="공지사항 작성실패!";
+			}
 		}
+		if (bIdx > 0) {
+			url = "NoticeBoardDetail.do?bidx=" + bIdx;
+		}else
+			url = "NoticeBoardWrite.do";
 		
+		request.setAttribute("board_msg", msg);
+		request.setAttribute("board_url", url);
+		
+		forward.setPath("/common/Redirect.jsp");
 		
 		return forward;
 	}

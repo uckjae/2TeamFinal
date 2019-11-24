@@ -174,7 +174,8 @@ public class BoardDao {
 	}
 
 	// 자유 게시판 게시글 조회수 증가
-	public boolean getFreeReadNum() {
+	public boolean FreeBoardAddReadNum() {
+		
 		return false;
 	}
 
@@ -229,8 +230,7 @@ public class BoardDao {
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
 			pstmt.setInt(3, bIdx);
-			pstmt.executeUpdate();
-
+			resultRow = pstmt.executeUpdate();
 		} catch (Exception e) {
 			try { 
 				connection.rollback(); 
@@ -242,7 +242,6 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
 		return resultRow > 0 ? true : false;
 	}
 
@@ -371,7 +370,9 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 게시글 수정하기
-	public int noticeEdit() {
+	public int noticeEdit(int bIdx, String title, String content, int isTop) {
+		int resultRow = 0;
+		
 		return 0;
 	}
 	
@@ -1110,12 +1111,12 @@ public class BoardDao {
 				reply.setrIdx(rs.getInt(1));
 				reply.setrContent(rs.getString(2));
 				reply.setId(rs.getString(3));
-				reply.setrWDate(rs.getDate(4));
+				reply.setrWDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(4)));
 				reply.setbIdx(bIdx);
 				
 				replies.add(reply);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(rs);
