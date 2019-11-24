@@ -61,7 +61,7 @@ html, body {
                 
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${noticeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${noticeWrite.bIdx}">
-                <textarea rows="10" cols="60" id="summernote" name="content">
+                <textarea rows="10" cols="60" id="summernote" name="summernote">
                 	${noticeWrite.content}
 				</textarea>
 				<div class="mt-3 text-right">

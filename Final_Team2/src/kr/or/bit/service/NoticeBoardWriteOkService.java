@@ -45,7 +45,7 @@ public class NoticeBoardWriteOkService implements Action{
 		}
 		
 		if (bIdx > 0) {
-			url = "NoticeBoardDetail.do?bIdx=" + bIdx;
+			url = "NoticeBoardList.do";
 		}else {
 			url = "NoticeBoardList.do";
 		}
