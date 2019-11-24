@@ -174,7 +174,15 @@ public class BoardDao {
 	}
 	
 	// 자유 게시판 답글쓰기
-	public FreeBoard FreeBoardAddWrite(int bIdx) {
+	public FreeBoard FreeBoardReWrite(String id, String title, String content) {
+		int resultRow = 0;
+		
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
+		
+		String referNum = "";
+		
 		return null;
 	}
 	
@@ -268,11 +276,6 @@ public class BoardDao {
 
 	// 자유 게시판 댓글 삭제하기
 	public int fBReplyDelte() {
-		return 0;
-	}
-
-	// 자유 게시판 답글 달기
-	public int fBCommentWrite() {
 		return 0;
 	}
 	// 자유게시판 끝
