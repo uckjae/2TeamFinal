@@ -1050,4 +1050,29 @@ public class BoardDao {
 		return resultRow;
 	}
 	// 내 여행리스트 끝
+	
+	
+	// 댓글
+	public boolean insertReply(int bIdx, String id, String content) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		int resultRow = 0;
+		String sql = "INSERT INTO REPLY (RIDX, BIDX, ID, RCONTENT) VALUES( RIDX_SEQ.NEXTVAL, ?, ?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			pstmt.setString(2, id);
+			pstmt.setString(3, content);
+			
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		return resultRow > 0 ? true : false;
+	}
 }
