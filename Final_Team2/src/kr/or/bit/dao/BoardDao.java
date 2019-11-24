@@ -1111,12 +1111,12 @@ public class BoardDao {
 				reply.setrIdx(rs.getInt(1));
 				reply.setrContent(rs.getString(2));
 				reply.setId(rs.getString(3));
-				reply.setrWDate(rs.getDate(4));
+				reply.setrWDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(4)));
 				reply.setbIdx(bIdx);
 				
 				replies.add(reply);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(rs);
