@@ -62,7 +62,7 @@
                 </c:choose> " class="p-5 bg-light" method="post">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${freeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${freeWrite.bIdx}">
-                <textarea rows="10" cols="60" id="summernote" name="summernote">
+                <textarea rows="10" cols="60" id="summernote" name="content">
                 	${ freeWrite.content }
 				</textarea>
 				<div class="text-center">

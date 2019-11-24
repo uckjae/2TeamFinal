@@ -15,7 +15,7 @@ public class FreeBoardDetailService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
-		
+		System.out.println("detailbidx : " + bIdx);
 		BoardDao dao = new BoardDao();
 		FreeBoard freeBoardDetail = dao.freeBoardDetail(bIdx);
 		

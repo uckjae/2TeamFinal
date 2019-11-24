@@ -123,7 +123,7 @@ public class BoardDao {
 	public int freeContentWrite(String id, String title, String content) {
 		int resultRow = 0;
 		int refer = 0;
-		
+		int bIdx = -1;
 		Connection connection = DBHelper.getConnection();
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
@@ -131,6 +131,7 @@ public class BoardDao {
 		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
+		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 		
 		try {
 			pstmt = connection.prepareStatement(referNum);
@@ -149,9 +150,14 @@ public class BoardDao {
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			resultRow = pstmt.executeUpdate();
-			if(resultRow > 0) {
-				connection.commit();
+			
+			pstmt = connection.prepareStatement(bIdxsql);
+			pstmt.executeQuery();
+			if(resultSet.next()) {
+				bIdx = resultSet.getInt(1);
 			}
+			connection.commit();
+			
 		} catch (Exception e) {
 			try {
 				connection.rollback();
@@ -163,7 +169,8 @@ public class BoardDao {
 			DBHelper.close(resultSet);
 			DBHelper.close(connection);
 		}
-		return resultRow;
+		System.out.println("freeconwritebidx : "+ bIdx);
+		return bIdx;
 	}
 
 	// 자유 게시판 게시글 조회수 증가
