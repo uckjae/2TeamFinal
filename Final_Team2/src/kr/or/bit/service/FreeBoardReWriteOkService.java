@@ -15,12 +15,13 @@ public class FreeBoardReWriteOkService implements Action{
 		
 		boolean result = false;
 		
+		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		String id = (String)request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
 		BoardDao dao = new BoardDao();
-		dao.FreeBoardReWrite(id, title, content);
+		dao.FreeBoardReWrite(id, title, content, bIdx);
 		
 		String msg = "";
 		String url = "";

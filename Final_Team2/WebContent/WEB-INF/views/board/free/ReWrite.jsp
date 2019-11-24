@@ -35,12 +35,13 @@
     <c:import url="/common/Top.jsp" />
     
     <!-- Contant -->
+    <c:set var="freeReWrite" value="${requestScope.freeBoardReWrite}"></c:set>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">
             	답글 작성
             </h1>
-            <form action="FreeBoardReWriteOk.do?" method="post"class="p-5 bg-light">
+            <form action="FreeBoardReWriteOk.do?bIdx=${freeReWrite.bIdx}" method="post"class="p-5 bg-light">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
                 <input type="hidden" id="bIdx" name="bIdx">
                 <textarea rows="10" cols="60" id="summernote" name="content">

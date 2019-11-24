@@ -174,14 +174,30 @@ public class BoardDao {
 	}
 	
 	// 자유 게시판 답글쓰기
-	public FreeBoard FreeBoardReWrite(String id, String title, String content) {
+	public FreeBoard FreeBoardReWrite(String id, String title, String content, int bIdx) {
 		int resultRow = 0;
-		
+		int refer = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String referNum = "";
+		String referNum = "SELECT REFER, DEPTH, STEP FROM FREEBOARD WHERE BIDX=?";
+		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
+		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
+		
+		try {
+			pstmt = connection.prepareStatement(referNum);
+			pstmt.setInt(1, bIdx);
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				refer = resultSet.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
 		
 		return null;
 	}

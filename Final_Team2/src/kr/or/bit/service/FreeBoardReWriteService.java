@@ -11,7 +11,11 @@ public class FreeBoardReWriteService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		//"/WEB-INF/views/board/free/ReWrite.jsp"
+		
+		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+		
+		request.setAttribute("freeBoardReWrite", bIdx);
+		forward.setPath("/WEB-INF/views/board/free/ReWrite.jsp");
 				
 		return forward;
 	}
