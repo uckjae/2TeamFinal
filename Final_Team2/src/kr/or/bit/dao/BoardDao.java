@@ -384,6 +384,8 @@ public class BoardDao {
 
 	// 공지 게시판 게시글 수정하기
 	public int noticeEdit(int bIdx, String title, String content, int isTop) {
+		int resultRow = 0;
+		
 		return 0;
 	}
 	
@@ -936,12 +938,11 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		MTList mtFolder = new MTList();
 		String sql = "insert into MTLIST (tlidx,id,tlname) values (TLIdx_SEQ.nextval,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mtFolder.getId());
-			pstmt.setString(2, mtFolder.gettLName());
+			pstmt.setString(1, id);
+			pstmt.setString(2, tlname);
 			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -32,14 +32,6 @@ public class NoticeBoardWriteOkService implements Action{
 			}else {
 				msg="공지사항 작성실패!";
 			}
-		}else if(cmd.equals("edit")) {
-			bIdx=Integer.parseInt(request.getParameter("bIdx"));
-			boolean result=dao.noticeEdit(bIdx, title, content, isTop);
-			if(result) {
-				msg="공지사항 수정완료!"
-			}else {
-				msg="공지사항 수정실패!";
-			}
 		}
 		if (bIdx > 0) {
 			url = "NoticeBoardDetail.do?bidx=" + bIdx;
