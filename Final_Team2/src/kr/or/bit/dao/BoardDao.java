@@ -444,6 +444,7 @@ public class BoardDao {
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
+				board.setReplies(getRepliesByBIdx(bIdx));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
