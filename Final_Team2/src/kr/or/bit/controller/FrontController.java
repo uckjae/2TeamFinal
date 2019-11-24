@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.BoardReplyService;
+import kr.or.bit.service.FreeBoardAddWriteService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
@@ -108,7 +109,8 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardAddWrite.do")) {
-			
+			action = new FreeBoardAddWriteService();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/FreeBoardDelete.do")) {
 			action = new FreeBoardDeleteService();
