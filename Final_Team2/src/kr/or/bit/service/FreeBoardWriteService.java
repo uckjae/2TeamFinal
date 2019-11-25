@@ -25,6 +25,7 @@ public class FreeBoardWriteService implements Action{
 			freeBoardWrite = new FreeBoard();
 			freeBoardWrite.setbIdx(-1);
 		}else if(cmd.equals("edit")) {
+			dao = new BoardDao();
 			bIdx = Integer.parseInt(request.getParameter("bIdx"));
 			freeBoardWrite = dao.freeBoardDetail(bIdx);
 		}
