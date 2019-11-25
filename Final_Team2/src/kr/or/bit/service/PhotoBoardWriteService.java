@@ -22,11 +22,13 @@ public class PhotoBoardWriteService implements Action{
 			photowrite = new Board(); 
 			photowrite.setbIdx(-1);
 		}else if(cmd.equals("edit")) {
-			int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+			int bIdx = Integer.parseInt(request.getParameter("bidx"));
 			BoardDao dao = new BoardDao();
 			photo = dao.boardDetailPhoto(bIdx).get(0);
 			photowrite = dao.getBoardByBIdx(bIdx);
 		}
+		
+		
 		request.setAttribute("photo", photo);
 		request.setAttribute("photowrite", photowrite);
 		forward.setPath("/WEB-INF/views/board/photo/Write.jsp");
