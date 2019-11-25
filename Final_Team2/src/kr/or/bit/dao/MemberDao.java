@@ -54,7 +54,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 
 		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN, KAKAO) "
-						+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0)";
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0)";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -194,7 +194,7 @@ public class MemberDao {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
-			
+
 			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -217,7 +217,7 @@ public class MemberDao {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, pwd);
 			pstmt.setString(2, id);
-			
+
 			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -227,5 +227,31 @@ public class MemberDao {
 		}
 
 		return resultRow > 0 ? true : false;
+	}
+
+	public boolean isUseMemberId(String id) {
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+
+		String sql = "SELECT ID FROM MEMBER WHERE ID = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+				result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return result;
 	}
 }
