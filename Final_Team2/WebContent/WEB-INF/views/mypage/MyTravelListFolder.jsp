@@ -50,7 +50,8 @@ $(function(){
 	<br><br><br><br>
 		<h1><i class="flaticon-world mr-3"></i> 나의 여행 리스트 폴더</h1>
 		
-		<button type="button" class="btn btn-primary mt-1 mb-3" onclick="location.href='MTFolderListAddForm.do'">폴더 추가하기</button>
+		<!--  <button type="button" class="btn btn-primary mt-1 mb-3" onclick="location.href='MTFolderListAddForm.do'">폴더 추가하기</button> -->
+		<a href="MTFolderListChange.do?cmd=add" class="btn btn-primary"> 폴더 추가 </a>
 	<c:set var="mTFolderList" value ="${requestScope.mTList}"/>
     				<table class="table">				    
 					      <tr>					      
@@ -64,7 +65,7 @@ $(function(){
 					        <td class="pl-5">${mTFolder.tLidx}</td>
 					       <td> <a href="MTList.do" >${ mTFolder.tLName}</a></td>
 					        <td>
-					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-tlidx="${mTFolder.tLidx}" data-edit-tlname="${mTFolder.tLName}">수정 </a></td>	
+					        <a href="MTFolderListChange.do?cmd=edit&tLidx=${mTFolder.tLidx}" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-tlidx="${mTFolder.tLidx}" data-edit-tlname="${mTFolder.tLName}">수정 </a></td>	
 					      <td><button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					    </c:forEach>  			  				  
@@ -72,9 +73,12 @@ $(function(){
 		   		</div>		
 	 		</div>
 
-
 	<!-- Modal-->
-	 <c:import url="MyTravelListFolderModal.jsp" />
+	<!--   <c:import url="MyTravelListFolderModal.jsp" /> --> 
+	  <jsp:include page="MyTravelListFolderModal.jsp">
+        <jsp:param name="tLIdx" value="${ mTFolder.tLidx }"/>
+        </jsp:include>
+	 
 	<script src="js/main.js"></script>
 </body>
 </html>
