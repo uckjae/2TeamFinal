@@ -40,7 +40,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <section class="ftco-center">
+    <div class="content">
         <div class="row justify-content-center pb-5">
             <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
                 <h2 class="text-center mb-3">REGISTER</h2>
@@ -98,7 +98,7 @@
                 </form>
             </div>
         </div>
-    </section>
+    </div>
 
 </body>
 
