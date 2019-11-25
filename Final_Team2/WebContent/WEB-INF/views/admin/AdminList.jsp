@@ -90,7 +90,8 @@
                             <td align="center">${admin.name}</td>
                             <td align="center">${admin.hireDate}</td>
                             <td class="iconColumn">
-								<a href="MemberEdit.do?empno=${emp.empno}">
+								<a href="#" data-toggle="modal" data-target="#writeModal"  
+										data-cmd="edit"  data-id="${admin.id}" data-name="${admin.name}" data-pwd="${admin.pwd }">
 									<i class="fas fa-user-edit"></i>
 								</a>
 							</td>
@@ -104,13 +105,17 @@
                    </tbody>
                 </table>
                <div class="text-right mt-3">
-					<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 추가 </a>
+					<a href="#" data-toggle="modal" data-target="#writeModal" data-cmd="add" class="btn btn-primary"> 추가 </a>
 				</div>
             </div>
         </div>
     </div>
 
+	<!-- Delete Modal -->
 	<jsp:include page="modal/DeleteModal.jsp"/>
+	
+	<!-- Write Modal -->
+	<jsp:include page="modal/WriteModal.jsp"/>
 
 </body>
 

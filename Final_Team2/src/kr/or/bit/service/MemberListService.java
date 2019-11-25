@@ -15,7 +15,7 @@ public class MemberListService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		ActionForward forward = null;
+		ActionForward forward = new ActionForward();
 		
 		MemberDao dao = new MemberDao();
 		List<Member> members = dao.getMembersByIsAdmin(false);
