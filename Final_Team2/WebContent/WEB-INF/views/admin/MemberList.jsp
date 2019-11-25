@@ -66,10 +66,10 @@
     <c:import url="/common/Top.jsp"/>
 
     <!-- Contant -->
-    <c:set var="admins" value="${requestScope.admins}" />
+    <c:set var="members" value="${requestScope.members}" />
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
-            <h1 class="text-center mb-3 bread">ADMIN</h1>
+            <h1 class="text-center mb-3 bread">MEMBER</h1>
             <div class="table-responsive">
                 <table class="table table-bordered hover" id="dataTable">
                     <thead>
@@ -83,19 +83,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="admin" items="${admins}"  varStatus="status" >
+                    <c:forEach var="member" items="${members}"  varStatus="status" >
                     	<tr>
                             <td align="center">${status.count}</td>
-                            <td align="center">${admin.id}</td>
-                            <td align="center">${admin.name}</td>
-                            <td align="center">${admin.hireDate}</td>
+                            <td align="center">${member.id}</td>
+                            <td align="center">${member.name}</td>
+                            <td align="center">${member.hireDate}</td>
                             <td class="iconColumn">
 								<a href="MemberEdit.do?empno=${emp.empno}">
 									<i class="fas fa-user-edit"></i>
 								</a>
 							</td>
 							<td class="iconColumn">
-								<a href="#" data-toggle="modal" data-target="#deleteModal" data-cmd="admin" data-delete-id="${admin.id}">
+								<a href="#" data-toggle="modal" data-target="#deleteModal" data-cmd="member" data-delete-id="${member.id}">
 									<i class="fas fa-trash-alt"></i>
 								</a>
 							</td>
