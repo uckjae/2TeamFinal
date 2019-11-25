@@ -53,7 +53,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 
 		String sql = "";
-		
+
 		try {
 			pstmt = connection.prepareStatement(sql);
 
@@ -83,7 +83,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
@@ -104,7 +104,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
@@ -127,7 +127,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return member;
 	}
 
@@ -170,18 +170,22 @@ public class MemberDao {
 
 		return members;
 	}
-	
+
 	// Admin
-	public boolean insertAdmin(String id, String name, String pwd) {
+	public boolean insertAdmin(String id, String pwd) {
+		System.out.println("in inset db");
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
-		
+		String sql = "INSERT INTO MEMBER (ID, PWD, ISADMIN, NAME) VALUES( ?, ?, 1, '관리자') ";
+
 		try {
 			pstmt = connection.prepareStatement(sql);
-
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -192,23 +196,26 @@ public class MemberDao {
 		return resultRow > 0 ? true : false;
 	}
 
-	public boolean updateAdmin(String id, String name, String pwd) {
+	public boolean updateAdmin(String id, String pwd) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
+		String sql = "UPDATE MEMBER SET PWD = ? WHERE ID = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
-
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, id);
+			
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 }
