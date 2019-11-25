@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,35 +14,41 @@
 
 <c:import url="/common/Top.jsp" />
 <c:set var="photolist" value="${requestScope.photolist }"/>
+<c:set var="boardlist" value="${requestScope.boardlist }"/>
 			    <section class="ftco-section">
 			    <div class="row">
 			    <c:forEach var="photo" items="${photolist }">
+			    <c:forEach var="board" items="${boardlist }">
+			    
 			   <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
 		    				<div class="project">
 		    					<div class="img">
-				    				<a href="hotel-single.html"><img src="images/destination-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
+				    				<a href="PhotoBoardDetail.do?bidx=${board.bIdx }"><img src= "upload/${photo.photoName }" class="img-fluid" alt="없음"></a>
 			    				</div>
+			    					
 			    				<div class="text">
-			    					<h4 class="price">${photo.id }</h4>
-			    					<span>${photo.bIdx}</span>
-			    					<h3><a href="PhotoBoardDetail.do?bidx=${photo.bIdx }">${photo.title }</a></h3>
+			    					<h4 class="price">${board.id }</h4>
+			    					<span>${board.bIdx}</span>
+			    					<h3><a href="PhotoBoardDetail.do?bidx=${board.bIdx }">${board.title }</a></h3>
 			    					<div class="star d-flex clearfix">
 			    						<div class="mr-auto float-left">
-				    						<span><fmt:formatDate value="${photoss.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></span>
+				    						<span><fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></span>
 				    				
 			    						</div>
 			    						<div class="float-right">
-			    							<span class="rate"><a href="#">${photo.rNum }</a></span>
+			    							<span class="rate"><a href="#">${board.rNum }</a></span>
 			    						</div>
 			    					</div>
 			    				</div>
+			    				
 			    				<a href="images/hotel-5.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
 			    					<span class="icon-expand"></span>
 			    				</a>
 		    				</div>
 		    				</div>
+		    				</c:forEach>
 		    			 </c:forEach>
-		    			  	
+		    			  
 		    			
 		    			
     </section>

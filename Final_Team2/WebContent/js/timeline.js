@@ -13,10 +13,10 @@ $(function(){
 					if(articles==2){
 						var newArticle = $('<div class="content timeline-article">');
 						var left = $('<div class="content-left-container">');
-						$(left).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(left).prepend($('<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(left).prepend($('<input type="file" id="photo2" name="photo2" accept="image/*">'));
 						$(left).prepend($('<span class="article-number">').text("0"+num));
-						$(left).prepend($('<textarea name="area" cols="25" rows="5">'));
+						$(left).prepend($('<textarea class = "input" name="area" cols="25" rows="5">'));
 						$(newArticle).prepend(left);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view2" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
@@ -37,10 +37,10 @@ $(function(){
 					else if(articles==3){
 						var newArticle = $('<div class="content timeline-article">');
 						var right = $('<div class="content-right-container">');
-						$(right).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(right).prepend($('<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo3" name="photo3" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text("0"+num));
-						$(right).prepend($('<textarea name="area" cols="25" rows="5">'));
+						$(right).prepend($('<textarea class = "input" name="area" cols="25" rows="5">'));
 						$(newArticle).prepend(right);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view3" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
@@ -60,10 +60,10 @@ $(function(){
 					else if(articles==4){
 						var newArticle = $('<div class="content timeline-article">');
 						var left = $('<div class="content-left-container">');
-						$(left).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(left).prepend($('<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(left).prepend($('<input type="file" id="photo4" name="photo4" accept="image/*">'));
 						$(left).prepend($('<span class="article-number">').text("0"+num));
-						$(left).prepend($('<textarea name="area" cols="25" rows="5">'));
+						$(left).prepend($('<textarea class = "input" name="area" cols="25" rows="5">'));
 						$(newArticle).prepend(left);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view4" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
@@ -83,10 +83,10 @@ $(function(){
 					else{
 						var newArticle = $('<div class="content timeline-article">');
 						var right = $('<div class="content-right-container">');
-						$(right).prepend($('<input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
+						$(right).prepend($('<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo5" name="photo5" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text("0"+num));
-						$(right).prepend($('<textarea name="area" cols="25" rows="5">'));
+						$(right).prepend($('<textarea class = "input" name="area" cols="25" rows="5">'));
 						$(newArticle).prepend(right);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view5" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
