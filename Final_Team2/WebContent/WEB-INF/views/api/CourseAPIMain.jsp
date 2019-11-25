@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
-<title>코스</title>
+<title>코스 </title>
  <style type="text/css">
         html,
         body {
