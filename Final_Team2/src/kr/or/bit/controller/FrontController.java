@@ -281,7 +281,8 @@ public class FrontController extends HttpServlet {
 		
 		// 추천 여행지
 		else if (url_Command.equals("/Recommend.do")) {
-			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		}
 		
 		if (forward != null) {
