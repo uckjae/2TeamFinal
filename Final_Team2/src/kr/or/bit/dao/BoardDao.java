@@ -799,14 +799,13 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 상세보기
-	public Board photoContent(int bIdx) {
+	public Board getBoardByBIdx(int bIdx) {
 		Board board = null;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT B.BIDX, B.ID , B.TITLE , B.CONTENT, B.WDATE, B.RNUM, P.BIDX , P.PHOTOID ,"
-				+ " P.PHOTONAME FROM BOARD B JOIN PHOTO P ON B.BIDX = P.BIDX WHERE B.BIdx = ?";
+		String sql = "select BIDX , ID , TITLE , CONTENT, WDATE, RNUM, BCODE FROM BOARD WHERE BIDX = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -821,6 +820,8 @@ public class BoardDao {
 				board.setContent(rs.getString(4));
 				board.setwDate(rs.getDate(5));
 				board.setrNum(rs.getInt(6));
+				board.setbCode(rs.getInt(7));
+				
 			}
 		}catch (Exception e) {
 			System.out.println("상세 : " + e.getMessage());
