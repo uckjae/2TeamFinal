@@ -30,7 +30,7 @@ public class PhotoBoardWriteOkService implements Action{
 			String content = multi.getParameter("content");
 			String title = multi.getParameter("title");
 			String photoName = multi.getFilesystemName("Photo");
-			String cmd = request.getParameter("cmd").trim();
+			String cmd = multi.getParameter("cmd").trim();
 			BoardDao dao = new BoardDao();
 			
 			String msg = "";
@@ -47,15 +47,16 @@ public class PhotoBoardWriteOkService implements Action{
 			
 			}else if(cmd.equals("edit")) {
 				System.out.println("에딧");
+				 bIdx = Integer.parseInt(request.getParameter("bidx"));
+				 System.out.println(bIdx);
 				int result = dao.photoEdit(bIdx, title, content, photoName);
-				System.out.println(result);
 				if(result > 0) {
 					msg = "글 수정을 성공하셨습니다.";
+					url = "PhotoBoardList.do";
 				}else {
 					msg = "글 수정을 실패하셨습니다.";
 				}	
 			}
-			
 			
 		
 				

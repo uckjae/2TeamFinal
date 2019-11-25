@@ -81,10 +81,10 @@ $(document).ready(function(){
 				</c:choose>
 				</h3>
 	<form action="PhotoWriteOk.do?cmd=<c:choose>
-			<c:when test="${Edit }">edit </c:when>
+			<c:when test="${Edit }">edit&bidx=${photowrite.bIdx} </c:when>
 			<c:otherwise>write </c:otherwise>
 		</c:choose>" method="post" enctype="multipart/form-data">
-		<input type="hidden" id="bidx" name="bidx" value="${photowrite.bIdx}">
+	
 					<table border="1" style="width: 800px; height: 800px" >
 					
 						<tr>
@@ -94,7 +94,7 @@ $(document).ready(function(){
 						
 							</td>
 							<td>
-							<input type="text" name="title" id="title" value="${photowrite.title }" style="width: 100%" >
+							<input type="text" name="title" id="title" value="${photowrite.title }+${photowrite.bIdx}" style="width: 100%" >
 							</td>
 						</tr>
 						
