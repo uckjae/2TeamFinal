@@ -376,6 +376,14 @@ public class BoardDao {
 	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
 			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
 			  +" WHERE B.BIDX = ?";
+	  try {
+		  
+	  }catch(Exception e){
+		  
+	  }finally {
+		  
+	  }
+	  return noticeboard;
 	}
 
 	// 공지 게시판 글쓰기	
