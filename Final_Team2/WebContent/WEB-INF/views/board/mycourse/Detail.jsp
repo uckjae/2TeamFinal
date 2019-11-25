@@ -10,75 +10,82 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
-<%
-	
-%>
+<script type="text/javascript">
+	$(function() {
+		$(".like-button").click(function(){
+			console.log(${mCBoard.mCidx});
+			$.ajax({
+				type:"post",
+				url:"LikeNum",
+				cache: false,
+				dataType:"text",
+				data: 'mCIdx=${mCBoard.mCidx}',
+				success:function(data){
+					console.log(data);
+					$("#likeNum").text(data);
+				}
+			
+			});
+		})
+	});
+</script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-	
 	<!-- Vertical Timeline -->
-	<c:set var="board" value="${requestScope.board}"/>
-	<c:set var="contents" value="${fn:split(board.content,'a2qw30#')}"/>
-	<c:set var="photos" value="${requestScope.photos }"/>
-	<c:forEach var="photo" items="${photos}" varStatus="photoStatus">
-		!!!${photo.photoName}
-	</c:forEach>
-	
+	<c:set var="mCBoard" value="${requestScope.mCBoard}"/>
 	<div class="content">
-  <div id="conference-timeline">
+  	<div id="conference-timeline">
+  	<div class="row">
+  		<div class="text-left">
+  			<span>글번호 : &nbsp;&nbsp;${mCBoard.bIdx}</span>
+  			&nbsp;&nbsp;
+  			<span>작성자 : &nbsp;&nbsp;${mCBoard.id }</span> 
+  		</div>
+  		<h1 class="form-control mb-3 text-center">${mCBoard.title} </h1>
+  	</div>
     <div class="timeline-start">Start</div>
-    <h3 class="form-control mb-3">${board.title}</h3>
+    
+    <div class="text-right mt-3" style="float: right;">
+    	<span class="like-button">추천</span>
+    	<span id="likeNum">${mCBoard.likeNum }</span>
+    	<input id="num" type="hidden" value="${mCBoard.likeNum}">
+    </div>
     <div class="conference-center-line"></div>
     <div class="conference-timeline-content">
       <!-- Article -->
-      <c:forEach var="content" items="${contents}" varStatus="status">
+      <c:forEach var="photo" items="${mCBoard.photoList}" varStatus="status">
+      	
       	<c:choose>
       		<c:when test="${status.index%2 != 1}">
+      			<c:set var="number" value="${status.index}"/>
       			<div class="timeline-article">
       				<div class="content-left-container">
-      					<h1>Left!!!!</h1>
-      						<c:forEach var="text" items="${fn:split(content,'f0q234ksd')}" varStatus="status1">
-								<c:choose>
-									<c:when test="${status1.index == 0}">
 										<div class="content-left">
-											<p>${text}</p>
-											<span class="article-number">${status.index}</span>
+											<p>${mCBoard.contentsList[number*2]}</p>
+											<span class="article-number">${number+1}</span>
 										</div>
-									</c:when>
-									<c:otherwise>
-										<span class="timeline-author">${text}</span>
-									</c:otherwise>
-								</c:choose>
+										<span class="timeline-author">${mCBoard.contentsList[number*2+1]}</span>
 								<div class="meta-date">
-									<img class="image2" src="upload/${photos[status.index] }" alt="여행지사진" onError="this.src='images/scenery.png'">
+									<img class="image2" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 								</div>
-      						</c:forEach>
       				</div>
       			</div>
       		</c:when>
       		<c:otherwise>
+      			<c:set var="number" value="${status.index}"/>
       			<div class="timeline-article">
       				<div class="content-right-container">
-      					<h1>Right!!!</h1>
-      					<c:forEach var="text" items="${content}" varStatus="status2">
-      						<c:choose>
-      							<c:when test="${status2.index == 0}">
-      								<div class="content-right">
-      									<p>${text}</p>
-      									<span class="article-number">${status.index }</span>
-      								</div>
-      							</c:when>
-      							<c:otherwise>
-      								<span class="timeline-author">${text}</span>
-      							</c:otherwise>
-      						</c:choose>
-      						<div class="meta-date">
-      							<img class="image2" src="upload/${photos[status.index] }" alt="여행지사진" onError="this.src='images/scenery.png'">
-      						</div>
-      					</c:forEach>
+										<div class="content-right">
+											<p>${mCBoard.contentsList[number*2]}</p>
+											<span class="article-number">${number+1}</span>
+										</div>
+										<span class="timeline-author">${mCBoard.contentsList[number*2+1]}</span>
+								<div class="meta-date">
+									<img class="image2" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
+								</div>
       				</div>
       			</div>
       		</c:otherwise>
@@ -86,8 +93,14 @@
        </c:forEach>
     </div>
     <div class="timeline-end">End</div>
+    
+    <div class="text-right">
+  		<a href="MyCourseBoardList.do"><span>목록</span></a>
+  	</div>
+    
   </div>
   </div>
+  
   <!-- // Vertical Timeline -->
   <div class="content" style="text-align: center;">
   	<h1>지도자리</h1>
