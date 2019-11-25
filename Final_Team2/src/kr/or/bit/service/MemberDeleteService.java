@@ -11,8 +11,9 @@ public class MemberDeleteService implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		
-		
+
+		String id = request.getParameter("id");
+
 		return forward;
 	}
 }
