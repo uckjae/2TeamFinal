@@ -16,12 +16,11 @@ public class MyCourseBoardDetail implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		System.out.println("MyCourseBoardDetail" + request.getParameter("bIdx"));
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
 		MCBoard board = dao.courseContent(bIdx);
-		List<Photo> photos = dao.courseDetailPhoto(bIdx);
+		List<Photo> photos = dao.boardDetailPhoto(bIdx);
 		
 		request.setAttribute("board", board);
 		request.setAttribute("photos", photos);

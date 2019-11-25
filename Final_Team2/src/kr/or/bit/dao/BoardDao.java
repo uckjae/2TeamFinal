@@ -22,6 +22,7 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
+import sun.dc.pr.PRError;
 
 public class BoardDao {
 
@@ -367,7 +368,22 @@ public class BoardDao {
 		}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeDetail(int bIdx) {
-		return null;
+	  NoticeBoard noticeboard = new NoticeBoard();
+	  Connection connection = DBHelper.getConnection();
+	  PreparedStatement pstmt = null;
+	  ResultSet resultSet =null;
+	  
+	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
+			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
+			  +" WHERE B.BIDX = ?";
+	  try {
+		  
+	  }catch(Exception e){
+		  
+	  }finally {
+		  
+	  }
+	  return noticeboard;
 	}
 
 	// 공지 게시판 글쓰기	
@@ -966,8 +982,8 @@ public class BoardDao {
 		return mCBoard;
 	}
 	
-	//나만의 코스 상세보기 사진
-	public List<Photo> courseDetailPhoto(int bidx){
+	//게시판상세보기 사진 가져오기
+	public List<Photo> boardDetailPhoto(int bidx){
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -1407,5 +1423,26 @@ public class BoardDao {
 		}		
 		
 		return reply;
+	}
+	
+	public boolean setReadNum(int bIdx) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE BOARD SET RNUM = RNUM + 1 WHERE BIDX = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 }
