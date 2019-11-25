@@ -37,9 +37,9 @@
               
               <!--  -->
                   
-                   <c:forEach var="mTLContent" items="${mTLContentList}">
+                   <c:forEach var="mTLContent" items="${mTLContentList}" varStatus="status">
                    
-						<h3>${mTLContent.tLCidx}</h3>
+						<h3>${status.count}</h3>
 						<div class="vcard bio">
 							<!--이미지 경로 나중에 다시 설정하기 -->
 							<img src="upload/${mTLContent.image}" alt="trip image">
