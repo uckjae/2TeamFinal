@@ -466,9 +466,24 @@ public class BoardDao {
 			}
 
 	// 공지 게시판 게시글 조회수 증가
-	public boolean getNoticeReadNum() {
-		return false;
+	public int getNoticeReadNum(int bIdx) {
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE BOARD SET RNUM = RNUM+1 WHERE BIDX=?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return bIdx;
 	}
+	
 
 	// 공지 게시판 게시글 삭제하기
 	public boolean noticeDelete(int bIdx) {

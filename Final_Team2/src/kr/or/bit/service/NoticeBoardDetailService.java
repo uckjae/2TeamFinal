@@ -14,15 +14,15 @@ public class NoticeBoardDetailService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		int bIdx =Integer.parseInt(request.getParameter("bIdx"));
+		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
+		dao.FreeBoardAddReadNum(bIdx);
 		NoticeBoard noticeBoard = dao.noticeDetail(bIdx);
 		
 		request.setAttribute("noticeBoard", noticeBoard);
 		forward.setPath("/WEB-INF/views/board/notice/Detail.jsp");
-		
-		
+			
 		return forward;
 	}
 
