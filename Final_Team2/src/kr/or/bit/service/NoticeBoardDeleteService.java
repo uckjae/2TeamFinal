@@ -25,8 +25,9 @@ public class NoticeBoardDeleteService implements Action{
 		}else {
 			msg="삭제실패";
 		}
+		System.out.println("msg:"+msg);
 		request.setAttribute("board_msg", msg);
-		request.setAttribute("board_url", noticeBoardDelete);
+		request.setAttribute("board_url", "NoticeBoardList.do");
 		
 		forward.setPath("/common/Redirect.jsp");
 		
