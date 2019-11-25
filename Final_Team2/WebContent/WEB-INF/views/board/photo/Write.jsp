@@ -58,6 +58,7 @@ $(document).ready(function(){
 	data-offset="300">
 	<c:import url="/common/Top.jsp" />
 	<c:set var="photowrite" value="${requestScope.photowrite }"/>
+	<c:set var="photo" value="${requestScope.photo }"/>
 	<c:choose>
 		<c:when test="${photowrite.bIdx > 0 }">
 			<c:set var="Edit" value="true"/>
@@ -82,18 +83,18 @@ $(document).ready(function(){
 	<form action="PhotoWriteOk.do?cmd=<c:choose>
 			<c:when test="${Edit }">edit </c:when>
 			<c:otherwise>write </c:otherwise>
-		</c:choose>
-	" method="post" enctype="multipart/form-data">
+		</c:choose>" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="bidx" name="bidx" value="${photowrite.bIdx}">
 					<table border="1" style="width: 800px; height: 800px" >
 					
 						<tr>
 							<td rowspan="3" style="background-color: lightgray" height="0">
 						
-							<img id="viewPhoto" name="viewPhoto" src="" style="max-width: 100%; height: auto; display: block">
+							<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }" style="max-width: 100%; height: auto; display: block">
 						
 							</td>
 							<td>
-							<input type="text" name="title" id="title" value="" style="width: 100%" value="${photowrite.title }">
+							<input type="text" name="title" id="title" value="${photowrite.title }" style="width: 100%" >
 							</td>
 						</tr>
 						
@@ -123,9 +124,18 @@ $(document).ready(function(){
 							<td>
 							<input type="file" name="Photo" id="Photo" aceept="image/*">
 							</td>
+							<c:choose>
+								<c:when test="${Edit }">
 							<td>
-							<input type="reset" value="작성취소" class="btn-danger" style="width: 50%; height: 100%">	
+							<a href="PhotoBoardList.do"><input type="reset" value="수정취소" class="btn-danger" style="width: 100%; height: 100%"></a>	
 							</td>
+							</c:when>
+							<c:otherwise>
+							<td>
+							<a href="PhotoBoardList.do"><input type="reset" value="작성취소" class="btn-danger" style="width: 100%; height: 100%"></a>
+							</td>
+							</c:otherwise>
+							</c:choose>
 						</tr>
 						
 					</table>
