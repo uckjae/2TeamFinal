@@ -30,18 +30,27 @@
 	<br><br><br><br> 
 		<h1><i class="flaticon-world mr-3"></i>나의 여행 리스트</h1>
 	<br>	 
+	<c:set var="mTLContentList" value ="${requestScope.mTLContent}"/>
     		   <ul class="comment-list">
                 <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/berry.jpg" alt="trip image">
-                  </div>
+              <!--     <div class="vcard bio">  --> 
+              
+              <!--  -->
                   <div class="comment-body">
-                    <h4>딸기축제</h4>
-                    <div class="meta">2/12</div>
-                    <p> 경기도 성남시 이조네 딸기밭 
-                    <a href="#"  class= "btn btn-primary ml-3 mr-3">www.berry.com</a>                    
-                    <button type="button" class="btn btn-secondary">삭제</button>                    
+                   <c:forEach var="mTLContent" items = "${mTLContentList}"> 
+                    <h1>${mTLContent.tLCidx} </h1>
+                  	<div class="vcard bio">
+                  	<!--이미지 경로 나중에 다시 설정하기 -->
+                    <img src="upload/${mTLContent.image}" alt="trip image">
+                    </div>
+                    <h4>${ mTLContent.spotName}</h4>
+                    <div class="meta">${mTLContent.spotDate}</div>
+                    <p> ${ mTLContent.spotAddr}
+                    <a href="${ mTLContent.spotLink}"  class= "btn btn-primary ml-3 mr-3">${ mTLContent.spotLink}</a>                    
+                    <a href="MTListDelete.do?tLCidx=${mTLContent.tLCidx}" class="btn btn-secondary">삭제 </a>                   
                     </p>
+                    </c:forEach>
+                 <!--     </div>-->
                   </div>
                 </li>
     		</ul>
