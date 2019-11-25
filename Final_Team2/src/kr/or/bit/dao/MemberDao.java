@@ -52,10 +52,13 @@ public class MemberDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
+		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN, KAKAO) "
+						+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0)";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPwd());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
