@@ -13,7 +13,7 @@ public class MTLFolderAddService implements Action{
 		ActionForward forward = new ActionForward();
 		BoardDao boardDao = new BoardDao();
 		String id = (String)request.getSession().getAttribute("memberId");
-		String tlname = request.getParameter("folderAdd");
+		String tlname = request.getParameter("editFolder");
 		int resultRow = boardDao.mTLFolderAdd(id, tlname);
 		String url = "";
 		String msg = "";

@@ -17,12 +17,16 @@ $(function(){
     	if(cmd == "edit"){
     		editTLidx = $(event.relatedTarget).data('edit-tlidx');
         	editTLname =  $(event.relatedTarget).data('edit-tlname');
+        	 $("#exampleModalLabel").text("폴더 이름 수정");
         	$("#frm").attr("action","MTFolderListEdit.do?tLidx=" + editTLidx);
+        	 $("#modalBtn").val("수정");
     	}else{
-    		 $("#frm").attr("action","MTFolderListEdit.do?tLidx=" + editTLidx);
-    	}
+    		 $("#frm").attr("action","MTFolderListAdd.do");
+    		 $("#exampleModalLabel").text("새로운 폴더 생성");
+    		 $("#modalBtn").val("생성");
+    	} 
 
-      $("#inputInnerModal").val(editTLname);
+     	$("#inputInnerModal").val(editTLname);
     });
 
  });
@@ -34,7 +38,7 @@ $(function(){
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">폴더 이름 수정</h5>
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -44,7 +48,7 @@ $(function(){
         	<input type="text" name="editFolder" id="inputInnerModal"> 
         </div>
         <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="수정">
+          <input type="submit" class="btn btn-primary" id="modalBtn">
           
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
@@ -52,7 +56,5 @@ $(function(){
       </div>
     </div>
   </div>
-  
-  
 </body>
 </html>
