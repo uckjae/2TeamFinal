@@ -60,7 +60,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX" 
+		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX, F.REFER, F.DETPH, F.STEP" 
 					+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
 		
 		try {
@@ -77,6 +77,9 @@ public class BoardDao {
 				freeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(5)));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
+				freeBoard.setRefer(resultSet.getInt(8));
+				freeBoard.setDepth(resultSet.getInt(9));
+				freeBoard.setStep(resultSet.getInt(10));
 
 				freeBoardList.add(freeBoard);
 			}
@@ -178,6 +181,7 @@ public class BoardDao {
 	
 	// 자유 게시판 답글쓰기
 	public int FreeBoardReWrite(String id, String title, String content, int bIdx) {
+		System.out.println("rewrite init");
 		int resultRow = 0;
 		int refer = 0, depth = 0, step = 0;
 		
@@ -189,9 +193,10 @@ public class BoardDao {
 		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE STEP > ? AND REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
-		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
-		
+		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+		System.out.println("sql set");
 		try {
+			System.out.println("rewrite try init");
 			pstmt = connection.prepareStatement(referDepthStep);
 			pstmt.setInt(1, bIdx);
 			resultSet = pstmt.executeQuery();
@@ -202,30 +207,31 @@ public class BoardDao {
 			}
 			
 			connection.setAutoCommit(false);
-			
+			System.out.println("set autocommit false");
 			pstmt = connection.prepareStatement(stepUp);
 			pstmt.setInt(1, step);
 			pstmt.setInt(2, refer);
 			pstmt.executeUpdate();
-			
+			System.out.println("step sql");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
-			
+			System.out.println("insert board sql");
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			pstmt.setInt(2, depth+1);
 			pstmt.setInt(3, step+1);
 			pstmt.executeUpdate();
-			
+			System.out.println("insert freeboard sql");
 			pstmt = connection.prepareStatement(bIdxsql);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
+				System.out.println("get bidx");
 				bIdx = resultSet.getInt(1);
 			}
-			
+			System.out.println("commit ok");
 			connection.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -239,6 +245,7 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
+		System.out.println("rewrite return");
 		return bIdx;
 	}
 	

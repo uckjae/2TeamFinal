@@ -79,7 +79,14 @@
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
                         		<td>${board.bIdx}</td>
-                        		<td class="sorting_1"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
+                        		<td class="sorting_1"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">
+                        			<c:forEach var="depth" begin="1" end="${freeList.depth}" step="1">
+                        				<c:choose>
+                        					<c:when test="${freeList.depth == 1}">Re : </c:when>
+                        					<c:otherwise>ㅡ</c:otherwise>
+                        				</c:choose>
+                        			</c:forEach>
+                        		${board.title}</a></td>
                         		<td>
                             		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             	</td>

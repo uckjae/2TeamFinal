@@ -23,6 +23,7 @@ import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
 import kr.or.bit.service.MTFolderListChangeService;
 import kr.or.bit.service.MTLFolderAddService;
+import kr.or.bit.service.MTLFolderDeleteService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
 import kr.or.bit.service.MemberDeleteService;
@@ -250,6 +251,10 @@ public class FrontController extends HttpServlet {
 			 forward = action.execute(request, response)	;	
 		}
 		//여행리스트 폴더 삭제하기
+		else if (url_Command.equals("/MTFolderListDelete.do")) {
+			action = new MTLFolderDeleteService();
+			forward = action.execute(request,response);
+		}
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			
 					
