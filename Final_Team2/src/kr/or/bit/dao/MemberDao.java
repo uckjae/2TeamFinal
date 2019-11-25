@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.xml.internal.ws.runtime.config.TubelineFeature;
 
 import kr.or.bit.dto.Member;
 import kr.or.bit.utils.DBHelper;
+import sun.awt.util.IdentityArrayList;
 
 public class MemberDao {
 
@@ -90,11 +92,12 @@ public class MemberDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
+		String sql = "DELETE FROM MEMBER WHERE ID = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
-
+			pstmt.setString(1, id);
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -128,18 +131,35 @@ public class MemberDao {
 		return member;
 	}
 
-	public List<Member> getMembers() {
-		List<Member> members = null;
-
+	public List<Member> getMembersByIsAdmin(boolean isAdmin) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "";
+		List<Member> members = new ArrayList<Member>();
+
+		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, KAKAO FROM MEMBER WHERE ISADMIN = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setBoolean(1, isAdmin);
+			rs = pstmt.executeQuery();
 
+			while (rs.next()) {
+				Member member = new Member();
+				member.setId(rs.getString(1));
+				member.setPwd(rs.getString(2));
+				member.setName(rs.getString(3));
+				member.setBirth(rs.getString(4));
+				member.setHireDate(rs.getDate(5));
+				member.setGender(rs.getBoolean(6));
+				member.setAddress(rs.getString(7));
+				member.setEmail(rs.getString(8));
+				member.setKakao(rs.getBoolean(9));
+				member.setAdmin(isAdmin);
+
+				members.add(member);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -147,7 +167,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return members;
 	}
 	
@@ -191,25 +211,4 @@ public class MemberDao {
 		
 		return resultRow > 0 ? true : false;
 	}
-
-	public boolean deleteAdminById(String id) {
-		int resultRow = 0;
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-
-		String sql = "";
-
-		try {
-			pstmt = connection.prepareStatement(sql);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-		
-		return resultRow > 0 ? true : false;
-	}
-	
 }

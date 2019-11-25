@@ -31,7 +31,7 @@ html, body {
     <c:import url="/common/Top.jsp" />
     
     <!-- Contant -->
-    <c:set var="noticeWrite" value="${requestScope.noticeBoardWrite}"/>
+    <c:set var="noticeWrite" value="${requestScope.noticewrite}"/>
     <c:choose>
 		<c:when test="${noticeWrite.bIdx > 0}">
 			<c:set var="isEdit" value="true"/> <!--bidx가 0보다 크면 트루 -->
