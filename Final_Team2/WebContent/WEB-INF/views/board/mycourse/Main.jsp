@@ -127,9 +127,6 @@
                 </c:if>
             </div>
         </div>
-        <div class="row">
-        	<a href="MyCourseBoardWrite.do" style="float: right;"><span>글쓰기</span></a>
-        </div>
     </div>
 
 
