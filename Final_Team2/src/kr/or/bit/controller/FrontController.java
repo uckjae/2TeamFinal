@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.AdminListService;
+import kr.or.bit.service.AdminWriteService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
@@ -207,6 +208,10 @@ public class FrontController extends HttpServlet {
 		// AdminList 화면
 		else if (url_Command.equals("/AdminList.do")) {
 			action =new AdminListService();
+			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/AdminWrite.do")) {
+			action =new AdminWriteService();
 			forward = action.execute(request, response);
 		}
 		// MemberList 화면

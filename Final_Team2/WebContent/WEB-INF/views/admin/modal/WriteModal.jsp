@@ -15,20 +15,20 @@
          if(cmd === "edit"){
         	 id = $(event.relatedTarget).data('id');
         	 pwd=$(event.relatedTarget).data('pwd');
-        	 $("#btn").text("EDIT");
+        	 $("#btn").val("EDIT");
         	 $("#id").attr("readonly","readonly");
 			 $(".modal-title").html("<i class='fas fa-user-edit'></i>&nbsp;&nbsp;관리자 수정");
-			 action="AdminEdit.do";
+			 action="AdminWrite.do?cmd=edit";
          }else{
-        	 $("#btn").text("ADD");
+        	 $("#btn").val("ADD");
         	 $("#id").removeAttr("readonly");
         	 $(".modal-title").html("<i class='fas fa-user-plus'></i>&nbsp;&nbsp;관리자 추가");
-        	 action="AdminAdd.do";
+        	 action="AdminWrite.do?cmd=write";
          }
          
     	 $("#id").val(id);
     	 $("#pwd").val(pwd);
-         $("#frm").attr("action","MemberDelete.do?cmd="+cmd+"&id=" + deleteId); 
+         $("#frm").attr("action",action); 
       });
    });
 </script>
@@ -45,22 +45,22 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
+        <form id="frm" method="post">
         <div class="modal-body">
-        	<form id="frm" method="post">
-                  <div class="form-group">
-                    <label for="id">ID </label>
-                    <input type="text" class="form-control" id="id" name="id">
-                  </div>
-                  <div class="form-group">
-                    <label for="pwd">PASSWORD</label>
-                    <input type="password" class="form-control" id="pwd" name="pwd">
-                  </div>
-                </form>
+			<div class="form-group">
+			<label for="id">ID </label>
+			<input type="text" class="form-control" id="id" name="id">
+			</div>
+			<div class="form-group">
+			<label for="pwd">PASSWORD</label>
+			<input type="password" class="form-control" id="pwd" name="pwd">
+			</div>
         </div>
         <div class="modal-footer">
-          <a id="btn" class="btn btn-primary"></a>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        	<input type="submit" id="btn" class="btn btn-primary"/>
+         	<input class="btn btn-secondary" type="button" data-dismiss="modal" value="Cancel">
         </div>
+        </form>
       </div>
     </div>
   </div>
