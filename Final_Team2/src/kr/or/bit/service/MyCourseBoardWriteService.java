@@ -58,11 +58,13 @@ public class MyCourseBoardWriteService implements Action{
 			System.out.println("content길이"+multi.getParameterValues("content"));
 			System.out.println("area 길이"+multi.getParameterValues("area"));
 			for(int i=0; i<multi.getParameterValues("content").length; i++) {
-				content.append("╊");
+				
 				content.append(multi.getParameterValues("area")[i]);
 				content.append("╊");
 				content.append(multi.getParameterValues("content")[i]);
+				content.append("╊");
 			}
+			content.subSequence(0, content.length()-2);
 			System.out.println("MyCourseBoardWriteService 65 : "+id);
 			board.setbIdx(bIdx);
 			board.setId(id);
