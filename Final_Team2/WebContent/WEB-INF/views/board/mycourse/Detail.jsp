@@ -30,9 +30,9 @@
       <c:forEach var="content" items="${contents}" varStatus="status">
       	<h1>${status.index}</h1>
       	<h1>${status.index%2}</h1>
-      	<h1>${status.index%2 eq 1 }</h1>
+      	<h1>${status.index%2 == 1 }</h1>
       	<c:choose>
-      		<c:when test="${stauts.index%2 != 1}">
+      		<c:when test="${status.index%2 == 1}">
  				<h1>여긴들어오나??</h1>
       			<div class="timeline-article">
       				<div class="content-left-container">
@@ -126,6 +126,7 @@
       <!-- // Article -->
     </div>
     <div class="timeline-end">End</div>
+  </div>
   </div>
   <!-- // Vertical Timeline -->
   <div class="content" style="text-align: center;">
