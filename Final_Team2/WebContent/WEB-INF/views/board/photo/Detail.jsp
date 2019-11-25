@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:import url="/common/HeadTag.jsp" />
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target"
 	data-offset="300">
 	<c:import url="/common/Top.jsp" />
-	<c:set var="photoContent" value="${requestScope.photoContent }"/>
 	
+	<c:set var="board" value="${requestScope.board }"/>
+	<c:set var="photo" value="${requestScope.photo }"/>
 		<section class="ftco-section">
 			<div class="container">
 				<div class="text">
@@ -20,24 +24,24 @@
 						<tr>
 							<td rowspan="3" style="background-color: lightgray" height="0">
 						
-							<img id="viewPhoto" name="viewPhoto" src="" style="max-width: 100%; height: auto; display: block">
+							<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }" style="max-width: 100%; height: auto; display: block">
 						
 							</td>
 							<td>
-							${photoContent.title }
+							${board.title }
 							</td>
 							
 						</tr>
 						
 						<tr>
-						<td>${photoContent.wDate }</td>
+						<td>${board.wDate }</td>
 						
 						
 						</tr>
 						<tr>
 							<td rowspan="2" rows="12" cols="30">				
 							
-								${photoContent.content }
+								${board.content }
 							
 							</td>
 						</tr>
@@ -49,11 +53,11 @@
 							<input type="file" name="Photo" id="Photo" aceept="image/*">
 							</td>
 							<td>
-							<c:if test="${photoContent.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
+							<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
 							<input type="button" class="btn btn-primary" value="수정" onclick="location.href='PhotoBoardEdit.do?bidx=${PhotoDetail.bIdx}'">
 							<input type="button" class="btn btn-primary" value="삭제" onclick="location.href='PhotoBoardDelete.do?bidx=${PhotoDetail.bIdx}'">
 							</c:if>
-							<input type="reset" value="수정취소" class="btn-danger" style="width: 50%; height: 100%">	
+							<a href="PhotoBoardList.do"><input type="reset" value="목록" class="btn-danger" style="width: 50%; height: 100%"></a>	
 							</td>
 						</tr>
 					</table>

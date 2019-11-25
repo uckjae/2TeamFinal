@@ -138,8 +138,6 @@ public class FrontController extends HttpServlet {
 		}else if (url_Command.equals("/PhotoWriteOk.do")) {
 			action = new PhotoBoardWriteOkService();
 			forward = action.execute(request, response);
-		}else if (url_Command.equals("/PhotoEditOk.do")) {
-			
 		}else if(url_Command.equals("/PhotoBoardDelete.do")) {
 			action = new PhotoBoardDeleteService();
 			forward = action.execute(request, response);
