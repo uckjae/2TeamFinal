@@ -995,7 +995,6 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int[] top4LikeNum = new int[4];// 좋아요 값 상위 4개 뽑아서 그것들 사진 하나씩만 가져오는 작업
-		System.out.println("courseListPhotos int length : " + top4LikeNum.length);
 		Arrays.fill(top4LikeNum, -1);
 		int[] top4BIdx = new int[4];
 		
@@ -1034,7 +1033,6 @@ public class BoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("courseListPhotos() : " + photos.size());
 		return photos;
 	}
 
@@ -1083,7 +1081,7 @@ public class BoardDao {
 			mCBoard.setPhotoList(photoList);
 			}
 		}catch(Exception e) {
-			System.out.println("BoardDao courseContent()"+e.getMessage());
+			System.out.println("BoardDao courseContent() catch"+e.getMessage());
 		}
 		
 		return mCBoard;
@@ -1114,7 +1112,7 @@ public class BoardDao {
 		
 			
 		}catch(Exception e) {
-			System.out.println("boardDao courseDetailPhoto()" + e.getMessage());
+			System.out.println("boardDao courseDetailPhoto() catch" + e.getMessage());
 		}finally {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
@@ -1129,7 +1127,7 @@ public class BoardDao {
 		int resultRow = 1;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+		System.out.println("boardDao courseWrite()" + 1);
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
 				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 3, ?, ?,?) ";
 		String mCBSql = "INSERT INTO MCBOARD (MCIDX,BIDX,LIKENUM) "
@@ -1159,11 +1157,11 @@ public class BoardDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
-				System.out.println("BoardDao mCBWrite");
+				System.out.println("BoardDao mCBWrite catch1");
 				System.out.println(e1.getMessage());
 				e1.printStackTrace();
 			}
-			System.out.println("BoardDao mCBWrite2 " + e.getMessage());
+			System.out.println("BoardDao mCBWrite2 catch2 " + e.getMessage());
 		}finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);

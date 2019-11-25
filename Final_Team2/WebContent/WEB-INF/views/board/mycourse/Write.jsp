@@ -26,7 +26,6 @@
                 if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
                     x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
                 }
-                alert("공백없이 입력해주세요. 불완전한 한글과 '╊'는 사용할 수 없습니다")
                 $(this).val(x);
             }
             }).on("keyup", function() {
@@ -45,53 +44,113 @@
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
+    
 	<form id="inputForm" name="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
-	<input type="text" class="form-control mb-3 input" id="title" name="title" placeholder="글 제목">
-  	<div id="conference-timeline">
-    <div class="timeline-start"><i id="removeSpot"><span class="icon-minus"></span></i>&nbsp;&nbsp;Start&nbsp;&nbsp;<a id="addSpot"><span  class="icon-plus"></span></a></div>
-    <div class="conference-center-line"></div>
-    <div class="conference-timeline-content">
-      <!-- Article -->
-      
-      <div class="timeline-article">
-        <div class="content-left-container">
-            <textarea class = "input" name="area" cols="25" rows="5" form="inputForm"></textarea>
-             <span class="article-number">01</span>
-          <input type="file" id="photo0" name="photo0" accept="image/*">
-          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
-        </div>
-        
-        <div class="meta-date">
-			<img class="image2" id="view0" src="images/scenery.png" alt="여행지 사진">
-        </div>
-      </div>
-      <!-- // Article -->
-      
-      <!-- Article -->
-      <div class="content timeline-article">
-        
-        <div class="content-right-container">
-          <textarea class = "input" id="area" name="area" cols="25" rows="5" form="inputForm"></textarea>
-             <span class="article-number">02</span>
-          <input type="file" id="photo1" name="photo1" accept="image/*">
-          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
-        </div>
-        <div class="meta-date">
-          <img alt="여행지 사진" id="view1" class="image2" src="images/scenery.png">
-        </div>
-      </div>
-      <!-- // Article -->
-   
-    
-    </div>
-    <div class="timeline-end">End</div>
-    <input type="submit" class="btn btn-primary btn-block" value="작성하기">
-    <input type="reset" class="btn btn-danger btn-block" value="취소하기">
-  </div>
-  </div>
+	<c:set var="board" value="${requestScope.mCBoard}"/>
+	<c:choose>
+		<c:when test="${board.bIdx > 0}">
+			<div id="conference-timeline">
+				<div class="row">
+					<div class="text-left">
+						<span>글번호 : &nbsp;&nbsp;${board.bIdx}</span>
+						&nbsp;&nbsp;
+						<span>작성자 : &nbsp;&nbsp;${board.id }</span>
+					</div>
+					<input type="text" class="form-control mb-3 input" id="title" name="title" value="${board.title}">
+				</div>
+				<div class="timeline-start"><i id="removeSpot"><span class="icon-minus"></span></i>&nbsp;&nbsp;Start&nbsp;&nbsp;<a id="addSpot"><span  class="icon-plus"></span></a></div>
+				<div class="conference-center-line"></div>
+	    		<div class="conference-timeline-content">
+				<c:forEach var="photo" items="${board.photoList}" varStatus="status1">
+					<c:choose>
+			      		<c:when test="${status1.index%2 != 1}">
+			      			<c:set var="number" value="${status1.index }"/>
+			      			<div class="timeline-article">
+			      				<div class="content-left-container">
+										<textarea class="input" name="area" cols="25" rows="5" required>
+											${board.contentsList[number*2]}
+										</textarea>
+										<span class="article-number">${number+1}</span>
+									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="${photo.photoName}" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2-1]}" required>
+									<div class="meta-date">
+										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
+									</div>
+			      				</div>
+			      			</div>
+			      		</c:when>
+			      		<c:otherwise>
+			      			<c:set var="number" value="${status1.index}"/>
+			      			<div class="timeline-article">
+			      				<div class="content-right-container">
+										<textarea class="input" name="area" cols="25" rows="5" required>
+											${board.contentsList[number*2]}
+										</textarea>
+										<span class="article-number">${number+1}</span>
+									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="${photo.photoName}" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2-1]}" required>
+									<div class="meta-date">
+										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
+									</div>
+			      				</div>
+			      			</div>
+			      			
+			      		</c:otherwise>
+			      	</c:choose>
+				</c:forEach>
+				</div>
+				<div class="timeline-end">End</div>
+    	  <input type="submit" class="btn btn-primary btn-block" value="작성하기">
+          <input type="reset" class="btn btn-danger btn-block" value="취소하기" onclick="location.href='MyCourseBoardList.do'">
+			</div>
+		</c:when>
+		<c:otherwise>
+			<input type="text" class="form-control mb-3 input" id="title" name="title" placeholder="글 제목" value="${mCBoard.title }">
+  			<div id="conference-timeline">
+	    		<div class="timeline-start"><i id="removeSpot"><span class="icon-minus"></span></i>&nbsp;&nbsp;Start&nbsp;&nbsp;<a id="addSpot"><span  class="icon-plus"></span></a></div>
+	   			<div class="conference-center-line"></div>
+	    		<div class="conference-timeline-content">
+		      		<!-- Article -->
+		      
+				    <div class="timeline-article">
+					    <div class="content-left-container">
+					        <textarea class = "input" name="area" cols="25" rows="5"></textarea>
+					        <span class="article-number">01</span>
+					        <input type="file" id="photo0" name="photo0" accept="image/*">
+					        <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
+					    </div>
+			        	<div class="meta-date">
+							<img class="image2" id="view0" src="images/scenery.png" alt="여행지 사진">
+			        	</div>
+				    </div>
+				    <!-- // Article -->
+		      
+				    <!-- Article -->
+				    <div class="content timeline-article">
+				        <div class="content-right-container">
+				          <textarea class = "input" id="area" name="area" cols="25" rows="5"></textarea>
+				          <span class="article-number">02</span>
+				          <input type="file" id="photo1" name="photo1" accept="image/*">
+				          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
+				        </div>
+				        <div class="meta-date">
+				          <img alt="여행지 사진" id="view1" class="image2" src="images/scenery.png">
+				        </div>
+				    </div>
+				    <!-- // Article -->
+		      </div>
+    	  <div class="timeline-end">End</div>
+    	  <input type="submit" class="btn btn-primary btn-block" value="작성하기">
+          <input type="reset" class="btn btn-danger btn-block" value="취소하기" onclick="location.href='MyCourseBoardList.do'">
+ 		 </div>
+  
   <!-- // Vertical Timeline -->
+		</c:otherwise>
+	</c:choose>
+	</div>
+	
   </form>  
 </body>
 </html>

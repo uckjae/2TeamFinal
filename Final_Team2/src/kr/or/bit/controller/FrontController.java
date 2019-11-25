@@ -31,7 +31,8 @@ import kr.or.bit.service.MemberDeleteService;
 import kr.or.bit.service.MemberListService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
-import kr.or.bit.service.MyCourseBoardWriteService;
+import kr.or.bit.service.MyCourseBoardWrite;
+import kr.or.bit.service.MyCourseBoardWriteOkService;
 import kr.or.bit.service.NoticeBoardDeleteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
@@ -152,11 +153,11 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/MyCourseBoardWrite.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/board/mycourse/Write.jsp");
+			action = new MyCourseBoardWrite();
+			forward = action.execute(request, response);
 		}
 		else if (url_Command.equals("/MyCourseBoardWriteOk.do")) {
-			action = new MyCourseBoardWriteService();
+			action = new MyCourseBoardWriteOkService();
 			forward = action.execute(request, response);
 		}
 		// Notice Board
