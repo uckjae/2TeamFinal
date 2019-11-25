@@ -57,11 +57,33 @@ $(document).ready(function(){
 <body data-spy="scroll" data-target=".site-navbar-target"
 	data-offset="300">
 	<c:import url="/common/Top.jsp" />
-	<form action="PhotoWriteOk.do" method="post" enctype="multipart/form-data">
+	<c:set var="photowrite" value="${requestScope.photowrite }"/>
+	<c:choose>
+		<c:when test="${photowrite.bIdx > 0 }">
+			<c:set var="Edit" value="true"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="Edit" value="false"/>
+		</c:otherwise>
+	</c:choose>
 		<section class="ftco-section">
 			<div class="container">
 				<div class="text">
-			
+				<h3>
+				<c:choose>
+					<c:when test="${Edit }">
+						포토 게시판 글 수정
+					</c:when>
+					<c:otherwise>
+						포토 게시판 글 작성
+					</c:otherwise>
+				</c:choose>
+				</h3>
+	<form action="PhotoWriteOk.do?cmd=<c:choose>
+			<c:when test="${Edit }">edit </c:when>
+			<c:otherwise>write </c:otherwise>
+		</c:choose>
+	" method="post" enctype="multipart/form-data">
 					<table border="1" style="width: 800px; height: 800px" >
 					
 						<tr>
@@ -71,7 +93,7 @@ $(document).ready(function(){
 						
 							</td>
 							<td>
-							<input type="text" name="title" id="title" value="" style="width: 100%">
+							<input type="text" name="title" id="title" value="" style="width: 100%" value="${photowrite.title }">
 							</td>
 						</tr>
 						
@@ -94,12 +116,12 @@ $(document).ready(function(){
 							</td>
 						</tr>
 					</table>
+	</form>
 		
 				</div>
 			</div>
 
 		</section>
-	</form>
 
 
 
