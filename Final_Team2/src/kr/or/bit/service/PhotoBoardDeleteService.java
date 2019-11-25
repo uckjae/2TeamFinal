@@ -13,7 +13,7 @@ public class PhotoBoardDeleteService implements Action{
 		ActionForward forward = new ActionForward();
 	
 		int bIdx = Integer.parseInt(request.getParameter("bidx"));
-		syso
+		
 		BoardDao dao = new BoardDao();
 		int result = dao.photoDelete(bIdx);
 		System.out.println(result);

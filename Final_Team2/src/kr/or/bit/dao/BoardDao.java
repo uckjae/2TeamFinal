@@ -22,6 +22,7 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
+import sun.dc.pr.PRError;
 
 public class BoardDao {
 
@@ -377,7 +378,39 @@ public class BoardDao {
 		}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeDetail(int bIdx) {
-		return null;
+	  NoticeBoard noticeboard = new NoticeBoard();
+	  Connection connection = DBHelper.getConnection();
+	  PreparedStatement pstmt = null;
+	  ResultSet resultSet =null;
+	  
+	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
+			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
+			  +" WHERE B.BIDX = ?";
+	  try {
+		  pstmt =connection.prepareStatement(sql);
+		  pstmt.setInt(1, bIdx);
+		  
+		  resultSet =pstmt.executeQuery();
+		  if(resultSet.next()) {
+			  noticeboard.setbIdx(resultSet.getInt(1));
+			  noticeboard.setId(resultSet.getString(2));
+			  noticeboard.setTitle(resultSet.getString(3));
+			  noticeboard.setContent(resultSet.getString(4));
+			  noticeboard.setwDate(resultSet.getDate(5));
+			  noticeboard.setrNum(resultSet.getInt(6));
+			  noticeboard.setnIdx(resultSet.getInt(7));
+			  noticeboard.setTop(resultSet.getBoolean(8));
+			  
+		  }
+		  
+	  }catch(Exception e){
+		  e.printStackTrace();
+	  }finally {
+		  DBHelper.close(resultSet);
+		  DBHelper.close(pstmt);
+		  DBHelper.close(connection);
+	  }
+	  return noticeboard;
 	}
 
 	// 공지 게시판 글쓰기	
@@ -976,8 +1009,8 @@ public class BoardDao {
 		return mCBoard;
 	}
 	
-	//나만의 코스 상세보기 사진
-	public List<Photo> courseDetailPhoto(int bidx){
+	//게시판상세보기 사진 가져오기
+	public List<Photo> boardDetailPhoto(int bidx){
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -1193,16 +1226,12 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		ResultSet rs = null;
 		String sql = "update mtlist set tlname= ? where TLIdx = ?";
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, tLidx);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				pstmt.setString(1, tLname);
-				resultRow =	pstmt.executeUpdate();
-			}
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, tLname);
+			pstmt.setInt(2, tLidx);
+			resultRow = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1419,5 +1448,26 @@ public class BoardDao {
 		}		
 		
 		return reply;
+	}
+	
+	public boolean setReadNum(int bIdx) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE BOARD SET RNUM = RNUM + 1 WHERE BIDX = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 }
