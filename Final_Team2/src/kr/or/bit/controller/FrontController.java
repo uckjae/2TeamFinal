@@ -273,7 +273,7 @@ public class FrontController extends HttpServlet {
 		////API 
 		else if (url_Command.equals("/CourseAPI.do")) {			
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/CourseAPI.jsp");
+			forward.setPath("/WEB-INF/views/api/CourseAPIDetail.jsp");
 		}
 		
 		
