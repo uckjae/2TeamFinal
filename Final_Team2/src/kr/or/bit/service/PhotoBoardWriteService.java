@@ -5,26 +5,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.dto.Photo;
+import kr.or.bit.dao.BoardDao;
+import kr.or.bit.dto.Board;
 
 public class PhotoBoardWriteService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		Photo p = null;
+		Board photowrite = null;
 		
 		String cmd = request.getParameter("cmd");
 		
 		if(cmd.equals("write")) {
-			p = new Photo(); 
+			photowrite = new Board(); 
+		//	photowrite.setbIdx(-1);
 		}else if(cmd.equals("edit")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			String photo = request.getParameter("photo");
+			int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+			BoardDao dao = new BoardDao();
+			photowrite = dao.getBoardByBIdx(bIdx);
 		}
 		
-		request.setAttribute("photowrite", p);
+		request.setAttribute("photowrite", photowrite);
 		forward.setPath("/WEB-INF/views/board/photo/Write.jsp");
 		return forward;
 	}

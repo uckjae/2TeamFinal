@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:set var="bIdx" value="${param.bIdx }"/>
-<c:set var="replies" value="${requestScope.replies }"/>
+<c:set var="bIdx" value="${param.bIdx}"/>
+<c:set var="replies" value="${requestScope.replies}"/>
 <script type="text/javascript">
 	$(function(){
 		changReplyHeader();
