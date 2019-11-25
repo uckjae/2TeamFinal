@@ -42,9 +42,9 @@
 					<th></th>
 					<th></th>
 				</tr>
-				<c:forEach var="mTFolder" items="${ mTFolderList}">
+				<c:forEach var="mTFolder" items="${ mTFolderList}" varStatus="status">
 					<tr>
-						<td class="pl-5">${mTFolder.tLidx}</td>
+						<td class="pl-5">${status.count}</td>
 						<td><a href="MTList.do?tLidx=${mTFolder.tLidx}">${ mTFolder.tLName}</a></td>
 						<td><a href="#" id="editbtn" class="btn btn-primary"
 							data-toggle="modal" data-target="#editModal1" data-cmd="edit"
