@@ -229,6 +229,11 @@ public class BoardDao {
 			connection.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}finally {
 			DBHelper.close(resultSet);
 			DBHelper.close(pstmt);
