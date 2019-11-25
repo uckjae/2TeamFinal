@@ -36,7 +36,7 @@
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
 					<li class="nav-item">
-						<a href="#" class="nav-link"> <span>추천 여행지</span></a>
+						<a href="" class="nav-link"> <span>추천 여행지</span></a>
 					</li>
 					
 					<li class="nav-item">
@@ -46,7 +46,7 @@
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 코스</a>
 						<div class="dropdown-menu">
-	              			<a class="dropdown-item" href="#" >여행코스</a>	
+	              			<a class="dropdown-item" href="CourseAPI.do" >여행코스</a>	
 	              			<a class="dropdown-item" href="#" >가이드북 다운로드</a>	
               			</div>				
 					</li>
