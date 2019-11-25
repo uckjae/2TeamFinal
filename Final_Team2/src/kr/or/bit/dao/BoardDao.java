@@ -116,6 +116,7 @@ public class BoardDao {
 				freeBoard.setwDate(resultSet.getDate(5));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
+				freeBoard.setReplies(getRepliesByBIdx(bIdx));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
