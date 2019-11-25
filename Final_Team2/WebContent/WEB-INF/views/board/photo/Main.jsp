@@ -17,14 +17,15 @@
 <c:set var="boardlist" value="${requestScope.boardlist }"/>
 			    <section class="ftco-section">
 			    <div class="row">
-			    <c:forEach var="board" items="${boardlist }">
 			    <c:forEach var="photo" items="${photolist }">
+			    <c:forEach var="board" items="${boardlist }">
+			    
 			   <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
 		    				<div class="project">
 		    					<div class="img">
-				    				<a href="PhotoBoardDetail.do?bidx=${board.bIdx }"><img src=<%request.getContextPath();%> + "${photo.photoName }" class="img-fluid" alt="없음"></a>
+				    				<a href="PhotoBoardDetail.do?bidx=${board.bIdx }"><img src= "upload/${photo.photoName }" class="img-fluid" alt="없음"></a>
 			    				</div>
-			    				
+			    					
 			    				<div class="text">
 			    					<h4 class="price">${board.id }</h4>
 			    					<span>${board.bIdx}</span>
@@ -39,6 +40,7 @@
 			    						</div>
 			    					</div>
 			    				</div>
+			    				
 			    				<a href="images/hotel-5.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
 			    					<span class="icon-expand"></span>
 			    				</a>
@@ -46,7 +48,7 @@
 		    				</div>
 		    				</c:forEach>
 		    			 </c:forEach>
-		    			  	
+		    			  
 		    			
 		    			
     </section>
