@@ -10,6 +10,35 @@
 	<link rel="stylesheet" href="css/timeLine.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="js/timeline.js"></script>
+	<script>    
+ 
+    // 특수문자 정규식 변수(공백 미포함)
+    var replaceChar = /╊/gi;
+ 
+    // 완성형 아닌 한글 정규식
+    var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+    
+    $(document).ready(function(){
+        
+        $("#inputName").on("focusout", function() {
+            var x = $(this).val();
+            if (x.length > 0) {
+                if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
+                    x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+                }
+                alert("╊는 사용할 수 없습니다")
+                $(this).val(x);
+            }
+            }).on("keyup", function() {
+                $(this).val($(this).val().replace(replaceChar, ""));
+
+       });
+
+    });       
+    
+ 
+</script>
+	
 	<title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -28,10 +57,10 @@
       
       <div class="timeline-article">
         <div class="content-left-container">
-            <textarea name="area" cols="25" rows="5" form="inputForm"></textarea>
+            <textarea class = "input" name="area" cols="25" rows="5" form="inputForm"></textarea>
              <span class="article-number">01</span>
           <input type="file" id="photo0" name="photo0" accept="image/*">
-          <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
+          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         
         <div class="meta-date">
@@ -44,10 +73,10 @@
       <div class="content timeline-article">
         
         <div class="content-right-container">
-          <textarea id="area" name="area" cols="25" rows="5" form="inputForm"></textarea>
+          <textarea class = "input" id="area" name="area" cols="25" rows="5" form="inputForm"></textarea>
              <span class="article-number">02</span>
           <input type="file" id="photo1" name="photo1" accept="image/*">
-          <input type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
+          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
         </div>
         <div class="meta-date">
           <img alt="여행지 사진" id="view1" class="image2" src="images/scenery.png">

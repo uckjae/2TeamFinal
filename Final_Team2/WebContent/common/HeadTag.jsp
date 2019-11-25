@@ -38,4 +38,9 @@
 	<script src="js/scrollax.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
+	
+	<script type="text/javascript" src="js/setReadNum.js"></script>
+	
+	<!-- fontawesome -->
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>

@@ -15,8 +15,12 @@
             height: 100%;
         }
     </style>
+    <%
+    	System.out.print(request.getParameter("freeBoardReWrite"));
+    %>
 	<script type="text/javascript">
         $(function () {
+        	out.print('rewrite.jsp');
             $('#summernote').summernote(
             	{
         			placeholder: '내용을 입력하세요',

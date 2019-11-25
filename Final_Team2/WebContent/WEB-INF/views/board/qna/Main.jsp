@@ -14,6 +14,9 @@
         body {
             height: 100%;
         }
+        .icon {
+        	color : #6e6e6e;
+        }
     </style>
 
     <script type="text/javascript">
@@ -39,7 +42,7 @@
 
             $("#deptSelect").change(function () {
                 tableSearch();
-            })
+            });
 
             function tableSearch() {
                 let colIndex = document.querySelector('#select').selectedIndex;
@@ -53,6 +56,14 @@
                 }
             }
         });
+        
+        function showDetail(isPublic, bIdx){
+        	if(! isPublic && ${! sessionScope.isAdmin}){
+        		alert("관리자만 접근 가능합니다.");
+        	} else{
+        		location.href="QnABoardDetail.do?bIdx="+bIdx;
+        	}
+        }
     </script>
 </head>
 
@@ -70,23 +81,29 @@
                 <table class="table table-bordered hover" id="dataTable">
                     <thead>
                         <tr>
-                            <th>NO</th>
-                            <th>TITLE</th>
-                            <th>WRITE DATE</th>
-                            <th>WRITER</th>
-                            <th>VIEWS</th>
+                            <th width="10%" >NO</th>
+                            <th width="40%" >TITLE</th>
+                            <th width="20%" >WRITER</th>
+                            <th width="20%" >WRITE DATE</th>
+                            <th width="10%" >VIEWS</th>
                         </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
-                            <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a href="QnABoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
-                            <td>
+                            <td align="center">${board.bIdx}</td>
+                            <td class="sorting_1">
+                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx})" href="#">
+                            	<c:if test="${! board.isPublic() }">
+                            		<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
+                            	</c:if>
+                            	${board.title}</a></td>
+            	            <td align="center">${board.id}</td>
+                            <td align="center">
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
-                            <td>${board.id}</td>
-                            <td>${board.rNum}</td>
+
+                            <td align="center">${board.rNum}</td>
                         </tr>
                     </c:forEach>
                    </tbody>
