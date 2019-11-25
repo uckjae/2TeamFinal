@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>내 여행리스트</title>
     <c:import url="/common/HeadTag.jsp" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
     <style type="text/css">
     	html, body{
     	height: 100%;
@@ -27,10 +28,17 @@ $(function(){
     $('#editModal1').on('shown.bs.modal', function(event) {   
     	console.log("in modal");
     	editId = $(event.relatedTarget).data('edit-id');
+    	console.log(" modal");
     	console.log(editId);
        $("#frm").attr("action","MTFolderListEdit.do?tLidx="+editId);
     });
+
  });
+ 
+
+
+
+
 </script>
 </head>
 
@@ -59,13 +67,13 @@ $(function(){
 					        <td class="pl-5">${mTFolder.tLidx}</td>
 					       <td> <a href="MTList.do" >${ mTFolder.tLName}</a></td>
 					        <td>
-					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-id="${mTFolder.tLidx}">수정 </a></td>	
+					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-id="${mTFolder}">수정 </a></td>	
 					      <td><button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					    </c:forEach>  			  				  
 					  </table>					   
 		   		</div>		
-	 			 </div>
+	 		</div>
 
 <!--  edit modal -->	 			 
 <div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

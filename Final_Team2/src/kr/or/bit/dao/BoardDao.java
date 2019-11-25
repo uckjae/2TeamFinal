@@ -178,14 +178,17 @@ public class BoardDao {
 	// 자유 게시판 답글쓰기
 	public FreeBoard FreeBoardReWrite(String id, String title, String content, int bIdx) {
 		int resultRow = 0;
-		int refer = 0;
+		int refer = 0, depth = 0;
+		
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String referNum = "SELECT REFER, DEPTH, STEP FROM FREEBOARD WHERE BIDX=?";
+		String referNum = "SELECT REFER, DEPTH FROM FREEBOARD WHERE BIDX=?";
+		String stepNum = "SELECT STEP FROM FREEBOARD";
+		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
-		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, 0)";
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
 		
 		try {
@@ -194,7 +197,26 @@ public class BoardDao {
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1);
+				depth = resultSet.getInt(2);
 			}
+			
+			pstmt = connection.prepareStatement(stepUp);
+			pstmt.setInt(1, refer);
+			resultSet = pstmt.executeQuery();
+			
+			
+			connection.setAutoCommit(false);
+			
+			pstmt = connection.prepareStatement(sql1);
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate();
+			
+			pstmt = connection.prepareStatement(sql2);
+			pstmt.setInt(1, refer);
+			pstmt.setInt(2, depth);
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -308,23 +330,23 @@ public class BoardDao {
 			ResultSet rs = null;
 			
 			String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
-						  +"FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
-						  +"WHERE B.BCODE = 1";
+						  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
+						  +" WHERE B.BCODE = 1";
 			try {
 				pstmt = connection.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
-					NoticeBoard NoticeBoard = new NoticeBoard();
-					NoticeBoard.setbIdx(rs.getInt(1));
-					NoticeBoard.setId(rs.getString(2));
-					NoticeBoard.setTitle(rs.getString(3));
-					NoticeBoard.setContent(rs.getString(4));
-					NoticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
-					NoticeBoard.setrNum(rs.getInt(6));
-					NoticeBoard.setnIdx(rs.getInt(7));
-					NoticeBoard.setTop(rs.getBoolean(8));
+					NoticeBoard noticeBoard = new NoticeBoard();
+					noticeBoard.setbIdx(rs.getInt(1));
+					noticeBoard.setId(rs.getString(2));
+					noticeBoard.setTitle(rs.getString(3));
+					noticeBoard.setContent(rs.getString(4));
+					noticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+					noticeBoard.setrNum(rs.getInt(6));
+					noticeBoard.setnIdx(rs.getInt(7));
+					noticeBoard.setTop(rs.getBoolean(8));
 					
-					noticeboardList.add(NoticeBoard);
+					noticeboardList.add(noticeBoard);
 				}
 				
 			}catch (Exception e) {
@@ -349,7 +371,7 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 글쓰기	
-			public int noticeWrite(String memberId, String title, String content, int isTop) {
+			public int noticeWrite(String memberId, String title, String summernote, int isTop) {
 				ResultSet rs = null;
 				Connection connection = DBHelper.getConnection();
 				PreparedStatement pstmt = null;
@@ -368,7 +390,7 @@ public class BoardDao {
 					pstmt = connection.prepareStatement(Sql1);
 					pstmt.setString(1, memberId);
 					pstmt.setString(2, title);
-					pstmt.setString(3, content);
+					pstmt.setString(3, summernote);
 					pstmt.executeUpdate();
 
 					pstmt = connection.prepareStatement(Sql2);
@@ -785,8 +807,38 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 삭제하기
-	public int photoDelete() {
-		return 0;
+	public int photoDelete(int bIdx) {
+		int result = 0;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String photoSql ="DELETE FROM PHOTO WHERE BIDX=?";
+		String Sql ="DELETE FROM BOARD WHERE BIDX=?";
+		
+		try {
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(Sql);
+			pstmt.setInt(1, bIdx);
+			result = pstmt.executeUpdate();
+			
+			conn.commit();
+		} catch (Exception e) {
+			try { 
+				conn.rollback(); 
+			
+			}catch(SQLException e1){ 
+				System.out.println(e1.getMessage());
+			}
+
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		return result;
 	}
 
 	// 포토 게시판 게시글 수정하기
