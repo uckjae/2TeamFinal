@@ -1199,8 +1199,6 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		System.out.println("dao tLidx: " + tLidx);
-		System.out.println("dao tLName: " + tLname);
 		String sql = "update mtlist set tlname= ? where TLIdx = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);			
