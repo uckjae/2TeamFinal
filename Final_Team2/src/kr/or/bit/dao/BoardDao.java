@@ -60,7 +60,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX, F.REFER, F.DEPTH, F.STEP FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
+		String sql = "SELECT bidx , id, title, content, wdate, rnum, fidx, refer, depth, step FROM (SELECT b.bidx, b.id, b.title, b.content, b.wdate, b.rnum, f.fidx, f.refer, f.depth, f.step FROM freeboard f join board b on f.bidx=b.bidx ORDER  BY refer DESC , step ASC)";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -825,14 +825,13 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 상세보기
-	public Board photoContent(int bIdx) {
+	public Board getBoardByBIdx(int bIdx) {
 		Board board = null;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT B.BIDX, B.ID , B.TITLE , B.CONTENT, B.WDATE, B.RNUM, P.BIDX , P.PHOTOID ,"
-				+ " P.PHOTONAME FROM BOARD B JOIN PHOTO P ON B.BIDX = P.BIDX WHERE B.BIdx = ?";
+		String sql = "select BIDX , ID , TITLE , CONTENT, WDATE, RNUM, BCODE FROM BOARD WHERE BIDX = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -847,6 +846,8 @@ public class BoardDao {
 				board.setContent(rs.getString(4));
 				board.setwDate(rs.getDate(5));
 				board.setrNum(rs.getInt(6));
+				board.setbCode(rs.getInt(7));
+				
 			}
 		}catch (Exception e) {
 			System.out.println("상세 : " + e.getMessage());

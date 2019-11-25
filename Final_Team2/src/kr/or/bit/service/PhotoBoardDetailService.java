@@ -1,5 +1,6 @@
 package kr.or.bit.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,14 +16,13 @@ public class PhotoBoardDetailService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		
 		int bIdx = Integer.parseInt(request.getParameter("bidx"));
 		BoardDao dao = new BoardDao();
-		Board board = dao.photoContent(bIdx);
-		List<Photo> photo = dao.boardDetailPhoto(bIdx);
+		Board board = dao.getBoardByBIdx(bIdx);
+		Photo photo = dao.boardDetailPhoto(bIdx).get(0);
 		
 		request.setAttribute("photo", photo);
-		request.setAttribute("photoContent", board);
+		request.setAttribute("board", board);
 		forward.setPath("/WEB-INF/views/board/photo/Detail.jsp");
 		
 		
