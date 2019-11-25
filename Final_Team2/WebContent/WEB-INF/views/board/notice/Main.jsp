@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -57,8 +58,10 @@
  <!-- Top -->
    <c:import url="/common/Top.jsp"/>
     
+    
     <!-- Contant -->
     <c:set var="noticeList" value="${requestScope.noticeboardList}"></c:set>
+    <c:set var="board" value="${requestScope.board }"/>
     <div class="content">
        <div class="comment-form-wrap pt-xl-2">
           <h1 class="text-center mb-3 bread">공지사항</h1> 
@@ -74,7 +77,7 @@
                 </thead>
                 <tbody>
                      <c:forEach var="board" items="${noticeList}">
-                     <tr>
+                     <tr >
                        <td width="10%">${board.bIdx}</td>
                        <!-- <td class="sorting_1"width="70%"><a href="NoticeBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td> -->
                        <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
@@ -88,9 +91,11 @@
                 </tbody>
              </table>
              </div>
+             <c:if test="${sessionScope.isAdmin == 'true'}">
             <a href="NoticeBoardWrite.do?cmd=write">
             	<input type="button" class="btn btn-primary" value="글쓰기" id="nboad" name="nboard">
             </a>
+            </c:if>
         </div>   
     </div>
 	  
