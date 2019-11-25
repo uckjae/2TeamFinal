@@ -24,9 +24,6 @@ public class PhotoBoardListService implements Action{
 			photolist.add(dao.boardDetailPhoto(board.getbIdx()).get(0));
 			
 		}
-		System.out.println("2");
-		System.out.println("dy==여기");
-		System.out.println(photolist);
 		request.setAttribute("boardlist", boardlist);
 		request.setAttribute("photolist", photolist);
 		forward.setPath("/WEB-INF/views/board/photo/Main.jsp");
