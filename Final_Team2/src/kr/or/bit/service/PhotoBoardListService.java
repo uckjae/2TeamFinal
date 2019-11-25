@@ -16,7 +16,7 @@ public class PhotoBoardListService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		BoardDao dao = new BoardDao();
-		List<Board> boardlist =  dao.photoList();
+		List<Board> boardlist =  dao.getPhotoBoardList();
 		
 		List<Photo> photolist =  new ArrayList<Photo>();
 		for (Board board : boardlist) {

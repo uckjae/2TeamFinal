@@ -31,7 +31,7 @@
 </script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
+	<c:set var="currUser" value="${sessionScope.memberId }"/>
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 	<!-- Vertical Timeline -->
@@ -95,6 +95,10 @@
     
     <div class="text-right">
   		<a href="MyCourseBoardList.do"><span>목록</span></a>
+  		<c:if test="${qnaDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
+   		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='MyCourseBoardWrite.do?cmd=edit&bidx=${mCBoard.bIdx}'">
+   		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='MyCourseBoardWrite.do?bidx=${mCBoard.bIdx}'">
+       	</c:if>
   	</div>
     
   </div>

@@ -20,7 +20,7 @@ import kr.or.bit.dto.Board;
 import kr.or.bit.dto.MCBoard;
 import kr.or.bit.dto.Photo;
 
-public class MyCourseBoardWriteService implements Action{
+public class MyCourseBoardWriteOkService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
