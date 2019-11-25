@@ -13,22 +13,22 @@ public class FreeBoardReWriteOkService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		boolean result = false;
-		
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		String id = (String)request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
 		BoardDao dao = new BoardDao();
-		dao.FreeBoardReWrite(id, title, content, bIdx);
+		int result = dao.FreeBoardReWrite(id, title, content, bIdx);
 		
 		String msg = "";
 		String url = "";
-		if(result) {
+		if(result > 0) {
 			msg = "답글 작성 완료";
+			url = "FreeBoardDetail.do?bIdx=" + result;
 		} else {
 			msg = "답글 작성 실패";
+			url = "FreeBoardList.do";
 		}
 		
 		request.setAttribute("board_msg", msg);

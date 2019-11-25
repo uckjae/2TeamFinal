@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 
+<c:set var="qnaDetail" value="${requestScope.qnaDetail}"/>
 <head>
     <c:import url="/common/HeadTag.jsp" />
 
@@ -21,6 +22,7 @@
     </style>
     <script type="text/javascript">
     	$(function(){
+    		setReadNum(${qnaDetail.bIdx});
     		$("#replybtn").click(function(){
     			$.ajax({
     				
@@ -36,7 +38,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Content -->
-    <c:set var="qnaDetail" value="${requestScope.qnaDetail}"/>
+    
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>

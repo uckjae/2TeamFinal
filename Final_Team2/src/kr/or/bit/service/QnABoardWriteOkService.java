@@ -45,7 +45,7 @@ public class QnABoardWriteOkService implements Action {
 		}
 
 		if (bIdx > 0)
-			url = "QnABoardDetail.do?bidx=" + bIdx;
+			url = "QnABoardDetail.do?bIdx=" + bIdx;
 		else
 			url = "QnABoardWrite.do";
 
