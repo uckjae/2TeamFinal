@@ -1181,11 +1181,12 @@ public class BoardDao {
 		ResultSet rs = null;
 		
 		try {
-			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHERE MCIDX=?";
+			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHERE MCIDX=? AND ID=?";
 			conn = DBHelper.getConnection();
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(checkSql);
 			pstmt.setInt(1, mCIdx);
+			pstmt.setString(2, id);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				String deleteLikeMemberSql = "DELETE FROM LMLIST WHERE ID=?";
