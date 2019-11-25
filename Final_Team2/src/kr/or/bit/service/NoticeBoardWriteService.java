@@ -15,7 +15,7 @@ public class NoticeBoardWriteService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		NoticeBoard noticewrite = null;
-		BoardDao dao = null;
+		
 		
 		String cmd =request.getParameter("cmd");
 		System.out.println("cmd:"+cmd);
@@ -25,7 +25,9 @@ public class NoticeBoardWriteService implements Action{
 			noticewrite.setbIdx(-1);
 		}
 		else if(cmd.equals("edit")) {
-			int bIdx = Integer.parseInt(request.getParameter("bidx"));			
+			int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+			System.out.println("가져오기:"+bIdx);
+			BoardDao dao = new BoardDao();
 			noticewrite = dao.noticeDetail(bIdx);
 		}
 		
