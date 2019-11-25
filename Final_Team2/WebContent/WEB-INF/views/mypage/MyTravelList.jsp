@@ -36,22 +36,26 @@
               <!--     <div class="vcard bio">  --> 
               
               <!--  -->
-                  <div class="comment-body">
-                   <c:forEach var="mTLContent" items = "${mTLContentList}"> 
-                    <h1>${mTLContent.tLCidx} </h1>
-                  	<div class="vcard bio">
-                  	<!--이미지 경로 나중에 다시 설정하기 -->
-                    <img src="upload/${mTLContent.image}" alt="trip image">
-                    </div>
-                    <h4>${ mTLContent.spotName}</h4>
-                    <div class="meta">${mTLContent.spotDate}</div>
-                    <p> ${ mTLContent.spotAddr}
-                    <a href="${ mTLContent.spotLink}"  class= "btn btn-primary ml-3 mr-3">${ mTLContent.spotLink}</a>                    
-                    <a href="MTListDelete.do?tLCidx=${mTLContent.tLCidx}" class="btn btn-secondary">삭제 </a>                   
-                    </p>
-                    </c:forEach>
-                 <!--     </div>-->
-                  </div>
+                  
+                   <c:forEach var="mTLContent" items="${mTLContentList}">
+                   
+						<h3>${mTLContent.tLCidx}</h3>
+						<div class="vcard bio">
+							<!--이미지 경로 나중에 다시 설정하기 -->
+							<img src="upload/${mTLContent.image}" alt="trip image">
+						</div>
+							<div class="comment-body">
+							<h4>${ mTLContent.spotName}</h4>
+							<div class="meta">${mTLContent.spotDate}</div>
+							<p>
+								${ mTLContent.spotAddr} <a href="${ mTLContent.spotLink}"
+									class="btn btn-primary ml-3 mr-3">${ mTLContent.spotLink}</a> <a
+									href="MTListDelete.do?tLCidx=${mTLContent.tLCidx}&tLidx=${ mTLContent.tLidx}"
+									class="btn btn-secondary">삭제 </a>
+							</p>
+						</div>
+					</c:forEach> 
+                  
                 </li>
     		</ul>
     		
