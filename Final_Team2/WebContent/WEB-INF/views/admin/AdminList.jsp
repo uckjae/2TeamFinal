@@ -95,7 +95,7 @@
 								</a>
 							</td>
 							<td class="iconColumn">
-								<a href="#" data-toggle="modal" data-target="#deleteModal" data-delete-id="${admin.id}">
+								<a href="#" data-toggle="modal" data-target="#deleteModal" data-cmd="admin" data-delete-id="${admin.id}">
 									<i class="fas fa-trash-alt"></i>
 								</a>
 							</td>
@@ -110,7 +110,7 @@
         </div>
     </div>
 
-	<jsp:include page="modal/AdminDeleteModal.jsp"/>
+	<jsp:include page="modal/DeleteModal.jsp"/>
 
 </body>
 
