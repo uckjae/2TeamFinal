@@ -1216,16 +1216,14 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		ResultSet rs = null;
+		System.out.println("dao tLidx: " + tLidx);
+		System.out.println("dao tLName: " + tLname);
 		String sql = "update mtlist set tlname= ? where TLIdx = ?";
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, tLidx);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				pstmt.setString(1, tLname);
-				resultRow =	pstmt.executeUpdate();
-			}
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, tLname);
+			pstmt.setInt(2, tLidx);
+			resultRow = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

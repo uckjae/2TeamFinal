@@ -21,16 +21,18 @@
     </style>
 <script type="text/javascript">
 $(function(){
-    let editId="";
-    $("#editbtn").click(function(){
-    	console.log("in editbtn");
-    });
-    $('#editModal1').on('shown.bs.modal', function(event) {   
+    let editTLidx="";
+    let editTLname = "";
+
+    $('#editModal1').on('show.bs.modal', function(event) {   
     	console.log("in modal");
-    	editId = $(event.relatedTarget).data('edit-id');
+    	editTLidx = $(event.relatedTarget).data('edit-tlidx');
+    	editTLname =  $(event.relatedTarget).data('edit-tlname');
     	console.log(" modal");
-    	console.log(editId);
-       $("#frm").attr("action","MTFolderListEdit.do?tLidx="+editId);
+    	console.log("TLidx " + editTLidx);
+    	console.log("TLname " + editTLname);
+        $("#frm").attr("action","MTFolderListEdit.do?tLidx="+editTLidx);
+      $("#inputInnerModal").val(editTLname);
     });
 
  });
@@ -67,7 +69,7 @@ $(function(){
 					        <td class="pl-5">${mTFolder.tLidx}</td>
 					       <td> <a href="MTList.do" >${ mTFolder.tLName}</a></td>
 					        <td>
-					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-id="${mTFolder}">수정 </a></td>	
+					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-tlidx="${mTFolder.tLidx}" data-edit-tlname="${mTFolder.tLName}">수정 </a></td>	
 					      <td><button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					    </c:forEach>  			  				  
@@ -86,8 +88,8 @@ $(function(){
           </button>
         </div>
         <form id="frm" method = "post">
-        <div class="modal-body">   		
-        	<input type="text" name="editFolder"> 
+        <div class="modal-body" id="innerModal">   		
+        	<input type="text" name="editFolder" id="inputInnerModal"> 
         </div>
         <div class="modal-footer">
           <input type="submit" class="btn btn-primary" value="수정">
