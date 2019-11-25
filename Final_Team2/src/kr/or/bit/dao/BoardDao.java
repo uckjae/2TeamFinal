@@ -787,14 +787,14 @@ public class BoardDao {
 
 	// 포토게시판
 	// 포토게시판 게시글 목록보기
-	public List<Board> photoList() {
+	public List<Board> getPhotoBoardList() {
 		List<Board> photolist = new ArrayList<Board>();
 		
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT BIDX , ID , TITLE, CONTENT, WDATE , RNUM , BCODE FROM BOARD";
+		String sql = "SELECT BIDX , ID , TITLE, CONTENT, WDATE , RNUM , BCODE FROM BOARD WHERE BCODE=5";
 						
 		
 		try {

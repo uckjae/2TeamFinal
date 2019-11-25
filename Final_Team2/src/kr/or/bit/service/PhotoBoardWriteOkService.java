@@ -29,16 +29,17 @@ public class PhotoBoardWriteOkService implements Action{
 			String content = multi.getParameter("content");
 			String title = multi.getParameter("title");
 			String photoName = multi.getFilesystemName("Photo");
+			String cmd = request.getParameter("cmd").trim();
 			BoardDao dao = new BoardDao();
-			int result = dao.photoWrite(memberId, title, content, photoName);
-			System.out.println("이거 : " + content);
-			System.out.println("이거 : " + title);
-			System.out.println("저거 : " + photoName);
 			String msg = "";
 			String url = "";
-			if(result > 0) {
-				msg = "글 작성을 성공하셨습니다.";
-				url = "PhotoBoardList.do";
+			if(cmd.equals("write")) {
+				int result = dao.photoWrite(memberId, title, content, photoName);
+				if(result > 0) {
+					msg = "글 작성을 성공하셨습니다.";
+					url = "PhotoBoardList.do";
+				
+			}
 			}else {
 				msg = "글 작성을 실패했습니다.";
 				url = "PhotoWrite.do";
