@@ -377,11 +377,28 @@ public class BoardDao {
 			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
 			  +" WHERE B.BIDX = ?";
 	  try {
+		  pstmt =connection.prepareStatement(sql);
+		  pstmt.setInt(1, bIdx);
+		  
+		  resultSet =pstmt.executeQuery();
+		  if(resultSet.next()) {
+			  noticeboard.setbIdx(resultSet.getInt(1));
+			  noticeboard.setId(resultSet.getString(2));
+			  noticeboard.setTitle(resultSet.getString(3));
+			  noticeboard.setContent(resultSet.getString(4));
+			  noticeboard.setwDate(resultSet.getDate(5));
+			  noticeboard.setrNum(resultSet.getInt(6));
+			  noticeboard.setnIdx(resultSet.getInt(7));
+			  noticeboard.setTop(resultSet.getBoolean(8));
+			  
+		  }
 		  
 	  }catch(Exception e){
-		  
+		  e.printStackTrace();
 	  }finally {
-		  
+		  DBHelper.close(resultSet);
+		  DBHelper.close(pstmt);
+		  DBHelper.close(connection);
 	  }
 	  return noticeboard;
 	}
