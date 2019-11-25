@@ -20,13 +20,13 @@
     
     $(document).ready(function(){
         
-        $("#inputName").on("focusout", function() {
+        $(".input").on("focusout", function() {
             var x = $(this).val();
             if (x.length > 0) {
                 if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
                     x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
                 }
-                alert("╊는 사용할 수 없습니다")
+                alert("공백없이 입력해주세요. 불완전한 한글과 '╊'는 사용할 수 없습니다")
                 $(this).val(x);
             }
             }).on("keyup", function() {
@@ -48,7 +48,7 @@
 	<form id="inputForm" name="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
-	<input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
+	<input type="text" class="form-control mb-3 input" id="title" name="title" placeholder="글 제목">
   	<div id="conference-timeline">
     <div class="timeline-start"><i id="removeSpot"><span class="icon-minus"></span></i>&nbsp;&nbsp;Start&nbsp;&nbsp;<a id="addSpot"><span  class="icon-plus"></span></a></div>
     <div class="conference-center-line"></div>

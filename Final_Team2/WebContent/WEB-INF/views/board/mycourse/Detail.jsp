@@ -51,7 +51,6 @@
     <div class="text-right mt-3" style="float: right;">
     	<span class="like-button">추천</span>
     	<span id="likeNum">${mCBoard.likeNum }</span>
-    	<input id="num" type="hidden" value="${mCBoard.likeNum}">
     </div>
     <div class="conference-center-line"></div>
     <div class="conference-timeline-content">
