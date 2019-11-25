@@ -60,7 +60,9 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT bidx , id, title, content, wdate, rnum, fidx, refer, depth, step FROM (SELECT b.bidx, b.id, b.title, b.content, b.wdate, b.rnum, f.fidx, f.refer, f.depth, f.step FROM freeboard f join board b on f.bidx=b.bidx ORDER  BY refer DESC , step ASC)";
+		String sql = "SELECT BIDX, ID, TITLE, CONTENT, WDATE, RNUM, FIDX, REFER, DEPTH, STEP"
+					+ " FROM (SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX, F.REFER, F.DEPTH, F.STEP"
+					+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX ORDER BY REFER DESC, STEP ASC)";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -1178,11 +1180,12 @@ public class BoardDao {
 		ResultSet rs = null;
 		
 		try {
-			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHERE MCIDX=?";
+			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHERE MCIDX=? AND ID=?";
 			conn = DBHelper.getConnection();
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(checkSql);
 			pstmt.setInt(1, mCIdx);
+			pstmt.setString(2, id);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				String deleteLikeMemberSql = "DELETE FROM LMLIST WHERE ID=?";

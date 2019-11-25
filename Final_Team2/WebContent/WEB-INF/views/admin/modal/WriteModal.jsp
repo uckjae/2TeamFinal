@@ -6,26 +6,29 @@
 <head>
 <script type="text/javascript">
    $(function(){
-      $('#writeModal').on('show.bs.modal', function(event) {          
+      $('#writeModal').on('show.bs.modal', function(event) {  
     	 let cmd = $(event.relatedTarget).data('cmd');
-    	 console.log(cmd);
+
          let id = "";
          let pwd = "";
-       
+       	 let action = "";
          if(cmd === "edit"){
         	 id = $(event.relatedTarget).data('id');
         	 pwd=$(event.relatedTarget).data('pwd');
         	 $("#btn").text("EDIT");
         	 $("#id").attr("readonly","readonly");
 			 $(".modal-title").html("<i class='fas fa-user-edit'></i>&nbsp;&nbsp;관리자 수정");
+			 action="AdminEdit.do";
          }else{
         	 $("#btn").text("ADD");
+        	 $("#id").removeAttr("readonly");
         	 $(".modal-title").html("<i class='fas fa-user-plus'></i>&nbsp;&nbsp;관리자 추가");
+        	 action="AdminAdd.do";
          }
          
     	 $("#id").val(id);
     	 $("#pwd").val(pwd);
-         /* $("#deletebtn").attr("href","MemberDelete.do?cmd="+cmd+"&id=" + deleteId); */
+         $("#frm").attr("action","MemberDelete.do?cmd="+cmd+"&id=" + deleteId); 
       });
    });
 </script>
@@ -43,7 +46,7 @@
           </button>
         </div>
         <div class="modal-body">
-        	<form action="#" >
+        	<form id="frm" method="post">
                   <div class="form-group">
                     <label for="id">ID </label>
                     <input type="text" class="form-control" id="id" name="id">
