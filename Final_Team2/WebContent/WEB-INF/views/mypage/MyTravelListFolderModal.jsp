@@ -15,7 +15,7 @@
       <div class="modal-content">
         <div class="modal-header">
         <c:choose> 
-        	<c:when test="${mTList.tLidx >0}">
+        	<c:when test="${mTList.tLIdx >0}">
         		<c:set var = "isEdit" value="true"/>
         	</c:when>
         	<c:otherwise>

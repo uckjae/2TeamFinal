@@ -25,14 +25,11 @@ $(function(){
     let editTLname = "";
 
     $('#editModal1').on('show.bs.modal', function(event) {   
-    	console.log("in modal");
     	editTLidx = $(event.relatedTarget).data('edit-tlidx');
     	editTLname =  $(event.relatedTarget).data('edit-tlname');
-    	console.log(" modal");
-    	console.log("TLidx " + editTLidx);
-    	console.log("TLname " + editTLname);
         $("#frm").attr("action","MTFolderListEdit.do?tLidx="+editTLidx);
       $("#inputInnerModal").val(editTLname);
+     
     });
 
  });
@@ -76,7 +73,7 @@ $(function(){
 	<!-- Modal-->
 	<!--   <c:import url="MyTravelListFolderModal.jsp" /> --> 
 	  <jsp:include page="MyTravelListFolderModal.jsp">
-        <jsp:param name="tLIdx" value="${ mTFolder.tLidx }"/>
+     <jsp:param name="tLIdx" value="${ mTFolderList.tLidx }"/> 
         </jsp:include>
 	 
 	<script src="js/main.js"></script>
