@@ -225,6 +225,7 @@ public class BoardDao {
 			pstmt = connection.prepareStatement(bIdxsql);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
+				System.out.println("get bidx");
 				bIdx = resultSet.getInt(1);
 			}
 			System.out.println("commit ok");
