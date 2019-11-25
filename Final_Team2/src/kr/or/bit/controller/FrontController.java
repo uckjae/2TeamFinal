@@ -272,7 +272,17 @@ public class FrontController extends HttpServlet {
 			action = new MTListContentDeleteService();
 			forward = action.execute(request,response);
 		}
+		////API 
+		else if (url_Command.equals("/CourseAPI.do")) {			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/api/CourseAPI.jsp");
+		}
 		
+		
+		// 추천 여행지
+		else if (url_Command.equals("/Recommend.do")) {
+			
+		}
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {
