@@ -21,24 +21,21 @@
     </style>
 <script type="text/javascript">
 $(function(){
-    let editId="";
-    $("#editbtn").click(function(){
-    	console.log("in editbtn");
-    });
-    $('#editModal1').on('shown.bs.modal', function(event) {   
+    let editTLidx="";
+    let editTLname = "";
+
+    $('#editModal1').on('show.bs.modal', function(event) {   
     	console.log("in modal");
-    	editId = $(event.relatedTarget).data('edit-id');
+    	editTLidx = $(event.relatedTarget).data('edit-tlidx');
+    	editTLname =  $(event.relatedTarget).data('edit-tlname');
     	console.log(" modal");
-    	console.log(editId);
-       $("#frm").attr("action","MTFolderListEdit.do?tLidx="+editId);
+    	console.log("TLidx " + editTLidx);
+    	console.log("TLname " + editTLname);
+        $("#frm").attr("action","MTFolderListEdit.do?tLidx="+editTLidx);
+      $("#inputInnerModal").val(editTLname);
     });
 
  });
- 
-
-
-
-
 </script>
 </head>
 
@@ -67,7 +64,7 @@ $(function(){
 					        <td class="pl-5">${mTFolder.tLidx}</td>
 					       <td> <a href="MTList.do" >${ mTFolder.tLName}</a></td>
 					        <td>
-					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-id="${mTFolder}">수정 </a></td>	
+					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-edit-tlidx="${mTFolder.tLidx}" data-edit-tlname="${mTFolder.tLName}">수정 </a></td>	
 					      <td><button type="button" class="btn btn-secondary">삭제</button></td>					       
 					      </tr>
 					    </c:forEach>  			  				  
@@ -75,30 +72,9 @@ $(function(){
 		   		</div>		
 	 		</div>
 
-<!--  edit modal -->	 			 
-<div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">폴더 이름 수정</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <form id="frm" method = "post">
-        <div class="modal-body">   		
-        	<input type="text" name="editFolder"> 
-        </div>
-        <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" value="수정">
-          
-       <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-	
+
+	<!-- Modal-->
+	 <c:import url="MyTravelListFolderModal.jsp" />
 	<script src="js/main.js"></script>
 </body>
 </html>

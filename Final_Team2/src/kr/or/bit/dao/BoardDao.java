@@ -22,6 +22,7 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
+import sun.dc.pr.PRError;
 
 public class BoardDao {
 
@@ -176,36 +177,36 @@ public class BoardDao {
 	}
 	
 	// 자유 게시판 답글쓰기
-	public FreeBoard FreeBoardReWrite(String id, String title, String content, int bIdx) {
+	public int FreeBoardReWrite(String id, String title, String content, int bIdx) {
 		int resultRow = 0;
-		int refer = 0, depth = 0;
+		int refer = 0, depth = 0, step = 0;
 		
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String referNum = "SELECT REFER, DEPTH FROM FREEBOARD WHERE BIDX=?";
-		String stepNum = "SELECT STEP FROM FREEBOARD";
-		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE REFER=?";
+		String referDepthStep = "SELECT REFER, DEPTH, STEP FROM FREEBOARD WHERE BIDX=?";
+		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE STEP > ? AND REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
-		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, 0)";
+		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
 		
 		try {
-			pstmt = connection.prepareStatement(referNum);
+			pstmt = connection.prepareStatement(referDepthStep);
 			pstmt.setInt(1, bIdx);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
 				refer = resultSet.getInt(1);
 				depth = resultSet.getInt(2);
+				step = resultSet.getInt(3);
 			}
 			
-			pstmt = connection.prepareStatement(stepUp);
-			pstmt.setInt(1, refer);
-			resultSet = pstmt.executeQuery();
-			
-			
 			connection.setAutoCommit(false);
+			
+			pstmt = connection.prepareStatement(stepUp);
+			pstmt.setInt(1, step);
+			pstmt.setInt(2, refer);
+			pstmt.executeUpdate();
 			
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
@@ -215,15 +216,25 @@ public class BoardDao {
 			
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
-			pstmt.setInt(2, depth);
+			pstmt.setInt(2, depth+1);
+			pstmt.setInt(3, step+1);
+			pstmt.executeUpdate();
 			
+			pstmt = connection.prepareStatement(bIdxsql);
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				bIdx = resultSet.getInt(1);
+			}
+			
+			connection.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
 		}
-		
-		return null;
+		return bIdx;
 	}
 	
 	// 자유 게시판 게시글 조회수 증가
@@ -367,7 +378,39 @@ public class BoardDao {
 		}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeDetail(int bIdx) {
-		return null;
+	  NoticeBoard noticeboard = new NoticeBoard();
+	  Connection connection = DBHelper.getConnection();
+	  PreparedStatement pstmt = null;
+	  ResultSet resultSet =null;
+	  
+	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
+			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
+			  +" WHERE B.BIDX = ?";
+	  try {
+		  pstmt =connection.prepareStatement(sql);
+		  pstmt.setInt(1, bIdx);
+		  
+		  resultSet =pstmt.executeQuery();
+		  if(resultSet.next()) {
+			  noticeboard.setbIdx(resultSet.getInt(1));
+			  noticeboard.setId(resultSet.getString(2));
+			  noticeboard.setTitle(resultSet.getString(3));
+			  noticeboard.setContent(resultSet.getString(4));
+			  noticeboard.setwDate(resultSet.getDate(5));
+			  noticeboard.setrNum(resultSet.getInt(6));
+			  noticeboard.setnIdx(resultSet.getInt(7));
+			  noticeboard.setTop(resultSet.getBoolean(8));
+			  
+		  }
+		  
+	  }catch(Exception e){
+		  e.printStackTrace();
+	  }finally {
+		  DBHelper.close(resultSet);
+		  DBHelper.close(pstmt);
+		  DBHelper.close(connection);
+	  }
+	  return noticeboard;
 	}
 
 	// 공지 게시판 글쓰기	
@@ -1183,16 +1226,12 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		ResultSet rs = null;
 		String sql = "update mtlist set tlname= ? where TLIdx = ?";
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, tLidx);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				pstmt.setString(1, tLname);
-				resultRow =	pstmt.executeUpdate();
-			}
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, tLname);
+			pstmt.setInt(2, tLidx);
+			resultRow = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
