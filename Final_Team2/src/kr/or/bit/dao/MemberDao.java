@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.crypto.provider.RSACipher;
 import com.sun.xml.internal.ws.runtime.config.TubelineFeature;
 
 import kr.or.bit.dto.Member;
@@ -52,11 +53,20 @@ public class MemberDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
-		
+		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN, KAKAO) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0)";
+
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPwd());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getBirth());
+			pstmt.setBoolean(5, member.isGender());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getEmail());
 
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -83,7 +93,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
@@ -104,7 +114,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
@@ -127,7 +137,7 @@ public class MemberDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return member;
 	}
 
@@ -170,18 +180,22 @@ public class MemberDao {
 
 		return members;
 	}
-	
+
 	// Admin
-	public boolean insertAdmin(String id, String name, String pwd) {
+	public boolean insertAdmin(String id, String pwd) {
+		System.out.println("in inset db");
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
-		
+		String sql = "INSERT INTO MEMBER (ID, PWD, ISADMIN, NAME) VALUES( ?, ?, 1, '관리자') ";
+
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
 
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -192,23 +206,52 @@ public class MemberDao {
 		return resultRow > 0 ? true : false;
 	}
 
-	public boolean updateAdmin(String id, String name, String pwd) {
+	public boolean updateAdmin(String id, String pwd) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
+		String sql = "UPDATE MEMBER SET PWD = ? WHERE ID = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, id);
 
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
+	}
+
+	public boolean isUseMemberId(String id) {
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+
+		String sql = "SELECT ID FROM MEMBER WHERE ID = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+				result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return result;
 	}
 }

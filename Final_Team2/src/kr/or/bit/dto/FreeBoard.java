@@ -1,11 +1,14 @@
 package kr.or.bit.dto;
 
+import java.util.List;
+
 public class FreeBoard extends Board {
 	private int fIdx;//FIDX_SEQ
 	private int bIdx;
 	private int refer;
 	private int depth;
 	private int step;
+	private List<Reply> replies;
 
 	public FreeBoard() {}
 	
@@ -16,6 +19,14 @@ public class FreeBoard extends Board {
 		this.refer = refer;
 		this.depth = depth;
 		this.step = step;
+	}
+
+	public List<Reply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Reply> replies) {
+		this.replies = replies;
 	}
 
 	public int getfIdx() {

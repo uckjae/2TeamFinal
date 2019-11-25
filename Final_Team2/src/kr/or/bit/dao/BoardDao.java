@@ -116,6 +116,7 @@ public class BoardDao {
 				freeBoard.setwDate(resultSet.getDate(5));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
+				freeBoard.setReplies(getRepliesByBIdx(bIdx));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -786,14 +787,14 @@ public class BoardDao {
 
 	// 포토게시판
 	// 포토게시판 게시글 목록보기
-	public List<Board> photoList() {
+	public List<Board> getPhotoBoardList() {
 		List<Board> photolist = new ArrayList<Board>();
 		
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT BIDX , ID , TITLE, CONTENT, WDATE , RNUM , BCODE FROM BOARD";
+		String sql = "SELECT BIDX , ID , TITLE, CONTENT, WDATE , RNUM , BCODE FROM BOARD WHERE BCODE=5";
 						
 		
 		try {
@@ -867,6 +868,7 @@ public class BoardDao {
 	public int photoWrite(String memberId,String title, String content, String photoName) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
+		int bIdx = -1;
 		int result = 0;
 		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
 					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
@@ -944,8 +946,45 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 수정하기
-	public int photoEdit() {
-		return 0;
+	public int photoEdit(int bIdx,String title, String content, String photoName) {
+		int result=0;
+		
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
+		String photoSql = "UPDATE PHOTO SET PHOTONAME = ? WHERE BIDX = ? ";
+		
+		try {
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(boardSql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bIdx);
+			System.out.println(title);
+			System.out.println(content);
+			System.out.println(bIdx);
+			pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setString(1, photoName);
+			pstmt.setInt(2, bIdx);
+			System.out.println(photoName);
+			System.out.println(bIdx);
+			result = pstmt.executeUpdate();
+			
+			conn.commit();
+		} catch (Exception e) {
+			try { conn.rollback(); } 
+			catch (SQLException e1) { e1.printStackTrace(); }
+
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
+		}
+		
+		return result;
 	}
 	// 포토게시판 끝
 

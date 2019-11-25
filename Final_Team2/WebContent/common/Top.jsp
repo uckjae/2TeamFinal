@@ -36,7 +36,7 @@
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
 					<li class="nav-item">
-						<a href="#" class="nav-link"> <span>추천 여행지</span></a>
+						<a href="Recommend.do" class="nav-link"> <span>추천 여행지</span></a>
 					</li>
 					
 					<li class="nav-item">
@@ -46,7 +46,7 @@
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 코스</a>
 						<div class="dropdown-menu">
-	              			<a class="dropdown-item" href="#" >여행코스</a>	
+	              			<a class="dropdown-item" href="CourseAPI.do" >여행코스</a>	
 	              			<a class="dropdown-item" href="#" >가이드북 다운로드</a>	
               			</div>				
 					</li>
@@ -66,9 +66,7 @@
               			</div>				
 					</li>
 					
-					<li class="nav-item">
-						<a href="Register.do" class="nav-link"> <span>회원가입</span></a>
-					</li>
+
 					 <c:choose>
 						<c:when test="${isLogin== 'true'}">
 							<c:choose>
@@ -95,6 +93,9 @@
 							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
 						</c:when>
 						<c:otherwise>
+							<li class="nav-item">
+								<a href="Register.do" class="nav-link"> <span>회원가입</span></a>
+							</li>
 							<li class="nav-item"><a href="Login.do" class="nav-link"><span>Login</span></a></li>
 						</c:otherwise>
 					</c:choose> 
