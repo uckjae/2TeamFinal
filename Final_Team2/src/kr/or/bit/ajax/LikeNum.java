@@ -25,9 +25,14 @@ public class LikeNum extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setContentType("text/html;charset=UTF-8");
-    	
+    	System.out.println("여긴오나"+request.getParameter("mCIdx"));
+    	int mCIdx = Integer.parseInt(request.getParameter("mCIdx"));
+    	System.out.println("LikeNum : "+mCIdx);
+    	String id = (String)request.getSession().getAttribute("memberId");
     	PrintWriter out = response.getWriter();
     	BoardDao dao = new BoardDao();
+    	int result = dao.getCourseLikeNum(mCIdx, id);
+    	out.print(result);
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request,response);

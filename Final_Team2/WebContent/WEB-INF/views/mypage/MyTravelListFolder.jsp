@@ -45,7 +45,7 @@
 						<c:forEach var="mTFolder" items = "${ mTFolderList}">
 					      <tr>					      	
 					        <td class="pl-5">${mTFolder.tLidx}</td>
-					       <td> <a href="MTList.do" >${ mTFolder.tLName}</a></td>
+					       <td> <a href="MTList.do?tLidx=${mTFolder.tLidx}">${ mTFolder.tLName}</a></td>
 					        <td>
 					        <a href="#" id="editbtn" class="btn btn-primary" data-toggle="modal" data-target="#editModal1" data-cmd="edit" data-edit-tlidx="${mTFolder.tLidx}" data-edit-tlname="${mTFolder.tLName}">수정 </a></td>	
 					      <td><button type="button" class="btn btn-secondary">삭제</button></td>					       

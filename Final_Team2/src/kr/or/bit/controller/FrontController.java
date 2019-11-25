@@ -21,11 +21,12 @@ import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
-import kr.or.bit.service.MTFolderListChangeService;
 import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderDeleteService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MTListContentDeleteService;
+import kr.or.bit.service.MTListContentSevice;
 import kr.or.bit.service.MemberDeleteService;
 import kr.or.bit.service.MemberListService;
 import kr.or.bit.service.MyCourseBoardDetail;
@@ -137,8 +138,6 @@ public class FrontController extends HttpServlet {
 		}else if (url_Command.equals("/PhotoWriteOk.do")) {
 			action = new PhotoBoardWriteOkService();
 			forward = action.execute(request, response);
-		}else if (url_Command.equals("/PhotoEditOk.do")) {
-			
 		}else if(url_Command.equals("/PhotoBoardDelete.do")) {
 			action = new PhotoBoardDeleteService();
 			forward = action.execute(request, response);
@@ -257,10 +256,16 @@ public class FrontController extends HttpServlet {
 		}
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			
-					
+			action = new MTListContentSevice();
+			forward = action.execute(request,response);
 		}
 		//여행리스트 리스트 추가하기 
 		//여행리스트 리스트 삭제하기
+		else if (url_Command.equals("/MTListDelete.do")) {			
+			action = new MTListContentDeleteService();
+			forward = action.execute(request,response);
+		}
+		
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {
