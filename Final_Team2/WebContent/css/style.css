@@ -9146,6 +9146,18 @@ textarea.form-control {
     .ftco-section {
       padding: 0; } }
       
+.content-center {
+  margin-top: 7em;
+  margin-left: 35em;
+  margin-right: 35em;
+  position: relative; }
+    @media (max-width: 767.98px) {
+    .ftco-section {
+   	 margin-left: 10em;
+  	 margin-right: 10em;
+      padding: 0; } }
+      
+      
 .ftco-no-pt {
   padding-top: 0 !important; }
 

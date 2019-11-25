@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.crypto.provider.RSACipher;
 import com.sun.xml.internal.ws.runtime.config.TubelineFeature;
 
 import kr.or.bit.dto.Member;
@@ -59,7 +60,13 @@ public class MemberDao {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPwd());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getBirth());
+			pstmt.setBoolean(5, member.isGender());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getEmail());
 
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

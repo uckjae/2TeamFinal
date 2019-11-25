@@ -48,6 +48,7 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
+import kr.or.bit.service.RegisterOkService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -92,7 +93,8 @@ public class FrontController extends HttpServlet {
 		}
 		//  진행
 		else if (url_Command.equals("/RegisterOk.do")) {
-			
+			action = new RegisterOkService();
+			forward = action.execute(request, response);
 		}
 		
 		/* BOARD */	
