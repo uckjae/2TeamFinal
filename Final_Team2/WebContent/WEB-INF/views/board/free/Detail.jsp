@@ -38,6 +38,12 @@
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='FreeBoardList.do'" >
                 </div>
         </div>
+        
+          <!-- Reply  -->
+        <c:set var="replies" value="${freeDetail.replies}" scope="request"/>
+        <jsp:include page="../common/Reply.jsp">
+        	<jsp:param name="bIdx" value="${freeDetail.bIdx}"/>
+        </jsp:include>
     </div>
 </body>
 </html>
