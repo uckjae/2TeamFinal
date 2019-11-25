@@ -974,8 +974,8 @@ public class BoardDao {
 		return mCBoard;
 	}
 	
-	//나만의 코스 상세보기 사진
-	public List<Photo> courseDetailPhoto(int bidx){
+	//게시판상세보기 사진 가져오기
+	public List<Photo> boardDetailPhoto(int bidx){
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -1417,5 +1417,26 @@ public class BoardDao {
 		}		
 		
 		return reply;
+	}
+	
+	public boolean setReadNum(int bIdx) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE BOARD SET RNUM = RNUM + 1 WHERE BIDX = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 }
