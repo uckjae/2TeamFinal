@@ -370,7 +370,7 @@ public class BoardDao {
 					noticeBoard.setrNum(rs.getInt(6));
 					noticeBoard.setnIdx(rs.getInt(7));
 					noticeBoard.setTop(rs.getBoolean(8));
-					
+					System.out.println();
 					noticeboardList.add(noticeBoard);
 				}
 				

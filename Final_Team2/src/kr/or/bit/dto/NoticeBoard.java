@@ -15,29 +15,30 @@ public class NoticeBoard extends Board {
 		this.isTop = isTop;
 	}
 
+	
+
 	public int getnIdx() {
 		return nIdx;
 	}
 
-	public int getbIdx() {
-		return bIdx;
-	}
-	
-
 	public void setnIdx(int nIdx) {
 		this.nIdx = nIdx;
+	}
+
+	public int getbIdx() {
+		return bIdx;
 	}
 
 	public void setbIdx(int bIdx) {
 		this.bIdx = bIdx;
 	}
 
-	public void setTop(boolean isTop) {
-		this.isTop = isTop;
+	public boolean getIsTop() {
+		return isTop;
 	}
 
-	public boolean isTop() {
-		return isTop;
+	public void setTop(boolean isTop) {
+		this.isTop = isTop;
 	}
 
 	@Override

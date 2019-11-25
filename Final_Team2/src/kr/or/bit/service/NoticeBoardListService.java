@@ -18,6 +18,8 @@ public class NoticeBoardListService implements Action{
 
 		BoardDao dao = new BoardDao();
 		List<NoticeBoard> noticeboardList = dao.noticeboardList();
+		
+		//request.getSession().setAttribute("isTop", noticeboardList.add(e));
 		request.setAttribute("noticeboardList", noticeboardList);
 		forward.setPath("/WEB-INF/views/board/notice/Main.jsp");
 
