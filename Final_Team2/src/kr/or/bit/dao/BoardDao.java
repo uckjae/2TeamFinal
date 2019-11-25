@@ -966,8 +966,8 @@ public class BoardDao {
 		return mCBoard;
 	}
 	
-	//나만의 코스 상세보기 사진
-	public List<Photo> courseDetailPhoto(int bidx){
+	//게시판상세보기 사진 가져오기
+	public List<Photo> boardDetailPhoto(int bidx){
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
