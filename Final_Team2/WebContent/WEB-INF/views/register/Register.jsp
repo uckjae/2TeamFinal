@@ -19,30 +19,43 @@
     	}
     </style>
     <script type="text/javascript">
-    $(function(){
-    	$("#openPostCode").click(execDaumPostcode);
-    	$("#postCode").click(execDaumPostcode);
-    })
-    
-    function maxLengthCheck(object){
-    	   if (object.value.length > object.maxLength){
-    	    object.value = object.value.slice(0, object.maxLength);
-    	   }   
-    	  }
-    
-    function inNumber(){
-        if(event.keyCode<48 || event.keyCode>57){
-           event.returnValue=false;
-        }
-    }
-    
-    //1~4까지만
-    function inGender(){
-        if(event.keyCode<49 || event.keyCode>52){
-           event.returnValue=false;
-        }
-    }
-    </script>
+	$(function () {
+		$("#openPostCode").click(execDaumPostcode);
+		$("#postCode").click(execDaumPostcode);
+	})
+
+	function test(){
+		$.ajax({
+			url : "CheckMemberId",
+			data : {id : $("#id").val()},
+			success : function(data){
+				console.log(data);
+			},
+			error : function(){
+				
+			}
+		});
+	}
+	
+	function maxLengthCheck(object) {
+		if (object.value.length > object.maxLength) {
+			object.value = object.value.slice(0, object.maxLength);
+		}
+	}
+
+	function inNumber() {
+		if (event.keyCode < 48 || event.keyCode > 57) {
+			event.returnValue = false;
+		}
+	}
+
+	//1~4까지만
+	function inGender() {
+		if (event.keyCode < 49 || event.keyCode > 52) {
+			event.returnValue = false;
+		}
+	}
+</script>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -62,6 +75,7 @@
                                 <label for="#">ID</label>
                                 <div class="form-field">
                                     <input type="text" class="form-control" id="id" name="id" placeholder="enter your id" autofocus="autofocus">
+                                	<div class="invalid-feedback">중복어쩌구</div>
                                 </div>
                             </div>
                         </div>
