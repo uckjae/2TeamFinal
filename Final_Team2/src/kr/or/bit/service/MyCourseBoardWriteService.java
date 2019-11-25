@@ -58,9 +58,9 @@ public class MyCourseBoardWriteService implements Action{
 			System.out.println("content길이"+multi.getParameterValues("content"));
 			System.out.println("area 길이"+multi.getParameterValues("area"));
 			for(int i=0; i<multi.getParameterValues("content").length; i++) {
-				content.append("a2qw30#");
+				content.append("╊");
 				content.append(multi.getParameterValues("area")[i]);
-				content.append("f0q234ksd");
+				content.append("╊");
 				content.append(multi.getParameterValues("content")[i]);
 			}
 			System.out.println("MyCourseBoardWriteService 65 : "+id);
