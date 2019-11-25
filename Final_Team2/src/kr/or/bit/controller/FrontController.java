@@ -271,6 +271,10 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request,response);
 		}
 		
+		// 추천 여행지
+		else if (url_Command.equals("/Recommend.do")) {
+			
+		}
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {
