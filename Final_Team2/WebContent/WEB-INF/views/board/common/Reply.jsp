@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	$(function(){
 		changReplyHeader();
-		$(":button").click(function(){
+		$("#reply").click(function(){
 			 $.ajax({
 			        type:'POST',
 			        url : "WriteReply",
@@ -59,7 +59,7 @@
       	<textarea name="replyContent" id="replyContent" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
           </div>
           <div class="text-right">
-          	 <input type="button" class="btn btn-primary " value="REPLY" >
+          	 <input id="reply" type="button" class="btn btn-primary " value="REPLY" >
           </div>
     </div>
     

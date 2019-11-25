@@ -16,17 +16,12 @@ import org.codehaus.jettison.json.JSONObject;
 import kr.or.bit.dao.BoardDao;
 import kr.or.bit.dto.Reply;
 
-/**
- * Servlet implementation class GetDeptNosServlet
- */
-@WebServlet("/WriteReply")
-public class WriteReplyServlet extends HttpServlet {
+
+@WebServlet("/ReadNum")
+public class ReadNumServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public WriteReplyServlet() {
+	public ReadNumServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,31 +34,11 @@ public class WriteReplyServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
-		String replyContent = request.getParameter("replyContent").trim();
-		String memberId = (String) request.getSession().getAttribute("memberId");
 
 		BoardDao dao = new BoardDao();
-		int rIdx = dao.insertReply(bIdx, memberId, replyContent);
+		boolean result = dao.setReadNum(bIdx);
 
-		Reply reply = new Reply();
-		String resultString = "{";
-		if (rIdx > 0) {
-			reply = dao.getReply(rIdx);
-			resultString += "id : " + reply.getId();
-			resultString += ", rContent : " + reply.getrContent();
-			String date =  new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss").format(reply.getrWDate());
-			resultString += ", rWDate : " +"\""+date+"\"";
-		}
-		
-		resultString +="}";
-		JSONObject json = null;
-		try {
-			json = new JSONObject(resultString) ;
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		out.print(json);
+		out.print(result);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
