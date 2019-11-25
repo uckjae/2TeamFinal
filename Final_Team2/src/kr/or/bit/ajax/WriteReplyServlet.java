@@ -35,7 +35,7 @@ public class WriteReplyServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		System.out.println("in WriteReply");
+
 		PrintWriter out = response.getWriter();
 
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));

@@ -1412,6 +1412,7 @@ public class BoardDao {
 	}
 	
 	public boolean setReadNum(int bIdx) {
+		System.out.println("in db "+bIdx);
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
