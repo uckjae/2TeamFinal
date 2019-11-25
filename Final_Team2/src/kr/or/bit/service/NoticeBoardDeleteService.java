@@ -8,7 +8,7 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
 import kr.or.bit.dto.NoticeBoard;
 
-public class NoticeBoardDetailService implements Action{
+public class NoticeBoardDeleteService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
@@ -17,10 +17,19 @@ public class NoticeBoardDetailService implements Action{
 		int bIdx =Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		NoticeBoard noticeBoard = dao.noticeDetail(bIdx);
+		boolean noticeBoardDelete =dao.noticeDelete(bIdx);
 		
-		request.setAttribute("noticeBoard", noticeBoard);
-		forward.setPath("/WEB-INF/views/board/notice/Detail.jsp");
+		String msg="";
+		if(noticeBoardDelete) {
+			msg="삭제완료";
+		}else {
+			msg="삭제실패";
+		}
+		System.out.println("msg:"+msg);
+		request.setAttribute("board_msg", msg);
+		request.setAttribute("board_url", "NoticeBoardList.do");
+		
+		forward.setPath("/common/Redirect.jsp");
 		
 		
 		return forward;

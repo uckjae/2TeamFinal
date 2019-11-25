@@ -20,12 +20,14 @@ import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
+import kr.or.bit.service.MTFolderListChangeService;
 import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
+import kr.or.bit.service.NoticeBoardDeleteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
 import kr.or.bit.service.NoticeBoardWriteOkService;
@@ -167,10 +169,17 @@ public class FrontController extends HttpServlet {
 			action = new NoticeBoardWriteService();
 			forward =action.execute(request, response);
 		}
+		else if(url_Command.equals("/NoticeBoardDelete.do")) {
+			action =new NoticeBoardDeleteService();
+			forward =action.execute(request, response);
+		}
+		
 		else if(url_Command.equals("/NoticeBoardWriteOk.do")) {
 			action =new NoticeBoardWriteOkService();
 			forward =action.execute(request, response);
 		}
+		
+		
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
 			action = new QnABoardListService();
@@ -234,6 +243,12 @@ public class FrontController extends HttpServlet {
 		//여행리스트 폴더 수정하기 
 		else if (url_Command.equals("/MTFolderListEdit.do")) {			
 			 action = new MTLFolderEditService();
+			 forward = action.execute(request, response)	;	
+		}
+		//모달창으로 이동 
+		
+		else if (url_Command.equals("/MTFolderListChange.do")) {			
+			 action = new MTFolderListChangeService();
 			 forward = action.execute(request, response)	;	
 		}
 		//여행리스트 폴더 삭제하기

@@ -76,7 +76,8 @@
                      <tr>
                        <td width="10%">${board.bIdx}</td>
                        <!-- <td class="sorting_1"width="70%"><a href="NoticeBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td> -->
-                       <td width="70%">${board.title}</td>
+                       <td width="70%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
+                      
                        <td width="10%">
                        <fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss"/>
                        </td>
