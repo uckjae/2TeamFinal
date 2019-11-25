@@ -54,7 +54,7 @@
 							</td>
 							<td>
 							<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
-							<input type="button" class="btn btn-primary" value="수정" onclick="location.href='PhotoBoardEdit.do?bidx=${PhotoDetail.bIdx}'">
+							<input type="button" class="btn btn-primary" value="수정" onclick="location.href='PhotoWrite.do?cmd=edit&bidx=${PhotoDetail.bIdx}'">
 							<input type="button" class="btn btn-primary" value="삭제" onclick="location.href='PhotoBoardDelete.do?bidx=${PhotoDetail.bIdx}'">
 							</c:if>
 							<a href="PhotoBoardList.do"><input type="reset" value="목록" class="btn-danger" style="width: 50%; height: 100%"></a>	
