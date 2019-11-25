@@ -20,7 +20,7 @@ public class RegisterOkService implements Action {
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
 		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+		String address = request.getParameter("postCode") + "/" + request.getParameter("address");
 		String birth = request.getParameter("birth");
 		int gender = Integer.parseInt(request.getParameter("gender"));
 
@@ -32,12 +32,12 @@ public class RegisterOkService implements Action {
 		member.setAddress(address);
 		member.setBirth(birth);
 		member.setGender((gender % 2 == 0) ? true : false); // male 0
-		
+
 		MemberDao dao = new MemberDao();
 		dao.insertMemeber(member);
-		
+
 		forward.setPath("Login.do");
-		
+
 		return forward;
 	}
 }

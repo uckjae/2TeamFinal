@@ -6,6 +6,9 @@
 
 <head>
     <c:import url="/common/HeadTag.jsp" />
+    <!-- daum api -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="js/execDaumPostcode.js"></script>
     <title>Main</title>
     <style type="text/css">
     	html, body{
@@ -16,6 +19,11 @@
     	}
     </style>
     <script type="text/javascript">
+    $(function(){
+    	$("#openPostCode").click(execDaumPostcode);
+    	$("#postCode").click(execDaumPostcode);
+    })
+    
     function maxLengthCheck(object){
     	   if (object.value.length > object.maxLength){
     	    object.value = object.value.slice(0, object.maxLength);
@@ -92,8 +100,14 @@
                         <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">ADDRESS</label>
+                                <input type="number" id="postCode" name="postCode"  class="form-control" placeholder="우편번호" aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
+						        <div class="input-group-append">
+						          <button class="btn btn-primary" type="button" id="openPostCode">
+						            <i class="fas fa-search"></i>
+						          </button>
+						        </div>
                                 <div class="form-field">
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="enter your email">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="주소" readonly>
                                 </div>
                             </div>
                         </div>
