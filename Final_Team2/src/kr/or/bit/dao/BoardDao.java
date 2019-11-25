@@ -60,7 +60,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX" 
+		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX, F.REFER, F.DETPH, F.STEP" 
 					+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
 		
 		try {
@@ -77,6 +77,9 @@ public class BoardDao {
 				freeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(5)));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
+				freeBoard.setRefer(resultSet.getInt(8));
+				freeBoard.setDepth(resultSet.getInt(9));
+				freeBoard.setStep(resultSet.getInt(10));
 
 				freeBoardList.add(freeBoard);
 			}
