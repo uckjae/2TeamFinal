@@ -60,8 +60,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 		
-		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX" 
-					+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX WHERE B.BCODE = 4";
+		String sql = "SELECT bidx , id, title, content, wdate, rnum, fidx, refer, depth, step FROM (SELECT b.bidx, b.id, b.title, b.content, b.wdate, b.rnum, f.fidx, f.refer, f.depth, f.step FROM freeboard f join board b on f.bidx=b.bidx ORDER  BY refer DESC , step ASC)";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -77,6 +76,9 @@ public class BoardDao {
 				freeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(resultSet.getString(5)));
 				freeBoard.setrNum(resultSet.getInt(6));
 				freeBoard.setfIdx(resultSet.getInt(7));
+				freeBoard.setRefer(resultSet.getInt(8));
+				freeBoard.setDepth(resultSet.getInt(9));
+				freeBoard.setStep(resultSet.getInt(10));
 
 				freeBoardList.add(freeBoard);
 			}
@@ -178,6 +180,7 @@ public class BoardDao {
 	
 	// 자유 게시판 답글쓰기
 	public int FreeBoardReWrite(String id, String title, String content, int bIdx) {
+		System.out.println("rewrite init");
 		int resultRow = 0;
 		int refer = 0, depth = 0, step = 0;
 		
@@ -189,9 +192,10 @@ public class BoardDao {
 		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE STEP > ? AND REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
-		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
-		
+		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+		System.out.println("sql set");
 		try {
+			System.out.println("rewrite try init");
 			pstmt = connection.prepareStatement(referDepthStep);
 			pstmt.setInt(1, bIdx);
 			resultSet = pstmt.executeQuery();
@@ -202,38 +206,45 @@ public class BoardDao {
 			}
 			
 			connection.setAutoCommit(false);
-			
+			System.out.println("set autocommit false");
 			pstmt = connection.prepareStatement(stepUp);
 			pstmt.setInt(1, step);
 			pstmt.setInt(2, refer);
 			pstmt.executeUpdate();
-			
+			System.out.println("step sql");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
-			
+			System.out.println("insert board sql");
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			pstmt.setInt(2, depth+1);
 			pstmt.setInt(3, step+1);
 			pstmt.executeUpdate();
-			
+			System.out.println("insert freeboard sql");
 			pstmt = connection.prepareStatement(bIdxsql);
 			resultSet = pstmt.executeQuery();
 			if(resultSet.next()) {
+				System.out.println("get bidx");
 				bIdx = resultSet.getInt(1);
 			}
-			
+			System.out.println("commit ok");
 			connection.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
+			try {
+				connection.rollback();
+			}catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}finally {
 			DBHelper.close(resultSet);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
+		System.out.println("rewrite return");
 		return bIdx;
 	}
 	
@@ -466,9 +477,24 @@ public class BoardDao {
 			}
 
 	// 공지 게시판 게시글 조회수 증가
-	public boolean getNoticeReadNum() {
-		return false;
+	public int getNoticeReadNum(int bIdx) {
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE BOARD SET RNUM = RNUM+1 WHERE BIDX=?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return bIdx;
 	}
+	
 
 	// 공지 게시판 게시글 삭제하기
 	public boolean noticeDelete(int bIdx) {
@@ -966,16 +992,17 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int[] top5LikeNum = new int[4];// 좋아요 값 상위 4개 뽑아서 그것들 사진 하나씩만 가져오는 작업
-		Arrays.fill(top5LikeNum, -1);
-		List<Integer> top5BIdx = new ArrayList<Integer>();
+		int[] top4LikeNum = new int[4];// 좋아요 값 상위 4개 뽑아서 그것들 사진 하나씩만 가져오는 작업
+		System.out.println("courseListPhotos int length : " + top4LikeNum.length);
+		Arrays.fill(top4LikeNum, -1);
+		int[] top4BIdx = new int[4];
 		
 		List<MCBoard> boardLists = courseList();
 		for(int i=0; i<boardLists.size(); i++) {
-			for(int j=0; j < top5LikeNum.length; j++) {
-				if(boardLists.get(i).getLikeNum()>top5LikeNum[j]) {
-					top5LikeNum[j] = boardLists.get(i).getLikeNum();
-					top5BIdx.add(boardLists.get(i).getbIdx());
+			for(int j=0; j < top4LikeNum.length; j++) {
+				if(boardLists.get(i).getLikeNum()>top4LikeNum[j]) {
+					top4LikeNum[j] = boardLists.get(i).getLikeNum();
+					top4BIdx[j] = boardLists.get(i).getbIdx();
 					break;
 				}
 			}
@@ -988,8 +1015,8 @@ public class BoardDao {
 		try {
 			conn = DBHelper.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			for(int i=0; i<top5BIdx.size(); i++) {
-				pstmt.setInt(1, top5BIdx.get(i));
+			for(int i=0; i<top4BIdx.length; i++) {
+				pstmt.setInt(1, top4BIdx[i]);
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					Photo photo = new Photo();
@@ -1005,7 +1032,7 @@ public class BoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("courseListPhotos() : " + photos.size());
 		return photos;
 	}
 
@@ -1039,14 +1066,19 @@ public class BoardDao {
 				mCBoard.setmCidx(rs.getInt(8));
 				mCBoard.setLikeNum(rs.getInt(9));
 			
-			String photoSql = "SELECT * FROM PHOTO WHERE BIDX=?";
+			String photoSql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=?";
+			ArrayList<Photo> photoList = new ArrayList<Photo>();
 			pstmt = conn.prepareStatement(photoSql);
 			pstmt.setInt(1, bIdx);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Photo photo = new Photo();
-				
+				photo.setPhotoId(rs.getInt(1));
+				photo.setbIdx(rs.getInt(2));
+				photo.setPhotoName(rs.getString(3));
+				photoList.add(photo);
 			}
+			mCBoard.setPhotoList(photoList);
 			}
 		}catch(Exception e) {
 			System.out.println("BoardDao courseContent()"+e.getMessage());
@@ -1146,25 +1178,25 @@ public class BoardDao {
 		ResultSet rs = null;
 		
 		try {
-			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHER MCIDX=?";
+			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHERE MCIDX=?";
 			conn = DBHelper.getConnection();
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(checkSql);
 			pstmt.setInt(1, mCIdx);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				String deleteLikeMemberSql = "DELETE FROM LMLIST WHER ID=?";
+				String deleteLikeMemberSql = "DELETE FROM LMLIST WHERE ID=?";
 				pstmt = conn.prepareStatement(deleteLikeMemberSql);
 				pstmt.setString(1, id);
 				int deleteLikeMember = pstmt.executeUpdate();
-				System.out.println("boardDao getCourseLikenum() 실패면 0 되면 1"+ deleteLikeMember);
+				System.out.println("누룬사람이 또누름1 boardDao getCourseLikenum() 실패면 0 되면 1"+ deleteLikeMember);
 				
 				String decreaseLikeNumSql = "UPDATE MCBOARD SET LIKENUM = (SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?)-1 WHERE MCIDX=?";
 				pstmt = conn.prepareStatement(decreaseLikeNumSql);
 				pstmt.setInt(1, mCIdx);
 				pstmt.setInt(2, mCIdx);
 				int decreaseLikeNum = pstmt.executeUpdate();
-				System.out.println("boardDao getCourseLikeNum() 실패면 0 되면 1"+decreaseLikeNum);
+				System.out.println("누룬사람이또누름2boardDao getCourseLikeNum() 실패면 0 되면 1"+decreaseLikeNum);
 			}
 			else {
 				String addLikeMemberSql = "INSERT INTO LMLIST (MCIDX, ID, ISLIKE) VALUES(?, ?, 1)";
@@ -1172,18 +1204,18 @@ public class BoardDao {
 				pstmt.setInt(1, mCIdx);
 				pstmt.setString(2, id);
 				int addLikeMember = pstmt.executeUpdate();
-				System.out.println("boardDao getCourseLikeNum() 실패면 0 되면 1" + addLikeMember);
+				System.out.println("처음누름1boardDao getCourseLikeNum() 실패면 0 되면 1" + addLikeMember);
 				
 				String increaseLikeNumSql = "UPDATE MCBOARD SET LIKENUM = (SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?)+1 WHERE MCIDX=?";
 				pstmt = conn.prepareStatement(increaseLikeNumSql);
 				pstmt.setInt(1, mCIdx);
 				pstmt.setInt(2, mCIdx);
 				int increaseLikeNum = pstmt.executeUpdate();
-				System.out.println("boardDao getCourseLikeNum() 실패면 0 되면 1" + increaseLikeNum);
+				System.out.println("처음누름2boardDao getCourseLikeNum() 실패면 0 되면 1" + increaseLikeNum);
 				
 			}
 			
-			String getLikeNumSql = "SELECT LIKENUM FROM MCBOARD WHER MCIDX=?";
+			String getLikeNumSql = "SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?";
 			pstmt = conn.prepareStatement(getLikeNumSql);
 			pstmt.setInt(1, mCIdx);
 			rs = pstmt.executeQuery();
@@ -1193,8 +1225,20 @@ public class BoardDao {
 			
 			
 		}catch(SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			System.out.println("boardDao getCourseLikeNum() : " + e.getMessage());
 		}finally {
+			try {
+				conn.commit();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
@@ -1352,8 +1396,8 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		String sql = "insert into mtlcontent (tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink) values \r\n" + 
-				"(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'mm/dd'),?,?)";
+		String sql = "insert into mtlcontent (tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink) values " + 
+				"(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'yyyy-mm-dd'),?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

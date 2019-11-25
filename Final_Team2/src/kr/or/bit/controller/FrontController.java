@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.AdminListService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
@@ -20,10 +21,14 @@ import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
-import kr.or.bit.service.MTFolderListChangeService;
 import kr.or.bit.service.MTLFolderAddService;
+import kr.or.bit.service.MTLFolderDeleteService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MTListContentDeleteService;
+import kr.or.bit.service.MTListContentSevice;
+import kr.or.bit.service.MemberDeleteService;
+import kr.or.bit.service.MemberListService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
@@ -199,9 +204,15 @@ public class FrontController extends HttpServlet {
 		}
 		
 		/* ADMIN */
+		// AdminList 화면
+		else if (url_Command.equals("/AdminList.do")) {
+			action =new AdminListService();
+			forward = action.execute(request, response);
+		}
 		// MemberList 화면
 		else if (url_Command.equals("/MemberList.do")) {
-		
+			action =new MemberListService();
+			forward = action.execute(request, response);
 		}
 		// MemberDetail 화면
 		else if (url_Command.equals("/MemberDetail.do")) {
@@ -219,19 +230,14 @@ public class FrontController extends HttpServlet {
 		}
 		// MemberDelete 진헹
 		else if (url_Command.equals("/MemberDelete.do")) {			
-			
-			
+			action = new MemberDeleteService();
+			forward = action.execute(request, response);		
 		}
 		
 		//여행리스트 폴더 보여주기 화면 
 		else if (url_Command.equals("/MTFolderList.do")) {			
 			action = new MTLFolderListService();
 			forward = action.execute(request, response);			
-		}
-		//여행리스트 폴더 추가 화면 보여주기 
-		else if (url_Command.equals("/MTFolderListAddForm.do")) {			
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/mypage/MyTravelListFolderAddForm.jsp");			
 		}
 		//여행리스트 폴더 추가하기
 		else if (url_Command.equals("/MTFolderListAdd.do")) {			
@@ -243,19 +249,23 @@ public class FrontController extends HttpServlet {
 			 action = new MTLFolderEditService();
 			 forward = action.execute(request, response)	;	
 		}
-		//모달창으로 이동 
-		
-		else if (url_Command.equals("/MTFolderListChange.do")) {			
-			 action = new MTFolderListChangeService();
-			 forward = action.execute(request, response)	;	
-		}
 		//여행리스트 폴더 삭제하기
+		else if (url_Command.equals("/MTFolderListDelete.do")) {
+			action = new MTLFolderDeleteService();
+			forward = action.execute(request,response);
+		}
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			
-					
+			action = new MTListContentSevice();
+			forward = action.execute(request,response);
 		}
 		//여행리스트 리스트 추가하기 
 		//여행리스트 리스트 삭제하기
+		else if (url_Command.equals("/MTListDelete.do")) {			
+			action = new MTListContentDeleteService();
+			forward = action.execute(request,response);
+		}
+		
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {

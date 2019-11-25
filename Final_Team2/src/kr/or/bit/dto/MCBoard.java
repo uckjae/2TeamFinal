@@ -15,6 +15,7 @@ public class MCBoard extends Board{
 		this.likeNum = likeNum;
 		this.contentsList = contentsList;
 		this.photoList = photoList;
+		
 	}
 	public int getmCidx() {
 		return mCidx;
@@ -28,21 +29,23 @@ public class MCBoard extends Board{
 	public void setLikeNum(int likeNum) {
 		this.likeNum = likeNum;
 	}
-	public ArrayList<String> getContents() {
-		return contentsList;
-	}
-	public void setContentsList(ArrayList<String> contentsList) {
-		this.contentsList = contentsList;
-	}
 	public ArrayList<Photo> getPhotoList(){
 		return photoList;
 	}
 	public void setPhotoList(ArrayList<Photo> photoList) {
 		this.photoList = photoList;
 	}
+	
+	
+	public ArrayList<String> getContentsList() {
+		return contentsList;
+	}
+	public void setContentsList(ArrayList<String> contentsList) {
+		this.contentsList = contentsList;
+	}
 	@Override
 	public String toString() {
-		return "MCBoard [mCidx=" + mCidx + ", likeNum=" + likeNum + ", contents=" + contentsList + ", photoList=" + photoList + "]";
+		return "MCBoard [mCidx=" + mCidx + ", likeNum=" + likeNum + ", contentsList=" + contentsList + ", photoList=" + photoList + "]";
 	}
 
 	
