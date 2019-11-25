@@ -247,12 +247,6 @@ public class FrontController extends HttpServlet {
 			 action = new MTLFolderEditService();
 			 forward = action.execute(request, response)	;	
 		}
-		//모달창으로 이동 
-		
-		else if (url_Command.equals("/MTFolderListChange.do")) {			
-			 action = new MTFolderListChangeService();
-			 forward = action.execute(request, response)	;	
-		}
 		//여행리스트 폴더 삭제하기
 		//여행리스트 리스트 상세보기
 		else if (url_Command.equals("/MTList.do")) {			
