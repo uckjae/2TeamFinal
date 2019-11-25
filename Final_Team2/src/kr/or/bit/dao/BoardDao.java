@@ -22,6 +22,7 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
+import sun.dc.pr.PRError;
 
 public class BoardDao {
 
@@ -367,7 +368,14 @@ public class BoardDao {
 		}
 	// 공지 게시판 게시글 상세보기
 	public NoticeBoard noticeDetail(int bIdx) {
-		return null;
+	  NoticeBoard noticeboard = new NoticeBoard();
+	  Connection connection = DBHelper.getConnection();
+	  PreparedStatement pstmt = null;
+	  ResultSet resultSet =null;
+	  
+	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
+			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
+			  +" WHERE B.BIDX = ?";
 	}
 
 	// 공지 게시판 글쓰기	
