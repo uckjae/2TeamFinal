@@ -758,31 +758,31 @@ public class BoardDao {
 
 	// 포토게시판
 	// 포토게시판 게시글 목록보기
-	public List<Photo> photoList() {
-		List<Photo> photolist = new ArrayList<Photo>();
+	public List<Board> photoList() {
+		List<Board> photolist = new ArrayList<Board>();
 		
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT B.BIDX, B.ID , B.TITLE , B.CONTENT, B.WDATE, B.RNUM, P.BIDX , P.PHOTOID ,"
-						+ " P.PHOTONAME FROM BOARD B JOIN PHOTO P ON B.BIDX = P.BIDX WHERE B.BCODE = 5";
+		String sql = "SELECT BIDX , ID , TITLE, CONTENT, WDATE , RNUM , BCODE FROM BOARD";
+						
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
-				Photo photo = new Photo();
-				photo.setbIdx(rs.getInt(1));
-				photo.setId(rs.getString(2));
-				photo.setTitle(rs.getString(3));
-				photo.setContent(rs.getString(4));
-				photo.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
-				photo.setrNum(rs.getInt(6));
-				photo.setPhotoId(rs.getInt(7));
-				photo.setPhotoName(rs.getString(8));
+				Board board = new Board();
+				board.setbIdx(rs.getInt(1));
+				board.setId(rs.getString(2));
+				board.setTitle(rs.getString(3));
+				board.setContent(rs.getString(4));
+				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+				board.setrNum(rs.getInt(6));
+				board.setbCode(rs.getInt(7));
 				
-				photolist.add(photo);
+				photolist.add(board);
 			}
 			
 			
@@ -799,8 +799,8 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 상세보기
-	public Photo photoContent(int bIdx) {
-		Photo photo = null;
+	public Board photoContent(int bIdx) {
+		Board board = null;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -814,15 +814,13 @@ public class BoardDao {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				photo = new Photo();
-				photo.setbIdx(rs.getInt(1));
-				photo.setId(rs.getString(2));
-				photo.setTitle(rs.getString(3));
-				photo.setContent(rs.getString(4));
-				photo.setwDate(rs.getDate(5));
-				photo.setrNum(rs.getInt(6));
-				photo.setPhotoId(rs.getInt(7));
-				photo.setPhotoName(rs.getString(8));
+				board = new Board();
+				board.setbIdx(rs.getInt(1));
+				board.setId(rs.getString(2));
+				board.setTitle(rs.getString(3));
+				board.setContent(rs.getString(4));
+				board.setwDate(rs.getDate(5));
+				board.setrNum(rs.getInt(6));
 			}
 		}catch (Exception e) {
 			System.out.println("상세 : " + e.getMessage());
@@ -833,7 +831,7 @@ public class BoardDao {
 		}
 		
 		
-		return photo;
+		return board;
 	}
 
 	// 포토 게시판 글쓰기
@@ -1027,12 +1025,27 @@ public class BoardDao {
 				mCBoard.setbIdx(rs.getInt(1));
 				mCBoard.setId(rs.getString(2));
 				mCBoard.setTitle(rs.getString(3));
-				mCBoard.setContent(rs.getString(4));
+				String[] contents = rs.getString(4).split("╊");
+				ArrayList<String> contenstList = new ArrayList<String>();
+				for(int i=0; i<contents.length; i++) {
+					contenstList.add(contents[i]);
+				}
+				mCBoard.setContentsList(contenstList);
+				
 				mCBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				mCBoard.setrNum(rs.getInt(6));
 				mCBoard.setbCode(rs.getInt(7));
 				mCBoard.setmCidx(rs.getInt(8));
 				mCBoard.setLikeNum(rs.getInt(9));
+			
+			String photoSql = "SELECT * FROM PHOTO WHERE BIDX=?";
+			pstmt = conn.prepareStatement(photoSql);
+			pstmt.setInt(1, bIdx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Photo photo = new Photo();
+				
+			}
 			}
 		}catch(Exception e) {
 			System.out.println("BoardDao courseContent()"+e.getMessage());

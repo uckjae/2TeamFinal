@@ -20,6 +20,7 @@ import kr.or.bit.service.FreeBoardWriteOkService;
 import kr.or.bit.service.FreeBoardWriteService;
 import kr.or.bit.service.LoginService;
 import kr.or.bit.service.LogoutService;
+import kr.or.bit.service.MTFolderListChangeService;
 import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
@@ -242,6 +243,12 @@ public class FrontController extends HttpServlet {
 		//여행리스트 폴더 수정하기 
 		else if (url_Command.equals("/MTFolderListEdit.do")) {			
 			 action = new MTLFolderEditService();
+			 forward = action.execute(request, response)	;	
+		}
+		//모달창으로 이동 
+		
+		else if (url_Command.equals("/MTFolderListChange.do")) {			
+			 action = new MTFolderListChangeService();
 			 forward = action.execute(request, response)	;	
 		}
 		//여행리스트 폴더 삭제하기
