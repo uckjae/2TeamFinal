@@ -386,7 +386,7 @@ public class BoardDao {
 	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
 			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
 			  +" WHERE B.BIDX = ?";
-	  System.out.println("bIdx "+bIdx);
+	  System.out.println("bIdx ddd"+bIdx);
 	  try {
 		  pstmt =connection.prepareStatement(sql);
 		  pstmt.setInt(1, bIdx);
