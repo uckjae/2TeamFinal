@@ -99,22 +99,35 @@ $(document).ready(function(){
 						
 						<tr>
 						<td rowspan="2">				
-							<textarea rows="12" cols="30" id="content" name="content"></textarea>
+							<textarea rows="12" cols="30" id="content" name="content">${photowrite.content }</textarea>
 							</td>
 						
 						</tr>
 						<tr>
 							
 						</tr>
+						
 						<tr>
+						<c:choose>
+							<c:when test="${Edit }">
+							<td>
+							<input id="PhotoGo" type="submit" value="수정" class="btn-primary" style="width: 50%;height: 100%">
+							</td>
+							</c:when>
+							<c:otherwise>
+							<td>
+							<input id="PhotoGo" type="submit" value="작성완료" class="btn-primary" style="width: 50%;height: 100%">
+							</td>
+							</c:otherwise>
+							</c:choose>
 							<td>
 							<input type="file" name="Photo" id="Photo" aceept="image/*">
 							</td>
 							<td>
-							<input id="PhotoGo" type="submit" value="작성완료" class="btn-primary" style="width: 50%;height: 100%">
 							<input type="reset" value="작성취소" class="btn-danger" style="width: 50%; height: 100%">	
 							</td>
 						</tr>
+						
 					</table>
 	</form>
 		
