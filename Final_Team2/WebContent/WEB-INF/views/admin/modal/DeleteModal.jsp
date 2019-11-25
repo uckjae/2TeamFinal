@@ -5,7 +5,6 @@
 <head>
 <script type="text/javascript">
    $(function(){
-      
       $('#deleteModal').on('show.bs.modal', function(event) {          
          let cmd = $(event.relatedTarget).data('cmd');
          let deleteId = $(event.relatedTarget).data('delete-id');
