@@ -1412,12 +1412,23 @@ public class BoardDao {
 	}
 	
 	public boolean setReadNum(int bIdx) {
-		int resultRow=0;
+		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "UPDATE BOARD SET RNUM = RNUM + 1 WHERE BIDX = ?";
-		
-		
-		return resultRow>0?true:false;
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 }
