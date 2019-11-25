@@ -7,9 +7,18 @@
    $(function(){
       
       $('#deleteModal').on('show.bs.modal', function(event) {          
+         let cmd = $(event.relatedTarget).data('cmd');
          let deleteId = $(event.relatedTarget).data('delete-id');
-         $(".modal-body").empty().prepend("<b>[ "+deleteId+" ]</b> 관리자를 삭제 하시겠습니까?");
-         $("#deletebtn").attr("href","MemberDelete.do?id=" + deleteId);
+         $(".modal-body").empty();
+         let control ="";
+         if(cmd == "admin"){
+        	 control = "<b>[ "+deleteId+" ]</b> 관리자를 삭제 하시겠습니까?";
+         }else{
+        	 control = "<b>[ "+deleteId+" ]</b> 회원을 삭제 하시겠습니까?";
+         }
+         
+         $(".modal-body").prepend(control);
+         $("#deletebtn").attr("href","MemberDelete.do?cmd="+cmd+"&id=" + deleteId);
       });
    });
 </script>

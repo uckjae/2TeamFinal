@@ -26,6 +26,7 @@ import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderDeleteService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MemberDeleteService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
@@ -228,8 +229,8 @@ public class FrontController extends HttpServlet {
 		}
 		// MemberDelete 진헹
 		else if (url_Command.equals("/MemberDelete.do")) {			
-			
-			
+			action = new MemberDeleteService();
+			forward = action.execute(request, response);		
 		}
 		
 		//여행리스트 폴더 보여주기 화면 
