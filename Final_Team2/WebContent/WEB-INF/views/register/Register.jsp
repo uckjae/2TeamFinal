@@ -6,13 +6,24 @@
 
 <head>
     <c:import url="/common/HeadTag.jsp" />
+    <!-- daum api -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="js/execDaumPostcode.js"></script>
     <title>Main</title>
     <style type="text/css">
     	html, body{
     	height: 100%;
     	}
+    	input{
+    		width: 100px;
+    	}
     </style>
     <script type="text/javascript">
+    $(function(){
+    	$("#openPostCode").click(execDaumPostcode);
+    	$("#postCode").click(execDaumPostcode);
+    })
+    
     function maxLengthCheck(object){
     	   if (object.value.length > object.maxLength){
     	    object.value = object.value.slice(0, object.maxLength);
@@ -40,13 +51,13 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <div class="content">
+    <div class="content-center">
         <div class="row justify-content-center pb-5">
             <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
                 <h2 class="text-center mb-3">REGISTER</h2>
-                <form action="LoginOk.do" class="search-property-1" method="post">
+                <form action="RegisterOk.do" class="search-property-1" method="post">
                     <div class="row">
-                        <div class="col-lg-12 align-items-end mb-3">
+                        <div class="col-lg-12  mb-3">
                             <div class="form-group">
                                 <label for="#">ID</label>
                                 <div class="form-field">
@@ -74,8 +85,29 @@
                             <div class="form-group">
                                 <label for="#">BIRTH</label>
                                 <div class="form-field">
-                                    <input type="text" class="form-control" id="birth" name="birth" maxlength="6" onkeypress="inNumber()" oninput="maxLengthCheck(this)"> 
-                                    	- <input type="text" class="form-control" id="gender" name="gender"  maxlength="1" oninput="maxLengthCheck(this)" onkeypress="inGender()" >
+                                <div class="row">
+                                	<div class="col-lg-6">
+                                		 <input type="text" class="form-control" id="birth" name="birth" maxlength="6" onkeypress="inNumber()" oninput="maxLengthCheck(this)"> 
+                                	</div>
+                                	
+                                	<div class="col-lg-6"> 
+                                		<input type="text" class="form-control" id="gender" name="gender"  maxlength="1" oninput="maxLengthCheck(this)" onkeypress="inGender()" >
+                                	</div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 align-items-end mb-3">
+                            <div class="form-group">
+                                <label for="#">ADDRESS</label>
+                                <input type="number" id="postCode" name="postCode"  class="form-control" placeholder="우편번호" aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
+						        <div class="input-group-append">
+						          <button class="btn btn-primary" type="button" id="openPostCode">
+						            <i class="fas fa-search"></i>
+						          </button>
+						        </div>
+                                <div class="form-field">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="주소" readonly>
                                 </div>
                             </div>
                         </div>
