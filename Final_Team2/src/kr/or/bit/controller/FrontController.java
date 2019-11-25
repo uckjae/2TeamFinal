@@ -26,6 +26,7 @@ import kr.or.bit.service.MTLFolderListService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWriteService;
+import kr.or.bit.service.NoticeBoardDeleteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
 import kr.or.bit.service.NoticeBoardWriteOkService;
@@ -167,10 +168,17 @@ public class FrontController extends HttpServlet {
 			action = new NoticeBoardWriteService();
 			forward =action.execute(request, response);
 		}
+		else if(url_Command.equals("/NoticeBoardDelete.do")) {
+			action =new NoticeBoardDeleteService();
+			forward =action.execute(request, response);
+		}
+		
 		else if(url_Command.equals("/NoticeBoardWriteOk.do")) {
 			action =new NoticeBoardWriteOkService();
 			forward =action.execute(request, response);
 		}
+		
+		
 		// QnA Board
 		else if (url_Command.equals("/QnABoardList.do")) {
 			action = new QnABoardListService();

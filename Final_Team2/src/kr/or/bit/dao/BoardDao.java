@@ -382,10 +382,11 @@ public class BoardDao {
 	  Connection connection = DBHelper.getConnection();
 	  PreparedStatement pstmt = null;
 	  ResultSet resultSet =null;
-	  
+	 
 	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
 			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
 			  +" WHERE B.BIDX = ?";
+	  System.out.println("bIdx "+bIdx);
 	  try {
 		  pstmt =connection.prepareStatement(sql);
 		  pstmt.setInt(1, bIdx);
@@ -470,8 +471,39 @@ public class BoardDao {
 	}
 
 	// 공지 게시판 게시글 삭제하기
-	public int noticeDelete() {
-		return 0;
+	public boolean noticeDelete(int bIdx) {
+		int resultRow = 0;	
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+			
+		String sql1 = "DELETE FROM NOTICEBOARD WHERE BIDX=?";
+		String sql2 = "DELETE FROM BOARD WHERE BIDX=?";
+			
+			try {
+				connection.setAutoCommit(false);
+				pstmt = connection.prepareStatement(sql1);
+				pstmt.setInt(1, bIdx);
+				pstmt.executeUpdate();
+				
+				pstmt = connection.prepareStatement(sql2);
+				pstmt.setInt(1, bIdx);
+				resultRow = pstmt.executeUpdate();
+				
+				
+					connection.commit();
+				
+			}catch(Exception e) {
+				try {
+					connection.rollback();
+				}catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}finally {
+				DBHelper.close(pstmt);
+				DBHelper.close(connection);
+			}
+			return resultRow > 0 ? true : false;
 	}
 
 	// 공지 게시판 게시글 수정하기
