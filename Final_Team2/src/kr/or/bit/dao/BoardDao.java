@@ -190,7 +190,7 @@ public class BoardDao {
 		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE STEP > ? AND REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
-		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DAUL";
+		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 		System.out.println("sql set");
 		try {
 			System.out.println("rewrite try init");
