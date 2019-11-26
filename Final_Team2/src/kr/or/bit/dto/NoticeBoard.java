@@ -36,6 +36,9 @@ public class NoticeBoard extends Board {
 	public boolean getIsTop() {
 		return isTop;
 	}
+	public boolean isTop() {
+		return isTop;
+	}
 
 	public void setTop(boolean isTop) {
 		this.isTop = isTop;
