@@ -15,14 +15,16 @@ $(function(){
 	var paramSigungu = "&sigunguCode=";
 	var paramCat = "&cat1=C01&cat2=A0207";
 	var paramList = "&cat3=A02070100&listYN=Y";
-	var paramArrange = "&MobileOS=ETC&MobileApp=AppTest&arrange=A";
+	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
 	var paramNumOfRows = "&numOfRows=10";
-	var paramPageNo =  "&pageNo=";
-	var type = "&_type=json";
-	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+	var paramPageNo =  "&pageNo=2";
+	var type = "&_type=json&";
+	var date = "eventStartDate=20170901";
+	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo + date;
 	var api = "";
 	
-	api = addr + "searchFestival?" + addr2 + "1" + type;
+	api = addr + "searchFestival?" + addr2 + "2" + type;
+	
 	$.getJSON(api,function(data){
 		var myData = data;
 		console.log(myData);
