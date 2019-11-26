@@ -41,8 +41,8 @@
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
 				 console.log("each문 " + index);
-			//	$(".content").append( "<img src ='"+ element.firstimage + "' alt='No image'/>");
-			//	$(".content").append( "<h3>"+element.title +" </h3>");				
+				$("#apiContent").append( "<img src ='"+ element.firstimage + "' alt='No image'/>");
+				$("#apiContent").append( "<h3>"+element.title +" </h3>");				
 			 });
 			
 		});
@@ -55,48 +55,66 @@
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-
 	<div class="content">
 		<div class="row">
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row">
 						<div class="col-lg align-items-end">
-							<div class="form-group">								
+							<div class="form-group">
+								<label for="#"></label>
 								<div class="form-field">
-									<div class="icon">
-										<span class="ion-ios-search" style="color:black"></span>
+									<div class="select-wrap">
+										<div class="icon">
+											<span class="ion-ios-arrow-down"></span>
+										</div>
+										<select name="" id="" class="form-control">
+										    <option value="">--지역을 선택하세요--</option>
+											<option value="">서울</option>
+											<option value="">경기</option>
+											<option value="">인천</option>
+										</select>
 									</div>
-									<input type="text" class="form-control"
-										placeholder="검색어를 입력하세요" name="search">
-										
 								</div>
 							</div>
 						</div>
+
+						<div class="col-lg align-self-end">
+							<div class="form-group">								
+								<div class="form-field">
+								 <div class="icon">
+										<span class="ion-ios-search ml-3" style="color:black"></span>
+									</div> 
+									<input type="text" class="form-control"
+										placeholder="   검색어를 입력하세요" name="search">										
+								</div>
+							</div>
+						</div>
+						
 						<div class="col-lg align-self-end">
 							<div class="form-group">
 								<div class="form-field col-md-4">
 									<input type="submit" value="검색"
 										class="form-control btn btn-primary">
 								</div>
-								
-								
-								
 							</div>
 						</div>
 					</div>
 				</form>
-			</div>
-			
+			</div>		
 		</div>
+		<br>		
+		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
+		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
+		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
+		<a href="#" class = "btn btn-primary mr-3">#도보코스</a>
+		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
+		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
+		</div>
+
+	<div class="content" id ="apiContent">
+		
 	</div>
-
-
-	<!--  
-	<div class="content">
-    -->
-
-
-    
+ 
 </body>
 </html>
