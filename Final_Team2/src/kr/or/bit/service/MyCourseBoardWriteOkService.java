@@ -95,8 +95,8 @@ public class MyCourseBoardWriteOkService implements Action{
 				photos.add(photo);
 			}
 			
-			int result = dao.courseWrite(board, mCBoard, photos);
-			if(result <= 0) {
+			bIdx = dao.courseWrite(board, mCBoard, photos);
+			if(bIdx <= 0) {
 				msg = "게시글 작성 실패! 글 작성 페이지로 재 이동합니다.";
 				System.out.println("MyCourseBoardWriteOkService dao.courseWrite() error"); 
 			}else {
