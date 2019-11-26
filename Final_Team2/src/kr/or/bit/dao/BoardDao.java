@@ -249,21 +249,14 @@ public class BoardDao {
 	}
 	
 	// 자유 게시판 게시글 조회수 증가
-	public void FreeBoardAddReadNum(int bIdx) {
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-		String sql = "UPDATE BOARD SET RNUM = RNUM+1 WHERE BIDX=?";
-		try {
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-	}
+	/*
+	 * public void FreeBoardAddReadNum(int bIdx) { Connection connection =
+	 * DBHelper.getConnection(); PreparedStatement pstmt = null; String sql =
+	 * "UPDATE BOARD SET RNUM = RNUM+1 WHERE BIDX=?"; try { pstmt =
+	 * connection.prepareStatement(sql); pstmt.setInt(1, bIdx);
+	 * pstmt.executeUpdate(); }catch(Exception e) { e.printStackTrace(); }finally {
+	 * DBHelper.close(pstmt); DBHelper.close(connection); } }
+	 */
 
 	// 자유 게시판 게시글 삭제하기
 	public boolean freeBoardDelete(int bIdx) {
@@ -356,16 +349,6 @@ public class BoardDao {
 			DBHelper.close(connection);
 		}
 		return resultRow > 0 ? true : false;
-	}
-
-	// 자유 게시판 댓글 달기
-	public int fBReplyWrite() {
-		return 0;
-	}
-
-	// 자유 게시판 댓글 삭제하기
-	public int fBReplyDelte() {
-		return 0;
 	}
 	// 자유게시판 끝
 

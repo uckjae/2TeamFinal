@@ -119,17 +119,33 @@ public class MemberDao {
 	}
 
 	public Member getMemberById(String id) {
-		Member member = new Member();
+		Member member = null;
 
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "";
+		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, KAKAO, ISADMIN FROM MEMBER "
+				+ "WHERE ID = ? AND ISADMIN ! = 1";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, id);
 
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				member = new Member();
+				member.setId(id);
+				member.setPwd(rs.getString(2));
+				member.setName(rs.getString(3));
+				member.setBirth(rs.getString(4));
+				member.setHireDate(rs.getDate(5));
+				member.setGender(rs.getBoolean(6));
+				member.setAddress(rs.getString(7));
+				member.setEmail(rs.getString(8));
+				member.setKakao(rs.getBoolean(9));
+				member.setAdmin(rs.getBoolean(10));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -139,6 +155,35 @@ public class MemberDao {
 		}
 
 		return member;
+	}
+
+	public String getMemberIdByEmail(String email) {
+		String id = null;
+
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT ID FROM MEMBER " 
+						+ "WHERE EMAIL = ?	AND ISADMIN ! = 1";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, email);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				id = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return id;
 	}
 
 	public List<Member> getMembersByIsAdmin(boolean isAdmin) {
@@ -253,5 +298,28 @@ public class MemberDao {
 		}
 
 		return result;
+	}
+
+	public boolean updateTempPassword(String id, String pwd) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String sql = "UPDATE MEMBER SET PWD = ? WHERE ID = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, id);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 }
