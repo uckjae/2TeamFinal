@@ -43,15 +43,16 @@
 				 console.log("each문 " + index);
 				 
 				 if(index < 3 ) {
-
-					
+					console.log("컨텐트 아이디:" + element.contentid);
+					 
 					 $("#apiFirst").append(
 						     "<div class='col-md-4'>" 
 						    + "<div class='project mb-4'>"
  							+ "<div class='image'>"
- 							+ "<img src ='"+element.firstimage + "' alt='No image' style='max-width:100%; max-height:100%; '/>"
+ 							+ "<img src ='"+ element.firstimage + "' alt='No image' style='width:100%;' class='img-fluid'/>"
  							+ "</div></div>"
- 							+ "<div class='mb-3'>"+ element.title + "</div></div></div>");	
+ 							+ "<div class='mb-3'><h3>"+ element.title + "</h3>" 
+ 							+ "<input type='hidden' name='contentid' value='"+element.contentid+"'></div></div></div>");	
 					 
 				 } else {
 
@@ -60,9 +61,9 @@
 							     "<div class='col-md-4'>" 
 							    + "<div class='project'>"
 	 							+ "<div class='image'>"
-	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>"
+	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'  class='img-fluid'/>"
 	 							+ "</div></div>"
-	 							+ "<div>"+ element.title + "</div></div></div>");					
+	 							+ "<div class='mb-3'><h3><h3>"+ element.title + "</h3></div></div></div>");					
 				 }			
 			 });
 			
@@ -77,7 +78,8 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 	<div class="content">
-		<div class="row mb-4">
+	
+		<div class="row mb-4 mt-10">
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row">
@@ -124,6 +126,7 @@
 				</form>
 			</div>		
 		</div>
+		
 		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
 		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
@@ -132,23 +135,28 @@
 		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
 		</div>
-	<div class="content">
+	<div class="container mt-5">
 		<div class="row" id="apiFirst">
-		
+			
 		</div>
-		<div class="row" id="apiSecond">
-		
+		<div class="row"  id="apiSecond">
+<c:set  value=/>
 		</div>
-		<div class="pagination-sm mt-3 mb-3" style="text-align:center">
-		  <a href="#" class="btn btn-primary">&laquo;</a>
-			<a href="#" class="btn btn-primary">1</a>
-			<a href="#" class="btn btn-primary">2</a>
-			<a href="#" class="btn btn-primary">3</a>
-			<a href="#" class="btn btn-primary">4</a>
-			<a href="#" class="btn btn-primary">5</a>
-		<a href="#" class="btn btn-primary">&raquo;</a>
-		</div>
-
+		             <div class="row mt-5 mb-4">
+                        <div class="col text-center">
+                            <div class="block-27">
+                                <ul>
+                                    <li><a href="#">&lt;</a></li>
+                                    <li class="active"><span>1</span></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 	</div>
 
 
