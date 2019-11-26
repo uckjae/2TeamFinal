@@ -77,16 +77,22 @@ public class MemberDao {
 		return resultRow > 0 ? true : false;
 	}
 
-	public boolean updateMemeber(Member member) {
+	public boolean updateMemeber(String id, String name, String pwd, String address, int isDisable) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
+		String sql = "UPDATE MEMBER SET NAME = ?, PWD = ?, ADDRESS = ?, ISDISABLE = ? WHERE ID = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, address);
+			pstmt.setInt(4, isDisable);
+			pstmt.setString(5, id);
 
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -164,8 +170,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT ID FROM MEMBER " 
-						+ "WHERE EMAIL = ?	AND ISADMIN ! = 1";
+		String sql = "SELECT ID FROM MEMBER " + "WHERE EMAIL = ?	AND ISADMIN ! = 1";
 
 		try {
 			pstmt = connection.prepareStatement(sql);

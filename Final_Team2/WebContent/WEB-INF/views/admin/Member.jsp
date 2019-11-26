@@ -5,6 +5,14 @@
 
 <!DOCTYPE html>
 <html>
+<c:choose>
+	<c:when test="${requestScope.cmd == 'edit'}">
+		<c:set var="isEdit" value="true"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="isEdit" value="false"/>
+	</c:otherwise>
+</c:choose>
 
 <head>
     <c:import url="/common/HeadTag.jsp" />
@@ -22,9 +30,22 @@
     </style>
     <script type="text/javascript">
     	$(function(){
-    		$("input").attr("disabled","disabled");
+    		console.log(${isEdit});
+    		if(${isEdit}){
+    			$("#frm").attr("action", "MemberEditOk.do");
+    			$("#id").attr("readonly", "readonly");
+    			$("#email").attr("readonly", "readonly");
+    			$("#birth").attr("readonly", "readonly");
+    		}else{
+    			$("input").attr("readonly", "readonly");
+    			$("#frm").attr("action", "MemberList.do");
+    			$(":checkbox").attr("disabled", "disabled");
+    		}
+    		
+    		$(":radio").attr("disabled", "disabled");
     		$("input:submit").removeAttr("disabled");
     	})
+
     </script>
 </head>
 
@@ -39,13 +60,13 @@
         <div class="row justify-content-center pb-5">
             <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
                 <h2 class="text-center mb-3">[ ${member.id } ]</h2>
-                <form action="MemberList.do" class="search-property-1" method="post">
+                <form  id="frm" class="search-property-1" method="post">
                     <div class="row">
                         <div class="col-lg-12  mb-3">
                             <div class="form-group">
                                 <label for="#">ID</label>
                                 <div class="form-field">
-                                    <input type="text" class="form-control" id="id" name="id" value="${member.id }" disabled>
+                                    <input type="text" class="form-control" id="id" name="id" value="${member.id }">
                                 </div>
                             </div>
                         </div>
@@ -53,7 +74,7 @@
                             <div class="form-group">
                                 <label for="#">EMAIL</label>
                                 <div class="form-field">
-                                    <input type="email" class="form-control" id="email" name="email" value="${member.email }" disabled>
+                                    <input type="email" class="form-control" id="email" name="email" value="${member.email }">
                                 </div>
                             </div>
                         </div>
@@ -77,21 +98,21 @@
                             <div class="form-group">
                                 <label for="#">BIRTH</label>
                                 <div class="form-field">
-                               		 <input type="text" class="form-control" id="birth" name="birth" value="${member.birth }"> 
+                               		 <input type="text" class="form-control" id="birth" name="birth" value="${member.birth }" > 
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">Gender</label>
-                                <div class="form-field">
+                                <div class="form-field"  >
 	                                <div class="col-lg-6">
-	                                	<input type="radio" class="form-check-input" id="gender" name="gender" value="0"
+	                                	<input type="radio" class="form-check-input" id="gender" name="gender" value="0" 
 	                                	<c:if test="${! member.gender}">checked</c:if>
 	                                	>남 
 	                                </div>
 	                                <div class="col-lg-6">
-	                               	 	<input type="radio" class="form-check-input" id="gender" name="gender"  value="1"
+	                               	 	<input type="radio" class="form-check-input" id="gender" name="gender"  value="1" 
 	                               	 	<c:if test="${ member.gender}">checked</c:if>
 	                               	 	>여
 	                                </div>
@@ -106,37 +127,54 @@
                                 <div class="form-field">
                                 	<div class="row">
 	                                	<div class="col-lg-3">
-	                                	   <input type="number" id="postCode" name="postCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
+	                                	   <input type="number" id="postCode" name="postCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
 	                                	</div>
 	                                	<div class="col-lg-9"> 
-	                                		<input type="text" class="form-control" id="address" name="address" placeholder="주소" value="${address[1] }" readonly>
+	                                		<input type="text" class="form-control" id="address" name="address" placeholder="주소" value="${address[1] }" >
 	                                	</div>
 	                                </div>
-                                    
                                 </div>
                             </div>
                         </div>
+                        
                          <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">
-                                <label for="#">DISABLE</label>
-                                <div class="form-field">
-                                    <input type="checkbox" class="form-control" id="disable" name="disable" 
-                                    	<c:if test="${member.disable }">checked</c:if>
-                                    >
-                                </div>
+                                <div class="custom-control custom-checkbox">
+								  <input type="checkbox" class="custom-control-input"
+								  	<c:if test="${member.disable }">checked</c:if>
+								  >
+								  <label class="custom-control-label" for="disable" style="color:red;"> 활동중지</label>
+								</div>
                             </div>
                         </div>
 
-                        <div class="col-lg-12 align-self-end">
-                            <div class="form-group">
-                                <div class="form-field">
-                                    <input type="submit" value="목록으로" class="form-control btn btn-primary">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+						<c:choose>
+							<c:when test="${isEdit}">
+								<div class="col-lg-12 align-self-end">
+		                            <div class="row">
+		                                <div class="col-lg-6"  style=" padding-right: 0">
+		                                    <input type="submit" value="수정" class="btn btn-primary" style="width: 100%; padding-right: 0">
+		                                </div>
+		                                <div class="col-lg-6">
+		                                    <input type="reset" value="목록으로" class="btn btn-primary" style="width: 100%; " onClick="location.href='MemberList.do'">
+		                                </div>
+		                            </div>
+		                        </div>
+							</c:when>
+							<c:otherwise>
+								 <div class="col-lg-12 align-self-end">
+		                            <div class="form-group">
+		                                <div class="form-field">
+		                                    <input type="submit" value="목록으로" class="form-control btn btn-primary">
+		                                </div>
+			                           </div>
+			                       </div>
+							</c:otherwise>
+						</c:choose>
+                </div>
                 </form>
             </div>
+            
         </div>
     </div>
 

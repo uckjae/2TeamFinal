@@ -87,14 +87,14 @@
                     	<tr>
                             <td align="center">${status.count}</td>
                             <td align="center">
-                            	<a href="MemberDetail.do?id=${member.id}">
+                            	<a href="Member.do?cmd=detail&id=${member.id}">
 									 ${member.id}
 								</a>
                             </td>
                             <td align="center">${member.name}</td>
                             <td align="center">${member.hireDate}</td>
                             <td class="iconColumn">
-								<a href="MemberEdit.do?empno=${emp.empno}">
+								<a href="Member.do?cmd=edit&id=${member.id}">
 									<i class="fas fa-user-edit"></i>
 								</a>
 							</td>
