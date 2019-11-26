@@ -57,7 +57,7 @@
 	function sendMail(){
 		$.ajax({
 			url : "SendMail",
-			data : {email : $("#email").val()},
+			data : {cmd : "checkEmail", email : $("#email").val()},
 			success : function(data){
 				console.log(data);
 				emailCode = data;

@@ -6,15 +6,26 @@ import javafx.util.Pair;
 
 public class MailHelper {
 
-	public static Pair<String, String> getRegisterMailContent() {
+	public static Pair<String, String> getRegisterContent() {
 		String code = createKey();
 		String content = "이곳저곳 회원가입 이메일 인증\n 인증 번호 : <b>" + code + "</b>";
 
 		return new Pair<String, String>(code, content);
 	}
 
-	private static String createKey() {
+	public static String getForgotIdContent(String id) {
+		String content = "이곳 저곳 아이디 찾기\n 아이디 : <b>" + id + "</b>";
 
+		return content;
+	}
+
+	public static String getForgotPwdContent(String pwd) {
+		String content = "이곳 저곳 비밀번호 찾기\n 임시 비밀번로 : <b>" + pwd + "</b>";
+
+		return content;
+	}
+
+	public static String createKey() {
 		StringBuffer key = new StringBuffer();
 		Random random = new Random();
 
