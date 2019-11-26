@@ -52,20 +52,14 @@
 	<div class="modal fade" id="forgotModal" tabindex="-1" role="dialog"> 
 		<div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-          <h5 class="modal-title" ></h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-      <ul class="nav nav-tabs">
-        <li ><a data-toggle="tab" href="#idTab">Forgot ID</a></li>
-        <li><a data-toggle="tab" href="#pwdTab">Forgot PASSWORD</a></li>
+      <ul class="nav nav-tabs" >
+        <li class="nav-item"><a data-toggle="tab" href="#idTab" class="nav-link active">Forgot ID</a></li>
+        <li class="nav-item"><a data-toggle="tab" href="#pwdTab" class="nav-link">Forgot PASSWORD</a></li>
       </ul>
       <div class="tab-content">
       
       <!-- Id Tab -->
-        <div id="idTab" class="tab-pane fade in active">
+        <div id="idTab" class="tab-pane active">
           <div class="modal-body">
               <div class="form-group">
                 <label for="email" class="control-label col-xs-2">E-mail</label>

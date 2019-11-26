@@ -121,7 +121,7 @@
                                 <label for="#">ID</label>
                                 <div class="form-field">
                                     <input type="text" class="form-control" id="id" name="id" placeholder="enter your id" autofocus="autofocus">
-                                	<div  id="checkId" hidden>중복어쩌구</div>
+                                	<div  id="checkId" hidden></div>
                                 </div>
                             </div>
                         </div>
