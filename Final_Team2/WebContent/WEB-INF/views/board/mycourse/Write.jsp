@@ -57,7 +57,7 @@
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
                 	<c:otherwise>write </c:otherwise>
-                </c:choose> " method="post" enctype="multipart/form-data">
+                </c:choose>" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
 	

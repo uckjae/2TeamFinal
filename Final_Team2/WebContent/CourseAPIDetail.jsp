@@ -37,12 +37,17 @@
 	//	for(var i = 1; i<4; i++){
 	//		api = addr + "areaBasedList" + addr2 + i + type;
 			api = addr + "detailInfo" + servicekey +paramArea +"&contentId=" +2044565 + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-
+			console.log(api);
+			api = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommmon?ServiceKey=서비스키&contentTypeId=25&areaCode=1&contentId=2044565&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y&_type=json";
 			$.getJSON(api,function(data) { 
 			 var myItem = data.response.body.items.item;
+			 console.log(data);
 			 console.log("api : "  + api);
-			 console.log("myItem"+myItem);
+			 console.log(myItem)
+			 var timeLine = $('<div id="conference-timeline">');
+			 $(timeLine).prepend();
 			 $.each(myItem,function(index,element){
+				 
 				$(".content").append( "<h3>"+element.subnum +"코스 : </strong>&nbsp; "+ element.subname +" </h3>");				
 				$(".content").append( "<img src ='"+ element.subdetailimg + "'/>");
 				$(".content").append("<p>"+element.subdetailoverview+"</p>");

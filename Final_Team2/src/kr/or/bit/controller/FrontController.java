@@ -29,6 +29,7 @@ import kr.or.bit.service.MTLFolderListService;
 import kr.or.bit.service.MTListContentDeleteService;
 import kr.or.bit.service.MTListContentSevice;
 import kr.or.bit.service.MemberDeleteService;
+import kr.or.bit.service.MemberDetailService;
 import kr.or.bit.service.MemberListService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
@@ -229,7 +230,8 @@ public class FrontController extends HttpServlet {
 		}
 		// MemberDetail 화면
 		else if (url_Command.equals("/MemberDetail.do")) {
-			
+			action =new MemberDetailService();
+			forward = action.execute(request, response);
 		}
 		// MemberEdit 화면
 		else if (url_Command.equals("/MemberEdit.do")) {

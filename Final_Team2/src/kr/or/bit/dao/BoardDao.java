@@ -1070,7 +1070,6 @@ public class BoardDao {
 					photo.setPhotoId(rs.getInt(1));
 					photo.setbIdx(rs.getInt(2));
 					photo.setPhotoName(rs.getString(3));
-					System.out.println("board dao courselistphotos()"+photo.toString());
 					photos.add(photo);
 				}
 			}
