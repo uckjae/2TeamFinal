@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 import kr.or.bit.dto.MCBoard;
@@ -22,7 +20,6 @@ import kr.or.bit.dto.Photo;
 import kr.or.bit.dto.QnABoard;
 import kr.or.bit.dto.Reply;
 import kr.or.bit.utils.DBHelper;
-import sun.dc.pr.PRError;
 
 public class BoardDao {
 
@@ -1164,8 +1161,10 @@ public class BoardDao {
 	// 나만의 코스 게시판 글쓰기
 	public int courseWrite(Board board,MCBoard mCBoard,List<Photo> photos) {
 		int resultRow = 1;
+		int bIdx = -1;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		System.out.println("boardDao courseWrite()" + 1);
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
 				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 3, ?, ?,?) ";
@@ -1191,6 +1190,12 @@ public class BoardDao {
 				resultRow *= pstmt.executeUpdate();
 			}
 			
+			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+			pstmt = conn.prepareStatement(bIdxSql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				bIdx = rs.getInt(1);
+			}
 			conn.commit();
 		}catch(Exception e) {
 			try {
@@ -1205,7 +1210,7 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
-		return resultRow;
+		return bIdx;
 	}
 	
 	// 나만의 코스 게시판 좋아요 증가
@@ -1299,24 +1304,56 @@ public class BoardDao {
 
 	// 나만의 코스 게시판 게시글 수정하기
 	public int courseEdit(Board board,MCBoard mCBoard,List<Photo> photos) {
-		int resultRow = 0;
+		int resultRow = 1;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String boardSql = "UPDATE BOARD SET CONTENT = ?, WDATE = ?, RNUM = ?, WHERE BIDX = ? AND ID = ?";
+		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ?, WDATE = SYSDATE, RNUM = ? WHERE BIDX = ? AND ID = ?";
 		String deletePhotoSql = "DELETE FROM PHOTO WHERE BIDX = ?";
-		String photoSql = "INSERT INTO PHOTO (PHOTOID,BIDX,PHOTONAME) VALUES (PHOTOID_SEQ.NEXTVAL, ? , ?";
+		String photoSql = "INSERT INTO PHOTO (PHOTOID,BIDX,PHOTONAME) VALUES (PHOTOID_SEQ.NEXTVAL, ? , ?)";
 		
 		try{
 			conn = DBHelper.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(boardSql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setInt(3, board.getrNum());
+			pstmt.setInt(4, board.getbIdx());
+			pstmt.setString(5, board.getId());
+			resultRow *= pstmt.executeUpdate();
+			System.out.println("boardSql 실행완료" + resultRow);
 			
+			pstmt = conn.prepareStatement(deletePhotoSql);
+			pstmt.setInt(1, board.getbIdx());
+			resultRow *= pstmt.executeUpdate();
+			System.out.println("deletePhotoSql 실행완료" + resultRow);
 			
+			for(int i=0; i<photos.size(); i++) {
+				Photo photo = photos.get(i);
+				pstmt = conn.prepareStatement(photoSql);
+				pstmt.setInt(1, photo.getbIdx());
+				pstmt.setString(2, photo.getPhotoName());
+				resultRow *= pstmt.executeUpdate();
+			}
+			System.out.println("photoSql 실행완료" + resultRow);
 		}catch(Exception e) {
-			
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				System.out.println("boardDao courseEdit() rollback error" + e1.getMessage());
+			}
+			System.out.println("boardDao courseEdit() : " + e.getMessage());
 		}finally {
-			
+			try {
+				conn.commit();
+			} catch (SQLException e) {
+				System.out.println("boardDao courseEdit() : " + e.getMessage());
+			}
+			DBHelper.close(pstmt);
+			DBHelper.close(conn);
 		}
 		
-		return 0;
+		return resultRow;
 	}
 	// 나만의 코스 게시판 끝
 
