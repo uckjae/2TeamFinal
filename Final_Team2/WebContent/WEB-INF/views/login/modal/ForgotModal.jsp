@@ -7,6 +7,15 @@
 <head>
 <meta charset="UTF-8">
  <c:import url="/common/HeadTag.jsp" />
+ <style type="text/css">
+ .half{
+	display:inline-block;
+	padding-top:5px;padding-bottom:5px;
+	width:50%;
+	width:50%;
+	float:left;
+}
+ </style>
 <script type="text/javascript">
 
 	$(function() {
@@ -53,8 +62,8 @@
 		<div class="modal-dialog">
     <div class="modal-content">
       <ul class="nav nav-tabs" >
-        <li class="nav-item"><a data-toggle="tab" href="#idTab" class="nav-link active">Forgot ID</a></li>
-        <li class="nav-item"><a data-toggle="tab" href="#pwdTab" class="nav-link">Forgot PASSWORD</a></li>
+        <li class="nav-item half"><a data-toggle="tab" href="#idTab" class="nav-link active">Forgot ID</a></li>
+        <li class="nav-item half"><a data-toggle="tab" href="#pwdTab" class="nav-link">Forgot PASSWORD</a></li>
       </ul>
       <div class="tab-content">
       
