@@ -49,17 +49,17 @@
 				var myData = data.response.body.items.item;
 				console.log(myData);
 				$.each(myData, function(index, element){
-					$('$apiFirst').append(
+					$('#apiFirst').append(
 						"<div class='row'>"
 							+"<div class='col-md-3'>"
-								+"<img src='"+ element.firstimage +"' alt='No image'>"
+								+"<img src='"+ element.firstimage +"' alt='No image' style='width:100%'>"
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
 									+ element.title
 								+"</div>"
 								+"<div class='col-md-12'>"
-									+tag
+									
 								+"</div>"
 							+"</div>"
 						+"</div>"
@@ -125,7 +125,7 @@
 		</div>
 	<div class="content">
 		<!-- <div class="row" id="apiFirst"> -->
-			<div class="container-fluid" id="apiFirst">
+			<div class="container" id="apiFirst">
  				
 			</div>
 		<!-- </div> -->
