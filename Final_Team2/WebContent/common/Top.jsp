@@ -40,7 +40,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a href="#" class="nav-link"> <span>여행지</span></a>
+						<a href="Travel.do" class="nav-link"> <span>여행지</span></a>
 					</li>
 					
 					<li class="nav-item dropdown">

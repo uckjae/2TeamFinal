@@ -268,15 +268,44 @@ public class BoardDao {
 	// 자유 게시판 게시글 삭제하기
 	public boolean freeBoardDelete(int bIdx) {
 		int resultRow = 0;
+		int depth = 0, refer = 0, reBidx = 0;
 		
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
 		
+		String depthRefer = "SELECT DEPTH, REFER FROM FREEBOARD WHERE BIDX=?";
+		String ohterboard = "SELECT BIDX FROM FREEBOARD WHERE REFER=?";
 		String fsql = "DELETE FROM FREEBOARD WHERE BIDX=?";
 		String bsql = "DELETE FROM BOARD WHERE BIDX=?";
 		
 		try {
+			pstmt = connection.prepareStatement(depthRefer);
+			pstmt.setInt(1, bIdx);
+			resultSet = pstmt.executeQuery();
+			if(resultSet.next()) {
+				depth = resultSet.getInt(1);
+				refer = resultSet.getInt(2);
+			}
+			
 			connection.setAutoCommit(false);
+			
+			if(depth == 0) {
+				pstmt = connection.prepareStatement(ohterboard);
+				pstmt.setInt(1, refer);
+				resultSet = pstmt.executeQuery();
+				while(resultSet.next()) {
+					reBidx = resultSet.getInt(1);
+					pstmt = connection.prepareStatement(fsql);
+					pstmt.setInt(1, reBidx);
+					pstmt.executeUpdate();
+					
+					pstmt = connection.prepareStatement(bsql);
+					pstmt.setInt(1, reBidx);
+					pstmt.executeUpdate();
+				}
+			}
+			
 			pstmt = connection.prepareStatement(fsql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
@@ -285,9 +314,7 @@ public class BoardDao {
 			pstmt.setInt(1, bIdx);
 			resultRow = pstmt.executeUpdate();
 			
-			if(resultRow > 0) {
-				connection.commit();
-			}
+			connection.commit();
 		}catch(Exception e) {
 			try {
 				connection.rollback();
