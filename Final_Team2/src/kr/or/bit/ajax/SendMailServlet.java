@@ -41,13 +41,14 @@ public class SendMailServlet extends HttpServlet {
 		MemberDao dao = new MemberDao();
 
 		String cmd = request.getParameter("cmd");
-		System.out.println("cmd "+cmd);
-		String receiver = request.getParameter("email");
+		System.out.println("cmd " + cmd);
 
 		String subject = "";
 		String content = "";
 		if (cmd.equals("checkEmail")) {
 			subject = "[이곳저곳] 2조 보물이 보낸 행운의 편지";
+			String receiver = request.getParameter("email");
+			
 			Pair<String, String> pair = MailHelper.getRegisterContent();
 			content = pair.getValue();
 
@@ -61,7 +62,7 @@ public class SendMailServlet extends HttpServlet {
 		} else if (cmd.equals("forgotId")) {
 			subject = "[이곳저곳] 아이디 찾기";
 			String email = request.getParameter("email");
-			
+
 			String id = dao.getMemberIdByEmail(email);
 			if (id == null) {
 				out.print("일치하는 메일 정보가 없습니다.");
@@ -78,21 +79,20 @@ public class SendMailServlet extends HttpServlet {
 
 		} else if (cmd.equals("forgotPwd")) {
 			subject = "[이곳저곳] 임시 비밀번호 발급";
-			System.out.println("subject:"+subject);
 			String id = request.getParameter("id");
-			System.out.println("id : "+id);
+
 			Member member = dao.getMemberById(id);
-			System.out.println("member"+member);
 			if (member == null) {
 				out.print("일치하는 아이디가 없습니다.");
 				return;
 			}
-			
+
 			String tempPwd = MailHelper.createKey();
 			dao.updateTempPassword(id, tempPwd);
 
+			content = MailHelper.getForgotPwdContent(tempPwd);
 			try {
-				sendMail(subject, receiver, content);
+				sendMail(subject, member.getEmail(), content);
 				out.print(true);
 			} catch (Exception e) {
 				out.print("메일 발송에 실패했습니다.");

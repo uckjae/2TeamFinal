@@ -28,14 +28,14 @@
 		})
 
 		$("#sendPwd").click(function() { 
-			console.log($("#mid").val());
+			console.log($("#id").val());
 			$.ajax({
 				url : "SendMail",
-				data : { cmd : "forgotPwd", id : $("#mid").val()},
+				data : { cmd : "forgotPwd", id : $("#id").val()},
 				success : function(data){
 					console.log(data);
 					if(data == 'true'){
-						alert('메일이 발송되었습니다.');
+						alert('임시 비밀번호가 메일로 발송되었습니다.');
 					}else{
 						alert(data);
 					}
@@ -91,7 +91,7 @@
               <div class="form-group">
                 <label for="mid" class="control-label col-xs-2">ID</label>
                 <div class="col-xs-10">
-                  <input type="text" class="form-control" id="mid" name="mid" required>
+                  <input type="text" class="form-control" id="id" name="id" required>
                 </div>
               </div>
               <div class="form-group">

@@ -63,7 +63,7 @@
             </div>
         </div>
     </section>
-	<jsp:include page="ForgotId.jsp"></jsp:include>
+	<jsp:include page="modal/ForgotModal.jsp"></jsp:include>
 </body>
 
 </html>
