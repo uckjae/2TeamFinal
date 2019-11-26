@@ -53,8 +53,8 @@ public class MemberDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN, KAKAO) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0)";
+		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0)";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, KAKAO, ISADMIN FROM MEMBER "
+		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, ISDISABLE, ISADMIN FROM MEMBER "
 				+ "WHERE ID = ? AND ISADMIN ! = 1";
 
 		try {
@@ -143,7 +143,7 @@ public class MemberDao {
 				member.setGender(rs.getBoolean(6));
 				member.setAddress(rs.getString(7));
 				member.setEmail(rs.getString(8));
-				member.setKakao(rs.getBoolean(9));
+				member.setDisable(rs.getBoolean(9));
 				member.setAdmin(rs.getBoolean(10));
 			}
 		} catch (SQLException e) {
@@ -193,7 +193,7 @@ public class MemberDao {
 
 		List<Member> members = new ArrayList<Member>();
 
-		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, KAKAO FROM MEMBER WHERE ISADMIN = ?";
+		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, ISDISABLE FROM MEMBER WHERE ISADMIN = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -210,7 +210,7 @@ public class MemberDao {
 				member.setGender(rs.getBoolean(6));
 				member.setAddress(rs.getString(7));
 				member.setEmail(rs.getString(8));
-				member.setKakao(rs.getBoolean(9));
+				member.setDisable(rs.getBoolean(9));
 				member.setAdmin(isAdmin);
 
 				members.add(member);
