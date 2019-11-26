@@ -1,5 +1,7 @@
 package kr.or.bit.service;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +16,7 @@ public class FreeBoardDetailService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
+		String id = (String)request.getSession().getAttribute("memberId");
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
