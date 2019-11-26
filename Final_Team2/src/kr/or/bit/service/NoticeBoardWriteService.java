@@ -29,6 +29,7 @@ public class NoticeBoardWriteService implements Action{
 			System.out.println("가져오기:"+bIdx);
 			BoardDao dao = new BoardDao();
 			noticewrite = dao.noticeDetail(bIdx);
+			System.out.println("dsdsd"+noticewrite);
 		}
 		
 		request.setAttribute("noticewrite", noticewrite);

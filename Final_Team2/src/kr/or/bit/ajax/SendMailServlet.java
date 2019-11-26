@@ -37,7 +37,7 @@ public class SendMailServlet extends HttpServlet {
 
 		// SMTPAuthenticatior에 설정한 것과 같아야한다.
 		String sender = "bit_team2@naver.com";
-		String subject = "[이곳저곳] 이메일 인증";
+		String subject = "[이곳저곳] 2조 보물이 보낸 행운의 편지";
 		Pair<String, String> content = MailHelper.getRegisterMailContent();
 
 		String receiver = request.getParameter("email");
