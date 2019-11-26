@@ -15,71 +15,66 @@ $(function(){
 	var paramArea = "&contentTypeId=12&areaCode=2";
 	var paramSigungu = "&sigunguCode=";
 	var paramList = "&cat1=&cat2=&cat3=&listYN=Y";
-	var paramArrange = "&MobileOS=ETC&MobileApp=AppTest&arrange=A";
-	var paramNumOfRows = "&numOfRows=3";
-	var paramPageNo =  "&pageNo=1";
+	var paramAppTest = "&MobileOS=ETC&MobileApp=AppTest";
+	var paramArrange ="&arrange=A";
+	var paramNumOfRows = "&numOfRows=10";
+	var paramPageNo =  "&pageNo=";
 	var type = "&_type=json";
-	var addr2 = servicekey + paramArea + paramSigungu + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+	var addr2 = servicekey + paramArea + paramSigungu + paramList + paramAppTest+ paramArrange+ paramNumOfRows + paramPageNo;
 	var api = "";
-	 
+	
 	api = addr + "areaBasedList?" + addr2 + "1" + type;
 	//http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival?serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&listYN=Y&areaCode=2&sigunguCode=1&eventStartDate=20170901
 	
 	$.getJSON(api,function(data){
-		var myData = data.response.body;
+		var myData = data.response.body.items.item;
 		console.log(myData);
+		
+          $.each(myData,function(index,element){
+			
+			$(".content").append("<table border='1'>")
+			$(".content").append("<tr>")
+			$(".content").append("<td rowspan='2' colspan='2'><img src=" + element.firstimage+" onError=\"this.src='images/default.png'\"></td><td>&nbsp</td>")
+			$(".content").append("<td><b>" + element.title + "</b><br>" + element.addr1 + "</td>")
+			$(".content").append("</tr>")
+			$(".content").append("<tr>")
+			$(".content").append("<td>")
+			$(".content").append("</td>")
+			$(".content").append("</tr>")
+			$(".content").append("<hr >")
+			
+		});
 	});		
 			
 			
 			
 });
 
-$(function () {
-    let table = $('#dataTable').DataTable();
-
-    $('#dataTable_filter').prepend(
-        '<select id="select" class="custom-select" style="margin-right : 10px; width: 100px"></select>');
-
-    // 검색 th 칼럼 별로 할 수 있게 select 생성
-    let ths = $('#dataTable > thead > tr > th');
-    ths.each(function (index, element) {
-        if (index < 2) // 앞에 두개만
-            $('#select').append('<option>' + element.innerHTML + '</option>');
-    });
-
-    // select에 따라 검색 결과 table에 표현
-    $('.dataTables_filter input').keyup(function () {
-        tableSearch();
-    });
-
-    $("#deptSelect").change(function () {
-        tableSearch();
-    })
-
-    function tableSearch() {
-        let colIndex = document.querySelector('#select').selectedIndex;
-        let deptno = $("#deptSelect option:selected").val();
-        let searchText = $('.dataTables_filter input').val();
-
-        if (deptno == "*") {
-            table.column(colIndex).search(searchText).column(2).search("").draw();
-        } else {
-            table.column(colIndex).search(searchText).column(2).search(deptno).draw();
-        }
-    }
-});
 </script>
  <style type="text/css">
         html,
         body {
             height: 100%;
         }
+        table{
+        	border: 1px;
+        	border-style: solid;
+        }
+        img{
+         width:150px;
+         hight:113px;
+        }
 </style> 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+     
+<!-- Top -->
+<c:import url="/common/Top.jsp" />
+    
+<div class="content">
+ 
 
-    <!-- Top -->
-    <c:import url="/common/Top.jsp" />
+</div>
 
 </body>
 </html>
