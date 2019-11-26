@@ -3,7 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-
+<%
+	String id = (String)request.getSession().getAttribute("memberId");
+%>
 <head>
     <c:import url="/common/HeadTag.jsp" />
  	<jsp:include page="/common/DataTableTag.jsp"></jsp:include>
@@ -53,6 +55,7 @@
         });
     </script>
 </head>
+
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
@@ -63,16 +66,14 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread"> 자유 게시판 </h1>
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable">
+                <table class="table table-bordered hover" id="dataTable">
                     <thead>
                         <tr>
-                            <th>NO</th>
-                            <th>TITLE</th>
-                            <th>DATE</th>
-                            <th>WRITER</th>
-                            <th>READNUM</th>
-                            <th class="iconColumn" data-orderable="false">EDIT</th>
-                            <th class="iconColumn" data-orderable="false">DELETE</th>
+                            <th width="10%">NO</th>
+                            <th width="40%">TITLE</th>
+                            <th width="20%">DATE</th>
+                            <th width="20%">WRITER</th>
+                            <th width="10%">READNUM</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +84,7 @@
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
                         				<c:choose>
                         					<c:when test="${depth == 1}">Re : </c:when>
-                        					<c:otherwise>ㅡ</c:otherwise>
+                        					<c:otherwise>: : </c:otherwise>
                         				</c:choose>
                         			</c:forEach>
                         		${board.title}</a></td>
@@ -98,7 +99,9 @@
                 </table>
             </div>
             <a href="FreeBoardWrite.do?cmd=write">
-            	<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
+            	<c:if test="${sessionScope.memberId != null || (sessionScope.memberId != null && sessionScope.isAdmin == 'true')}">
+                	<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
+                </c:if>
             </a>
         </div>
     </div>
