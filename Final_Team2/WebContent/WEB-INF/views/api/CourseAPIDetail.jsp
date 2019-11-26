@@ -19,7 +19,7 @@
 		// 관광정보 api 
 		
 		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
-		//detailIntro? 공통정보 //detailInfo?   소개정보 //detailIntro? 코스정보 
+		//detailCommon? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 
 		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
@@ -33,11 +33,12 @@
 		var type = "&_type=json";
 		var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 		var api = "";
- 	    var apiCourse ="";
+ 	  
 	//	for(var i = 1; i<4; i++){
 	//		api = addr + "areaBasedList" + addr2 + i + type;
 			api = addr + "detailInfo" + servicekey +paramArea +"&contentId=" +2044565 + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-		$.getJSON(api,function(data) { 
+
+			$.getJSON(api,function(data) { 
 			 var myItem = data.response.body.items.item;
 			 console.log("api : "  + api);
 			 $.each(myItem,function(index,element){
