@@ -17,7 +17,7 @@ public class FreeBoardDetailService implements Action{
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		dao.FreeBoardAddReadNum(bIdx);
+		dao.setReadNum(bIdx);
 		FreeBoard freeBoardDetail = dao.freeBoardDetail(bIdx);
 		
 		request.setAttribute("freeBoardDetail", freeBoardDetail);
