@@ -29,6 +29,7 @@
 				$(".content").append( "<h3>"+element.subnum +"코스 : </strong>&nbsp; "+ element.subname +" </h3>");				
 				$(".content").append( "<img src ='"+ element.subdetailimg + "'/>");
 				$(".content").append("<p>"+element.subdetailoverview+"</p>");
+			 }
 	});
 	</script>
 	<style type="text/css">
