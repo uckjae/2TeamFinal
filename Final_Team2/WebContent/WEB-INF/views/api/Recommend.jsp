@@ -10,13 +10,26 @@
 	<title>코스</title>
 	<script type="text/javascript">
 	$(function(){
-		
+		/* http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList
+		?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D
+				&contentTypeId=25&areaCode=&sigunguCode=&cat1=C01&cat2=&cat3=
+					&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B&numOfRows=12&pageNo=1&_type=json */
 		let serviceKey = "?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
 		
-		let api = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/"
-				+ servieeKey + "&contentTypeId=25&areaCode=1&cat1=C01&cat2=&cat3=&listYN=Y"
-				+ "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=&_type=json";
+		let api = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList/"
+				+ serviceKey + "&contentTypeId=25&areaCode=1&cat1=C01&cat2=&cat3=&listYN=Y"
+				+ "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B&numOfRows=12&pageNo=&_type=json";
 		
+		
+		$.getJSON(api,function(data) { 
+			 var myItem = data.response.body.items.item;
+			 console.log("api : "  + api);
+			 $.each(myItem,function(index,element){
+				 
+				$(".content").append( "<h3>"+element.subnum +"코스 : </strong>&nbsp; "+ element.subname +" </h3>");				
+				$(".content").append( "<img src ='"+ element.subdetailimg + "'/>");
+				$(".content").append("<p>"+element.subdetailoverview+"</p>");
+			 }
 	});
 	</script>
 	<style type="text/css">

@@ -13,7 +13,6 @@
 <script type="text/javascript">
 	$(function() {
 		$(".like-button").click(function(){
-			console.log(${mCBoard.mCidx});
 			$.ajax({
 				type:"post",
 				url:"LikeNum",
@@ -26,7 +25,14 @@
 				}
 			
 			});
-		})
+		});
+		
+		setReadNum(${mCBoard.bIdx});
+		$("#replybtn").click(function(){
+			$.ajax({
+				
+			});
+		});
 	});
 </script>
 </head>
@@ -102,6 +108,12 @@
   	</div>
     
   </div>
+  <!-- Reply  -->
+        <c:set var="replies" value="${mCBoard.replies}" scope="request"/>
+        <jsp:include page="../common/Reply.jsp">
+        	<jsp:param name="bIdx" value="${ mCBoard.bIdx }"/>
+        </jsp:include>
+  
   </div>
   
   <!-- // Vertical Timeline -->
