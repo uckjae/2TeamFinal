@@ -99,8 +99,8 @@ $(document).ready(function(){
 						</tr>
 						
 						<tr>
-						<td rowspan="2">				
-							<textarea rows="12" cols="30" id="content" name="content">${photowrite.content }</textarea>
+						<td rowspan="2" rows="12" cols="48">				
+							<textarea rows="12" cols="48" id="content" name="content">${photowrite.content }</textarea>
 							</td>
 						
 						</tr>
@@ -127,12 +127,12 @@ $(document).ready(function(){
 							<c:choose>
 								<c:when test="${Edit }">
 							<td>
-							<a href="PhotoBoardList.do"><input type="reset" value="수정취소" class="btn-danger" style="width: 100%; height: 100%"></a>	
+							<input type="reset" value="수정취소" class="btn-danger" style="width: 100%; height: 100%" onclick="'PhotoBoardList.do'">	
 							</td>
 							</c:when>
 							<c:otherwise>
 							<td>
-							<a href="PhotoBoardList.do"><input type="reset" value="작성취소" class="btn-danger" style="width: 100%; height: 100%"></a>
+							<input type="reset" value="작성취소" class="btn-danger" style="width: 100%; height: 100%" onclick="'PhotoBoardList.do'">
 							</td>
 							</c:otherwise>
 							</c:choose>
