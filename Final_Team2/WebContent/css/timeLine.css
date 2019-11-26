@@ -30,7 +30,7 @@ img.image2{
 #conference-timeline .conference-center-line {
   position: absolute;
   width: 3px;
-  height: 79%;
+  height: 100%;
   left: 50%;
   margin-left: -2px;
   background: #00b0bd;
