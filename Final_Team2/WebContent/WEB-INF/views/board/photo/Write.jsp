@@ -27,9 +27,17 @@ $(document).ready(function(){
 	
 	$("#PhotoGo").click(function(){
 		if($("#title").val() == ""){
-			alert("제목을 입력해주세요");
-			$("title").focus();
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+		}else if($('#content').val() == ""){
+			alert("내용을 입력해주세요.");
+			$("#content").focus();
+		}else if($('#Photo').val() == ""){
+			alert("사진 1장을 첨부 해야합니다.");
+		}else if($('#Photo').val() !=""){
+			return true;
 		}
+		return false;
 	});
 	 
 	$('#Photo').change(function(){
@@ -94,13 +102,13 @@ $(document).ready(function(){
 						
 							</td>
 							<td>
-							<input type="text" name="title" id="title" value="${photowrite.title }+${photowrite.bIdx}" style="width: 100%" >
+							<input type="text" name="title" id="title" value="${photowrite.title }" style="width: 100%" >
 							</td>
 						</tr>
 						
 						<tr>
-						<td rowspan="2" rows="12" cols="48">				
-							<textarea rows="12" cols="48" id="content" name="content">${photowrite.content }</textarea>
+						<td rowspan="2" colspan="2" rows="12" cols="48">				
+							<textarea rows="15" cols="48" id="content" name="content">${photowrite.content }</textarea>
 							</td>
 						
 						</tr>
@@ -112,30 +120,20 @@ $(document).ready(function(){
 						<c:choose>
 							<c:when test="${Edit }">
 							<td>
-							<input id="PhotoGo" type="submit" value="수정" class="btn-primary" style="width: 50%;height: 100%">
+							<input id="PhotoGo" type="submit" value="수정" class="btn btn-primary" >
+							<input type="reset" value="수정취소" class="btn btn-danger"  onclick="'PhotoBoardList.do'">
 							</td>
 							</c:when>
 							<c:otherwise>
-							<td>
-							<input id="PhotoGo" type="submit" value="작성완료" class="btn-primary" style="width: 50%;height: 100%">
-							</td>
-							</c:otherwise>
-							</c:choose>
 							<td>
 							<input type="file" name="Photo" id="Photo" aceept="image/*">
 							</td>
-							<c:choose>
-								<c:when test="${Edit }">
-							<td>
-							<input type="reset" value="수정취소" class="btn-danger" style="width: 100%; height: 100%" onclick="'PhotoBoardList.do'">	
-							</td>
-							</c:when>
-							<c:otherwise>
-							<td>
-							<input type="reset" value="작성취소" class="btn-danger" style="width: 100%; height: 100%" onclick="'PhotoBoardList.do'">
-							</td>
 							</c:otherwise>
 							</c:choose>
+							<td>
+							<input id="PhotoGo" type="submit" value="작성완료" class="btn btn-primary">
+							<input type="reset" value="작성취소" class="btn btn-danger"  onclick="'PhotoBoardList.do'">
+							</td>
 						</tr>
 						
 					</table>
