@@ -11,12 +11,12 @@
 $(function(){
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
-	var paramArea = "&contentTypeId=12&areaCode=2";
+	var paramArea = "&contentTypeId=15&areaCode=1";
 	var paramSigungu = "&sigunguCode=";
 	var paramCat = "&cat1=&cat2=";
 	var paramList = "&cat3=&listYN=Y";
 	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
-	var paramNumOfRows = "&numOfRows=3";
+	var paramNumOfRows = "&numOfRows=6";
 	var paramPageNo =  "&pageNo=";
 	var type = "&_type=json&";
 	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
@@ -54,6 +54,10 @@ $(function(){
         table{
         	border: 1px;
         	border-style: solid;
+        }
+        img{
+        	width: 150px;
+        	height: 113px;
         }
 </style> 
 </head>
