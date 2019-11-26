@@ -52,7 +52,20 @@
                     table.column(colIndex).search(searchText).column(2).search(deptno).draw();
                 }
             }
+            
+            
+            
+            
         });
+        function goToDetail(bIdx){
+        	console.log("done?");
+        	if(${!sessionScope.isAdmin} ||${sessionScope.memberId eq null}){
+        		alert("로그인하세요");
+        		location.href="Login.do";
+        	} else{
+        		location.href="MyCourseBoardDetail.do?bIdx="+bIdx;
+        	}
+        }
     </script>
 </head>
 
@@ -84,7 +97,7 @@
         									${board.likeNum}
         								</h4>
         								<h3>
-        									<a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a>
+        									<a onclick="goToDetail(${board.bIdx})" href="#">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>
@@ -109,7 +122,7 @@
                     <c:forEach var="board" items="${MCBList}">
                     	<tr>
                             <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
+                            <td class="sorting_1"><a onclick="goToDetail(${board.bIdx})" href="#">${board.title}</a></td>
                             <td>${board.id}</td>
                             <td>
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
