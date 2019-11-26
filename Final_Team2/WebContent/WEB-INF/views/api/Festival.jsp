@@ -16,13 +16,13 @@ $(function(){
 	var paramCat = "&cat1=&cat2=";
 	var paramList = "&cat3=&listYN=Y";
 	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
-	var paramNumOfRows = "&numOfRows=6";
+	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=";
 	var type = "&_type=json&";
 	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 	var api = "";
 	
-	api = addr + "areaBasedList?" + addr2 + "1" + type;
+	api = addr + "searchFestival?" + addr2 + "1" + type;
 	
 	$.getJSON(api,function(data){
 		var myData = data.response.body.items.item;
@@ -66,7 +66,7 @@ $(function(){
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 <div class="content">
-
+ 
 
 </div>
 

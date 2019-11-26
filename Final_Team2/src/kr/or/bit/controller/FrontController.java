@@ -284,11 +284,11 @@ public class FrontController extends HttpServlet {
 		//여행지
 		else if(url_Command.equals("/Travel.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/Travel.jsp");
+			forward.setPath("/WEB-INF/views/api/TravelDetail2.jsp");
 		//축제
 		}else if(url_Command.equals("/Festival.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/Festival.jsp");
+			forward.setPath("/WEB-INF/views/api/FestivalDetail.jsp");
 		}
 		// 추천 여행지
 		else if (url_Command.equals("/Recommend.do")) {
