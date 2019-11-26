@@ -88,8 +88,8 @@
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
-									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="${photo.photoName}" required>
-									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2-1]}" required>
+									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="upload/${photo.photoName}" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" required>
 									<div class="meta-date">
 										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 									</div>
@@ -104,8 +104,8 @@
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
-									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="${photo.photoName}" required>
-									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2-1]}" required>
+									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="upload/${photo.photoName}" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" required>
 									<div class="meta-date">
 										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 									</div>

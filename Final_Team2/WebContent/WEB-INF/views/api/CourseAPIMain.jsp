@@ -56,24 +56,47 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 
- <div class="content">
-			검색하기
-			<form action="#" >
-			<div class="form-group">
-		        	<label for="#">검색</label>
-			<div class="form-field">
-				<div class="icon"><span class="ion-ios-search"></span></div>
-				<input type="text" class="form-control" placeholder="검색" name="search">
+	<div class="content">
+		<div class="row">
+			<div class="col-md-9">
+				<form action="#" class="search-property-1">
+					<div class="row">
+						<div class="col-lg align-items-end">
+							<div class="form-group">								
+								<div class="form-field">
+									<div class="icon">
+										<span class="ion-ios-search" style="color:black"></span>
+									</div>
+									<input type="text" class="form-control"
+										placeholder="검색어를 입력하세요" name="search">
+										
+								</div>
+							</div>
+						</div>
+						<div class="col-lg align-self-end">
+							<div class="form-group">
+								<div class="form-field col-md-4">
+									<input type="submit" value="검색"
+										class="form-control btn btn-primary">
+								</div>
+								
+								
+								
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
-			</div>
-				<input type="submit" value="Search" class="btn btn-primary">			
-			</form>
+			
+		</div>
+	</div>
+
 
 	<!--  
 	<div class="content">
-    
-    </div>-->
+    -->
 
-   </div> 
+
+    
 </body>
 </html>
