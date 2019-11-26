@@ -23,7 +23,11 @@ $(function(){
 	var api = "";
 	
 	api = addr + "areaBasedList" + addr2 + "1" + type;
-	http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival?serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&listYN=Y&areaCode=2&sigunguCode=1&eventStartDate=20170901
+	$.getJSON(api,function(data){
+		var myData = data;
+		console.log(myData);
+	});
+	
 	
 });
 </script>
