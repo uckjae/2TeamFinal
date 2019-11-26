@@ -13,21 +13,29 @@ $(function(){
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
 	var paramArea = "&contentTypeId=15&areaCode=2";
 	var paramSigungu = "&sigunguCode=";
-	var paramCat = "&cat1=A02&cat2=A0207";
-	var paramList = "&cat3=A02070100&listYN=Y";
+	var paramCat = "&cat1=&cat2=";
+	var paramList = "&cat3=&listYN=Y";
 	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
-	var paramNumOfRows = "&numOfRows=10";
-	var paramPageNo =  "&pageNo=2";
+	var paramNumOfRows = "&numOfRows=3";
+	var paramPageNo =  "&pageNo=";
 	var type = "&_type=json&";
-	var date = "eventStartDate=20170901";
-	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo + date;
+	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 	var api = "";
 	
-	api = addr + "searchFestival?" + addr2 + type;
+	api = addr + "areabasedList?" + addr2 + "1" + type;
 	
 	$.getJSON(api,function(data){
 		var myData = data.response.body;
 		console.log(myData);
+		$.each(myData,function(index,element){
+			
+		//	$(".content").append("<table>")
+	//	$(".content").append("<img src=" + element.firstimage2 +">")
+		//	$(".content").append("<td> 주소 : " + element.title + "</td>")
+		//	$(".content").append("<td> 주소 : " + element.addr1 + "</td>")
+		//	$(".content").append("</table>")
+			
+		});
 	});
 	
 	
@@ -38,14 +46,20 @@ $(function(){
         body {
             height: 100%;
         }
+        p{
+        	float: right;
+        }
 </style> 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-    <div class="content">   
+    
+    <div class="content" >   
+  
+ 
     </div>
-
+	
 </body>
 </html>

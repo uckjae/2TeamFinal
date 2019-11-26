@@ -1,7 +1,5 @@
 package kr.or.bit.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,17 +7,16 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
 import kr.or.bit.dto.MCBoard;
-import kr.or.bit.dto.Photo;
 
 public class MyCourseBoardWrite implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		System.out.println("mc write");
+
 		MCBoard mCBoard = null;
-		String cmd = request.getParameter("cmd");
-		System.out.println(cmd);
+		String cmd = request.getParameter("cmd").trim();
+		
 		if (cmd.equals("write")) {
 			mCBoard = new MCBoard();
 			mCBoard.setbIdx(-1);
