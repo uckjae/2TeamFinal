@@ -8,24 +8,18 @@
 	<meta charset="UTF-8">
 	<c:import url="/common/HeadTag.jsp" />
 	<title>코스</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		/* http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList
 		?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D
 				&contentTypeId=25&areaCode=&sigunguCode=&cat1=C01&cat2=&cat3=
 					&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B&numOfRows=12&pageNo=1&_type=json */
-					
-		let area = [{name : "서울", code : 1}
-					, {name : "경기도", code : 31}
-					, {name : "인천", code : 2}];
 		let serviceKey = "?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
 		
-		for(let i = 0; i < area.length; i++)
 		let api = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList/"
-				+ serviceKey + "&contentTypeId=25&areaCode="+ area[i].code +"&cat1=C01&cat2=&cat3=&listYN=Y"
+				+ serviceKey + "&contentTypeId=25&areaCode=1&cat1=C01&cat2=&cat3=&listYN=Y"
 				+ "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B&numOfRows=12&pageNo=&_type=json";
-		}
+		
 		
 		$.getJSON(api,function(data) { 
 			 var myItem = data.response.body.items.item;
