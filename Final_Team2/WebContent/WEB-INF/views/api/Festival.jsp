@@ -22,7 +22,7 @@ $(function(){
 	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 	var api = "";
 	
-	api = addr + "areaBasedList" + addr2 + "1" + type;
+	api = addr + "searchFestival?" + addr2 + "1" + type;
 	$.getJSON(api,function(data){
 		var myData = data;
 		console.log(myData);
