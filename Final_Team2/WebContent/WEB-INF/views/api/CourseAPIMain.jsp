@@ -41,8 +41,27 @@
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
 				 console.log("each문 " + index);
-				$("#apiContent").append( "<img src ='"+ element.firstimage + "' alt='No image'/>");
-				$("#apiContent").append( "<h3>"+element.title +" </h3>");				
+				 if(index == 0 || index == 3) {
+					/* $("#apiContent").append("<tr>"); 
+					$("#apiContent").append( "<td><img src ='"+element.firstimage + "' alt='No image' class='col-lg-4'/></td>");
+					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>");
+					$("#apiContent").append("</tr>");  */
+					
+					$("#apiContent").append("<tr>"
+												+"<td><img src ='"+element.firstimage + "' alt='No image' class='col-lg-4'/></td>"+
+												+"<td><h3>"+index+ element.title +" </h3></td>"
+											+"</tr>"); 
+					
+				 }else {
+					
+				    /* $("#apiContent").append( "<td><img src ='"+ element.firstimage + "' alt='No image'/></td>");
+					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>"); */
+					
+					$("#apiContent").append( "<td>"+
+												"<img src ='"+ element.firstimage + "' alt='No image'/>"+
+												"</td><td><h3>"+index+ element.title +" </h3></td>");
+					
+				 }			
 			 });
 			
 		});
@@ -56,7 +75,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 	<div class="content">
-		<div class="row">
+		<div class="row mb-3">
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row">
@@ -103,7 +122,7 @@
 				</form>
 			</div>		
 		</div>
-		<br>		
+				
 		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
@@ -111,9 +130,10 @@
 		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
 		</div>
+	<div class="content">
+		<table id="apiContent">
 
-	<div class="content" id ="apiContent">
-		
+		</table>
 	</div>
  
 </body>
