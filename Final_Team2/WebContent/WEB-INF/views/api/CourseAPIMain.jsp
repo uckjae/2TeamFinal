@@ -46,10 +46,10 @@
 
 					
 					 $("#apiFirst").append(
-						     "<div class='col-md-3'>" 
+						     "<div class='col-md-4'>" 
 						    + "<div class='project mb-4'>"
  							+ "<div class='image'>"
- 							+ "<img src ='"+element.firstimage + "' alt='No image' style='max-width:100%; max-height:auto; '/>"
+ 							+ "<img src ='"+element.firstimage + "' alt='No image' style='max-width:100%; max-height:100%; '/>"
  							+ "</div></div>"
  							+ "<div class='mb-3'>"+ element.title + "</div></div></div>");	
 					 
@@ -57,7 +57,7 @@
 
 					 
 					 $("#apiSecond").append(
-							     "<div class='col-md-3'>" 
+							     "<div class='col-md-4'>" 
 							    + "<div class='project'>"
 	 							+ "<div class='image'>"
 	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>"
@@ -77,7 +77,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 	<div class="content">
-		<div class="row mb-3">
+		<div class="row mb-4">
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row">
@@ -124,7 +124,7 @@
 				</form>
 			</div>		
 		</div>
-				
+		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
 		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
@@ -139,12 +139,14 @@
 		<div class="row" id="apiSecond">
 		
 		</div>
-		<div class="pagination-lg">
-			<span><a href="#">1</a></span>
-			<span><a href="#">2</a></span>
-			<span><a href="#">3</a></span>
-			<span><a href="#">4</a></span>
-			<span><a href="#">5</a></span>
+		<div class="pagination-sm mt-3 mb-3" style="text-align:center">
+		  <a href="#" class="btn btn-primary">&laquo;</a>
+			<a href="#" class="btn btn-primary">1</a>
+			<a href="#" class="btn btn-primary">2</a>
+			<a href="#" class="btn btn-primary">3</a>
+			<a href="#" class="btn btn-primary">4</a>
+			<a href="#" class="btn btn-primary">5</a>
+		<a href="#" class="btn btn-primary">&raquo;</a>
 		</div>
 
 	</div>
