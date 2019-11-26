@@ -27,7 +27,7 @@
 		var paramSigungu = "&sigunguCode=";
 		var paramCat = "&cat1=C01&cat2=";
 		var paramList = "&cat3=&listYN=Y";
-		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
+		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=D";
 		var paramNumOfRows = "&numOfRows=6";
 		var paramPageNo =  "&pageNo=";
 		var type = "&_type=json";
@@ -40,9 +40,9 @@
 			$.getJSON(api,function(data) { 
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
-				 console.log("each문 " + element);
-				$(".content").append( "<img src ='"+ element.firstimage + "' alt='No image'/>");
-				$(".content").append( "<h3>"+element.title +" </h3>");				
+				 console.log("each문 " + index);
+			//	$(".content").append( "<img src ='"+ element.firstimage + "' alt='No image'/>");
+			//	$(".content").append( "<h3>"+element.title +" </h3>");				
 			 });
 			
 		});
@@ -55,8 +55,20 @@
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-    <div class="content">
+
+ <div class="container">
+  <div class="content-center">
+			<h2 class="mb-3">검색하기</h2>
+			<form action="#" >
+				<input type="text" class="form-control" placeholder="검색하세요">
+				<input type="submit" value="Search" class="form-control btn btn-primary">			
+			</form>
+
+	<!--  
+	<div class="content">
     
-    </div>
+    </div>-->
+</div>
+   </div> 
 </body>
 </html>

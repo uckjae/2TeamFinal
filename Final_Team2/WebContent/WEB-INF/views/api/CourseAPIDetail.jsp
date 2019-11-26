@@ -27,7 +27,7 @@
 		var paramSigungu = "&sigunguCode=";
 		var paramCat = "&cat1=C01&cat2=";
 		var paramList = "&cat3=&listYN=Y";
-		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
+		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=D";
 		var paramNumOfRows = "&numOfRows=12";
 		var paramPageNo =  "&pageNo=";
 		var type = "&_type=json";
