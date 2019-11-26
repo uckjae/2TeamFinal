@@ -13,18 +13,20 @@ $(function(){
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
 	var paramArea = "&contentTypeId=15&areaCode=2";
 	var paramSigungu = "&sigunguCode=";
-	var paramCat = "&cat1=C01&cat2=A0207";
+	var paramCat = "&cat1=A02&cat2=A0207";
 	var paramList = "&cat3=A02070100&listYN=Y";
-	var paramArrange = "&MobileOS=ETC&MobileApp=AppTest&arrange=A";
+	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
 	var paramNumOfRows = "&numOfRows=10";
-	var paramPageNo =  "&pageNo=";
-	var type = "&_type=json";
-	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+	var paramPageNo =  "&pageNo=2";
+	var type = "&_type=json&";
+	var date = "eventStartDate=20170901";
+	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo + date;
 	var api = "";
 	
-	api = addr + "searchFestival?" + addr2 + "1" + type;
+	api = addr + "searchFestival?" + addr2 + type;
+	
 	$.getJSON(api,function(data){
-		var myData = data;
+		var myData = data.response.body;
 		console.log(myData);
 	});
 	

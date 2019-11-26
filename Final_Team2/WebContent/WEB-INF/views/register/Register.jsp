@@ -27,8 +27,13 @@
 		$("#sendEmail").click(sendMail);
 		$("#checkEmailCode").click(checkEmailCode);
 		$("#id").blur(checkId);
+		$("form").submit(test);
 	})
 
+	function test(){
+		console.log("test");
+	}
+	
 	function checkId(){
 		if( $("#id").val() == ""){
 			return;
@@ -55,6 +60,10 @@
 	}
 	
 	function sendMail(){
+		if( $("#email").val() == ""){
+			return;
+		}
+		
 		$.ajax({
 			url : "SendMail",
 			data : {cmd : "checkEmail", email : $("#email").val()},
@@ -72,10 +81,10 @@
 	function checkEmailCode(){
 		if(emailCode == $("#emailCode").val()){
 			alert("이메일 인증 완료");
-			$("#emailCodeControl").attr("hidden","hidden");
+		   $("#emailCodeControl").attr("hidden","hidden");
 			$("#email").attr("readonly","readonly");
 			$("#sendEmail").text("인증 완료");
-			$("#sendEmail").attr("disabled","disabled");
+			$("#sendEmail").attr("disabled","disabled"); 
 			checkEmail = true;
 		}else{
 			alert("이메일 인증 실패");
@@ -121,7 +130,7 @@
                                 <label for="#">ID</label>
                                 <div class="form-field">
                                     <input type="text" class="form-control" id="id" name="id" placeholder="enter your id" autofocus="autofocus">
-                                	<div  id="checkId" hidden>중복어쩌구</div>
+                                	<div  id="checkId" hidden></div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +144,7 @@
 							        </div>
                                 </div>
                                 <div class="form-field" id="emailCodeControl" hidden="hidden">
-                                    <input type="email" class="form-control" id="emailCode" name="emailCode" placeholder="check email code">
+                                    <input type="text" class="form-control" id="emailCode" name="emailCode" placeholder="check email code">
                                 	<div class="input-group-append">
 							          <button class="btn btn-primary" type="button" id="checkEmailCode"> 인증 확인 </button>
 							        </div>
