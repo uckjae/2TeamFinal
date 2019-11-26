@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label for="#">EMAIL</label>
                                 <div class="form-field">
-                                    <input type="email" class="form-control" id="email" name="email" value="${member.id }" disabled>
+                                    <input type="email" class="form-control" id="email" name="email" value="${member.email }" disabled>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,17 @@
                                 </div>
                             </div>
                         </div>
-                        
+                         <div class="col-lg-12 align-items-end mb-3">
+                            <div class="form-group">
+                                <label for="#">DISABLE</label>
+                                <div class="form-field">
+                                    <input type="checkbox" class="form-control" id="disable" name="disable" 
+                                    	<c:if test="${member.disable }">checked</c:if>
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-12 align-self-end">
                             <div class="form-group">
                                 <div class="form-field">
