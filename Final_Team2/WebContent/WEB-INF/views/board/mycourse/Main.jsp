@@ -87,7 +87,7 @@
         			<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
         				<div class="project">
         					<div class="img">
-        						<img class="img-fluid" src="upload/${photo.photoName}" alt="코스 대표 사진">
+        						<img class="img-fluid" src="upload/${photo.photoName}" alt="코스 대표 사진" onError="this.src='images/scenery.png'">
         					</div>
         					<c:forEach var="board" items="${ MCBList}">
         						<c:if test="${photo.bIdx eq board.bIdx}">
