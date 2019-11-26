@@ -68,12 +68,12 @@ html, body {
 
 					<label class="mr-3"> 
 						<input type="radio" id="isTop" name="isTop" value="1"  
-								<c:if test="${noticeWrite.isTop() }"> checked </c:if>  
+						   <c:if test="${noticeWrite.isTop() }"> checked </c:if>
 						>올리자
 					</label>
 					<label> 
 						<input type="radio" id="isTop" name="isTop" value="0" 
-								 <c:if test="${!noticeWrite.isTop() }"> checked </c:if> 
+						     <c:if test="${!noticeWrite.isTop() }"> checked </c:if> 
 						>말자
 					</label>
 				

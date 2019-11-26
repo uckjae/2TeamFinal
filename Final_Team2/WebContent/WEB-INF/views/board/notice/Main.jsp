@@ -70,39 +70,35 @@
                 <thead>
                    <tr>
                      <th width="10%">No</th>
-                     <th width="70%">제목</th>
-                     <th width="10%">작성일</th>
+                     <th width="60%">제목</th>
+                     <th width="20%">작성일</th>
                      <th width="10%">조회수</th>
                     </tr>
                 </thead>
                 <tbody>
                      
                      <c:forEach var="topnotice" items="${noticeList}">
+                     
                            <c:if test="${topnotice.isTop == 'true'}">
                          <tr>
-                       <td width="10%">${topnotice.bIdx}</td>
-                       <!-- <td class="sorting_1"width="70%"><a href="NoticeBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td> -->
+                       <td width="10%">${topnotice.bIdx}</td> 
                        <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">()top${topnotice.title}</a></td>
-                      
                        <td width="20%">
                        <fmt:formatDate value="${topnotice.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                        </td>
                        <td width="10%">${topnotice.rNum}</td>
                        </tr> 
-                       </c:if>                 
-                                      
+                       </c:if>                                  
                      </c:forEach>
                                                        
                      <c:forEach var="boardList" items="${noticeList}">
                      <tr>
                        <td width="10%">${boardList.bIdx}</td>
-                       <!-- <td class="sorting_1"width="70%"><a href="NoticeBoardDetail.do?bidx=${board.bIdx}">${board.title}</a></td> -->
-                       <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${board.title}</a></td>
-                      
+                       <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
                        <td width="20%">
                        <fmt:formatDate value="${boardList.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                        </td>
-                       <td width="10%">${board.rNum}</td>
+                       <td width="10%">${boardList.rNum}</td>
                      </tr>
                       </c:forEach>
                 </tbody>
