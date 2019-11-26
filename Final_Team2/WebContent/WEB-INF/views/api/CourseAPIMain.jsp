@@ -41,25 +41,35 @@
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
 				 console.log("each문 " + index);
-				 if(index == 0 || index == 3) {
-					/* $("#apiContent").append("<tr>"); 
-					$("#apiContent").append( "<td><img src ='"+element.firstimage + "' alt='No image' class='col-lg-4'/></td>");
-					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>");
-					$("#apiContent").append("</tr>");  */
-					
-					$("#apiContent").append("<tr>"
-												+"<td><img src ='"+element.firstimage + "' alt='No image' class='col-lg-4'/></td>"+
-												+"<td><h3>"+index+ element.title +" </h3></td>"
-											+"</tr>"); 
-					
-				 }else {
-					
+				 
+				 if(index < 3 ) {
+					 $("#firstContent").append("<div class='project'>");
+					 $("#firstContent").append("<div class='image'>");
+					 $("#firstContent").append("<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>");
+					 $("#firstContent").append("</div></div>");
+					 $("#firstContent").append("<div>"+ element.title + "</div></div>");
+					 //<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
+					 
+					//$("#apiFirst #firstContent").append( "<div><img src ='"+element.firstimage + "' alt='No image' /></div>");
+					//$("#apiFirst #firstContent").append( "<div><h3>"+index+ element.title +" </h3></div>");
+				 } else {
+					 $("#secondContent").append("<div class='project'>");
+					 $("#secondContent").append("<div class='image'>");
+					 $("#secondContent").append("<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>");
+					 $("#secondContent").append("</div></div>");
+					 $("#secondContent").append("<div>"+ element.title + "</div></div>");
+					 
+					 
+					 //$("#apiSecond #secondContent .img").append( "<img src ='"+element.firstimage + "' alt='No image'/>");
+					 //$("#apiSecond #secondContent .text").append( "<h3>"+index+ element.title +" </h3>");
+					 
+					 
 				    /* $("#apiContent").append( "<td><img src ='"+ element.firstimage + "' alt='No image'/></td>");
 					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>"); */
 					
-					$("#apiContent").append( "<td>"+
+					/* $("#apiContent").append( "<td>"+
 												"<img src ='"+ element.firstimage + "' alt='No image'/>"+
-												"</td><td><h3>"+index+ element.title +" </h3></td>");
+												"</td><td><h3>"+index+ element.title +" </h3></td>"); */
 					
 				 }			
 			 });
@@ -131,10 +141,34 @@
 		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
 		</div>
 	<div class="content">
-		<table id="apiContent">
+		<div class="row" id="apiFirst">
+			<div class="col-md-3" id="firstContent">
+			 <!--  첫번째 사진 
+				<div class="project">
+					<div class="image">
+						<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
+					</div>				
+				</div>
+				<div>경복궁</div>	
 
-		</table>
+			</div>-->
+			 <!--  두번째 사진 
+			<div class="col-md-3">
+			<div class="project">
+					<div class="image">
+						<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
+					</div>
+				</div>
+				<div>경복궁2</div>
+			</div>	-->		
+		</div>
+		<div class="row" id="apiSecond">
+			<div class="col-md-4" id="secondContent">
+				
+			</div>
+		</div>
+</div>
 	</div>
- 
+
 </body>
 </html>
