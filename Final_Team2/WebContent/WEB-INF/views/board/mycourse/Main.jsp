@@ -53,19 +53,8 @@
                 }
             }
             
-            
-            
-            
         });
-        function goToDetail(bIdx){
-        	console.log("done?");
-        	if(${!sessionScope.isAdmin} ||${sessionScope.memberId eq null}){
-        		alert("로그인하세요");
-        		location.href="Login.do";
-        	} else{
-        		location.href="MyCourseBoardDetail.do?bIdx="+bIdx;
-        	}
-        }
+        
     </script>
 </head>
 
@@ -97,7 +86,7 @@
         									${board.likeNum}
         								</h4>
         								<h3>
-        									<a onclick="goToDetail(${board.bIdx})" href="#">${board.title}</a>
+        									<a onclick="checkReadBoad(${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>

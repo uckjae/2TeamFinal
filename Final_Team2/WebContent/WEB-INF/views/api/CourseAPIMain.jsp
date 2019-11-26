@@ -41,26 +41,29 @@
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
 				 console.log("each문 " + index);
-				 if(index == 0 || index == 3) {
-					/* $("#apiContent").append("<tr>"); 
-					$("#apiContent").append( "<td><img src ='"+element.firstimage + "' alt='No image' class='col-lg-4'/></td>");
-					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>");
-					$("#apiContent").append("</tr>");  */
-					
-					$("#apiContent").append("<tr>"
-												+"<td><img src ='"+element.firstimage + "' alt='No image' class='col-lg-4'/></td>"+
-												+"<td><h3>"+index+ element.title +" </h3></td>"
-											+"</tr>"); 
-					
-				 }else {
-					
-				    /* $("#apiContent").append( "<td><img src ='"+ element.firstimage + "' alt='No image'/></td>");
-					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>"); */
-					
-					$("#apiContent").append( "<td>"+
-												"<img src ='"+ element.firstimage + "' alt='No image'/>"+
-												"</td><td><h3>"+index+ element.title +" </h3></td>");
-					
+				 
+				 if(index < 3 ) {
+					console.log("컨텐트 아이디:" + element.contentid);
+					 
+					 $("#apiFirst").append(
+						     "<div class='col-md-4'>" 
+						    + "<div class='project mb-4'>"
+ 							+ "<div class='image'>"
+ 							+ "<img src ='"+ element.firstimage + "' alt='No image' style='width:100%;' class='img-fluid'/>"
+ 							+ "</div></div>"
+ 							+ "<div class='mb-3'><h3>"+ element.title + "</h3>" 
+ 							+ "<input type='hidden' name='contentid' value='"+element.contentid+"'></div></div></div>");	
+					 
+				 } else {
+
+					 
+					 $("#apiSecond").append(
+							     "<div class='col-md-4'>" 
+							    + "<div class='project'>"
+	 							+ "<div class='image'>"
+	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'  class='img-fluid'/>"
+	 							+ "</div></div>"
+	 							+ "<div class='mb-3'><h3><h3>"+ element.title + "</h3></div></div></div>");					
 				 }			
 			 });
 			
@@ -75,7 +78,8 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 	<div class="content">
-		<div class="row mb-3">
+	
+		<div class="row mb-4 mt-10">
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row">
@@ -122,7 +126,8 @@
 				</form>
 			</div>		
 		</div>
-				
+		
+		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
 		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
@@ -130,11 +135,30 @@
 		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
 		</div>
-	<div class="content">
-		<table id="apiContent">
-
-		</table>
+	<div class="container mt-5">
+		<div class="row" id="apiFirst">
+			
+		</div>
+		<div class="row"  id="apiSecond">
+<c:set  value=/>
+		</div>
+		             <div class="row mt-5 mb-4">
+                        <div class="col text-center">
+                            <div class="block-27">
+                                <ul>
+                                    <li><a href="#">&lt;</a></li>
+                                    <li class="active"><span>1</span></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 	</div>
- 
+
+
 </body>
 </html>

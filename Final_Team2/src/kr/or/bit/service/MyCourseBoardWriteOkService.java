@@ -25,10 +25,12 @@ public class MyCourseBoardWriteOkService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
+		System.out.println("in ok");
+		
 		String msg = "";
 		String url = "";
 		String cmd = request.getParameter("cmd").trim();
-		
+		System.out.println("cmd" + cmd);
 		ServletContext application = request.getServletContext();
   	  	String uploadpath = application.getRealPath("upload");
   	  	int size = 1024*1024*10;
@@ -132,6 +134,7 @@ public class MyCourseBoardWriteOkService implements Action{
 			}
 		}
 		
+		System.out.println(bIdx);
 		if (bIdx > 0)
 			url = "MyCourseBoardDetail.do?bIdx=" + bIdx;
 		else

@@ -53,6 +53,11 @@
                 }
             }
         });
+        
+        function showDetail(bIdx){
+        	let result = (${!sessionScope.isAdmin} || ${sessionScope.memberId eq null});
+        	checkReadBoad(result, bIdx, "FreeBoardDetail.do");
+        }
     </script>
 </head>
 
@@ -80,7 +85,7 @@
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
                         		<td>${board.bIdx}</td>
-                        		<td class="sorting_1"><a href="FreeBoardDetail.do?bIdx=${board.bIdx}">
+                        		<td class="sorting_1"><a onclick="showDetail(${board.bIdx})"  href="#">
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
                         				<c:choose>
                         					<c:when test="${depth == 1}">Re : </c:when>

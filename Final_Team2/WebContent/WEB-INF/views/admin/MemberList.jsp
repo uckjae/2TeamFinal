@@ -86,7 +86,11 @@
                     <c:forEach var="member" items="${members}"  varStatus="status" >
                     	<tr>
                             <td align="center">${status.count}</td>
-                            <td align="center">${member.id}</td>
+                            <td align="center">
+                            	<a href="MemberDetail.do?id=${member.id}">
+									 ${member.id}
+								</a>
+                            </td>
                             <td align="center">${member.name}</td>
                             <td align="center">${member.hireDate}</td>
                             <td class="iconColumn">
