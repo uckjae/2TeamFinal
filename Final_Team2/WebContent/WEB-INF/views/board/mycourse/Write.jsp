@@ -41,14 +41,26 @@
 	<title>나만의 코스 작성</title>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
+	<c:set var="board" value="${requestScope.mCBoard}"/>
+	<c:choose>
+		<c:when test="${board.bIdx > 0}">
+			<c:set var="isEdit" value="true"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="isEdit" value="false"/>
+		</c:otherwise>
+	</c:choose>
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
     
-	<form id="inputForm" name="inputForm" action="MyCourseBoardWriteOk.do" method="post" enctype="multipart/form-data">
+	<form id="inputForm" name="inputForm" action="MyCourseBoardWriteOk.do?cmd=
+            	<c:choose>
+                	 <c:when test="${isEdit}">edit</c:when>
+                	<c:otherwise>write </c:otherwise>
+                </c:choose> " method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
-	<c:set var="board" value="${requestScope.mCBoard}"/>
+	
 	<c:choose>
 		<c:when test="${board.bIdx > 0}">
 			<div id="conference-timeline">
