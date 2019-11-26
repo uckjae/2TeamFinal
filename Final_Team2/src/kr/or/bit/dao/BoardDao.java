@@ -1298,7 +1298,24 @@ public class BoardDao {
 	}
 
 	// 나만의 코스 게시판 게시글 수정하기
-	public int courseEdit() {
+	public int courseEdit(Board board,MCBoard mCBoard,List<Photo> photos) {
+		int resultRow = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String boardSql = "UPDATE BOARD SET CONTENT = ?, WDATE = ?, RNUM = ?, WHERE BIDX = ? AND ID = ?";
+		String deletePhotoSql = "DELETE FROM PHOTO WHERE BIDX = ?";
+		String photoSql = "INSERT INTO PHOTO (PHOTOID,BIDX,PHOTONAME) VALUES (PHOTOID_SEQ.NEXTVAL, ? , ?";
+		
+		try{
+			conn = DBHelper.getConnection();
+			
+			
+		}catch(Exception e) {
+			
+		}finally {
+			
+		}
+		
 		return 0;
 	}
 	// 나만의 코스 게시판 끝
