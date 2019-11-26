@@ -56,19 +56,24 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 
- <div class="container">
-  <div class="content-center">
-			<h2 class="mb-3">검색하기</h2>
+ <div class="content">
+			검색하기
 			<form action="#" >
-				<input type="text" class="form-control" placeholder="검색하세요">
-				<input type="submit" value="Search" class="form-control btn btn-primary">			
+			<div class="form-group">
+		        	<label for="#">검색</label>
+			<div class="form-field">
+				<div class="icon"><span class="ion-ios-search"></span></div>
+				<input type="text" class="form-control" placeholder="검색" name="search">
+			</div>
+			</div>
+				<input type="submit" value="Search" class="btn btn-primary">			
 			</form>
 
 	<!--  
 	<div class="content">
     
     </div>-->
-</div>
+
    </div> 
 </body>
 </html>
