@@ -11,11 +11,20 @@
     <!-- daum api -->
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" src="js/execDaumPostcode.js"></script>
+    <title>Main</title>
+    <style type="text/css">
+    	html, body{
+    	height: 100%;
+    	}
+    	input{
+    		width: 100px;
+    	}
+    </style>
     <script type="text/javascript">
     	$(function(){
-    		/* $('input').attr('readonly', 'readonly'); */
+    		$("input").attr("disabled","disabled");
+    		$("input:submit").removeAttr("disabled");
     	})
-    
     </script>
 </head>
 
@@ -29,21 +38,22 @@
     <div class="content-center">
         <div class="row justify-content-center pb-5">
             <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
-                <h2 class="text-center mb-3"> [ ${member.id } ] </h2>
+                <h2 class="text-center mb-3">[ ${member.id } ]</h2>
+                <form action="MemberList.do" class="search-property-1" method="post">
                     <div class="row">
                         <div class="col-lg-12  mb-3">
                             <div class="form-group">
                                 <label for="#">ID</label>
                                 <div class="form-field">
-                                    <input type="text" class="form-control" id="id" name="id" value="${member.id }" >
+                                    <input type="text" class="form-control" id="id" name="id" value="${member.id }" disabled>
                                 </div>
                             </div>
                         </div>
-                         <div class="col-lg-12  mb-3">
+                        <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">
-                                <label for="#">E-MAIL</label>
+                                <label for="#">EMAIL</label>
                                 <div class="form-field">
-                                    <input type="email" class="form-control" id="email" name="email" value="${member.email }">
+                                    <input type="email" class="form-control" id="email" name="email" value="${member.email }" disabled>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +116,17 @@
                                 </div>
                             </div>
                         </div>
-                        
+                         <div class="col-lg-12 align-items-end mb-3">
+                            <div class="form-group">
+                                <label for="#">DISABLE</label>
+                                <div class="form-field">
+                                    <input type="checkbox" class="form-control" id="disable" name="disable" 
+                                    	<c:if test="${member.disable }">checked</c:if>
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-12 align-self-end">
                             <div class="form-group">
                                 <div class="form-field">
@@ -115,6 +135,7 @@
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
         </div>
     </div>

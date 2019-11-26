@@ -11,13 +11,13 @@ public class Member {
 	private boolean gender;
 	private String address;
 	private String email;
-	private boolean isKakao;
+	private boolean isDisable;
 	private boolean isAdmin;
-	
+
 	public Member() { }
 
-	public Member(String id, String pwd, String name, String birth, Date hireDate, boolean gender, String address, String email,
-			boolean isKakao, boolean isAdmin) {
+	public Member(String id, String pwd, String name, String birth, Date hireDate, boolean gender, String address,
+			String email, boolean isDisable, boolean isAdmin) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -27,7 +27,7 @@ public class Member {
 		this.gender = gender;
 		this.address = address;
 		this.email = email;
-		this.isKakao = isKakao;
+		this.isDisable = isDisable;
 		this.isAdmin = isAdmin;
 	}
 
@@ -95,12 +95,12 @@ public class Member {
 		this.email = email;
 	}
 
-	public boolean isKakao() {
-		return isKakao;
+	public boolean isDisable() {
+		return isDisable;
 	}
 
-	public void setKakao(boolean isKakao) {
-		this.isKakao = isKakao;
+	public void setDisable(boolean isDisable) {
+		this.isDisable = isDisable;
 	}
 
 	public boolean isAdmin() {
@@ -114,7 +114,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", pwd=" + pwd + ", name=" + name + ", birth=" + birth + ", hireDate=" + hireDate
-				+ ", gender=" + gender + ", address=" + address + ", email=" + email + ", isKakao=" + isKakao
+				+ ", gender=" + gender + ", address=" + address + ", email=" + email + ", isDisable=" + isDisable
 				+ ", isAdmin=" + isAdmin + "]";
 	}
 }

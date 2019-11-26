@@ -43,34 +43,26 @@
 				 console.log("each문 " + index);
 				 
 				 if(index < 3 ) {
-					 $("#firstContent").append("<div class='project'>");
-					 $("#firstContent").append("<div class='image'>");
-					 $("#firstContent").append("<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>");
-					 $("#firstContent").append("</div></div>");
-					 $("#firstContent").append("<div>"+ element.title + "</div></div>");
-					 //<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
+
+					
+					 $("#apiFirst").append(
+						     "<div class='col-md-4'>" 
+						    + "<div class='project mb-4'>"
+ 							+ "<div class='image'>"
+ 							+ "<img src ='"+element.firstimage + "' alt='No image' style='max-width:100%; max-height:100%; '/>"
+ 							+ "</div></div>"
+ 							+ "<div class='mb-3'>"+ element.title + "</div></div></div>");	
 					 
-					//$("#apiFirst #firstContent").append( "<div><img src ='"+element.firstimage + "' alt='No image' /></div>");
-					//$("#apiFirst #firstContent").append( "<div><h3>"+index+ element.title +" </h3></div>");
 				 } else {
-					 $("#secondContent").append("<div class='project'>");
-					 $("#secondContent").append("<div class='image'>");
-					 $("#secondContent").append("<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>");
-					 $("#secondContent").append("</div></div>");
-					 $("#secondContent").append("<div>"+ element.title + "</div></div>");
+
 					 
-					 
-					 //$("#apiSecond #secondContent .img").append( "<img src ='"+element.firstimage + "' alt='No image'/>");
-					 //$("#apiSecond #secondContent .text").append( "<h3>"+index+ element.title +" </h3>");
-					 
-					 
-				    /* $("#apiContent").append( "<td><img src ='"+ element.firstimage + "' alt='No image'/></td>");
-					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>"); */
-					
-					/* $("#apiContent").append( "<td>"+
-												"<img src ='"+ element.firstimage + "' alt='No image'/>"+
-												"</td><td><h3>"+index+ element.title +" </h3></td>"); */
-					
+					 $("#apiSecond").append(
+							     "<div class='col-md-4'>" 
+							    + "<div class='project'>"
+	 							+ "<div class='image'>"
+	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>"
+	 							+ "</div></div>"
+	 							+ "<div>"+ element.title + "</div></div></div>");					
 				 }			
 			 });
 			
@@ -85,7 +77,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 	<div class="content">
-		<div class="row mb-3">
+		<div class="row mb-4">
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row">
@@ -132,7 +124,7 @@
 				</form>
 			</div>		
 		</div>
-				
+		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
 		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
@@ -142,33 +134,23 @@
 		</div>
 	<div class="content">
 		<div class="row" id="apiFirst">
-			<div class="col-md-3" id="firstContent">
-			 <!--  첫번째 사진 
-				<div class="project">
-					<div class="image">
-						<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
-					</div>				
-				</div>
-				<div>경복궁</div>	
-
-			</div>-->
-			 <!--  두번째 사진 
-			<div class="col-md-3">
-			<div class="project">
-					<div class="image">
-						<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
-					</div>
-				</div>
-				<div>경복궁2</div>
-			</div>	-->		
+		
 		</div>
 		<div class="row" id="apiSecond">
-			<div class="col-md-4" id="secondContent">
-				
-			</div>
+		
 		</div>
-</div>
+		<div class="pagination-sm mt-3 mb-3" style="text-align:center">
+		  <a href="#" class="btn btn-primary">&laquo;</a>
+			<a href="#" class="btn btn-primary">1</a>
+			<a href="#" class="btn btn-primary">2</a>
+			<a href="#" class="btn btn-primary">3</a>
+			<a href="#" class="btn btn-primary">4</a>
+			<a href="#" class="btn btn-primary">5</a>
+		<a href="#" class="btn btn-primary">&raquo;</a>
+		</div>
+
 	</div>
+
 
 </body>
 </html>
