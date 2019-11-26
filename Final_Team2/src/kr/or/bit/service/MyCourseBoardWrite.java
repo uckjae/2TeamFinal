@@ -16,10 +16,10 @@ public class MyCourseBoardWrite implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-
+		System.out.println("mc write");
 		MCBoard mCBoard = null;
 		String cmd = request.getParameter("cmd");
-
+		System.out.println(cmd);
 		if (cmd.equals("write")) {
 			mCBoard = new MCBoard();
 			mCBoard.setbIdx(-1);
