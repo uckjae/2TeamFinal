@@ -16,56 +16,58 @@
 <c:set var="photolist" value="${requestScope.photolist }"/>
 <c:set var="boardlist" value="${requestScope.boardlist }"/>
 			    <section class="ftco-section">
-			    <div class="row">
-			    
-			    <c:forEach var="photo" items="${photolist }">
-			    
-			   <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
+			    <div class="row">   
+			   
+			    <c:forEach var="photo" items="${photolist }" >
+			    <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
 		    				<div class="project">
 		    					<div class="img">
-				    				<img src= "upload/${photo.photoName }" class="img-fluid" alt="없음">
+				    				<a href="hotel-single.html"><img src="upload/${photo.photoName }" class="img-fluid" alt="Colorlib Template"></a>
 			    				</div>
 			    				</div>
 			    				</div>
-			    
-			    				</c:forEach>
-			    				<div class="col-md-5 col-lg-4 ftco-animate fadeInUp ftco-animated">
-			    					 <div class="row">
-			    				<c:forEach var="board" items="${boardlist }">	
-			    				
+			
+			    				</c:forEach> 	
+			    				<c:forEach var="board" items="${boardlist }" >	
 			    				<div class="text">
 			    					<h4 class="price">${board.id }</h4>
 			    					<span>${board.bIdx}</span>
-			    					<h3><a href="PhotoBoardDetail.do?bidx=${board.bIdx }">${board.title }</a></h3>
+			    					<h3><a href="hotel-single.html">${board.title }</a></h3>
 			    					<div class="star d-flex clearfix">
 			    						<div class="mr-auto float-left">
 				    						<span><fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></span>
-				    				
+				    						
 			    						</div>
 			    						<div class="float-right">
 			    							<span class="rate"><a href="#">${board.rNum }</a></span>
 			    						</div>
 			    					</div>
 			    				</div>
-			    			 </c:forEach>	
+			    					 </c:forEach>
+		    					</div>	
+		    			
+		    					
+			    			
+			    			
+			    		
 			    				<a href="images/hotel-5.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
 			    					<span class="icon-expand"></span>
 			    				</a>
-		    				</div>
 		    			
-		    			</div>	
-		    				</div>
+		    			
 		    				
-		    				
-		    			
-		    	  
-		    			
-		    			
-    </section>
+	<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
     <div class="container">
     <a href="PhotoWrite.do?cmd=write">
     	<input type="button" value="글작성" id="photo" name="photo">	
     </a>
     </div>
+    </c:if>	
+		    			
+		    	  
+		    			
+		    			
+    </section>
+    
 </body>
 </html>
