@@ -30,6 +30,10 @@
 	})
 
 	function checkId(){
+		if( $("#id").val() == ""){
+			return;
+		}
+
 		$.ajax({
 			url : "CheckMemberId",
 			data : {id : $("#id").val()},
