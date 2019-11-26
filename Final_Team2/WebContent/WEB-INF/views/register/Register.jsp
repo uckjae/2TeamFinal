@@ -19,22 +19,64 @@
     	}
     </style>
     <script type="text/javascript">
+    let emailCode = "";
+    let checkEmail = false;
 	$(function () {
 		$("#openPostCode").click(execDaumPostcode);
 		$("#postCode").click(execDaumPostcode);
+		$("#sendEmail").click(sendMail);
+		$("#checkEmailCode").click(checkEmailCode);
+		$("#id").blur(checkId);
 	})
 
-	function test(){
+	function checkId(){
 		$.ajax({
 			url : "CheckMemberId",
 			data : {id : $("#id").val()},
 			success : function(data){
-				console.log(data);
+				if(data == "true"){
+					$("#checkId").text("중복된 아이디입니다.")
+					$("#checkId").attr("style","color : red");
+				}else{
+					$("#checkId").text("사용 가능한 아이디입니다.")
+					$("#checkId").attr("style","color : green");
+				}
+				
+				$("#checkId").removeAttr("hidden");
 			},
 			error : function(){
 				
 			}
 		});
+	}
+	
+	function sendMail(){
+		$.ajax({
+			url : "SendMail",
+			data : {email : $("#email").val()},
+			success : function(data){
+				console.log(data);
+				emailCode = data;
+				$("#emailCodeControl").removeAttr("hidden","");
+			},
+			error : function(){
+				
+			}
+		});
+	}
+	
+	function checkEmailCode(){
+		if(emailCode == $("#emailCode").val()){
+			alert("이메일 인증 완료");
+			$("#emailCodeControl").attr("hidden","hidden");
+			$("#email").attr("readonly","readonly");
+			$("#sendEmail").text("인증 완료");
+			$("#sendEmail").attr("disabled","disabled");
+			checkEmail = true;
+		}else{
+			alert("이메일 인증 실패");
+			checkEmail = false;
+		}
 	}
 	
 	function maxLengthCheck(object) {
@@ -75,7 +117,24 @@
                                 <label for="#">ID</label>
                                 <div class="form-field">
                                     <input type="text" class="form-control" id="id" name="id" placeholder="enter your id" autofocus="autofocus">
-                                	<div class="invalid-feedback">중복어쩌구</div>
+                                	<div  id="checkId" hidden>중복어쩌구</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 align-items-end mb-3">
+                            <div class="form-group">
+                                <label for="#">EMAIL</label>
+                                <div class="form-field">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
+                                	<div class="input-group-append">
+							          <button class="btn btn-primary" type="button" id="sendEmail"> 이메일 인증 </button>
+							        </div>
+                                </div>
+                                <div class="form-field" id="emailCodeControl" hidden="hidden">
+                                    <input type="email" class="form-control" id="emailCode" name="emailCode" placeholder="check email code">
+                                	<div class="input-group-append">
+							          <button class="btn btn-primary" type="button" id="checkEmailCode"> 인증 확인 </button>
+							        </div>
                                 </div>
                             </div>
                         </div>
@@ -125,14 +184,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 align-items-end mb-3">
-                            <div class="form-group">
-                                <label for="#">EMAIL</label>
-                                <div class="form-field">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-lg-12 align-self-end">
                             <div class="form-group">
                                 <div class="form-field">
