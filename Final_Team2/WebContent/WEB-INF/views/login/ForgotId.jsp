@@ -1,12 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+ <c:import url="/common/HeadTag.jsp" />
+<script type="text/javascript">
+
+	$(function() {
+		$("#sendId").click(function() {
+			$.ajax({
+				url : "SendMail",
+				data : { cmd : "forgotId", email : $("#email").val()},
+				success : function(data){
+					if(data == 'true'){
+						alert('메일이 발송되었습니다.');
+					}else{
+						alert(data);
+					}
+				},
+				error:function(){
+					alert("메일발송에 실패했습니다.");
+				}
+			})
+		})
+
+		$("#sendPwd").click(function() { 
+			console.log($("#mid").val());
+			$.ajax({
+				url : "SendMail",
+				data : { cmd : "forgotPwd", id : $("#mid").val()},
+				success : function(data){
+					console.log(data);
+					if(data == 'true'){
+						alert('메일이 발송되었습니다.');
+					}else{
+						alert(data);
+					}
+				},
+				error:function(){
+					alert("메일발송에 실패했습니다.");
+				}
+			})
+		})
+	});
+</script>
 </head>
 <body>
-	아이디 찾는 화면
+	<div class="modal fade" id="forgotModal" tabindex="-1" role="dialog"> 
+		<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" ></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      <ul class="nav nav-tabs">
+        <li ><a data-toggle="tab" href="#idTab">Forgot ID</a></li>
+        <li><a data-toggle="tab" href="#pwdTab">Forgot PASSWORD</a></li>
+      </ul>
+      <div class="tab-content">
+      
+      <!-- Id Tab -->
+        <div id="idTab" class="tab-pane fade in active">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="email" class="control-label col-xs-2">E-mail</label>
+                <div class="col-xs-10">
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                  <p class="text-danger" id="reg-error"></p>
+                </div>
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <input type="button" id="sendId" class="btn btn-primary" value="SEND">
+          </div> 
+        </div>
+        
+        <!-- Password Tab -->
+        <div id="pwdTab" class="tab-pane fade">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="mid" class="control-label col-xs-2">ID</label>
+                <div class="col-xs-10">
+                  <input type="text" class="form-control" id="mid" name="mid" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                  <p class="text-danger" id="reg-error"></p>
+                </div>
+              </div>
+            
+          </div>
+          <div class="modal-footer">
+            <input type="button" id="sendPwd" class="btn btn-primary" value="SEND">
+          </div>           
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

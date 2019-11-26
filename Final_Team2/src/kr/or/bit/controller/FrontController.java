@@ -97,6 +97,11 @@ public class FrontController extends HttpServlet {
 			action = new RegisterOkService();
 			forward = action.execute(request, response);
 		}
+		// 아이디/비밀번호 찾기
+		else if (url_Command.equals("/Forgot.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/login/ForgotId.jsp");
+		}
 		
 		/* BOARD */	
 		// Free Board

@@ -51,12 +51,19 @@
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
                 </form>
+                <div class=" text-center mt-3">
+                	<a href="Register.do">Register An Account</a>
+                </div>
+                <div class=" text-center">
+                	<a href="#" data-toggle="modal" data-target="#forgotModal">Forgot ID / PASSWORD</a>
+                </div>
             </div>
         </div>
     </section>
-
+	<jsp:include page="ForgotId.jsp"></jsp:include>
 </body>
 
 </html>
