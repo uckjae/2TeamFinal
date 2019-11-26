@@ -43,34 +43,34 @@
 				 console.log("each문 " + index);
 				 
 				 if(index < 3 ) {
-					 $("#firstContent").append("<div class='project'>");
+					/*  $("#firstContent").append("<div class='project'>");
 					 $("#firstContent").append("<div class='image'>");
 					 $("#firstContent").append("<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>");
 					 $("#firstContent").append("</div></div>");
-					 $("#firstContent").append("<div>"+ element.title + "</div></div>");
-					 //<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
+					 $("#firstContent").append("<div>"+ element.title + "</div></div>"); */
+					
+					 $("#apiFirst").append(
+						     "<div class='col-md-3'>" 
+						    + "<div class='project'>"
+ 							+ "<div class='image'>"
+ 							+ "<img src ='"+element.firstimage + "' alt='No image' style='max-width:100%; max-height:auto; '/>"
+ 							+ "</div></div>"
+ 							+ "<div>"+ element.title + "</div></div></div>");	
 					 
-					//$("#apiFirst #firstContent").append( "<div><img src ='"+element.firstimage + "' alt='No image' /></div>");
-					//$("#apiFirst #firstContent").append( "<div><h3>"+index+ element.title +" </h3></div>");
 				 } else {
-					 $("#secondContent").append("<div class='project'>");
+					/*  $("#secondContent").append("<div class='project'>");
 					 $("#secondContent").append("<div class='image'>");
 					 $("#secondContent").append("<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>");
 					 $("#secondContent").append("</div></div>");
-					 $("#secondContent").append("<div>"+ element.title + "</div></div>");
+					 $("#secondContent").append("<div>"+ element.title + "</div></div>"); */
 					 
-					 
-					 //$("#apiSecond #secondContent .img").append( "<img src ='"+element.firstimage + "' alt='No image'/>");
-					 //$("#apiSecond #secondContent .text").append( "<h3>"+index+ element.title +" </h3>");
-					 
-					 
-				    /* $("#apiContent").append( "<td><img src ='"+ element.firstimage + "' alt='No image'/></td>");
-					$("#apiContent").append( "<td><h3>"+index+ element.title +" </h3></td>"); */
-					
-					/* $("#apiContent").append( "<td>"+
-												"<img src ='"+ element.firstimage + "' alt='No image'/>"+
-												"</td><td><h3>"+index+ element.title +" </h3></td>"); */
-					
+					 $("#apiSecond").append(
+							     "<div class='col-md-3'>" 
+							    + "<div class='project'>"
+	 							+ "<div class='image'>"
+	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'/>"
+	 							+ "</div></div>"
+	 							+ "<div>"+ element.title + "</div></div></div>");					
 				 }			
 			 });
 			
@@ -142,8 +142,8 @@
 		</div>
 	<div class="content">
 		<div class="row" id="apiFirst">
-			<div class="col-md-3" id="firstContent">
-			 <!--  첫번째 사진 
+		<!--  <div class="col-md-3" >-->	
+				<!--  첫번째 사진 
 				<div class="project">
 					<div class="image">
 						<img src="http://tong.visitkorea.or.kr/cms/resource/31/1568431_image2_1.jpg" alt="No image" style="width:100%">
@@ -152,7 +152,7 @@
 				<div>경복궁</div>	
 
 			</div>-->
-			 <!--  두번째 사진 
+				<!--  두번째 사진 
 			<div class="col-md-3">
 			<div class="project">
 					<div class="image">
@@ -160,15 +160,16 @@
 					</div>
 				</div>
 				<div>경복궁2</div>
-			</div>	-->		
+			</div>	-->
+			<!-- </div> -->
 		</div>
 		<div class="row" id="apiSecond">
-			<div class="col-md-4" id="secondContent">
+		<!-- 	<div class="col-md-3" id="secondContent">
 				
-			</div>
+			</div> -->
 		</div>
 </div>
-	</div>
+
 
 </body>
 </html>
