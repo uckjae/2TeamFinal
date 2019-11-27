@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
-
+<link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -121,10 +121,19 @@ $(function(){
 	/*공통정보조회*/
 	$.getJSON(api2,function(data){
 		var myData2 = data.response.body.items.item;
+		console.log("공통정보");
 		console.log(myData2);	
 		
-		$.each(myDate2,function(key,value){
-			$(".content").append("<strong>"+상세정보+"</strong>")
+		$.each(myData2,function(key,value){
+			console.log(key);
+			if(key=="overview"){				
+			$(".content").append("<br>");
+			$(".content").append("<ul>");
+			$(".content").append("<li>"상세정보);
+			$(".content").append("<div>" + value + "</div>");
+			$(".content").append("</li>");
+			$(".content").append("</ul>");
+			}
 		});
 	});
 	/*상세정보조회*/
@@ -146,19 +155,16 @@ $(function(){
 
 </script>
 
-<style type="text/css">
-        html,
-        body {
-            height: 100%;
-        }
 
-</style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 <!-- Top -->
-    <c:import url="/common/Top.jsp" />
+    <c:import url="/common/Top.jsp"/>
+    
     <div class="content">
-       <strong>상세정보</strong>
+       <hr>
+       <strong class="strong">상세정보</strong>
+       
 
 </div>
 </body>
