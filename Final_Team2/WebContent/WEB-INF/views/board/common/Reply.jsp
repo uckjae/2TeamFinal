@@ -27,6 +27,7 @@
 			       }
 			    });
 		});
+		
 	});
 	
 	function delReply(rIdx){
@@ -56,7 +57,7 @@
 						+ "	<h3 class='bold'>"+ data.id +"</h3>"
 						+ " 	<div class='meta'>"+data.rWDate+"</div>"
 						+ " 	<p>"+data.rContent+"</p>"
-						+ "	<p><a href='#' onclick='delReply(\""+data.rIdx+"\")' class='del'>Delete</a></p>"
+						+ "	<input type='button' onclick='delReply(\""+data.rIdx+"\")' class='btn del'  value='Delete'>"
 						+ " </li>";		
 		
 		$(".comment-list").append(control);
@@ -96,8 +97,7 @@
 						</div>
 						<p>${ reply.rContent }</p>
 						<c:if test="${reply.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
-							<p><a href="#" onclick="delReply('${reply.rIdx}')" class='del'>Delete</a></p>
-							
+							<input type="button" onclick="delReply('${reply.rIdx}')" class='btn del'  value="Delete">
 						</c:if>
 					</div>
 				</li>
