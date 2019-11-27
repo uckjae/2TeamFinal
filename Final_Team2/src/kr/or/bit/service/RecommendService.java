@@ -15,7 +15,7 @@ public class RecommendService implements Action {
 		String cmd = request.getParameter("cmd");
 
 		if (cmd.equals("main")) {
-
+			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		} else if (cmd.equals("tagSearch")) {
 			forward.setPath("/WEB-INF/views/api/RecommandSearch.jsp");
 		} else if (cmd.equals("detail")) {
