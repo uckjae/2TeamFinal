@@ -13,6 +13,11 @@
         body {
             height: 100%;
         }
+        
+        .tagcloud .tagclouda {
+         font-size: 14px;
+          margin-right: 1rem;
+        }
     </style>
 <script type="text/javascript">
 	$(function() {
@@ -187,14 +192,14 @@
 			</div>		
 		</div>
 			
-		<div class="col-md-9 offset-md-3 tagcloud">
-		<a href="#" class = "btn btn-primary mr-3 tag-cloud-link" style=" font-size: 15px">#전체</a>	
-		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#도보코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
+		<div class="col-md-10 offset-md-2 tagcloud">
+		<a href="#" class = " tagclouda btn btn-primary">#전체</a>	
+		<a href="#" class = "btn btn-primary tagclouda">#가족 코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#나홀로 코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#힐링코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#도보코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#캠핑코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#맛코스</a>
 		</div>
 		</div>
 	<div class="container mt-5">
