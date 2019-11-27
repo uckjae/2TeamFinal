@@ -36,7 +36,7 @@
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
 					<li class="nav-item">
-						<a href="Recommend.do?cmd=main" class="nav-link"> <span>추천 여행지</span></a>
+						<a href="Recommend.do" class="nav-link"> <span>추천 여행지</span></a>
 					</li>
 					
 					<li class="nav-item">
