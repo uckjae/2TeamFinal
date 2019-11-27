@@ -85,9 +85,10 @@
 					$.each(myData, function(index, element){
 						//for(let i = 0; i < 3; i++){
 							//<div class="col-md-4">1</div>
-							$('#test').append("<div class='col=md-4'>" // style='background-image: " + element.firstimage + "'
-												+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 30%;'>"
-											+ "</div>"
+							$('#test').append("<div class='col-md-4'>"
+									+"<div class='contain'>"
+												+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 100%;'>"
+											+ "<span id='text'>text</span></div></div>"
 							
 							);
 						//}
@@ -127,12 +128,30 @@
             height: 100%;
         }
     </style>
-<style type="text/css">
-		html,
-		body {
-			height: 100%;
-		}
-	</style>
+	<style type="text/css">
+html, body {
+	height: 100%;
+}
+
+.contain {
+	position: relative;
+	width: 100%;
+	max-width: 400px;
+}
+
+.contain #text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	padding: 12px 24px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	text-align: center;
+}
+</style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
