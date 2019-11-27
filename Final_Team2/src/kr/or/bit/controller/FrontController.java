@@ -53,6 +53,7 @@ import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
 import kr.or.bit.service.RecommendDetailService;
+
 import kr.or.bit.service.RegisterOkService;
 
 @WebServlet("*.do")
@@ -275,6 +276,10 @@ public class FrontController extends HttpServlet {
 		//여행리스트 리스트 추가하기 
 		//여행리스트 리스트 삭제하기
 		else if (url_Command.equals("/MTListDelete.do")) {			
+			action = new MTListContentDeleteService();
+			forward = action.execute(request,response);
+		}
+		else if (url_Command.equals("/ReplyDelete.do")) {			
 			action = new MTListContentDeleteService();
 			forward = action.execute(request,response);
 		}

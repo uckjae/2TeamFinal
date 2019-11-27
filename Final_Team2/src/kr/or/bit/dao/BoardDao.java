@@ -27,47 +27,48 @@ public class BoardDao {
 	// 총 게시글 수 구하기
 	public int freeBoardTotalBoardCount() {
 		int totalcount = 0;
-		
+
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
 
 		try {
-			connection = DBHelper.getConnection(); 
-			String sql="SELECT COUNT(*) CNT FROM FREEBOARD";
+			connection = DBHelper.getConnection();
+			String sql = "SELECT COUNT(*) CNT FROM FREEBOARD";
 			pstmt = connection.prepareStatement(sql);
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				totalcount = resultSet.getInt(1);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(resultSet);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
 		return totalcount;
 	}
+
 	// 자유 게시판 게시글 목록보기
 	public List<FreeBoard> freeBoardList() {
 		List<FreeBoard> freeBoardList = new ArrayList<FreeBoard>();
-		
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
-		
+
 		String sql = "SELECT BIDX, ID, TITLE, CONTENT, WDATE, RNUM, FIDX, REFER, DEPTH, STEP"
-					+ " FROM (SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX, F.REFER, F.DEPTH, F.STEP"
-					+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX ORDER BY REFER DESC, STEP ASC)";
-		
+				+ " FROM (SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX, F.REFER, F.DEPTH, F.STEP"
+				+ " FROM BOARD B JOIN FREEBOARD F ON B.BIDX = F.BIDX ORDER BY REFER DESC, STEP ASC)";
+
 		try {
 			pstmt = connection.prepareStatement(sql);
 			resultSet = pstmt.executeQuery();
-			
-			while(resultSet.next()) {
+
+			while (resultSet.next()) {
 				FreeBoard freeBoard = new FreeBoard();
-				
+
 				freeBoard.setbIdx(resultSet.getInt(1));
 				freeBoard.setId(resultSet.getString(2));
 				freeBoard.setTitle(resultSet.getString(3));
@@ -81,9 +82,9 @@ public class BoardDao {
 
 				freeBoardList.add(freeBoard);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(resultSet);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
@@ -97,15 +98,15 @@ public class BoardDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
-		
+
 		String sql = "SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, F.FIDX FROM FREEBOARD F JOIN BOARD B ON F.BIDX = B.BIDX WHERE B.BIDX=?";
-		
+
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
-			
+
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				freeBoard.setbIdx(resultSet.getInt(1));
 				freeBoard.setId(resultSet.getString(2));
 				freeBoard.setTitle(resultSet.getString(3));
@@ -115,9 +116,9 @@ public class BoardDao {
 				freeBoard.setfIdx(resultSet.getInt(7));
 				freeBoard.setReplies(getRepliesByBIdx(bIdx));
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(resultSet);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
@@ -127,29 +128,29 @@ public class BoardDao {
 
 	// 자유 게시판 글쓰기
 	public int freeContentWrite(String id, String title, String content) {
-		//System.out.println("content write");
+		// System.out.println("content write");
 		int resultRow = 0;
 		int refer = 0;
 		int bIdx = -1;
 		Connection connection = DBHelper.getConnection();
 		ResultSet resultSet = null;
 		PreparedStatement pstmt = null;
-		
+
 		String referNum = "SELECT NVL(MAX(FIDX),0) FROM FREEBOARD";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, 0, 0)";
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
-		
+
 		try {
-			//System.out.println("contentwrite try");
+			// System.out.println("contentwrite try");
 			pstmt = connection.prepareStatement(referNum);
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				refer = resultSet.getInt(1) + 1;
 			}
-			//System.out.println("refer");
+			// System.out.println("refer");
 			connection.setAutoCommit(false);
-			//System.out.println("autocommit false");
+			// System.out.println("autocommit false");
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
@@ -160,14 +161,14 @@ public class BoardDao {
 			resultRow = pstmt.executeUpdate();
 			pstmt = connection.prepareStatement(bIdxsql);
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				bIdx = resultSet.getInt(1);
 			}
 			connection.commit();
 		} catch (Exception e) {
 			try {
 				connection.rollback();
-			}catch (Exception e1) {
+			} catch (Exception e1) {
 				e1.getStackTrace();
 			}
 		} finally {
@@ -177,17 +178,17 @@ public class BoardDao {
 		}
 		return bIdx;
 	}
-	
+
 	// 자유 게시판 답글쓰기
 	public int FreeBoardReWrite(String id, String title, String content, int bIdx) {
 		System.out.println("rewrite init");
 		int resultRow = 0;
 		int refer = 0, depth = 0, step = 0;
-		
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
-		
+
 		String referDepthStep = "SELECT REFER, DEPTH, STEP FROM FREEBOARD WHERE BIDX=?";
 		String stepUp = "UPDATE FREEBOARD SET STEP = STEP+1 WHERE STEP > ? AND REFER=?";
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
@@ -199,12 +200,12 @@ public class BoardDao {
 			pstmt = connection.prepareStatement(referDepthStep);
 			pstmt.setInt(1, bIdx);
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				refer = resultSet.getInt(1);
 				depth = resultSet.getInt(2);
 				step = resultSet.getInt(3);
 			}
-			
+
 			connection.setAutoCommit(false);
 			System.out.println("set autocommit false");
 			pstmt = connection.prepareStatement(stepUp);
@@ -220,26 +221,26 @@ public class BoardDao {
 			System.out.println("insert board sql");
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
-			pstmt.setInt(2, depth+1);
-			pstmt.setInt(3, step+1);
+			pstmt.setInt(2, depth + 1);
+			pstmt.setInt(3, step + 1);
 			pstmt.executeUpdate();
 			System.out.println("insert freeboard sql");
 			pstmt = connection.prepareStatement(bIdxsql);
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				System.out.println("get bidx");
 				bIdx = resultSet.getInt(1);
 			}
 			System.out.println("commit ok");
 			connection.commit();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			try {
 				connection.rollback();
-			}catch (Exception e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		}finally {
+		} finally {
 			DBHelper.close(resultSet);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
@@ -247,7 +248,7 @@ public class BoardDao {
 		System.out.println("rewrite return");
 		return bIdx;
 	}
-	
+
 	// 자유 게시판 게시글 조회수 증가
 	/*
 	 * public void FreeBoardAddReadNum(int bIdx) { Connection connection =
@@ -262,60 +263,55 @@ public class BoardDao {
 	public boolean freeBoardDelete(int bIdx) {
 		int resultRow = 0;
 		int depth = 0, refer = 0, reBidx = 0;
-		
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
-		
+
 		String depthRefer = "SELECT DEPTH, REFER FROM FREEBOARD WHERE BIDX=?";
 		String ohterboard = "SELECT BIDX FROM FREEBOARD WHERE REFER=?";
 		String fsql = "DELETE FROM FREEBOARD WHERE BIDX=?";
-		String bsql = "DELETE FROM BOARD WHERE BIDX=?";
-		
+
 		try {
 			pstmt = connection.prepareStatement(depthRefer);
 			pstmt.setInt(1, bIdx);
 			resultSet = pstmt.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				depth = resultSet.getInt(1);
 				refer = resultSet.getInt(2);
 			}
-			
+
 			connection.setAutoCommit(false);
-			
-			if(depth == 0) {
+
+			if (depth == 0) {
 				pstmt = connection.prepareStatement(ohterboard);
 				pstmt.setInt(1, refer);
 				resultSet = pstmt.executeQuery();
-				while(resultSet.next()) {
+				while (resultSet.next()) {
 					reBidx = resultSet.getInt(1);
 					pstmt = connection.prepareStatement(fsql);
 					pstmt.setInt(1, reBidx);
 					pstmt.executeUpdate();
-					
-					pstmt = connection.prepareStatement(bsql);
-					pstmt.setInt(1, reBidx);
-					pstmt.executeUpdate();
+
+					deleteBoardBybIdx(connection, pstmt, reBidx);
 				}
 			}
-			
+
 			pstmt = connection.prepareStatement(fsql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
-			
-			pstmt = connection.prepareStatement(bsql);
-			pstmt.setInt(1, bIdx);
-			resultRow = pstmt.executeUpdate();
-			
+
+			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
+
 			connection.commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				connection.rollback();
-			}catch (Exception e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
@@ -325,12 +321,12 @@ public class BoardDao {
 	// 자유 게시판 게시글 수정하기
 	public boolean freeBoardEdit(String title, String content, int bIdx) {
 		int resultRow = 0;
-		
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
+
 		String bsql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
-		
+
 		try {
 			pstmt = connection.prepareStatement(bsql);
 			pstmt.setString(1, title);
@@ -338,13 +334,13 @@ public class BoardDao {
 			pstmt.setInt(3, bIdx);
 			resultRow = pstmt.executeUpdate();
 		} catch (Exception e) {
-			try { 
-				connection.rollback(); 
-			}catch (SQLException e1) { 
-				e1.printStackTrace(); 
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
@@ -354,204 +350,195 @@ public class BoardDao {
 
 	// 공지사항
 	// 공지 게시판 게시글 목록보기
-		public List<NoticeBoard> noticeboardList() {
-			List<NoticeBoard> noticeboardList = new ArrayList<>();;
-			
-			Connection connection = DBHelper.getConnection();
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
-						  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
-						  +" WHERE B.BCODE = 1";
-			try {
-				pstmt = connection.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				while (rs.next()) {
-					NoticeBoard noticeBoard = new NoticeBoard();
-					noticeBoard.setbIdx(rs.getInt(1));
-					noticeBoard.setId(rs.getString(2));
-					noticeBoard.setTitle(rs.getString(3));
-					noticeBoard.setContent(rs.getString(4));
-					noticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
-					noticeBoard.setrNum(rs.getInt(6));
-					noticeBoard.setnIdx(rs.getInt(7));
-					noticeBoard.setTop(rs.getBoolean(8));
-					System.out.println();
-					noticeboardList.add(noticeBoard);
-				}
-				
-			}catch (Exception e) {
-				try {
-					 connection.rollback();
-					} 
-				catch (SQLException e1) {
-					 e1.printStackTrace();
-					}
-				e.printStackTrace();
-			}finally {
-				DBHelper.close(rs);
-				DBHelper.close(pstmt);
-				DBHelper.close(connection);
+	public List<NoticeBoard> noticeboardList() {
+		List<NoticeBoard> noticeboardList = new ArrayList<>();
+		;
+
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
+				+ " FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX" + " WHERE B.BCODE = 1";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				NoticeBoard noticeBoard = new NoticeBoard();
+				noticeBoard.setbIdx(rs.getInt(1));
+				noticeBoard.setId(rs.getString(2));
+				noticeBoard.setTitle(rs.getString(3));
+				noticeBoard.setContent(rs.getString(4));
+				noticeBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
+				noticeBoard.setrNum(rs.getInt(6));
+				noticeBoard.setnIdx(rs.getInt(7));
+				noticeBoard.setTop(rs.getBoolean(8));
+				System.out.println();
+				noticeboardList.add(noticeBoard);
 			}
-			
-			return noticeboardList;
+
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
 		}
-	// 공지 게시판 게시글 상세보기
-	public NoticeBoard noticeDetail(int bIdx) {
-	  NoticeBoard noticeboard = new NoticeBoard();
-	  Connection connection = DBHelper.getConnection();
-	  PreparedStatement pstmt = null;
-	  ResultSet resultSet =null;
-	 
-	  String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
-			  +" FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX"
-			  +" WHERE B.BIDX = ?";
-	  System.out.println("bIdx ddd"+bIdx);
-	  try {
-		  pstmt =connection.prepareStatement(sql);
-		  pstmt.setInt(1, bIdx);
-		  
-		  resultSet =pstmt.executeQuery();
-		  if(resultSet.next()) {
-			  noticeboard.setbIdx(resultSet.getInt(1));
-			  noticeboard.setId(resultSet.getString(2));
-			  noticeboard.setTitle(resultSet.getString(3));
-			  noticeboard.setContent(resultSet.getString(4));
-			  noticeboard.setwDate(resultSet.getDate(5));
-			  noticeboard.setrNum(resultSet.getInt(6));
-			  noticeboard.setnIdx(resultSet.getInt(7));
-			  noticeboard.setTop(resultSet.getBoolean(8));
-			  
-		  }
-		  
-	  }catch(Exception e){
-		  e.printStackTrace();
-	  }finally {
-		  DBHelper.close(resultSet);
-		  DBHelper.close(pstmt);
-		  DBHelper.close(connection);
-	  }
-	  return noticeboard;
+
+		return noticeboardList;
 	}
 
-	// 공지 게시판 글쓰기	
-			public int noticeWrite(String memberId, String title, String summernote, int isTop) {
-				ResultSet rs = null;
-				Connection connection = DBHelper.getConnection();
-				PreparedStatement pstmt = null;
-				int bIdx = -1;
-				
-				String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
-						+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
-				String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
-						+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
+	// 공지 게시판 게시글 상세보기
+	public NoticeBoard noticeDetail(int bIdx) {
+		NoticeBoard noticeboard = new NoticeBoard();
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet resultSet = null;
 
-				
-				
-				try {
-					connection.setAutoCommit(false);
+		String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
+				+ " FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX" + " WHERE B.BIDX = ?";
+		System.out.println("bIdx ddd" + bIdx);
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
 
-					pstmt = connection.prepareStatement(Sql1);
-					pstmt.setString(1, memberId);
-					pstmt.setString(2, title);
-					pstmt.setString(3, summernote);
-					pstmt.executeUpdate();
+			resultSet = pstmt.executeQuery();
+			if (resultSet.next()) {
+				noticeboard.setbIdx(resultSet.getInt(1));
+				noticeboard.setId(resultSet.getString(2));
+				noticeboard.setTitle(resultSet.getString(3));
+				noticeboard.setContent(resultSet.getString(4));
+				noticeboard.setwDate(resultSet.getDate(5));
+				noticeboard.setrNum(resultSet.getInt(6));
+				noticeboard.setnIdx(resultSet.getInt(7));
+				noticeboard.setTop(resultSet.getBoolean(8));
 
-					pstmt = connection.prepareStatement(Sql2);
-					pstmt.setInt(1, isTop);
-					pstmt.executeUpdate();
-					
-					String bIdxSql ="SELECT BIDX_SEQ.CURRVAL FROM DUAL";
-					pstmt = connection.prepareStatement(bIdxSql);
-					rs = pstmt.executeQuery();
-					if (rs.next()) {
-						bIdx = rs.getInt(1);
-					}
-					connection.commit();
-				} catch (Exception e) {
-					try {
-						connection.rollback();
-						} 
-					catch (SQLException e1) {
-						e1.printStackTrace();
-						}
-
-					e.printStackTrace();
-				}finally {
-					DBHelper.close(pstmt);
-					DBHelper.close(connection);
-				}
-
-				return bIdx;
 			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(resultSet);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return noticeboard;
+	}
+
+	// 공지 게시판 글쓰기
+	public int noticeWrite(String memberId, String title, String summernote, int isTop) {
+		ResultSet rs = null;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int bIdx = -1;
+
+		String Sql1 = "INSERT INTO BOARD (BIDX,ID,TITLE,CONTENT,WDATE,RNUM,BCODE)"
+				+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
+		String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
+				+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
+
+		try {
+			connection.setAutoCommit(false);
+
+			pstmt = connection.prepareStatement(Sql1);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, title);
+			pstmt.setString(3, summernote);
+			pstmt.executeUpdate();
+
+			pstmt = connection.prepareStatement(Sql2);
+			pstmt.setInt(1, isTop);
+			pstmt.executeUpdate();
+
+			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
+			pstmt = connection.prepareStatement(bIdxSql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				bIdx = rs.getInt(1);
+			}
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return bIdx;
+	}
 
 	// 공지 게시판 게시글 조회수 증가
 	public int getNoticeReadNum(int bIdx) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
+
 		String sql = "UPDATE BOARD SET RNUM = RNUM+1 WHERE BIDX=?";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
 		return bIdx;
 	}
-	
 
 	// 공지 게시판 게시글 삭제하기
 	public boolean noticeDelete(int bIdx) {
-		int resultRow = 0;	
+		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-			
+
 		String sql1 = "DELETE FROM NOTICEBOARD WHERE BIDX=?";
-		String sql2 = "DELETE FROM BOARD WHERE BIDX=?";
-			
+
+		try {
+			connection.setAutoCommit(false);
+			pstmt = connection.prepareStatement(sql1);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+
+			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
+
+			connection.commit();
+
+		} catch (Exception e) {
 			try {
-				connection.setAutoCommit(false);
-				pstmt = connection.prepareStatement(sql1);
-				pstmt.setInt(1, bIdx);
-				pstmt.executeUpdate();
-				
-				pstmt = connection.prepareStatement(sql2);
-				pstmt.setInt(1, bIdx);
-				resultRow = pstmt.executeUpdate();
-				
-				
-					connection.commit();
-				
-			}catch(Exception e) {
-				try {
-					connection.rollback();
-				}catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				e.printStackTrace();
-			}finally {
-				DBHelper.close(pstmt);
-				DBHelper.close(connection);
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
-			return resultRow > 0 ? true : false;
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		return resultRow > 0 ? true : false;
 	}
 
 	// 공지 게시판 게시글 수정하기
 	public boolean noticeEdit(int bIdx, String title, String content, int isTop) {
-		int resultRow=0;
-		
+		int resultRow = 0;
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
+
 		String Sql1 = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
 		String Sql2 = "UPDATE NOTICEBOARD SET ISTOP = ? WHERE BIDX = ? ";
-		
+
 		try {
 			connection.setAutoCommit(false);
 			pstmt = connection.prepareStatement(Sql1);
@@ -559,42 +546,43 @@ public class BoardDao {
 			pstmt.setString(2, content);
 			pstmt.setInt(3, bIdx);
 			pstmt.executeUpdate();
-			
+
 			pstmt = connection.prepareStatement(Sql2);
 			pstmt.setInt(1, isTop);
 			pstmt.setInt(2, bIdx);
 			resultRow = pstmt.executeUpdate();
-			
+
 			connection.commit();
 		} catch (Exception e) {
-			try { connection.rollback(); } 
-			catch (SQLException e1) { e1.printStackTrace(); }
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
-	
-	
 	// 공지사항 끝
 
 	// Q&A
 	// Q&A 게시판 게시글 목록보기
 	public List<QnABoard> getQnABoards() {
-		List<QnABoard> boards = new ArrayList<>();;
-		
+		List<QnABoard> boards = new ArrayList<>();
+		;
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, Q.QIDX, Q.ISPUBLIC "
-						+"  	FROM BOARD B JOIN QNABOARD Q ON B.BIDX = Q.BIDX "
-						+" WHERE B.BCODE = 2";
+				+ "  	FROM BOARD B JOIN QNABOARD Q ON B.BIDX = Q.BIDX " + " WHERE B.BCODE = 2";
 		try {
 			pstmt = connection.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -608,21 +596,24 @@ public class BoardDao {
 				board.setrNum(rs.getInt(6));
 				board.setqIdx(rs.getInt(7));
 				board.setPublic(rs.getBoolean(8));
-				
+
 				boards.add(board);
 			}
-			
-		}catch (Exception e) {
-			try { connection.rollback(); } 
-			catch (SQLException e1) { e1.printStackTrace(); }
+
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return boards;
 	}
 
@@ -630,19 +621,18 @@ public class BoardDao {
 	public QnABoard getQnABoard(int bIdx) {
 		System.out.println("init");
 		QnABoard board = null;
-		System.out.println("bIdx "+bIdx);
+		System.out.println("bIdx " + bIdx);
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		String sql =" SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, Q.QIDX, Q.ISPUBLIC "
-						+ "  FROM QNABOARD Q JOIN BOARD B ON Q.BIDX = B.BIDX "
-						+ "WHERE B.BIDX=?";
-		
+
+		String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, Q.QIDX, Q.ISPUBLIC "
+				+ "  FROM QNABOARD Q JOIN BOARD B ON Q.BIDX = B.BIDX " + "WHERE B.BIDX=?";
+
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
-			
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				board = new QnABoard();
@@ -658,12 +648,12 @@ public class BoardDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return board;
 	}
 
@@ -672,14 +662,14 @@ public class BoardDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
-								+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
+				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 2, ?, ?,?) ";
 		String subSql = "INSERT INTO QNABOARD (QIDX, BIDX, ISPUBLIC) "
-							+ "VALUES (QIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
-		
+				+ "VALUES (QIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
+
 		int bIdx = -1;
-		
+
 		try {
 			connection.setAutoCommit(false);
 
@@ -702,11 +692,14 @@ public class BoardDao {
 
 			connection.commit();
 		} catch (Exception e) {
-			try { connection.rollback(); } 
-			catch (SQLException e1) { e1.printStackTrace(); }
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
@@ -720,46 +713,47 @@ public class BoardDao {
 
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
-		String qnaSql ="DELETE FROM QNABOARD WHERE BIDX=?";
-		
+
+		String qnaSql = "DELETE FROM QNABOARD WHERE BIDX=?";
+
 		try {
 			connection.setAutoCommit(false);
-			// REPLY 데이터 삭제
-			deleteReplyBybIdx(connection, pstmt, bIdx);
-			
+
 			// QNABOARD 데이터 삭제
 			pstmt = connection.prepareStatement(qnaSql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
-			
+
 			// BOARD 데이터 삭제
 			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-			
+
 			connection.commit();
 		} catch (Exception e) {
-			try { connection.rollback(); } 
-			catch (SQLException e1) { e1.printStackTrace(); }
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
 	// Q&A 게시판 게시글 수정하기
 	public boolean updateQnABoard(int bIdx, String title, String content, int isPublic) {
-		int resultRow=0;
-		
+		int resultRow = 0;
+
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
+
 		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
 		String qnaSql = "UPDATE QNABOARD SET ISPUBLIC = ? WHERE BIDX = ? ";
-		
+
 		try {
 			connection.setAutoCommit(false);
 			pstmt = connection.prepareStatement(boardSql);
@@ -767,23 +761,26 @@ public class BoardDao {
 			pstmt.setString(2, content);
 			pstmt.setInt(3, bIdx);
 			pstmt.executeUpdate();
-			
+
 			pstmt = connection.prepareStatement(qnaSql);
 			pstmt.setInt(1, isPublic);
 			pstmt.setInt(2, bIdx);
 			resultRow = pstmt.executeUpdate();
-			
+
 			connection.commit();
 		} catch (Exception e) {
-			try { connection.rollback(); } 
-			catch (SQLException e1) { e1.printStackTrace(); }
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
 	}
 
@@ -793,19 +790,18 @@ public class BoardDao {
 	// 포토게시판 게시글 목록보기
 	public List<Board> getPhotoBoardList() {
 		List<Board> photolist = new ArrayList<Board>();
-		
+
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String sql = "SELECT BIDX , ID , TITLE, CONTENT, WDATE , RNUM , BCODE FROM BOARD WHERE BCODE=5";
-						
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				Board board = new Board();
 				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
@@ -814,20 +810,18 @@ public class BoardDao {
 				board.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				board.setrNum(rs.getInt(6));
 				board.setbCode(rs.getInt(7));
-				
+
 				photolist.add(board);
 			}
-			
-			
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			System.out.println("e : " + e.getMessage());
-		}finally {
+		} finally {
 			DBHelper.close(conn);
 			DBHelper.close(pstmt);
 			DBHelper.close(rs);
 		}
-		
+
 		return photolist;
 	}
 
@@ -837,15 +831,15 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String sql = "select BIDX , ID , TITLE , CONTENT, WDATE, RNUM, BCODE FROM BOARD WHERE BIDX = ?";
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				board = new Board();
 				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
@@ -854,29 +848,29 @@ public class BoardDao {
 				board.setwDate(rs.getDate(5));
 				board.setrNum(rs.getInt(6));
 				board.setbCode(rs.getInt(7));
-				
+
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("상세 : " + e.getMessage());
-		}finally {
+		} finally {
 			DBHelper.close(conn);
 			DBHelper.close(pstmt);
 			DBHelper.close(rs);
 		}
-		
-		
+
 		return board;
 	}
 
 	// 포토 게시판 글쓰기
-	public int photoWrite(String memberId,String title, String content, String photoName) {
+	public int photoWrite(String memberId, String title, String content, String photoName) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int bIdx = -1;
 		int result = 0;
-		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)" + 
-					 "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
-		String photoSql = "insert into photo (PHOTOID , BIDX , PHOTONAME)" + "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
+		String bsql = "insert into Board (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT)"
+				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 5, ?, ?,?)";
+		String photoSql = "insert into photo (PHOTOID , BIDX , PHOTONAME)"
+				+ "VALUES (PHOTOID_SEQ.NEXTVAL , BIDX_SEQ.CURRVAL, ?)";
 		try {
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(bsql);
@@ -885,33 +879,28 @@ public class BoardDao {
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
 			System.out.println("title : " + title);
-			
+
 			pstmt = conn.prepareStatement(photoSql);
 			pstmt.setString(1, photoName);
-			
+
 			result = pstmt.executeUpdate();
-			
+
 			conn.commit();
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			try {
 				conn.rollback();
-			}catch (SQLException s) {
+			} catch (SQLException s) {
 				System.out.println("s : " + s.getMessage());
 			}
-			
+
 			System.out.println("e : " + e.getMessage());
-		}finally {
+		} finally {
 			DBHelper.close(conn);
 			DBHelper.close(pstmt);
 		}
-		
-		return result;
-	}
 
-	// 포토 게시판 게시글 조회수 증가
-	public boolean getPhotoReadNum() {
-		return false;
+		return result;
 	}
 
 	// 포토 게시판 게시글 삭제하기
@@ -919,30 +908,27 @@ public class BoardDao {
 		int result = 0;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
-		String photoSql ="DELETE FROM PHOTO WHERE BIDX=?";
-		String Sql ="DELETE FROM BOARD WHERE BIDX=?";
-		
+
+		String photoSql = "DELETE FROM PHOTO WHERE BIDX=?";
+
 		try {
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(photoSql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
-			
-			pstmt = conn.prepareStatement(Sql);
-			pstmt.setInt(1, bIdx);
-			result = pstmt.executeUpdate();
-			
+
+			result = deleteBoardBybIdx(conn, pstmt, bIdx);
+
 			conn.commit();
 		} catch (Exception e) {
-			try { 
-				conn.rollback(); 
-			
-			}catch(SQLException e1){ 
+			try {
+				conn.rollback();
+
+			} catch (SQLException e1) {
 				System.out.println(e1.getMessage());
 			}
 
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
@@ -950,15 +936,15 @@ public class BoardDao {
 	}
 
 	// 포토 게시판 게시글 수정하기
-	public int photoEdit(int bIdx,String title, String content, String photoName) {
-		int result=0;
-		
+	public int photoEdit(int bIdx, String title, String content, String photoName) {
+		int result = 0;
+
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		
+
 		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
 		String photoSql = "UPDATE PHOTO SET PHOTONAME = ? WHERE BIDX = ? ";
-		
+
 		try {
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(boardSql);
@@ -969,25 +955,28 @@ public class BoardDao {
 			System.out.println(content);
 			System.out.println(bIdx);
 			pstmt.executeUpdate();
-			
+
 			pstmt = conn.prepareStatement(photoSql);
 			pstmt.setString(1, photoName);
 			pstmt.setInt(2, bIdx);
 			System.out.println(photoName);
 			System.out.println(bIdx);
 			result = pstmt.executeUpdate();
-			
+
 			conn.commit();
 		} catch (Exception e) {
-			try { conn.rollback(); } 
-			catch (SQLException e1) { e1.printStackTrace(); }
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
-		
+
 		return result;
 	}
 	// 포토게시판 끝
@@ -996,18 +985,18 @@ public class BoardDao {
 	// 나만의 코스 게시판 게시글 목록보기
 	public List<MCBoard> courseList() {
 		List<MCBoard> mCBoardLists = new ArrayList<MCBoard>();
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			String sql = "SELECT B.BIDX,B.ID,B.TITLE,B.CONTENT,B.WDATE,B.RNUM, MC.MCIDX, MC.LIKENUM FROM BOARD B JOIN MCBOARD MC ON B.BIDX = MC.BIDX";
 			conn = DBHelper.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				MCBoard board = new MCBoard();
 				board.setbIdx(rs.getInt(1));
 				board.setId(rs.getString(2));
@@ -1019,20 +1008,20 @@ public class BoardDao {
 				board.setLikeNum(rs.getInt(8));
 				mCBoardLists.add(board);
 			}
-			
-		}catch(Exception e) {//sqlexception, parseexception
-			System.out.println("courseList() : "+e);
-		}finally {
+
+		} catch (Exception e) {// sqlexception, parseexception
+			System.out.println("courseList() : " + e);
+		} finally {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
-		
+
 		return mCBoardLists;
 	}
-	
-	//나만의코스 메인 사진
-	public List<Photo> courseListPhotos(){
+
+	// 나만의코스 메인 사진
+	public List<Photo> courseListPhotos() {
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -1040,29 +1029,27 @@ public class BoardDao {
 		int[] top4LikeNum = new int[4];// 좋아요 값 상위 4개 뽑아서 그것들 사진 하나씩만 가져오는 작업
 		Arrays.fill(top4LikeNum, -1);
 		int[] top4BIdx = new int[4];
-		
+
 		List<MCBoard> boardLists = courseList();
-		for(int i=0; i<boardLists.size(); i++) {
-			for(int j=0; j < top4LikeNum.length; j++) {
-				if(boardLists.get(i).getLikeNum()>top4LikeNum[j]) {
+		for (int i = 0; i < boardLists.size(); i++) {
+			for (int j = 0; j < top4LikeNum.length; j++) {
+				if (boardLists.get(i).getLikeNum() > top4LikeNum[j]) {
 					top4LikeNum[j] = boardLists.get(i).getLikeNum();
 					top4BIdx[j] = boardLists.get(i).getbIdx();
 					break;
 				}
 			}
 		}
-		
+
 		String sql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX = ? AND ROWNUM=1";
-		
-		
-			
+
 		try {
 			conn = DBHelper.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			for(int i=0; i<top4BIdx.length; i++) {
+			for (int i = 0; i < top4BIdx.length; i++) {
 				pstmt.setInt(1, top4BIdx[i]);
 				rs = pstmt.executeQuery();
-				while(rs.next()) {
+				while (rs.next()) {
 					Photo photo = new Photo();
 					photo.setPhotoId(rs.getInt(1));
 					photo.setbIdx(rs.getInt(2));
@@ -1070,7 +1057,7 @@ public class BoardDao {
 					photos.add(photo);
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1091,81 +1078,80 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				mCBoard.setbIdx(rs.getInt(1));
 				mCBoard.setId(rs.getString(2));
 				mCBoard.setTitle(rs.getString(3));
 				String[] contents = rs.getString(4).split("╊");
 				ArrayList<String> contenstList = new ArrayList<String>();
-				for(int i=0; i<contents.length; i++) {
+				for (int i = 0; i < contents.length; i++) {
 					contenstList.add(contents[i]);
 				}
 				mCBoard.setContentsList(contenstList);
-				
+
 				mCBoard.setwDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(5)));
 				mCBoard.setrNum(rs.getInt(6));
 				mCBoard.setbCode(rs.getInt(7));
 				mCBoard.setmCidx(rs.getInt(8));
 				mCBoard.setLikeNum(rs.getInt(9));
-			
-			String photoSql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=?";
-			ArrayList<Photo> photoList = new ArrayList<Photo>();
-			pstmt = conn.prepareStatement(photoSql);
-			pstmt.setInt(1, bIdx);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				Photo photo = new Photo();
-				photo.setPhotoId(rs.getInt(1));
-				photo.setbIdx(rs.getInt(2));
-				photo.setPhotoName(rs.getString(3));
-				photoList.add(photo);
+
+				String photoSql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=?";
+				ArrayList<Photo> photoList = new ArrayList<Photo>();
+				pstmt = conn.prepareStatement(photoSql);
+				pstmt.setInt(1, bIdx);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					Photo photo = new Photo();
+					photo.setPhotoId(rs.getInt(1));
+					photo.setbIdx(rs.getInt(2));
+					photo.setPhotoName(rs.getString(3));
+					photoList.add(photo);
+				}
+				mCBoard.setPhotoList(photoList);
 			}
-			mCBoard.setPhotoList(photoList);
-			}
-		}catch(Exception e) {
-			System.out.println("BoardDao courseContent() catch"+e.getMessage());
+		} catch (Exception e) {
+			System.out.println("BoardDao courseContent() catch" + e.getMessage());
 		}
-		
+
 		return mCBoard;
 	}
-	
-	//게시판상세보기 사진 가져오기
-	public List<Photo> boardDetailPhoto(int bidx){
+
+	// 게시판상세보기 사진 가져오기
+	public List<Photo> boardDetailPhoto(int bidx) {
 		List<Photo> photos = new ArrayList<Photo>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			String sql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=?";
 			conn = DBHelper.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bidx);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				Photo photo = new Photo();
 				photo.setPhotoId(rs.getInt(1));
 				photo.setbIdx(rs.getInt(2));
 				photo.setPhotoName(rs.getString(3));
-				
+
 				photos.add(photo);
 			}
-		
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			System.out.println("boardDao courseDetailPhoto() catch" + e.getMessage());
-		}finally {
+		} finally {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
-		
+
 		return photos;
 	}
 
 	// 나만의 코스 게시판 글쓰기
-	public int courseWrite(Board board,MCBoard mCBoard,List<Photo> photos) {
+	public int courseWrite(Board board, MCBoard mCBoard, List<Photo> photos) {
 		int resultRow = 1;
 		int bIdx = -1;
 		Connection conn = null;
@@ -1174,8 +1160,7 @@ public class BoardDao {
 		System.out.println("boardDao courseWrite()" + 1);
 		String boardSql = "INSERT INTO BOARD (BIDX, WDATE, RNUM, BCODE, ID, TITLE, CONTENT) "
 				+ "VALUES (BIDX_SEQ.NEXTVAL, SYSDATE, 0, 3, ?, ?,?) ";
-		String mCBSql = "INSERT INTO MCBOARD (MCIDX,BIDX,LIKENUM) "
-				+ "VALUES (MCIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0)";
+		String mCBSql = "INSERT INTO MCBOARD (MCIDX,BIDX,LIKENUM) " + "VALUES (MCIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, 0)";
 		String photoSql = "INSERT INTO PHOTO (PHOTOID, BIDX, PHOTONAME) "
 				+ "VALUES (PHOTOID_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL,?)";
 		try {
@@ -1185,17 +1170,17 @@ public class BoardDao {
 			pstmt.setString(1, board.getId());
 			pstmt.setString(2, board.getTitle());
 			pstmt.setString(3, board.getContent());
-			resultRow*=pstmt.executeUpdate();
-			
+			resultRow *= pstmt.executeUpdate();
+
 			pstmt = conn.prepareStatement(mCBSql);
-			resultRow*=pstmt.executeUpdate();
-			
-			for(Photo photo : photos) {
+			resultRow *= pstmt.executeUpdate();
+
+			for (Photo photo : photos) {
 				pstmt = conn.prepareStatement(photoSql);
 				pstmt.setString(1, photo.getPhotoName());
 				resultRow *= pstmt.executeUpdate();
 			}
-			
+
 			String bIdxSql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
 			pstmt = conn.prepareStatement(bIdxSql);
 			rs = pstmt.executeQuery();
@@ -1203,7 +1188,7 @@ public class BoardDao {
 				bIdx = rs.getInt(1);
 			}
 			conn.commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -1212,21 +1197,21 @@ public class BoardDao {
 				e1.printStackTrace();
 			}
 			System.out.println("BoardDao mCBWrite2 catch2 " + e.getMessage());
-		}finally {
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
 		return bIdx;
 	}
-	
+
 	// 나만의 코스 게시판 좋아요 증가
 	public int getCourseLikeNum(int mCIdx, String id) {
 		int likeNum = 0;
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			String checkSql = "SELECT MCIdx, ID, ISLIKE FROM LMLIST WHERE MCIDX=? AND ID=?";
 			conn = DBHelper.getConnection();
@@ -1234,48 +1219,46 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(checkSql);
 			pstmt.setInt(1, mCIdx);
 			pstmt.setString(2, id);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				String deleteLikeMemberSql = "DELETE FROM LMLIST WHERE ID=?";
 				pstmt = conn.prepareStatement(deleteLikeMemberSql);
 				pstmt.setString(1, id);
 				int deleteLikeMember = pstmt.executeUpdate();
-				System.out.println("누룬사람이 또누름1 boardDao getCourseLikenum() 실패면 0 되면 1"+ deleteLikeMember);
-				
+				System.out.println("누룬사람이 또누름1 boardDao getCourseLikenum() 실패면 0 되면 1" + deleteLikeMember);
+
 				String decreaseLikeNumSql = "UPDATE MCBOARD SET LIKENUM = (SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?)-1 WHERE MCIDX=?";
 				pstmt = conn.prepareStatement(decreaseLikeNumSql);
 				pstmt.setInt(1, mCIdx);
 				pstmt.setInt(2, mCIdx);
 				int decreaseLikeNum = pstmt.executeUpdate();
-				System.out.println("누룬사람이또누름2boardDao getCourseLikeNum() 실패면 0 되면 1"+decreaseLikeNum);
-			}
-			else {
+				System.out.println("누룬사람이또누름2boardDao getCourseLikeNum() 실패면 0 되면 1" + decreaseLikeNum);
+			} else {
 				String addLikeMemberSql = "INSERT INTO LMLIST (MCIDX, ID, ISLIKE) VALUES(?, ?, 1)";
 				pstmt = conn.prepareStatement(addLikeMemberSql);
 				pstmt.setInt(1, mCIdx);
 				pstmt.setString(2, id);
 				int addLikeMember = pstmt.executeUpdate();
 				System.out.println("처음누름1boardDao getCourseLikeNum() 실패면 0 되면 1" + addLikeMember);
-				
+
 				String increaseLikeNumSql = "UPDATE MCBOARD SET LIKENUM = (SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?)+1 WHERE MCIDX=?";
 				pstmt = conn.prepareStatement(increaseLikeNumSql);
 				pstmt.setInt(1, mCIdx);
 				pstmt.setInt(2, mCIdx);
 				int increaseLikeNum = pstmt.executeUpdate();
 				System.out.println("처음누름2boardDao getCourseLikeNum() 실패면 0 되면 1" + increaseLikeNum);
-				
+
 			}
-			
+
 			String getLikeNumSql = "SELECT LIKENUM FROM MCBOARD WHERE MCIDX=?";
 			pstmt = conn.prepareStatement(getLikeNumSql);
 			pstmt.setInt(1, mCIdx);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				likeNum = rs.getInt(1);
 			}
-			
-			
-		}catch(SQLException e) {
+
+		} catch (SQLException e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -1283,7 +1266,7 @@ public class BoardDao {
 				e1.printStackTrace();
 			}
 			System.out.println("boardDao getCourseLikeNum() : " + e.getMessage());
-		}finally {
+		} finally {
 			try {
 				conn.commit();
 			} catch (SQLException e) {
@@ -1294,10 +1277,10 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
-		
+
 		return likeNum;
 	}
-	
+
 	// 나만의 코스 게시판 게시글 조회수 증가
 	public boolean getCourseReadNum() {
 		return false;
@@ -1309,15 +1292,15 @@ public class BoardDao {
 	}
 
 	// 나만의 코스 게시판 게시글 수정하기
-	public int courseEdit(Board board,MCBoard mCBoard,List<Photo> photos) {
+	public int courseEdit(Board board, MCBoard mCBoard, List<Photo> photos) {
 		int resultRow = 1;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String boardSql = "UPDATE BOARD SET TITLE = ?, CONTENT = ?, WDATE = SYSDATE, RNUM = ? WHERE BIDX = ? AND ID = ?";
 		String deletePhotoSql = "DELETE FROM PHOTO WHERE BIDX = ?";
 		String photoSql = "INSERT INTO PHOTO (PHOTOID,BIDX,PHOTONAME) VALUES (PHOTOID_SEQ.NEXTVAL, ? , ?)";
-		
-		try{
+
+		try {
 			conn = DBHelper.getConnection();
 			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(boardSql);
@@ -1328,13 +1311,13 @@ public class BoardDao {
 			pstmt.setString(5, board.getId());
 			resultRow *= pstmt.executeUpdate();
 			System.out.println("boardSql 실행완료" + resultRow);
-			
+
 			pstmt = conn.prepareStatement(deletePhotoSql);
 			pstmt.setInt(1, board.getbIdx());
 			resultRow *= pstmt.executeUpdate();
 			System.out.println("deletePhotoSql 실행완료" + resultRow);
-			
-			for(int i=0; i<photos.size(); i++) {
+
+			for (int i = 0; i < photos.size(); i++) {
 				Photo photo = photos.get(i);
 				pstmt = conn.prepareStatement(photoSql);
 				pstmt.setInt(1, photo.getbIdx());
@@ -1342,14 +1325,14 @@ public class BoardDao {
 				resultRow *= pstmt.executeUpdate();
 			}
 			System.out.println("photoSql 실행완료" + resultRow);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
 				System.out.println("boardDao courseEdit() rollback error" + e1.getMessage());
 			}
 			System.out.println("boardDao courseEdit() : " + e.getMessage());
-		}finally {
+		} finally {
 			try {
 				conn.commit();
 			} catch (SQLException e) {
@@ -1358,7 +1341,7 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
-		
+
 		return resultRow;
 	}
 	// 나만의 코스 게시판 끝
@@ -1369,14 +1352,14 @@ public class BoardDao {
 		List<MTList> mtFolderList = new ArrayList<MTList>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;		
+		ResultSet rs = null;
 		String sql = "select tlidx,id,tlname from MTLIST where id = ? order by tlidx";
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {			
+			while (rs.next()) {
 				MTList mtFolder = new MTList();
 				mtFolder.settLidx(rs.getInt(1));
 				mtFolder.setId(rs.getString(2));
@@ -1385,14 +1368,15 @@ public class BoardDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {		
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(rs);
 			DBHelper.close(conn);
 		}
 		return mtFolderList;
 	}
-	//여행리스트  폴더 만들기
+
+	// 여행리스트 폴더 만들기
 	public int mTLFolderAdd(String id, String tlname) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
@@ -1411,49 +1395,50 @@ public class BoardDao {
 		}
 		return resultRow;
 	}
-	//여행리스트 폴더 수정하기
-	public int mTLFolderEdit(int tLidx,String tLname) {
+
+	// 여행리스트 폴더 수정하기
+	public int mTLFolderEdit(int tLidx, String tLname) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
 		String sql = "update mtlist set tlname= ? where TLIdx = ?";
 		try {
-			pstmt = conn.prepareStatement(sql);			
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, tLname);
 			pstmt.setInt(2, tLidx);
 			resultRow = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
-		}		
+		}
 		return resultRow;
 	}
 
 	// 여행리스트 폴더 삭제하기
-	//계층형 삭제 여행리스트 먼저 삭제하고 폴더 삭제하기
+	// 계층형 삭제 여행리스트 먼저 삭제하고 폴더 삭제하기
 	public int mTLFolderDelete(int tLidx) {
-		Connection  conn = DBHelper.getConnection();
+		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
 		String sql_content = "delete from mtlcontent where tlidx =?";
 		String sql_folder = "delete from mtlist where tlidx = ? ";
-		
+
 		try {
-			//폴더 안에 여행 리스트 삭제 
+			// 폴더 안에 여행 리스트 삭제
 			pstmt = conn.prepareStatement(sql_content);
 			pstmt.setInt(1, tLidx);
 			pstmt.executeUpdate();
-			//폴더 삭제 
+			// 폴더 삭제
 			pstmt = conn.prepareStatement(sql_folder);
-			pstmt.setInt(1,tLidx);
-			
+			pstmt.setInt(1, tLidx);
+
 			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace(); 
-		} finally  {
+			e.printStackTrace();
+		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
 		}
@@ -1471,7 +1456,7 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, tLidx);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				MTLContent mTLContent = new MTLContent();
 				mTLContent.settLCidx(rs.getInt(1));
 				mTLContent.settLidx(rs.getInt(2));
@@ -1479,42 +1464,43 @@ public class BoardDao {
 				mTLContent.setImage(rs.getString(4));
 				mTLContent.setSpotDate(rs.getDate(5));
 				mTLContent.setSpotAddr(rs.getString(6));
-				mTLContent.setSpotLink(rs.getString(7));			
+				mTLContent.setSpotLink(rs.getString(7));
 				mTLContentList.add(mTLContent);
-			}			
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(rs);
 			DBHelper.close(conn);
-		}		
+		}
 		return mTLContentList;
 	}
+
 	// 여행리스트 추가하기
 	public int mTListContentAdd(MTLContent mTLContent) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		String sql = "insert into mtlcontent (tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink) values " + 
-				"(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'yyyy-mm-dd'),?,?)";
+		String sql = "insert into mtlcontent (tlcidx,tlidx,spotname,image,spotdate,spotaddr,spotlink) values "
+				+ "(TLCIdx_SEQ.nextval,?,?,?,to_date(?,'yyyy-mm-dd'),?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, mTLContent.gettLidx());
 			pstmt.setString(2, mTLContent.getSpotName());
 			pstmt.setString(3, mTLContent.getImage());
 			pstmt.setDate(4, (Date) mTLContent.getSpotDate());
 			pstmt.setString(5, mTLContent.getSpotAddr());
 			pstmt.setString(6, mTLContent.getSpotLink());
-			
+
 			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
-		}		
+		}
 		return resultRow;
 	}
 
@@ -1523,7 +1509,7 @@ public class BoardDao {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		String sql = "delete from mtlcontent where tLCidx = ?";	
+		String sql = "delete from mtlcontent where tLCidx = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, tLCidx);
@@ -1533,17 +1519,16 @@ public class BoardDao {
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
-		}		
+		}
 		return resultRow;
 	}
 	// 내 여행리스트 끝
-	
-	
+
 	// 댓글
 	public int insertReply(int bIdx, String id, String content) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-		ResultSet rs=null;
+		ResultSet rs = null;
 		int rIdx = -1;
 		String sql = "INSERT INTO REPLY (RIDX, BIDX, ID, RCONTENT) VALUES( RIDX_SEQ.NEXTVAL, ?, ?, ?)";
 
@@ -1552,9 +1537,9 @@ public class BoardDao {
 			pstmt.setInt(1, bIdx);
 			pstmt.setString(2, id);
 			pstmt.setString(3, content);
-			
+
 			int resultRow = pstmt.executeUpdate();
-			if(resultRow>0) {
+			if (resultRow > 0) {
 				String rIdxSql = "SELECT RIDX_SEQ.CURRVAL FROM DUAL";
 				pstmt = connection.prepareStatement(rIdxSql);
 				rs = pstmt.executeQuery();
@@ -1569,32 +1554,31 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return rIdx;
 	}
-	
+
 	public List<Reply> getRepliesByBIdx(int bIdx) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		List<Reply> replies = new ArrayList<Reply>();
-		String sql = " SELECT RIDX, RCONTENT, ID, RWDATE FROM REPLY "
-						+ " WHERE BIDX = ? ORDER BY RIDX ";
+		String sql = " SELECT RIDX, RCONTENT, ID, RWDATE FROM REPLY " + " WHERE BIDX = ? ORDER BY RIDX ";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
-		
-			rs= pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
 				Reply reply = new Reply();
 				reply.setrIdx(rs.getInt(1));
 				reply.setrContent(rs.getString(2));
 				reply.setId(rs.getString(3));
 				reply.setrWDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(4)));
 				reply.setbIdx(bIdx);
-				
+
 				replies.add(reply);
 			}
 		} catch (Exception e) {
@@ -1603,26 +1587,25 @@ public class BoardDao {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
-		}		
-		
+		}
+
 		return replies;
 	}
-	
+
 	public Reply getReply(int rIdx) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		Reply reply = new Reply();
-		String sql = " SELECT BIDX, RCONTENT, ID, RWDATE FROM REPLY "
-						+ " WHERE RIDX = ? ";
+		String sql = " SELECT BIDX, RCONTENT, ID, RWDATE FROM REPLY " + " WHERE RIDX = ? ";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rIdx);
-		
-			rs= pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
 				reply.setrIdx(rIdx);
 				reply.setbIdx(rs.getInt(1));
 				reply.setrContent(rs.getString(2));
@@ -1635,11 +1618,11 @@ public class BoardDao {
 			DBHelper.close(rs);
 			DBHelper.close(pstmt);
 			DBHelper.close(conn);
-		}		
-		
+		}
+
 		return reply;
 	}
-	
+
 	public boolean setReadNum(int bIdx) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
@@ -1660,12 +1643,12 @@ public class BoardDao {
 
 		return resultRow > 0 ? true : false;
 	}
-	
-	private boolean deleteReplyByRIdx(int rIdx) {
+
+	public boolean deleteReplyByRIdx(int rIdx) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
-		
+
 		String sql = "DELETE FROM REPLY WHERE RIDX = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -1678,8 +1661,27 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		
+
 		return resultRow > 0 ? true : false;
+	}
+
+	public int deleteBoardBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
+		int resultRow = 0;
+
+		String sql = "DELETE FROM BOARD WHERE BIDX = ?";
+		try {
+			// 댓글 삭제
+			deleteReplyBybIdx(connection, pstmt, bIdx);
+			
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultRow;
 	}
 	
 	private int deleteReplyBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
@@ -1693,26 +1695,7 @@ public class BoardDao {
 			resultRow = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-
-		return resultRow;
-	}
-
-	public int deleteBoardBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
-		int resultRow = 0;
-
-		String sql = "DELETE FROM BOARD WHERE BIDX = ?";
-		try {
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setInt(1, bIdx);
-
-			resultRow = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 
 		return resultRow;
 	}
