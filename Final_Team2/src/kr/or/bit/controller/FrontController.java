@@ -14,6 +14,7 @@ import kr.or.bit.action.ActionForward;
 import kr.or.bit.service.APICourseDetailService;
 import kr.or.bit.service.AdminListService;
 import kr.or.bit.service.AdminWriteService;
+import kr.or.bit.service.FestivalDetailService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
@@ -294,7 +295,10 @@ public class FrontController extends HttpServlet {
 		//축제
 		}else if(url_Command.equals("/Festival.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/FestivalDetail.jsp");
+			forward.setPath("/WEB-INF/views/api/Festival.jsp");
+		}else if(url_Command.equals("/FestivalDetail.do")) {
+			action = new FestivalDetailService();
+			forward = action.execute(request, response);
 		}
 		// 추천 여행지
 		else if (url_Command.equals("/Recommend.do")) {
