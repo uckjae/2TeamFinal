@@ -52,6 +52,7 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
+import kr.or.bit.service.RecommendDetailService;
 import kr.or.bit.service.RecommendService;
 import kr.or.bit.service.RegisterOkService;
 
@@ -303,8 +304,8 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request,response);
 		}
 		else if (url_Command.equals("/RecommendDetail.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");
+			action = new RecommendDetailService();
+			forward = action.execute(request, response);
 		}
 		if (forward != null) {
 			if (forward.isRedirect()) {
