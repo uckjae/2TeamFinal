@@ -41,7 +41,7 @@
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
-									+ element.title
+									+ "<a href='RecommendDetail.do'>" + element.title
 								+"</div>"
 								+"<div class='col-md-12'>"
 									
@@ -111,7 +111,8 @@
 	<div class="content">
 		<!-- <div class="row" id="apiFirst"> -->
 			<div class="container" id="apiFirst">
- 				
+ 				<button type="button" class="btn btn-primary" id="new">최신순</button>
+ 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
 			</div>
 		<!-- </div> -->
 		<div class="pagination-sm mt-3 mb-3" style="text-align:center">
