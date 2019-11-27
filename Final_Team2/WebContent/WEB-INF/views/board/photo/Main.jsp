@@ -22,7 +22,7 @@
 			    <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
 		    				<div class="project">
 		    					<div class="img">
-				    				<a href="hotel-single.html"><img src="upload/${photo.photoName }" class="img-fluid" alt="Colorlib Template"></a>
+				    				<img src="upload/${photo.photoName }" class="img-fluid" alt="Colorlib Template">
 			    				</div>
 			    				</div>
 			    				</div>
@@ -32,7 +32,9 @@
 			    				<div class="text">
 			    					<h4 class="price">${board.id }</h4>
 			    					<span>${board.bIdx}</span>
-			    					<h3><a href="hotel-single.html">${board.title }</a></h3>
+			    					<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId !=null && sessionScope.isAdmin == 'true')}">
+			    					<h3><a href="PhotoBoardDetail.do?bIdx=${board.bIdx }">${board.title }</a></h3>
+			    					</c:if>
 			    					<div class="star d-flex clearfix">
 			    						<div class="mr-auto float-left">
 				    						<span><fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></span>
@@ -43,30 +45,22 @@
 			    						</div>
 			    					</div>
 			    				</div>
-			    					 </c:forEach>
-		    					</div>	
-		    			
+			    					 
 		    					
-			    			
-			    			
+		    				<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId !=null && sessionScope.isAdmin == 'true')}">
+					
+				    <div class="container">
+				    <a href="PhotoWrite.do?cmd=write">
+				    	<input type="button" value="글작성" id="photo" name="photo">	
+				    </a>
+				    </div>
+				    </c:if>	
 			    		
-			    				<a href="images/hotel-5.jpg" class="icon image-popup d-flex justify-content-center align-items-center">
-			    					<span class="icon-expand"></span>
-			    				</a>
-		    			
+		    				</c:forEach>  
 		    			
 		    				
-	<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
-    <div class="container">
-    <a href="PhotoWrite.do?cmd=write">
-    	<input type="button" value="글작성" id="photo" name="photo">	
-    </a>
-    </div>
-    </c:if>	
-		    			
-		    	  
-		    			
-		    			
+	
+	 			
     </section>
     
 </body>

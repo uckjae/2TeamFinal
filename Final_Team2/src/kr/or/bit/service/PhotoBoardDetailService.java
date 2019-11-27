@@ -16,7 +16,7 @@ public class PhotoBoardDetailService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		int bIdx = Integer.parseInt(request.getParameter("bidx"));
+		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		BoardDao dao = new BoardDao();
 		Board board = dao.getBoardByBIdx(bIdx);
 		Photo photo = dao.boardDetailPhoto(bIdx).get(0);
