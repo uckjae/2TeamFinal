@@ -9,13 +9,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
+<style type="text/css">
+	
+</style>
 <script type="text/javascript">
 $(function(){
 	//공통으로 쓰이는 변수
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
 	var type = "&_type=json&";
-	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=2509701";
+	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=2618874";
 	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=1";
 	//공통정보조회 변수
@@ -54,8 +57,8 @@ $(function(){
 	//&mapY=37.4960925880
 	//&radius=3000&listYN=Y
 	//위치 기반 변수
-	var x = "&mapX=127.1109831778";
-	var y = "&mapY=37.4960925880";
+	var x = "&mapX=127.0234738367";
+	var y = "&mapY=37.5186022892";
 	var arrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide";
 	var array = "&arrange=E";
 	var range = "&radius=3000&listYN=Y";
@@ -71,8 +74,6 @@ $(function(){
 		console.log("공통정보");
 		console.log(myData);
 		$.each(myData,function(key,value){
-			console.log(key);
-			console.log(value);
 			if(key=="overview"){
 				$(".overview").append("<div>" + value + "</div>");
 			}
@@ -96,6 +97,9 @@ $(function(){
 		
 		console.log("이미지");
 		console.log(myData3);
+		$.each(myData3,function(index,element){
+			$("#imgarea").append("<img src='" + element.originimgurl + "'>");
+		});
 		
 	});
 	
@@ -111,8 +115,14 @@ $(function(){
 });
 </script>
 </head>
-<body>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+	<section class="ftco-section">
+	<div class="row">
+<c:import url="/common/Top.jsp" />
+
 	<center>
+	
 			<div id="imgarea" >
 		
 			</div>
@@ -123,5 +133,7 @@ $(function(){
 <div class="content">
 	
 </div>
+</div>
+</section>
 </body>
 </html>
