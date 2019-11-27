@@ -37,6 +37,17 @@
 		}
 		
 		let oldCode = "";
+		
+		let contentId = [
+			{name : "관광지", code : 12},
+			{name : "문화시설", code : 14},
+			{name : "축제공연행사", code : 15},
+			{name : "여행코스", code : 25},
+			{name : "레포츠", code : 28},
+			{name : "숙박", code : 32},
+			{name : "쇼핑", code : 38},
+			{name : "음식점", code : 39}
+		];
 		function getData(code){
 			$('#dataBox').empty();
 			
@@ -54,18 +65,41 @@
 			
 			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 			let service = "serviceKey="+servicekey;
-			let paramArea = "&contentTypeId=25&areaCode=1";
-			let paramSigungu = "&sigunguCode=";
-			let paramCat = "&cat1=C01&cat2="+cat2;
-			let paramList = "&cat3=&listYN=Y";
-			let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
-			let paramNumOfRows = "&numOfRows=1000";
-			let paramPageNo =  "&pageNo=1";
+			let paramSigungu = "&areaCode=1&sigunguCode=";
+			let paramCat = "&cat1=&cat2=&cat3=";
+			let paramList = "&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
+			let paramNumOfRows = "&numOfRows=3&pageNo=1";
 			let type = "&_type=json";
-			let addr2 = service + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
-			let api = addr + "areaBasedList?" + addr2 + type;
-			console.log(api);
-			$.getJSON(api,function(data){
+			let addr2 = service + paramSigungu + paramCat + paramList + paramNumOfRows;
+			let paramArea = "&contentTypeId=";
+			let api = addr + "areaBasedList?" + addr2 + paramArea;
+			let locApi = "";
+			
+			locApi = api + contentId[0].code + type;
+			console.log('for문 : ' + i);
+			//console.log(api);
+				
+			$('#mainContentBox').append("<div class='row' id='test'></div>");
+			$.getJSON(locApi,function(data){
+				
+				let myData = data.response.body.items.item;
+				console.log('myData');
+				console.log(myData);
+				
+				$.each(myData, function(index, element){
+					console.log('each문 : ' + index);
+						$('#test').append("<div class='col-md-4'>"
+								+"<div class='contain'>"
+											+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 100%;'>"
+										+ "<span id='text'>" + element.title + "</span></div></div>"
+						
+					});
+				}
+			});
+			
+			
+			//console.log(api);
+			/* $.getJSON(api,function(data){
 				let myData = data.response.body.items.item;
 				$.each(myData, function(index, element){
 					$('#dataBox').append(
@@ -85,7 +119,7 @@
 					);
 				});
 				
-			}); 
+			});  */
 			
 			oldCode = code;
 		}
@@ -96,12 +130,35 @@
             height: 100%;
         }
     </style>
-<style type="text/css">
-		html,
-		body {
-			height: 100%;
-		}
-	</style>
+	<style type="text/css">
+html, body {
+	height: 100%;
+}
+
+.contain {
+	position: relative;
+	width: 100%;
+	max-width: 400px;
+}
+
+.contain #text {
+	background-color : white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	padding: 12px 24px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	text-align: center;
+	opacity: 0.7;
+	color: black;
+	width: 100%;
+	font-weight: bold;
+}
+</style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -143,6 +200,14 @@
 		
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
+			<div class="row" id="test">
+				
+			</div>
+			<div class="row">
+				<div class="col-md-4">1</div>
+				<div class="col-md-4">2</div>
+				<div class="col-md-4">3</div>
+			</div>
 			<div class="row">
 				<div class="col-md-4">1</div>
 				<div class="col-md-4">2</div>

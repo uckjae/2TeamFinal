@@ -20,116 +20,225 @@
         }
     </style>
 <script type="text/javascript">
-	$(function() {
-		// 관광정보 api 
+let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+let servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
+let paramPageNo = "&numOfRows=6&pageNo=";
+let type = "&_type=json";
 
-		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
-		//areaBasedList? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
-		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
-		var paramArea = "&contentTypeId=25&areaCode=1";
-		var paramCat = "&cat1=C01&cat2=";
-		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-		var paramPageNo = "&numOfRows=6&pageNo=";
-		var type = "&_type=json";
-		var addr2 = servicekey + paramArea + paramCat + paramArrange
-				+ paramPageNo;
-		var api = "";
-		api = addr + "areaBasedList" + addr2 + 1 + type;
-		console.log("api 주소: " + api);
-			
-		$.getJSON(api, function(data) {
-			var myItem = data.response.body.items.item;
-			
-			$.each(myItem,
-					function(index, element) {
-						if (index < 3) {
-							var div1 = $("<div class='col-md-4'>");
-							var divProj = $("<div class='project mb-4'>");
-							var divImg = $("<div class='image'>");
-							var img = $('<img>');
-							$(img).attr('src', element.firstimage);
-							$(img).attr('alt', 'No Image');
-							$(img).attr('style', 'width:100%');
-							$(img).attr('class', 'firstImg');
-							var divText = $("<div class='mb-3'>");
-							var textSize = $("<h5>");
+$(function () {
+    init();
+});
 
-							var aTag = $('<a>');
+function init() {
+    //http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
+    //areaBasedList? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
+    			let api ="http://api.visitkorea.or.kr/openapi/service/rest/KorService/categoryCode"
+						+ servicekey
+						+ "&contentTypeId=25&cat1=C01"
+						+ "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest"
+						+ "&_type=json";
 
-							$(aTag).attr('href', '#');
-							$(aTag).attr('onclick',
-									'goCourseDetail(this.nextSibling)');
+    $.getJSON(api, function (data) {
 
-							var inputTag = $("<input>");
-							$(inputTag).attr('type', 'hidden');
-							$(inputTag).attr('name', 'contentid');
-							$(inputTag).attr('value', element.contentid);
+        var myItem = data.response.body.items.item;
+        let control = "<a href='#' onclick='getData(\"all\")' id='all' class='btn btn-secondary mr-3'>#전체</a>";
+        
+        $.each(myItem, function(index, element){
+			control+="<a href='#' onclick='getData(\""+ element.code +"\")' id='"+ element.code +"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+        })
 
-							$(textSize).text(element.title);
-							$(aTag).append(textSize);
-							$(divText).append(aTag);
-							$(divText).append(inputTag);
+		$("#tagBox").append(control);
+		getData("all");
+        
+        
+        /* $.each(myItem, function (index, element) {
 
-							$(divImg).append(img);
-							$(divProj).append(divImg);
+            if (index < 3) {
+            	firstFn(element);
+            } else {
+            	secondFn(element);
+            }
+        }); */
+    });
+}
 
-							$(div1).append(divProj);
-							$(div1).append(divText);
-							$("#apiFirst").append(div1);
 
-						} else {
-							var div1 = $("<div class='col-md-4'>");
-							var divProj = $("<div class='project mb-4'>");
-							var divImg = $("<div class='image'>");
-							var img = $('<img>');
-							$(img).attr('src', element.firstimage);
-							$(img).attr('alt', 'No Image');
-							$(img).attr('style', 'width:100%');
-							$(img).attr('class', 'firstImg');
-							var divText = $("<div class='mb-3'>");
-							var textSize = $("<h5>");
+// 페이징 
+function pagingFn(page) {
+    var paramArea = "&contentTypeId=25&areaCode=1";
+    var paramCat = "&cat1=C01&cat2=";
+    var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
+    
+    var addr2 = servicekey + paramArea + paramCat + paramArrange + paramPageNo;
+    var api = "";
+    var contentId = "";
 
-							var aTag = $('<a>');
+    api = addr + "areaBasedList" + addr2 + page + type;
+    $("#apiFirst").empty();
+    $("#apiSecond").empty();      
+    $(".pageul > li").removeClass('active');
+    
+    $.getJSON(api, function (data) {
 
-							$(aTag).attr('href', '#');
-							$(aTag).attr('onclick',
-									'goCourseDetail(this.nextSibling)');
+        var myItem = data.response.body.items.item;
+        $.each(myItem, function (index, element) {
+        	
+            if (index < 3) {
 
-							var inputTag = $("<input>");
-							$(inputTag).attr('type', 'hidden');
-							$(inputTag).attr('name', 'contentid');
-							$(inputTag).attr('value', element.contentid);
+            	firstFn(element);
 
-							$(textSize).text(element.title);
-							$(aTag).append(textSize);
-							$(divText).append(aTag);
-							$(divText).append(inputTag);
+            } else {
+                secondFn(element);
+            }
+        });
+    });
+}
 
-							$(divImg).append(img);
-							$(divProj).append(divImg);
+function goCourseDetail(own) {
+    console.log($(own).val());
+    request.setAttribute("contentId", $(own).val());
+    location.href("courseAPIDetail.do");
+}
 
-							$(div1).append(divProj);
-							$(div1).append(divText);
-							$("#apiSecond").append(div1);
-						}
-					});
+function pageChange(number) {
+    var page = $(number).text();
+    pagingFn(page);
+    console.log("page : " + page);
+
+    var parent = number.parentNode;
+    $(parent).attr('class','active');
+}
+
+function firstFn(element){
+	 var div1 = $("<div class='col-md-4'>");
+     var divProj = $("<div class='project mb-4'>");
+     var divImg = $("<div class='image'>");
+     var img = $('<img>');
+     $(img).attr('src', element.firstimage);
+     $(img).attr('alt', 'No Image');
+     $(img).attr('style', 'width:100%');
+     $(img).attr('class', 'firstImg');
+     var divText = $("<div class='mb-3'>");
+     var textSize = $("<h5>");
+
+     var aTag = $('<a>');
+
+     $(aTag).attr('href', '#');
+     $(aTag).attr('onclick',
+         'goCourseDetail(this.nextSibling)');
+
+     var inputTag = $("<input>");
+     $(inputTag).attr('type', 'hidden');
+     $(inputTag).attr('name', 'contentid');
+     $(inputTag).attr('value', element.contentid);
+
+     $(textSize).text(element.title);
+     $(aTag).append(textSize);
+     $(divText).append(aTag);
+     $(divText).append(inputTag);
+
+     $(divImg).append(img);
+     $(divProj).append(divImg);
+
+     $(div1).append(divProj);
+     $(div1).append(divText);
+     $("#apiFirst").append(div1);
+}
+
+function secondFn(element){
+	 var div1 = $("<div class='col-md-4'>");
+     var divProj = $("<div class='project mb-4'>");
+     var divImg = $("<div class='image'>");
+     var img = $('<img>');
+     $(img).attr('src', element.firstimage);
+     $(img).attr('alt', 'No Image');
+     $(img).attr('style', 'width:100%');
+     $(img).attr('class', 'firstImg');
+     var divText = $("<div class='mb-3'>");
+     var textSize = $("<h5>");
+
+     var aTag = $('<a>');
+
+     $(aTag).attr('href', '#');
+     $(aTag).attr('onclick',
+         'goCourseDetail(this.nextSibling)');
+
+     var inputTag = $("<input>");
+     $(inputTag).attr('type', 'hidden');
+     $(inputTag).attr('name', 'contentid');
+     $(inputTag).attr('value', element.contentid);
+     $(textSize).text(element.title);
+     $(aTag).append(textSize);
+     $(divText).append(aTag);
+     $(divText).append(inputTag);
+     $(divImg).append(img);
+     $(divProj).append(divImg);
+     $(div1).append(divProj);
+     $(div1).append(divText);
+     $("#apiSecond").append(div1);
+}
+
+let contentId = [
+	{name : "관광지", code : 12},
+	{name : "문화시설", code : 14},
+	{name : "축제공연행사", code : 15},
+	{name : "여행코스", code : 25},
+	{name : "레포츠", code : 28},
+	{name : "숙박", code : 32},
+	{name : "쇼핑", code : 38},
+	{name : "음식점", code : 39}
+];
+
+let oldCode = "";
+function getData(code){
+	
+	$('#apiFirst').empty();
+	$('#apiSecond').empty();
+	if(oldCode != "")
+		$("#"+oldCode).attr("class","btn btn-primary mr-3");
+	$("#"+code).attr("class","btn btn-secondary mr-3");
+
+	let cat2="";
+	if(code != "all"){ // 전체 클릭시
+		cat2= code;
+		// $("#mainContentBox").css("display","none") 
+	}else{ // 나머지 태그 클릭시
+		// $("#mainContentBox").css("display","block")
+	}
+	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
+	var paramArea = "&contentTypeId=25&areaCode=1";
+	var paramCat = "&cat1=C01&cat2=";
+	var paramArea = "&contentTypeId=";
+	var paramList = "&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
+	var addr2 = servicekey +paramArea + paramCat + paramArrange + paramPageNo;
+	
+	//var addr2 = servicekey + paramArea + paramCat + paramArrange + paramPageNo;
+	var api = addr + "areaBasedList" + addr2  + 1 + paramArea;
+	
+	for(let i = 0; i < 1; i++){//contentId.length
+		console.log("코드 : " + code);
+		api += contentId[i].code + type;
+		console.log("포문 안 : " + api);
+		//<div class="col-md-4"><img src='images/default.png' alt='no img' style='width: 50%;'>
+		$.getJSON(api,function(data){
+			let myData = data.response.body.items.item;
+			console.log('myData');
+			console.log(myData);
+			$.each(myData, function(index, element){
+	            if (index < 3) {	
+	            	console.log("이치문 안 : " + element.title);
+	            	firstFn(element);
+	            } else {
+	            	secondFn(element);
+	            }
+					
+				
+				//}
+			});
 		});
-		
-	});
-
-	function goCourseDetail(own) {
-		console.log($(own).val());
-		location.href = "CourseAPIDetail.do?contentId=" + $(own).val();
 	}
-	
-	function pageChange(number){
-		var page = $(number).text()
-	//	api = addr + "areaBasedList" + addr2 + page + type;
-		console.log(page);
-		
-	}
-	
+	oldCode = code;
+}
 </script>    
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -203,7 +312,7 @@
 				</form>
 			</div>		
 		</div>
-			
+		<div id="tagBox"> </div>	
 		<div class="col-md-10 offset-md-2 tagcloud">
 		<a class = "tagclouda btn btn-primary">#전체</a>	
 		<a href="#" class = "btn btn-primary tagclouda">#가족 코스</a>
@@ -215,15 +324,18 @@
 		</div>
 		</div>
 	<div class="container mt-5">
+	
+	
 		<div class="row" id="apiFirst">
 			
 		</div>
 		<div class="row"  id="apiSecond">
 		</div>
+		
 		             <div class="row mt-5 mb-4">
                         <div class="col text-center">
                             <div class="block-27">
-                                <ul>
+                                <ul class="pageul">
                                     <li><a href="#" onclick = "pageChange(this)">&lt;</a></li>
                                     <li class="active"><a href="#" onclick = "pageChange(this)">1</a>               
                                     <li><a href="#" onclick = "pageChange(this)">2</a></li>

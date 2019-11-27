@@ -15,7 +15,7 @@
 			 $.ajax({
 			        type:'POST',
 			        url : "WriteReply",
-			        data:{bIdx : ${bIdx}, replyContent : $("#replyContent").val()},
+			        data:{cmd : "add", bIdx : ${bIdx}, replyContent : $("#replyContent").val()},
 					dataType: "json",
 			        success : function(data){
 			        	$("#replyContent").val("");
@@ -28,29 +28,51 @@
 			    });
 		});
 		
-		function addReply(data){
-			let control = "<li class='comment box p-2 px-3 bg-light d-flex'>"
-							+ " <div class='comment-body'>"
-							+ "	<h3 class='bold'>"+ data.id +"</h3>"
-							+ " 	<div class='meta'>"+data.rWDate+"</div>"
-							+ " 	<p>"+data.rContent+"</p>"
-							+ " </li>";		
-			
-			$(".comment-list").append(control);
-		}
-		
-		function changReplyHeader(){
-			let count = $(".comment-list > li").size();
-			let header ="";
-			if(count > 0)
-				header = count + " Reply";
-			else
-				header = "No Reply";
-			
-			$("#replyCount").text(header);
-		}
 	});
+	
+	function delReply(rIdx){
+		 $.ajax({
+		        type:'POST',
+		        url : "WriteReply",
+		        data:{cmd : "del", rIdx : rIdx},
+		        success : function(data){
+		        	console.log("success");
+		        	if(data){
+		        		$("#"+rIdx).remove();
+		        		changReplyHeader();
+		        	}else{
+		        		alert("댓글 삭제 실패!");
+		        	}
+		        },
+		        error:function(request, status, error){
+		            alert("댓글 삭제 실패!");
+		       }
+		    });
+	}
+	
+	function addReply(data){
+		console.log(data);
+		let control = "<li class='comment box p-2 px-3 bg-light d-flex' id='"+data.rIdx+"'>"
+						+ " <div class='comment-body'>"
+						+ "	<h3 class='bold'>"+ data.id +"</h3>"
+						+ " 	<div class='meta'>"+data.rWDate+"</div>"
+						+ " 	<p>"+data.rContent+"</p>"
+						+ "	<input type='button' onclick='delReply(\""+data.rIdx+"\")' class='btn del'  value='Delete'>"
+						+ " </li>";		
 		
+		$(".comment-list").append(control);
+	}
+	
+	function changReplyHeader(){
+		let count = $(".comment-list > li").size();
+		let header ="";
+		if(count > 0)
+			header = count + " Reply";
+		else
+			header = "No Reply";
+		
+		$("#replyCount").text(header);
+	}
 </script>
 </head>
 <body>
@@ -67,13 +89,16 @@
 		<h3 id="replyCount"  style="border-bottom: 1px solid #f2f2f2;">  </h3>
 			<ul class="comment-list">
 			<c:forEach var="reply" items="${ replies }">
-				<li class="comment box p-2 px-3 bg-light d-flex">
+				<li class="comment box p-2 px-3 bg-light d-flex" id="${reply.rIdx}">
 					<div class="comment-body">
-						<h3 class="bold">${ reply.id }</h3>
+						<h3 class="bold">${ reply.id } </h3>
 						<div class="meta">
 							 <fmt:formatDate value="${reply.rWDate}" pattern="yyyy-MM-dd   HH:mm:ss" /> 
 						</div>
 						<p>${ reply.rContent }</p>
+						<c:if test="${reply.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
+							<input type="button" onclick="delReply('${reply.rIdx}')" class='btn del'  value="Delete">
+						</c:if>
 					</div>
 				</li>
 			</c:forEach>

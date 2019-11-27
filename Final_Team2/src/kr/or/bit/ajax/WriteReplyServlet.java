@@ -37,33 +37,45 @@ public class WriteReplyServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		PrintWriter out = response.getWriter();
-
-		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
-		String replyContent = request.getParameter("replyContent").trim();
-		String memberId = (String) request.getSession().getAttribute("memberId");
-
+		String cmd = request.getParameter("cmd");
 		BoardDao dao = new BoardDao();
-		int rIdx = dao.insertReply(bIdx, memberId, replyContent);
-
-		Reply reply = new Reply();
-		String resultString = "{";
-		if (rIdx > 0) {
-			reply = dao.getReply(rIdx);
-			resultString += "id : " + reply.getId();
-			resultString += ", rContent : " + reply.getrContent();
-			String date =  new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss").format(reply.getrWDate());
-			resultString += ", rWDate : " +"\""+date+"\"";
-		}
 		
-		resultString +="}";
-		JSONObject json = null;
-		try {
-			json = new JSONObject(resultString) ;
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		//추가
+		if(cmd.equals("add")) {
+			int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+			String replyContent = request.getParameter("replyContent").trim();
+			String memberId = (String) request.getSession().getAttribute("memberId");
 
-		out.print(json);
+			int rIdx = dao.insertReply(bIdx, memberId, replyContent);
+
+			Reply reply = new Reply();
+			String resultString = "{";
+			if (rIdx > 0) {
+				reply = dao.getReply(rIdx);
+				resultString += "id : " + reply.getId();
+				resultString += ", rContent : " + reply.getrContent();
+				String date = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss").format(reply.getrWDate());
+				resultString += ", rWDate : " + "\"" + date + "\"";
+				resultString += ", rIdx : "  + reply.getrIdx();
+			}
+
+			resultString += "}";
+			JSONObject json = null;
+			try {
+				json = new JSONObject(resultString);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			out.print(json);
+		}
+		//삭제
+		else if(cmd.equals("del")){
+			int rIdx = Integer.parseInt(request.getParameter("rIdx"));
+			boolean result=dao.deleteReplyByRIdx(rIdx);
+			
+			out.print(result);
+		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

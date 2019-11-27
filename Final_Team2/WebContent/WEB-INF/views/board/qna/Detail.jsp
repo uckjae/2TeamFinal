@@ -23,11 +23,6 @@
     <script type="text/javascript">
     	$(function(){
     		setReadNum(${qnaDetail.bIdx});
-    		$("#replybtn").click(function(){
-    			$.ajax({
-    				
-    			});
-    		});
     	});
     </script>
 </head>
