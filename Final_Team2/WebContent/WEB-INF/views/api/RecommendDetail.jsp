@@ -16,32 +16,58 @@
 	</style>
 <script type="text/javascript">
 	$(function() {
-		let contentId = "&contentId="+${requestScope.contentId};
-		let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-		let service = "serviceKey="+servicekey;
-		let paramArea = "&contentTypeId=25&areaCode=1";
-		let paramSigungu = "&sigunguCode=";
-		let paramCat = "&cat1=C01&cat2=";
-		let paramList = "&cat3=&listYN=Y";
-		let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
-		let paramNumOfRows = "&numOfRows=3";
-		let paramPageNo =  "&pageNo=1";
-		let type = "&_type=json";
-		let addr2 = service + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
-		let api = addr + "areaBasedList?" + addr2 + contentId + type;
-		console.log("api : " + api);
+		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+
+		var servicekey = "?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
+		var paramArea = "&contentTypeId=25&areaCode=1";
+		var contentId = "&contentId="+${requestScope.contentId};
+		var forCommon = "&defaultYN=Y&firstImageYN=Y";
+		var type = "&_type=json";
+		var apiDetail = "";
+		var apiCommon = "";
+		var apiIntro = "";
+		
+		apiDetail = addr + "detailInfo" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+		apiIntro = addr + "detailIntro" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+		apiCommon = addr + "detailCommon" + servicekey +paramArea +contentId + forCommon +"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+		
+		$.getJSON(apiCommon,function(data){
+			console.log("common");
+			console.log(data);
+			var titleData = data.response.body.items.item.title;
+			console.log(titleData);
+			$("#title").text(titleData);
+		});
+		
+		$.getJSON(apiIntro,function(data){
+			console.log("intro");
+			console.log(data);
+			distanceData = data.response.body.items.item.distance;
+			takeTimeData = data.response.body.items.item.taketime;
+			console.log(data.response.body.items.item);
+			$("#distance").text(distanceData);
+			$("#takeTime").text(takeTimeData);
+			
+		});
+		
+		$.getJSON(apiDetail,function(data) { 
+			 var myItem = data.response.body.items.item;
+			 console.log("detail");
+			 console.log(data);
+			 console.log(myItem)
+		});
 		$.getJSON(api, function(data) {
 			let myItem = data.response.body.items.item;
 			
-			console.log("myItem" + myItem);
-			$.each(myItem, function(index, element) {
-				$('#detail').append(
+			console.log("myItem" + apiCommon);
+			$.each(apiCommon, function(index, element) {
+				$('#deil').append(
 						"<div class='row'>" + "<div class='col-md-3'>"
 								+ "<img src='" + element.firstimage + "' alt='"
 								+ element.firstimage2 + "' style='width:100%'>"
 								+ "</div>" + "<div class='col-md-9'>"
 								+ "<div class='col-md-12'>"
-								+ "<a href='RecommendDetail.do?contentId="+ element.contentid + "'	>" + element.overview
+								+ "" + element.title
 								+ "</div>" + "<div class='col-md-12'>"
 								+ "</div>" + "</div>" + "</div><hr>");
 			});
@@ -55,15 +81,14 @@
 	
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-    <div class="content">
-    	<div class="row">
-   			<h1 class="text-center" id="title">title</h1>
-    	</div>
-   		<div class="row">
-   			<div class="text-right" id=detail>
-   				
-   			</div>
-   		</div>
+    <div class="container">
+    	<div id="mainContentBox" class="content">
+			<div class="row">
+				<div class="col-md-4" class="1">1</div>
+				<div class="col-md-4" class="2">2</div>
+				<div class="col-md-4" class="3">3</div>
+			</div>
+		</div>
     </div>
 </body>
 </html>
