@@ -75,7 +75,7 @@
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
-									+ "<a href='RecommendDetail.do'>" + element.title
+									+ "<a href='RecommendDetail.do?contentId="+ element.contentid +"'>" + element.title
 								+"</div>"
 								+"<div class='col-md-12'>"
 									
