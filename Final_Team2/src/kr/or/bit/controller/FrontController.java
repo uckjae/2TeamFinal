@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.APICourseDetailService;
 import kr.or.bit.service.AdminListService;
 import kr.or.bit.service.AdminWriteService;
 import kr.or.bit.service.FreeBoardDeleteService;
@@ -282,8 +283,9 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/api/CourseAPIMain.jsp");
 		}
 		else if (url_Command.equals("/CourseAPIDetail.do")) {			
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/CourseAPIDetail.jsp");
+			System.out.println("frontController : courseDeatil.do 오나?" );
+			action = new APICourseDetailService();
+			forward = action.execute(request, response);
 		}
 		//여행지
 		else if(url_Command.equals("/Travel.do")) {
