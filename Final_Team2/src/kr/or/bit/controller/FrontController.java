@@ -52,6 +52,7 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
+import kr.or.bit.service.RecommendService;
 import kr.or.bit.service.RegisterOkService;
 
 @WebServlet("*.do")
@@ -298,8 +299,8 @@ public class FrontController extends HttpServlet {
 		}
 		// 추천 여행지
 		else if (url_Command.equals("/Recommend.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
+			action = new RecommendService();
+			forward = action.execute(request,response);
 		}
 		else if (url_Command.equals("/RecommendDetail.do")) {
 			forward = new ActionForward();
