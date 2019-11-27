@@ -87,12 +87,6 @@
             height: 100%;
         }
     </style>
-<style type="text/css">
-		html,
-		body {
-			height: 100%;
-		}
-	</style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -132,13 +126,7 @@
 		<div id="tagBox"> </div>
 		
 		</div>
-	<div class="content">
-		<div class="row">
-			<div class="col-md-4">1</div>
-			<div class="col-md-4">2</div>
-			<div class="col-md-4">3</div>
-		</div>
-	</div>
+		
 	<div class="content">
 		<!-- <div class="row" id="apiFirst"> -->
 			<div class="container" id="apiFirst">

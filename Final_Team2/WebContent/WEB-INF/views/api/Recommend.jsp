@@ -74,7 +74,7 @@
 				console.log(tags);
 				let control = "<a href='#' class='btn btn-primary mr-3'>#전체</a>";
 				$.each(tags, function(index, element){
-					control+="<a href='어쩌구.do?code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+					control+="<a href='Recommand.do?cmd=tagSearch&code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
 				})
 
 				$("#tagBox").append(control);
