@@ -35,10 +35,11 @@
 		var addr2 = servicekey + paramArea + paramCat + paramArrange
 				+ paramPageNo;
 		var api = "";
-		api = addr + "areaBasedList" + addr2 + 2 + type;
-
+		api = addr + "areaBasedList" + addr2 + pageChange(page) + type;
+		console.log("api 주소: " + api);
 		$.getJSON(api, function(data) {
 			var myItem = data.response.body.items.item;
+			
 			$.each(myItem,
 					function(index, element) {
 						if (index < 3) {
@@ -75,6 +76,7 @@
 							$(div1).append(divProj);
 							$(div1).append(divText);
 							$("#apiFirst").append(div1);
+
 						} else {
 							var div1 = $("<div class='col-md-4'>");
 							var divProj = $("<div class='project mb-4'>");
@@ -118,6 +120,13 @@
 		console.log($(own).val());
 		location.href = "CourseAPIDetail.do?contentId=" + $(own).val();
 	}
+	
+	function pageChange(number){
+		var page = $(number).text()
+	//	api = addr + "areaBasedList" + addr2 + page + type;
+		console.log(page);
+	}
+	
 </script>    
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -212,13 +221,13 @@
                         <div class="col text-center">
                             <div class="block-27">
                                 <ul>
-                                    <li><a href="#">&lt;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">&gt;</a></li>
+                                    <li><a href="#" onclick = "pageChange(this)">&lt;</a></li>
+                                    <li class="active"><a href="#" onclick = "pageChange(this)">1</a>               
+                                    <li><a href="#" onclick = "pageChange(this)">2</a></li>
+                                    <li><a href="#" onclick = "pageChange(this)">3</a></li>
+                                    <li><a href="#" onclick = "pageChange(this)">4</a></li>
+                                    <li><a href="#" onclick = "pageChange(this)">5</a></li>
+                                    <li><a href="#" onclick = "pageChange(this)">&gt;</a></li>
                                 </ul>
                             </div>
                         </div>
