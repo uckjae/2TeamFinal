@@ -35,7 +35,7 @@
 		var addr2 = servicekey + paramArea + paramCat + paramArrange
 				+ paramPageNo;
 		var api = "";
-		api = addr + "areaBasedList" + addr2 + "1" + type;
+		api = addr + "areaBasedList" + addr2 + 2 + type;
 
 		$.getJSON(api, function(data) {
 			var myItem = data.response.body.items.item;
@@ -148,7 +148,7 @@
                         </div>
 					
 					
-						<div class="col-lg align-items-end">
+						<div class="col-md align-items-end">
 							<div class="form-group">
 								<label for="#"></label>
 								<div class="form-field">
@@ -167,7 +167,7 @@
 							</div>
 						</div>
 
-						<div class="col-lg align-self-end">
+						<div class="col-md align-self-end">
 							<div class="form-group">								
 								<div class="form-field">
 								 <div class="icon">
@@ -179,9 +179,9 @@
 							</div>
 						</div>
 						
-						<div class="col-lg align-self-end">
+						<div class="col-md align-self-end">
 							<div class="form-group">
-								<div class="form-field col-md-6">
+								<div class="form-field col-lg-6">
 									<input type="submit" value="검색"
 										class="form-control btn btn-primary">
 								</div>
@@ -193,7 +193,7 @@
 		</div>
 			
 		<div class="col-md-10 offset-md-2 tagcloud">
-		<a href="#" class = " tagclouda btn btn-primary">#전체</a>	
+		<a class = "tagclouda btn btn-primary">#전체</a>	
 		<a href="#" class = "btn btn-primary tagclouda">#가족 코스</a>
 		<a href="#" class = "btn btn-primary tagclouda">#나홀로 코스</a>
 		<a href="#" class = "btn btn-primary tagclouda">#힐링코스</a>
@@ -213,7 +213,7 @@
                             <div class="block-27">
                                 <ul>
                                     <li><a href="#">&lt;</a></li>
-                                    <li class="active"><span>1</span></li>
+                                    <li class="active"><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">4</a></li>

@@ -17,7 +17,8 @@
 <script type="text/javascript">
 	$(function() {
 		// 관광정보 api 
-		let contentId = "&contentId=" + ${requestScope.contentId};
+		let contentId = "&contentId=";
+		console.log(contentId);
 		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
 		//detailCommon? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
