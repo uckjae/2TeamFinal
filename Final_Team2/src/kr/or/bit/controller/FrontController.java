@@ -285,7 +285,6 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/api/CourseAPIMain.jsp");
 		}
 		else if (url_Command.equals("/CourseAPIDetail.do")) {			
-			System.out.println("frontController : courseDeatil.do 오나?" );
 			action = new APICourseDetailService();
 			forward = action.execute(request, response);
 		}
