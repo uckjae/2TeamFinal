@@ -17,86 +17,102 @@
 <script type="text/javascript">
 	$(function() {
 		// 관광정보 api 
-		
+
 		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
 		//areaBasedList? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-
 		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
 		var paramCat = "&cat1=C01&cat2=";
 		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
 		var paramPageNo = "&numOfRows=6&pageNo=";
 		var type = "&_type=json";
-		var addr2 = servicekey + paramArea + paramCat + paramArrange+ paramPageNo;
+		var addr2 = servicekey + paramArea + paramCat + paramArrange
+				+ paramPageNo;
 		var api = "";
- 	  	var contentId = "";
+		api = addr + "areaBasedList" + addr2 + "1" + type;
 
-			api = addr + "areaBasedList" + addr2 + 1 + type;
-		
-			$.getJSON(api,function(data) { 
-			
-			 var myItem = data.response.body.items.item;
-			 $.each(myItem,function(index,element){
-				
-				 
+		$.getJSON(api, function(data) {
+			var myItem = data.response.body.items.item;
+			$.each(myItem,
+					function(index, element) {
+						if (index < 3) {
+							var div1 = $("<div class='col-md-4'>");
+							var divProj = $("<div class='project mb-4'>");
+							var divImg = $("<div class='image'>");
+							var img = $('<img>');
+							$(img).attr('src', element.firstimage);
+							$(img).attr('alt', 'No Image');
+							$(img).attr('style', 'width:100%');
+							$(img).attr('class', 'firstImg');
+							var divText = $("<div class='mb-3'>");
+							var textSize = $("<h5>");
 
-	if (index < 3) {
-					// 	console.log("컨텐트 아이디:" + element.contentid); 
-					var contentId = element.contentid;
+							var aTag = $('<a>');
 
-					var div1 = $("<div class='col-md-4'>");
-					var divProj = $("<div class='project mb-4'>");
-					var divImg = $("<div class='image'>");
-					var img = $('<img>');
-					$(img).attr('src', element.firstimage);
-					$(img).attr('alt', 'No Image');
-					$(img).attr('style', 'width:100%');
-					$(img).attr('class', 'firstImg');
-					var divText = $("<div class='mb-3'>");
-					var textSize = $("<h5>");
-					$(textSize).text(element.title);
-					$(divText).append(textSize);
+							$(aTag).attr('href', '#');
+							$(aTag).attr('onclick',
+									'goCourseDetail(this.nextSibling)');
 
-					$(divImg).append(img);
-					$(divProj).append(divImg);
+							var inputTag = $("<input>");
+							$(inputTag).attr('type', 'hidden');
+							$(inputTag).attr('name', 'contentid');
+							$(inputTag).attr('value', element.contentid);
 
-					$(div1).append(divProj);
-					$(div1).append(divText);
-					$("#apiFirst").append(div1);
+							$(textSize).text(element.title);
+							$(aTag).append(textSize);
+							$(divText).append(aTag);
+							$(divText).append(inputTag);
 
-				} else {
-					var div1 = $("<div class='col-md-4'>");
-					var divProj = $("<div class='project mb-4'>");
-					var divImg = $("<div class='image'>");
-					var img = $('<img>');
-					$(img).attr('src', element.firstimage);
-					$(img).attr('alt', 'No Image');
-					$(img).attr('style', 'width:100%');
-					$(img).attr('class', 'firstImg');
-					var divText = $("<div class='mb-3'>");
-					var textSize = $("<h5>");
-					$(textSize).text(element.title);
-					$(divText).append(textSize);
+							$(divImg).append(img);
+							$(divProj).append(divImg);
 
-					$(divImg).append(img);
-					$(divProj).append(divImg);
+							$(div1).append(divProj);
+							$(div1).append(divText);
+							$("#apiFirst").append(div1);
+						} else {
+							var div1 = $("<div class='col-md-4'>");
+							var divProj = $("<div class='project mb-4'>");
+							var divImg = $("<div class='image'>");
+							var img = $('<img>');
+							$(img).attr('src', element.firstimage);
+							$(img).attr('alt', 'No Image');
+							$(img).attr('style', 'width:100%');
+							$(img).attr('class', 'firstImg');
+							var divText = $("<div class='mb-3'>");
+							var textSize = $("<h5>");
 
-					$(div1).append(divProj);
-					$(div1).append(divText);
-					$("#apiSecond").append(div1);
-				}
-			});
+							var aTag = $('<a>');
 
-		});
+							$(aTag).attr('href', '#');
+							$(aTag).attr('onclick',
+									'goCourseDetail(this.nextSibling)');
 
-		//contentId가져오기 
-		$('.firstImg').click(function() {
-			var text = $(this).text();
-			console.log("클릭시  text 값 : " + text);
+							var inputTag = $("<input>");
+							$(inputTag).attr('type', 'hidden');
+							$(inputTag).attr('name', 'contentid');
+							$(inputTag).attr('value', element.contentid);
 
+							$(textSize).text(element.title);
+							$(aTag).append(textSize);
+							$(divText).append(aTag);
+							$(divText).append(inputTag);
+
+							$(divImg).append(img);
+							$(divProj).append(divImg);
+
+							$(div1).append(divProj);
+							$(div1).append(divText);
+							$("#apiSecond").append(div1);
+						}
+					});
 		});
 	});
+
+	function goCourseDetail(own) {
+		console.log($(own).val());
+		location.href = "CourseAPIDetail.do?contentId=" + $(own).val();
+	}
 </script>    
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -166,14 +182,13 @@
 			
 		</div>
 		<div class="row"  id="apiSecond">
-<%-- <c:set  value=/> --%>
 		</div>
 		             <div class="row mt-5 mb-4">
                         <div class="col text-center">
                             <div class="block-27">
                                 <ul>
                                     <li><a href="#">&lt;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
+                                    <li class="active"><span>1</span></li>
                                     <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">4</a></li>

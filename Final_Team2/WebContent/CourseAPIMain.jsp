@@ -76,7 +76,7 @@
 	function goCourseDetail(own){
 		console.log($(own).val());
 		request.setAttribute("contentId", $(own).val());
-		location.href("courseAPIDetail.do")
+		location.href("courseAPIDetail.do?contentId="+$(own).val());
 	}
 </script>    
 </head>
