@@ -16,6 +16,7 @@
 	</style>
 <script type="text/javascript">
 	$(function() {
+		let contentId = "&contentId="+${requestScope.contentId};
 		let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 		let service = "serviceKey="+servicekey;
 		let paramArea = "&contentTypeId=25&areaCode=1";
@@ -27,11 +28,11 @@
 		let paramPageNo =  "&pageNo=1";
 		let type = "&_type=json";
 		let addr2 = service + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
-		let api = addr + "areaBasedList?" + addr2 + type;
-		
+		let api = addr + "areaBasedList?" + addr2 + contentId + type;
+		console.log("api : " + api);
 		$.getJSON(api, function(data) {
 			let myItem = data.response.body.items.item;
-			console.log("api : " + api);
+			
 			console.log("myItem" + myItem);
 			$.each(myItem, function(index, element) {
 				$('#detail').append(
@@ -40,10 +41,8 @@
 								+ element.firstimage2 + "' style='width:100%'>"
 								+ "</div>" + "<div class='col-md-9'>"
 								+ "<div class='col-md-12'>"
-								+ "<a href='RecommendDetail.do?contentId="
-								+ element.contentid + "'	>" + element.overview
+								+ "<a href='RecommendDetail.do?contentId="+ element.contentid + "'	>" + element.overview
 								+ "</div>" + "<div class='col-md-12'>"
-
 								+ "</div>" + "</div>" + "</div><hr>");
 			});
 		});
@@ -61,10 +60,8 @@
    			<h1 class="text-center" id="title">title</h1>
     	</div>
    		<div class="row">
-   			<div class="text-right">
-   				<span id="detail">1</span>
-   				&nbsp;&nbsp;&nbsp;
-   				<span id="takeTime">2</span>
+   			<div class="text-right" id=detail>
+   				
    			</div>
    		</div>
     </div>

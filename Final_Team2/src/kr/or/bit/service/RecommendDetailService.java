@@ -15,7 +15,8 @@ public class RecommendDetailService implements Action{
 		System.out.println("apicourseDetailService" + contentId);
 		request.setAttribute("contentId", contentId);
 		
-		return null;
+		forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");
+		return forward;
 	}
 
 }
