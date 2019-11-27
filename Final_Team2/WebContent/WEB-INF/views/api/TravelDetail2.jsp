@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,16 @@
 <c:import url="/common/HeadTag.jsp" />
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style type="text/css">
+.position {
+	position: relative;
+	margin-top: 3em;
+	margin-left: 10em;
+	margin-right: 10em;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -127,10 +136,23 @@ $(function(){
 		$.each(myData2,function(key,value){
 			console.log(key);
 			if(key=="overview"){				
-			$(".content").append("<br>");
-			$(".content").append("<div>" + value + "</div>");
+			$("#MainContent").append("<br>");
+			$("#MainContent").append("<h3>여행정보</h3>");
+			$("#MainContent").append("<br>");
+			$("#MainContent").append("<div>" + value + "</div>");
+			$("#MainContent").append("<hr>");
+			$("#MainContent").append("<h3>상세정보</h3>");
+			}else if(key=="addr1"){
+				 
+				 $("#addrContent").append("<strong>주소</strong>");
+				 
+				 $("#addrContent").append("<div>" + value + "</div>");
 			}else if(key=="homepage"){
-			 $(".DetailContent").append("<div>" + value + "</div>");
+			 
+			 $("#DetailContent").append("<strong>홈페이지</strong>");
+			 
+			 $("#DetailContent").append("<div>" + value + "</div>");
+			 
 			}
 		});
 	});
@@ -139,13 +161,7 @@ $(function(){
 		var myData3 = data.response.body.items.item;
 		console.log(myData3);
 		
-		$.each(myData2,function(key,value){
-			console.log(key);
-			if(key=="overview"){				
-			$(".content").append("<br>");
-			$(".content").append("<div>" + value + "</div>");
-			}
-		});
+
 		
 	});
 	/*위치기반정보조회*/
@@ -164,16 +180,28 @@ $(function(){
 
 
 </head>
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-<!-- Top -->
-    <c:import url="/common/Top.jsp"/>
-    
-    <div class="content">
-      <hr>     
-    </div>
-    <div class="DetailContent">
-      <hr>
-      <strong class="stit">상세정보</strong>
-    </div>
+<body data-spy="scroll" data-target=".site-navbar-target"
+	data-offset="300">
+	<!-- Top -->
+	<c:import url="/common/Top.jsp" />
+	<section class="ftco-section">
+		<div class="row">
+
+			<div id="MainContent" class="position">
+				
+			</div>
+			
+			<div id="addrContent" class="position">
+				
+				
+			</div>
+			
+			<div id="DetailContent" class="position">
+				
+				
+			</div>
+			
+		</div>
+	</section>
 </body>
 </html>
