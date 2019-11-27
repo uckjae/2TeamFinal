@@ -7,7 +7,7 @@
 <!-- 63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D -->
 	<meta charset="UTF-8">
 	<c:import url="/common/HeadTag.jsp" />
-	<title>추천 여행지</title>
+	<title>코스</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
@@ -74,7 +74,7 @@
 				console.log(tags);
 				let control = "<a href='#' class='btn btn-primary mr-3'>#전체</a>";
 				$.each(tags, function(index, element){
-					control+="<a href='Recommand.do?cmd=tagSearch&code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+					control+="<a href='어쩌구.do?code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
 				})
 
 				$("#tagBox").append(control);
@@ -87,12 +87,6 @@
             height: 100%;
         }
     </style>
-<style type="text/css">
-		html,
-		body {
-			height: 100%;
-		}
-	</style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -132,13 +126,7 @@
 		<div id="tagBox"> </div>
 		
 		</div>
-	<div class="content">
-		<div class="row">
-			<div class="col-md-4">1</div>
-			<div class="col-md-4">2</div>
-			<div class="col-md-4">3</div>
-		</div>
-	</div>
+		
 	<div class="content">
 		<!-- <div class="row" id="apiFirst"> -->
 			<div class="container" id="apiFirst">
