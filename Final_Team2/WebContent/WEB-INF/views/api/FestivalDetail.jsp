@@ -12,11 +12,23 @@
 <style type="text/css">
 	.position {
 		position: relative;
-   	    margin-top: 7em;
+   	    margin-top: 3em;
         margin-left: 10em;
         margin-right: 10em;
         }
-	
+	 li {
+		list-style-position: inside;
+		 text-indent: -18px;
+		padding-left:18px;
+		list-style-type: none;
+	}
+	ul {
+		padding-inline-start: 0px;
+	}
+ 	body {
+		color: black;
+	}
+		
 </style>
 <script type="text/javascript">
 $(function(){
@@ -82,7 +94,7 @@ $(function(){
 		$.each(myData,function(key,value){
 			if(key=="overview"){
 				$("#overview").append("<hr>");
-				$("#overview").append("<h3>축제 정보</h3>");
+				$("#overview").append("<h3><b>축제 정보</b></h3>");
 				$("#overview").append("<div>" + value + "</div>");
 				$("#overview").append("<hr>");
 			}
@@ -97,13 +109,29 @@ $(function(){
 		var myData2 = data2.response.body.items.item;
 		console.log("소개정보")
 		console.log(myData2);
-		$.each(myData2,function(key,value){
-			$(".content").append("<ul>");
-			if(key == "sponsor1"){
-				$(".content").append("<li>" + value + "</li>");
-			}else if(key == "sponsor1tel"){
-				$(".content").append("<li>" + value + "</li>");	
-			}
+		$("#content").append("<h3><b>상세정보</b></h3>");
+		$('#content').append("<br>");
+		$.each(myData2,function(key,value){			
+			if(key == "eventstartdate"){
+				$("#content").append("<ul><li>종료날짜 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
+				}else if(key == "eventplace"){
+					$("#content").append("<ul><li>주소 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
+					}
+				else if(key == "sponsor1"){
+						$("#content").append("<ul><li>주관   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
+						}
+				else if(key == "sponsor1tel"){
+							$("#content").append("<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
+								}
+				else if(key == "sponsor2"){
+									$("#content").append("<ul><li>주관 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
+									}
+				else if(key == "eventenddate"){
+									$("#content").append("<ul><li>시작날짜   &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
+								}else if(key == "sponsor2tel"){
+									$("#content").append("<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
+								}
+					
 			
 		});
 	
@@ -151,7 +179,7 @@ $(function(){
 </div>
 	
 
-<div class="position">
+<div class="position" id="content">
 	
 </div>
 </div>
