@@ -303,7 +303,7 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		}
 		else if (url_Command.equals("/RecommendDetail.do")) {
-			action = new RecommendDetailService();
+			action = new RecommendService();
 			forward = action.execute(request, response);
 		}
 		if (forward != null) {
