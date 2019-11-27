@@ -6,21 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 
-public class RecommendService implements Action {
+public class RecommendDetailService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		String cmd = request.getParameter("cmd");
-
-		if (cmd.equals("main")) {
-			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
-		} else if (cmd.equals("tagSearch")) {
-			forward.setPath("/WEB-INF/views/api/RecommendSearch.jsp");
-		} else if (cmd.equals("detail")) {
-
-		}
-
+		int contentId = Integer.parseInt(request.getParameter("contentId"));
+		System.out.println("apicourseDetailService" + contentId);
+		request.setAttribute("contentId", contentId);
+		
+		forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");
 		return forward;
 	}
+
 }

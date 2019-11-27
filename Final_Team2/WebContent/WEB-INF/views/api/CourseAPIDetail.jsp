@@ -14,9 +14,32 @@
         body {
             height: 100%;
         }
+        
+        .scale {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  
+  transform: scale(5);
+  -webkit-transform: scale(5);
+  -moz-transform: scale(5);
+  -ms-transform: scale(5);
+  -o-transform: scale(5);
+  -position: fixed;
+
+}
+
+
 </style>
+
 <script type="text/javascript">
 	$(function() {
+		
 		// 관광정보 api 
 		
 		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
@@ -87,9 +110,10 @@
 					
 					var spanAuthor = $('<span class="timeline-author">');
 					$(spanAuthor).text(element.subname);
+					
 					var metaDate = $('<div class="meta-date">');
-					var img = $('<img>');
-					$(img).attr("class","image2");
+					var img = $('<img id="asd">');
+					$(img).attr("class","image2 scale");
 					$(img).attr('src',element.subdetailimg);
 					$(img).attr('onError',"this.images/scenery.png");
 					$(img).attr('alt','여행사진');
@@ -97,7 +121,7 @@
 					$(imglink).attr('href',element.subdetailimg);
 					$(imglink).attr('target','_blank');
 					$(imglink).append(img);
-					$(metaDate).append(imglink);
+					$(metaDate).append(img);
 					$(leftContainer).append(spanAuthor);
 					$(leftContainer).append(contentLeft);
 					$(leftContainer).append(metaDate);
@@ -116,7 +140,7 @@
 					$(spanAuthor).text(element.subname);
 					var metaDate = $('<div class="meta-date">');
 					var img = $('<img>');
-					$(img).attr("class","image2");
+					$(img).attr("class","image2 scale");
 					$(img).attr('src',element.subdetailimg);
 					$(img).attr('onError',"images/scenery.png");
 					$(img).attr('alt','여행사진');
@@ -124,7 +148,7 @@
 					$(imglink).attr('href',element.subdetailimg);
 					$(imglink).attr('target','_blank');
 					$(imglink).append(img);
-					$(metaDate).append(imglink);
+					$(metaDate).append(img);
 					$(rightContainer).append(spanAuthor);
 					$(rightContainer).append(contentRight);
 					$(rightContainer).append(metaDate);
@@ -157,5 +181,6 @@
    			</div>
    		</div>
     </div>
+   
 </body>
 </html>

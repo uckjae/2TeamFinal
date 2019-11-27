@@ -12,15 +12,51 @@
 	<script type="text/javascript">
 		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
 		$(function(){
+			init();
+		});
+		
+		function init() {
+			let api ="http://api.visitkorea.or.kr/openapi/service/rest/KorService/categoryCode?"
+						+ "ServiceKey="+servicekey
+						+ "&contentTypeId=25&&cat1=C01"
+						+ "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest"
+						+ "&_type=json";
+	
+			$.getJSON(api, function(data){
+				let tags = data.response.body.items.item;
+				console.log("tag");
+				console.log(tags);
+				let control = "<a href='#' onclick='getData(\"all\")' id='all' class='btn btn-secondary mr-3'>#전체</a>";
+				$.each(tags, function(index, element){
+					control+="<a href='#' onclick='getData(\""+element.code+"\")' id='"+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+				})
+
+				$("#tagBox").append(control);
+				getData("all");
+			});
+		}
+		
+		let oldCode = "";
+		function getData(code){
+			$('#dataBox').empty();
 			
-			getTag();
-			// 시군코드 서울1,인천2,경기31 // 중분류 112~117 
+			if(oldCode != "")
+				$("#"+oldCode).attr("class","btn btn-primary mr-3");
+			$("#"+code).attr("class","btn btn-secondary mr-3");
+
+			let cat2="";
+			if(code != "all"){ // 전체 클릭시
+				cat2= code;
+				$("#mainContentBox").css("display","none")
+			}else{ // 나머지 태그 클릭시
+				$("#mainContentBox").css("display","block")
+			}
 			
 			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 			let service = "serviceKey="+servicekey;
 			let paramArea = "&contentTypeId=25&areaCode=1";
 			let paramSigungu = "&sigunguCode=";
-			let paramCat = "&cat1=C01&cat2=";
+			let paramCat = "&cat1=C01&cat2="+cat2;
 			let paramList = "&cat3=&listYN=Y";
 			let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
 			let paramNumOfRows = "&numOfRows=1000";
@@ -28,12 +64,11 @@
 			let type = "&_type=json";
 			let addr2 = service + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 			let api = addr + "areaBasedList?" + addr2 + type;
-			
+			console.log(api);
 			$.getJSON(api,function(data){
 				let myData = data.response.body.items.item;
-				console.log(myData);
 				$.each(myData, function(index, element){
-					$('#apiFirst').append(
+					$('#dataBox').append(
 						"<div class='row'>"
 							+"<div class='col-md-3'>"
 								+"<img src='"+ element.firstimage +"' alt='" + element.firstimage2 + "' style='width:100%'>"
@@ -52,33 +87,7 @@
 				
 			}); 
 			
-			addr2 = service + paramArea + paramSigungu + paramCat + "0112" + paramList + paramArrange+ paramNumOfRows + paramPageNo;
-			api = addr + "areaBasedList?" + addr2 + type;
-			$.getJSON(api, function(data){
-				let myData = data.response.body.items.item;
-				console.log(data);
-				$.each()
-			});
-		});
-		
-		function getTag() {
-			let api ="http://api.visitkorea.or.kr/openapi/service/rest/KorService/categoryCode?"
-						+ "ServiceKey="+servicekey
-						+ "&contentTypeId=25&&cat1=C01"
-						+ "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest"
-						+ "&_type=json";
-	
-			$.getJSON(api, function(data){
-				let tags = data.response.body.items.item;
-				console.log("tag");
-				console.log(tags);
-				let control = "<a href='#' class='btn btn-primary mr-3'>#전체</a>";
-				$.each(tags, function(index, element){
-					control+="<a href='Recommend.do?cmd=tagSearch&code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
-				})
-
-				$("#tagBox").append(control);
-			});
+			oldCode = code;
 		}
 	</script>
 	<style type="text/css">
@@ -131,30 +140,31 @@
 		<div id="tagBox"> </div>
 		
 		</div>
-	<div class="content">
-		<div class="row">
-			<div class="col-md-4">1</div>
-			<div class="col-md-4">2</div>
-			<div class="col-md-4">3</div>
-		</div>
-	</div>
-	<div class="content">
-		<!-- <div class="row" id="apiFirst"> -->
-			<div class="container" id="apiFirst">
- 				<button type="button" class="btn btn-primary" id="new">최신순</button>
- 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
+		
+		<!-- Main 화면 Top -->
+		<div id="mainContentBox" class="content">
+			<div class="row">
+				<div class="col-md-4">1</div>
+				<div class="col-md-4">2</div>
+				<div class="col-md-4">3</div>
 			</div>
-		<!-- </div> -->
-		<div class="pagination-sm mt-3 mb-3" style="text-align:center">
-		  <a href="#" class="btn btn-primary">&laquo;</a>
-			<a href="#" class="btn btn-primary">1</a>
-			<a href="#" class="btn btn-primary">2</a>
-			<a href="#" class="btn btn-primary">3</a>
-			<a href="#" class="btn btn-primary">4</a>
-			<a href="#" class="btn btn-primary">5</a>
-		<a href="#" class="btn btn-primary">&raquo;</a>
 		</div>
-
-	</div>
+		<div class="content">
+			<div class="text-right" >
+	 				<button type="button" class="btn btn-primary" id="new">최신순</button>
+	 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
+			</div>
+			<div  id="dataBox"></div>
+			
+			<div class="pagination-sm mt-3 mb-3" style="text-align:center">
+			    <a href="#" class="btn btn-primary">&laquo;</a>
+				<a href="#" class="btn btn-primary">1</a>
+				<a href="#" class="btn btn-primary">2</a>
+				<a href="#" class="btn btn-primary">3</a>
+				<a href="#" class="btn btn-primary">4</a>
+				<a href="#" class="btn btn-primary">5</a>
+				<a href="#" class="btn btn-primary">&raquo;</a>
+			</div>
+		</div>
 </body>
 </html>

@@ -31,8 +31,8 @@ import kr.or.bit.service.MTListContentDeleteService;
 import kr.or.bit.service.MTListContentSevice;
 import kr.or.bit.service.MemberDeleteService;
 import kr.or.bit.service.MemberEditOkService;
-import kr.or.bit.service.MemberService;
 import kr.or.bit.service.MemberListService;
+import kr.or.bit.service.MemberService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWrite;
@@ -52,7 +52,7 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
-import kr.or.bit.service.RecommendService;
+import kr.or.bit.service.RecommendDetailService;
 import kr.or.bit.service.RegisterOkService;
 
 @WebServlet("*.do")
@@ -284,7 +284,6 @@ public class FrontController extends HttpServlet {
 			forward.setPath("/WEB-INF/views/api/CourseAPIMain.jsp");
 		}
 		else if (url_Command.equals("/CourseAPIDetail.do")) {			
-			System.out.println("frontController : courseDeatil.do 오나?" );
 			action = new APICourseDetailService();
 			forward = action.execute(request, response);
 		}
@@ -299,12 +298,12 @@ public class FrontController extends HttpServlet {
 		}
 		// 추천 여행지
 		else if (url_Command.equals("/Recommend.do")) {
-			action = new RecommendService();
-			forward = action.execute(request,response);
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		}
 		else if (url_Command.equals("/RecommendDetail.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");
+			action = new RecommendDetailService();
+			forward = action.execute(request, response);
 		}
 		if (forward != null) {
 			if (forward.isRedirect()) {
