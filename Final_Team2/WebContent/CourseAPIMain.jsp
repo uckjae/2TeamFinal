@@ -40,7 +40,7 @@
 			$.getJSON(api,function(data) { 
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
-				 console.log("each문 " + index);
+				 console.log("api : " + api);
 				 
 				 if(index < 3 ) {
 					console.log("컨텐트 아이디:" + element.contentid);
