@@ -149,23 +149,22 @@
 				<div class="col-md-4">3</div>
 			</div>
 		</div>
-	<div class="content">
-		<!-- <div class="row" id="apiFirst"> -->
-			<div class="container" id="dataBox">
- 				<button type="button" class="btn btn-primary" id="new">최신순</button>
- 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
+		<div class="content">
+			<div class="text-right" >
+	 				<button type="button" class="btn btn-primary" id="new">최신순</button>
+	 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
 			</div>
-		<!-- </div> -->
-		<div class="pagination-sm mt-3 mb-3" style="text-align:center">
-		  <a href="#" class="btn btn-primary">&laquo;</a>
-			<a href="#" class="btn btn-primary">1</a>
-			<a href="#" class="btn btn-primary">2</a>
-			<a href="#" class="btn btn-primary">3</a>
-			<a href="#" class="btn btn-primary">4</a>
-			<a href="#" class="btn btn-primary">5</a>
-		<a href="#" class="btn btn-primary">&raquo;</a>
+			<div  id="dataBox"></div>
+			
+			<div class="pagination-sm mt-3 mb-3" style="text-align:center">
+			    <a href="#" class="btn btn-primary">&laquo;</a>
+				<a href="#" class="btn btn-primary">1</a>
+				<a href="#" class="btn btn-primary">2</a>
+				<a href="#" class="btn btn-primary">3</a>
+				<a href="#" class="btn btn-primary">4</a>
+				<a href="#" class="btn btn-primary">5</a>
+				<a href="#" class="btn btn-primary">&raquo;</a>
+			</div>
 		</div>
-
-	</div>
 </body>
 </html>
