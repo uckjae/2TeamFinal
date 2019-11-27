@@ -77,25 +77,26 @@
 			for(let i = 0; i < 1; i++){//contentId.length
 				api += contentId[i].code + type;
 				console.log(api);
-				
+				//<div class="col-md-4"><img src='images/default.png' alt='no img' style='width: 50%;'>
 				$.getJSON(api,function(data){
 					let myData = data.response.body.items.item;
 					console.log('myData');
 					console.log(myData);
-					/* $.each(myData, function(){
-						for(let i = 0; i < 3; i++){
+					$.each(myData, function(index, element){
+						//for(let i = 0; i < 3; i++){
 							//<div class="col-md-4">1</div>
-							$('#test').append("<div class='col=md-4'>"
-											+ "test</div>"
+							$('#test').append("<div class='col=md-4'>" // style='background-image: " + element.firstimage + "'
+												+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 30%;'>"
+											+ "</div>"
 							
 							);
-						}
-					}); */
+						//}
+					});
 				});
 			}
 			
-			console.log(api);
-			$.getJSON(api,function(data){
+			//console.log(api);
+			/* $.getJSON(api,function(data){
 				let myData = data.response.body.items.item;
 				$.each(myData, function(index, element){
 					$('#dataBox').append(
@@ -115,7 +116,7 @@
 					);
 				});
 				
-			}); 
+			});  */
 			
 			oldCode = code;
 		}
@@ -174,9 +175,7 @@
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
 			<div class="row" id="test">
-				<div class="col-md-4" style="background-image: images/about.jpg">1</div>
-				<div class="col-md-4">2</div>
-				<div class="col-md-4">3</div>
+				
 			</div>
 			<div class="row">
 				<div class="col-md-4">1</div>
