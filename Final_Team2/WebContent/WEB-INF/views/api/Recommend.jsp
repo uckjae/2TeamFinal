@@ -21,29 +21,14 @@
 			var paramSigungu = "&sigunguCode=";
 			var paramCat = "&cat1=C01&cat2=";
 			var paramList = "&cat3=&listYN=Y";
-			var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
-			var paramNumOfRows = "&numOfRows=3";
+			var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
+			var paramNumOfRows = "&numOfRows=6";
 			var paramPageNo =  "&pageNo=";
-			var type = "&_type=json&";
+			var type = "&_type=json";
 			var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 			var api = "";
 		
 			api = addr + "areaBasedList?" + addr2 + "1" + type;
-			
-			/* 
-			
-					<div class="container-fluid">
- 						 <div class="row-fluid">
-   							 <div class="span2">
-    							  <!--사이드바 내용-->
-    						</div>
-    						<div class="span10">
-      						<!--본문 내용-->
-   						 	</div>
-  						</div>
-					</div>
-			
-			*/
 			
 			$.getJSON(api,function(data){
 				var myData = data.response.body.items.item;
@@ -52,17 +37,17 @@
 					$('#apiFirst').append(
 						"<div class='row'>"
 							+"<div class='col-md-3'>"
-								+"<img src='"+ element.firstimage +"' alt='No image' style='width:100%'>"
+								+"<img src='"+ element.firstimage +"' alt='" + element.firstimage2 + "' style='width:100%'>"
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
-									+ element.title
+									+ "<a href='RecommendDetail.do'>" + element.title
 								+"</div>"
 								+"<div class='col-md-12'>"
 									
 								+"</div>"
 							+"</div>"
-						+"</div>"
+						+"</div><hr>"
 					);
 				});
 				
@@ -126,7 +111,8 @@
 	<div class="content">
 		<!-- <div class="row" id="apiFirst"> -->
 			<div class="container" id="apiFirst">
- 				
+ 				<button type="button" class="btn btn-primary" id="new">최신순</button>
+ 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
 			</div>
 		<!-- </div> -->
 		<div class="pagination-sm mt-3 mb-3" style="text-align:center">

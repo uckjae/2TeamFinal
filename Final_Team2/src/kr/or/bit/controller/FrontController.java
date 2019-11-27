@@ -281,6 +281,10 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/CourseAPIMain.jsp");
 		}
+		else if (url_Command.equals("/CourseAPIDetail.do")) {			
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/api/CourseAPIDetail.jsp");
+		}
 		//여행지
 		else if(url_Command.equals("/Travel.do")) {
 			forward = new ActionForward();
@@ -295,7 +299,10 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		}
-		
+		else if (url_Command.equals("/RecommendDetail.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");
+		}
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

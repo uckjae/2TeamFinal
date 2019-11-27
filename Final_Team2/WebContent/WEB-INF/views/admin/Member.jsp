@@ -30,20 +30,35 @@
     </style>
     <script type="text/javascript">
     	$(function(){
-    		console.log(${isEdit});
+
     		if(${isEdit}){
-    			$("#frm").attr("action", "MemberEditOk.do");
+    		 	$("#frm").attr("action", "MemberEditOk.do");
     			$("#id").attr("readonly", "readonly");
     			$("#email").attr("readonly", "readonly");
-    			$("#birth").attr("readonly", "readonly");
+    			$("#birth").attr("readonly", "readonly"); 
+    			if($("#checkbox").is(":checked"))
+    				$("#disable").val(1);
+    			else
+    				$("#disable").val(0);
+        		$("#openPostCode").click(execDaumPostcode);
+    			$("#postCode").click(execDaumPostcode);
     		}else{
     			$("input").attr("readonly", "readonly");
     			$("#frm").attr("action", "MemberList.do");
     			$(":checkbox").attr("disabled", "disabled");
     		}
     		
-    		$(":radio").attr("disabled", "disabled");
-    		$("input:submit").removeAttr("disabled");
+    		$("#postCode").attr("readonly", "readonly");
+    		$("#address").attr("readonly", "readonly");
+    		$("input:radio").attr("disabled", "disabled");
+    		$("input:submit").removeAttr("disabled"); 
+    		
+    		$("#checkbox").change(function(){
+    			if(this.checked)
+    				$("#disable").val(1);
+    			else
+    				$("#disable").val(0);
+    		})
     	})
 
     </script>
@@ -119,31 +134,45 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">ADDRESS</label>
                              	<c:set var="address" value="${fn:split(member.address, '/')}" />
-
-                                <div class="form-field">
-                                	<div class="row">
-	                                	<div class="col-lg-3">
-	                                	   <input type="number" id="postCode" name="postCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
-	                                	</div>
-	                                	<div class="col-lg-9"> 
-	                                		<input type="text" class="form-control" id="address" name="address" placeholder="주소" value="${address[1] }" >
-	                                	</div>
-	                                </div>
-                                </div>
+                             	<c:choose>
+                             		<c:when test="${!isEdit}">
+                             			<div class="form-field">
+		                                	<div class="row">
+			                                	<div class="col-lg-3">
+			                                	   <input type="number" id="postCode" name="postCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
+			                                	</div>
+			                                	<div class="col-lg-9"> 
+			                                		<input type="text" class="form-control" id="address" name="address" value="${address[1] }" >
+			                                	</div>
+			                                </div>
+		                                </div>
+                             		</c:when>
+                             		<c:otherwise>
+                             			<input type="number" id="postCode" name="postCode"  class="form-control" value="${address[0]}"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px">
+								        <div class="input-group-append">
+								          <button class="btn btn-primary" type="button" id="openPostCode">
+								            <i class="fas fa-search"></i>
+								          </button>
+								        </div>
+		                                <div class="form-field">
+		                                    <input type="text" class="form-control" id="address" name="address" value="${address[1] }">
+                                		</div>
+                             		</c:otherwise>
+                             	</c:choose>
                             </div>
                         </div>
                         
                          <div class="col-lg-12 align-items-end mb-3">
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-								  <input type="checkbox" class="custom-control-input"
-								  	<c:if test="${member.disable }">checked</c:if>
-								  >
-								  <label class="custom-control-label" for="disable" style="color:red;"> 활동중지</label>
+								  <input type="checkbox" id="checkbox" name="checkbox" class="custom-control-input" <c:if test="${member.disable }">checked</c:if> >
+								  <label class="custom-control-label" for="checkbox" style="color:red;"> 활동중지</label>
+								  <input type="hidden" id="disable" name="disable"> 
 								</div>
                             </div>
                         </div>
