@@ -56,6 +56,7 @@ public class WriteReplyServlet extends HttpServlet {
 				resultString += ", rContent : " + reply.getrContent();
 				String date = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss").format(reply.getrWDate());
 				resultString += ", rWDate : " + "\"" + date + "\"";
+				resultString += ", rIdx : "  + reply.getrIdx();
 			}
 
 			resultString += "}";

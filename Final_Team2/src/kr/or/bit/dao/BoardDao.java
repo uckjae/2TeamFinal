@@ -1596,7 +1596,7 @@ public class BoardDao {
 		ResultSet rs = null;
 
 		Reply reply = new Reply();
-		String sql = " SELECT BIDX, RCONTENT, ID, RWDATE FROM REPLY " + " WHERE RIDX = ? ";
+		String sql = " SELECT BIDX, RCONTENT, ID, RWDATE, RIDX FROM REPLY " + " WHERE RIDX = ? ";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rIdx);
@@ -1609,6 +1609,7 @@ public class BoardDao {
 				reply.setrContent(rs.getString(2));
 				reply.setId(rs.getString(3));
 				reply.setrWDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString(4)));
+				reply.setrIdx(rs.getInt(5));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

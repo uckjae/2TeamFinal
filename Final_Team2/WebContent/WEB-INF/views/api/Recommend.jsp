@@ -73,27 +73,30 @@
 			let addr2 = service + paramSigungu + paramCat + paramList + paramNumOfRows;
 			let paramArea = "&contentTypeId=";
 			let api = addr + "areaBasedList?" + addr2 + paramArea;
+			let locApi = "";
 			
-			for(let i = 0; i < 1; i++){//contentId.length
-				api += contentId[i].code + type;
-				console.log(api);
-				//<div class="col-md-4"><img src='images/default.png' alt='no img' style='width: 50%;'>
-				$.getJSON(api,function(data){
-					let myData = data.response.body.items.item;
-					console.log('myData');
-					console.log(myData);
-					$.each(myData, function(index, element){
-						//for(let i = 0; i < 3; i++){
-							//<div class="col-md-4">1</div>
-							$('#test').append("<div class='col=md-4'>" // style='background-image: " + element.firstimage + "'
-												+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 30%;'>"
-											+ "</div>"
-							
-							);
-						//}
+			locApi = api + contentId[0].code + type;
+			console.log('for문 : ' + i);
+			//console.log(api);
+				
+			$('#mainContentBox').append("<div class='row' id='test'></div>");
+			$.getJSON(locApi,function(data){
+				
+				let myData = data.response.body.items.item;
+				console.log('myData');
+				console.log(myData);
+				
+				$.each(myData, function(index, element){
+					console.log('each문 : ' + index);
+						$('#test').append("<div class='col-md-4'>"
+								+"<div class='contain'>"
+											+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 100%;'>"
+										+ "<span id='text'>" + element.title + "</span></div></div>"
+						
 					});
-				});
-			}
+				}
+			});
+			
 			
 			//console.log(api);
 			/* $.getJSON(api,function(data){
@@ -127,12 +130,35 @@
             height: 100%;
         }
     </style>
-<style type="text/css">
-		html,
-		body {
-			height: 100%;
-		}
-	</style>
+	<style type="text/css">
+html, body {
+	height: 100%;
+}
+
+.contain {
+	position: relative;
+	width: 100%;
+	max-width: 400px;
+}
+
+.contain #text {
+	background-color : white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	padding: 12px 24px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	text-align: center;
+	opacity: 0.7;
+	color: black;
+	width: 100%;
+	font-weight: bold;
+}
+</style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
