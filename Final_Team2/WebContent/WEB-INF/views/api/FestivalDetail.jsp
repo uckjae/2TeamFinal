@@ -96,8 +96,10 @@ $(function(){
 				$("#overview").append("<hr>");
 				$("#overview").append("<h3><b>축제 정보</b></h3>");
 				$("#overview").append("<div>" + value + "</div>");
-				$("#overview").append("<hr>");
+				$("#overview").append("<hr>");	
+				$("#overview").append("<h3><b>상세정보</b></h3>");
 			}
+			
 			
 		});
 		
@@ -109,13 +111,11 @@ $(function(){
 		var myData2 = data2.response.body.items.item;
 		console.log("소개정보")
 		console.log(myData2);
-		$("#content").append("<h3><b>상세정보</b></h3>");
-		$('#content').append("<br>");
 		$.each(myData2,function(key,value){			
-			if(key == "eventstartdate"){
-				$("#content").append("<ul><li>종료날짜 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
-				}else if(key == "eventplace"){
-					$("#content").append("<ul><li>주소 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
+			if(key == "eventplace"){
+				$("#content").append("<ul><li>주소 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
+				}else if(key == "eventstartdate"){
+					$("#info").append("<ul><li>종료날짜  &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
 					}
 				else if(key == "sponsor1"){
 						$("#content").append("<ul><li>주관   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
@@ -124,12 +124,16 @@ $(function(){
 							$("#content").append("<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
 								}
 				else if(key == "sponsor2"){
-									$("#content").append("<ul><li>주관 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
+									$("#info").append("<ul><li>주관 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
 									}
 				else if(key == "eventenddate"){
 									$("#content").append("<ul><li>시작날짜   &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
 								}else if(key == "sponsor2tel"){
-									$("#content").append("<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
+									$("#info").append("<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
+								}else if(key == "playtime"){
+									$("#info").append("<ul><li>시간 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
+								}else if(key == "usetimefestival"){
+									$("#content").append("<ul><li>이용요금 &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
 								}
 					
 			
@@ -181,6 +185,9 @@ $(function(){
 
 <div class="position" id="content">
 	
+</div>
+<div class="position" id="info">
+
 </div>
 </div>
 </section>
