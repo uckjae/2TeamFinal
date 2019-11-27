@@ -24,52 +24,78 @@
 
 		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
-		var paramSigungu = "&sigunguCode=";
 		var paramCat = "&cat1=C01&cat2=";
-		var paramList = "&cat3=&listYN=Y";
-		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=D";
-		var paramNumOfRows = "&numOfRows=6";
-		var paramPageNo =  "&pageNo=";
+		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
+		var paramPageNo = "&numOfRows=6&pageNo=";
 		var type = "&_type=json";
-		var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+		var addr2 = servicekey + paramArea + paramCat + paramArrange+ paramPageNo;
 		var api = "";
- 	  
-	//	for(var i = 1; i<4; i++){
-			api = addr + "areaBasedList" + addr2 + "1" + type;
+ 	  	var contentId = "";
+
+			api = addr + "areaBasedList" + addr2 + 1 + type;
 		
 			$.getJSON(api,function(data) { 
+			
 			 var myItem = data.response.body.items.item;
 			 $.each(myItem,function(index,element){
-				 console.log("each문 " + index);
+				
 				 
-				 if(index < 3 ) {
-					console.log("컨텐트 아이디:" + element.contentid);
-					 
-					 $("#apiFirst").append(
-						     "<div class='col-md-4'>" 
-						    + "<div class='project mb-4'>"
- 							+ "<div class='image'>"
- 							+ "<img src ='"+ element.firstimage + "' alt='No image' style='width:100%;' class='img-fluid'/>"
- 							+ "</div></div>"
- 							+ "<div class='mb-3'><h3>"+ element.title + "</h3>" 
- 							+ "<input type='hidden' name='contentid' value='"+element.contentid+"'></div></div></div>");	
-					 
-				 } else {
 
-					 
-					 $("#apiSecond").append(
-							     "<div class='col-md-4'>" 
-							    + "<div class='project'>"
-	 							+ "<div class='image'>"
-	 							+ "<img src ='"+element.firstimage + "' alt='No image' style='width:100%'  class='img-fluid'/>"
-	 							+ "</div></div>"
-	 							+ "<div class='mb-3'><h3><h3>"+ element.title + "</h3></div></div></div>");					
-				 }			
-			 });
-			
+	if (index < 3) {
+					// 	console.log("컨텐트 아이디:" + element.contentid); 
+					var contentId = element.contentid;
+
+					var div1 = $("<div class='col-md-4'>");
+					var divProj = $("<div class='project mb-4'>");
+					var divImg = $("<div class='image'>");
+					var img = $('<img>');
+					$(img).attr('src', element.firstimage);
+					$(img).attr('alt', 'No Image');
+					$(img).attr('style', 'width:100%');
+					$(img).attr('class', 'firstImg');
+					var divText = $("<div class='mb-3'>");
+					var textSize = $("<h5>");
+					$(textSize).text(element.title);
+					$(divText).append(textSize);
+
+					$(divImg).append(img);
+					$(divProj).append(divImg);
+
+					$(div1).append(divProj);
+					$(div1).append(divText);
+					$("#apiFirst").append(div1);
+
+				} else {
+					var div1 = $("<div class='col-md-4'>");
+					var divProj = $("<div class='project mb-4'>");
+					var divImg = $("<div class='image'>");
+					var img = $('<img>');
+					$(img).attr('src', element.firstimage);
+					$(img).attr('alt', 'No Image');
+					$(img).attr('style', 'width:100%');
+					$(img).attr('class', 'firstImg');
+					var divText = $("<div class='mb-3'>");
+					var textSize = $("<h5>");
+					$(textSize).text(element.title);
+					$(divText).append(textSize);
+
+					$(divImg).append(img);
+					$(divProj).append(divImg);
+
+					$(div1).append(divProj);
+					$(div1).append(divText);
+					$("#apiSecond").append(div1);
+				}
+			});
+
 		});
-	//	}	
-	
+
+		//contentId가져오기 
+		$('.firstImg').click(function() {
+			var text = $(this).text();
+			console.log("클릭시  text 값 : " + text);
+
+		});
 	});
 </script>    
 </head>
@@ -140,14 +166,14 @@
 			
 		</div>
 		<div class="row"  id="apiSecond">
-<c:set  value=/>
+<%-- <c:set  value=/> --%>
 		</div>
 		             <div class="row mt-5 mb-4">
                         <div class="col text-center">
                             <div class="block-27">
                                 <ul>
                                     <li><a href="#">&lt;</a></li>
-                                    <li class="active"><span>1</span></li>
+                                    <li class="active"><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">4</a></li>
