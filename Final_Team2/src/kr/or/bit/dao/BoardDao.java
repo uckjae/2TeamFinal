@@ -306,7 +306,7 @@ public class BoardDao {
 			pstmt = connection.prepareStatement(bsql);
 			pstmt.setInt(1, bIdx);
 			resultRow = pstmt.executeUpdate();
-			
+			System.out.println("DeleteResultRow"+resultRow);
 			connection.commit();
 		}catch(Exception e) {
 			try {
