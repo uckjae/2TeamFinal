@@ -34,6 +34,7 @@
 							+ "	<h3 class='bold'>"+ data.id +"</h3>"
 							+ " 	<div class='meta'>"+data.rWDate+"</div>"
 							+ " 	<p>"+data.rContent+"</p>"
+							+ "	<p><a href='#' class='del'>Delete</a></p>"
 							+ " </li>";		
 			
 			$(".comment-list").append(control);
@@ -69,11 +70,14 @@
 			<c:forEach var="reply" items="${ replies }">
 				<li class="comment box p-2 px-3 bg-light d-flex">
 					<div class="comment-body">
-						<h3 class="bold">${ reply.id }</h3>
+						<h3 class="bold">${ reply.id } </h3>
 						<div class="meta">
 							 <fmt:formatDate value="${reply.rWDate}" pattern="yyyy-MM-dd   HH:mm:ss" /> 
 						</div>
 						<p>${ reply.rContent }</p>
+						<c:if test="${reply.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
+							<p><a href='#' class='del'>Delete</a></p>
+						</c:if>
 					</div>
 				</li>
 			</c:forEach>

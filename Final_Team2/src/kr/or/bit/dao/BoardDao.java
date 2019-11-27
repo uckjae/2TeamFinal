@@ -714,11 +714,6 @@ public class BoardDao {
 		return bIdx;
 	}
 
-	// Q&A 게시판 게시글 조회수 증가
-	public boolean getQnaReadNum() {
-		return false;
-	}
-
 	// Q&A 게시판 게시글 삭제하기
 	public boolean deleteQnABoard(int bIdx) {
 		int resultRow = 0;
@@ -727,17 +722,19 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		
 		String qnaSql ="DELETE FROM QNABOARD WHERE BIDX=?";
-		String boardSql ="DELETE FROM BOARD WHERE BIDX=?";
 		
 		try {
 			connection.setAutoCommit(false);
+			// REPLY 데이터 삭제
+			deleteReplyBybIdx(connection, pstmt, bIdx);
+			
+			// QNABOARD 데이터 삭제
 			pstmt = connection.prepareStatement(qnaSql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
 			
-			pstmt = connection.prepareStatement(boardSql);
-			pstmt.setInt(1, bIdx);
-			resultRow = pstmt.executeUpdate();
+			// BOARD 데이터 삭제
+			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
 			
 			connection.commit();
 		} catch (Exception e) {
@@ -1644,7 +1641,6 @@ public class BoardDao {
 	}
 	
 	public boolean setReadNum(int bIdx) {
-		System.out.println("in db "+bIdx);
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
@@ -1663,5 +1659,61 @@ public class BoardDao {
 		}
 
 		return resultRow > 0 ? true : false;
+	}
+	
+	private boolean deleteReplyByRIdx(int rIdx) {
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		int resultRow = 0;
+		
+		String sql = "DELETE FROM REPLY WHERE RIDX = ?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, rIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return resultRow > 0 ? true : false;
+	}
+	
+	private int deleteReplyBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
+		int resultRow = 0;
+
+		String sql = "DELETE FROM REPLY WHERE BIDX = ?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow;
+	}
+
+	public int deleteBoardBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
+		int resultRow = 0;
+
+		String sql = "DELETE FROM BOARD WHERE BIDX = ?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, bIdx);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultRow;
 	}
 }
