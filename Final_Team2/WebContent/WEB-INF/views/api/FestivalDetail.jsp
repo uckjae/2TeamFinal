@@ -10,6 +10,12 @@
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
 <style type="text/css">
+	.position {
+		position: relative;
+   	    margin-top: 7em;
+        margin-left: 10em;
+        margin-right: 10em;
+        }
 	
 </style>
 <script type="text/javascript">
@@ -75,7 +81,10 @@ $(function(){
 		console.log(myData);
 		$.each(myData,function(key,value){
 			if(key=="overview"){
-				$(".overview").append("<div>" + value + "</div>");
+				$("#overview").append("<hr>");
+				$("#overview").append("<h3>축제 정보</h3>");
+				$("#overview").append("<div>" + value + "</div>");
+				$("#overview").append("<hr>");
 			}
 			
 		});
@@ -88,6 +97,15 @@ $(function(){
 		var myData2 = data2.response.body.items.item;
 		console.log("소개정보")
 		console.log(myData2);
+		$.each(myData2,function(key,value){
+			$(".content").append("<ul>");
+			if(key == "sponsor1"){
+				$(".content").append("<li>" + value + "</li>");
+			}else if(key == "sponsor1tel"){
+				$(".content").append("<li>" + value + "</li>");	
+			}
+			
+		});
 	
 	});
 	
@@ -99,6 +117,7 @@ $(function(){
 		console.log(myData3);
 		$.each(myData3,function(index,element){
 			$("#imgarea").append("<img src='" + element.originimgurl + "'>");
+			
 		});
 		
 	});
@@ -117,20 +136,22 @@ $(function(){
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<c:import url="/common/Top.jsp" />
 	<section class="ftco-section">
 	<div class="row">
-<c:import url="/common/Top.jsp" />
 
-	<center>
-	
-			<div id="imgarea" >
+		
+		<center>
+			<div id="imgarea">
 		
 			</div>
-	</center>
-<div class="overview">
+		</center>	
+			<div id="overview" class="position" style="width: 80%; text-align: left">
 
 </div>
-<div class="content">
+	
+
+<div class="position">
 	
 </div>
 </div>

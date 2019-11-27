@@ -128,18 +128,25 @@ $(function(){
 			console.log(key);
 			if(key=="overview"){				
 			$(".content").append("<br>");
-			$(".content").append("<ul>");
-			$(".content").append("<li>"상세정보);
 			$(".content").append("<div>" + value + "</div>");
-			$(".content").append("</li>");
-			$(".content").append("</ul>");
+			}else if(key=="homepage"){
+			 $(".DetailContent").append("<div>" + value + "</div>");
 			}
 		});
 	});
 	/*상세정보조회*/
 	$.getJSON(api3,function(data){
 		var myData3 = data.response.body.items.item;
-		console.log(myData3);		
+		console.log(myData3);
+		
+		$.each(myData2,function(key,value){
+			console.log(key);
+			if(key=="overview"){				
+			$(".content").append("<br>");
+			$(".content").append("<div>" + value + "</div>");
+			}
+		});
+		
 	});
 	/*위치기반정보조회*/
 	$.getJSON(api4,function(data){
@@ -162,10 +169,11 @@ $(function(){
     <c:import url="/common/Top.jsp"/>
     
     <div class="content">
-       <hr>
-       <strong class="strong">상세정보</strong>
-       
-
-</div>
+      <hr>     
+    </div>
+    <div class="DetailContent">
+      <hr>
+      <strong class="stit">상세정보</strong>
+    </div>
 </body>
 </html>

@@ -122,9 +122,27 @@
 	<div class="content">
 	
 		<div class="row mb-4 mt-10">
-			<div class="col-md-9">
+			<div class="col-md-11 offset-md-1">
 				<form action="#" class="search-property-1">
-					<div class="row">
+					<div class="row">					
+					     <div class="col-lg align-items-end">
+                            <div class="form-group">
+                                <label for="#"></label>
+                                <div class="form-field">
+                                    <div class="select-wrap">
+                                        <div class="icon">
+                                            <span class="ion-ios-arrow-down"></span>
+                                        </div>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">최신순으로 보기</option>
+                                            <option value="">오래된순으로 보기</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					
+					
 						<div class="col-lg align-items-end">
 							<div class="form-group">
 								<label for="#"></label>
@@ -158,7 +176,7 @@
 						
 						<div class="col-lg align-self-end">
 							<div class="form-group">
-								<div class="form-field col-md-4">
+								<div class="form-field col-md-6">
 									<input type="submit" value="검색"
 										class="form-control btn btn-primary">
 								</div>
@@ -168,14 +186,16 @@
 				</form>
 			</div>		
 		</div>
-		
-		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
+			
+		<div class="col-md-9 offset-md-3 tagcloud">
+		<a href="#" class = "btn btn-primary mr-3 tag-cloud-link" style=" font-size: 15px">#전체</a>	
 		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#도보코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
+		</div>
 		</div>
 	<div class="container mt-5">
 		<div class="row" id="apiFirst">
