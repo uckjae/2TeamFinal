@@ -22,6 +22,8 @@
 <script type="text/javascript">
 
 $(function(){
+	
+	
 	/*공통정보*/
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
@@ -195,6 +197,21 @@ $(function(){
 	data-offset="300">
 	<!-- Top -->
 	<c:import url="/common/Top.jsp" />
+	
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+</div>
+	
 	<section class="ftco-section">
 		<div class="row">
 
