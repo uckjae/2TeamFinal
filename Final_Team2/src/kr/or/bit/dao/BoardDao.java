@@ -300,9 +300,8 @@ public class BoardDao {
 			pstmt = connection.prepareStatement(fsql);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
-
 			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-
+			
 			connection.commit();
 		} catch (Exception e) {
 			try {
