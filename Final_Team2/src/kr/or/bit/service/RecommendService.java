@@ -12,8 +12,15 @@ public class RecommendService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
+		String cmd = request.getParameter("cmd");
 
-		forward.setPath("/WEB-INF/views/board/qna/Main.jsp");
+		if (cmd.equals("main")) {
+
+		} else if (cmd.equals("tagSearch")) {
+			forward.setPath("/WEB-INF/views/api/RecommandSearch.jsp");
+		} else if (cmd.equals("detail")) {
+
+		}
 
 		return forward;
 	}
