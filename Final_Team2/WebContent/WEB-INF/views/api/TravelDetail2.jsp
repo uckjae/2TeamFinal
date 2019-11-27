@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
-<title>Insert title here</title>
 
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -97,15 +98,34 @@ $(function(){
 	
 	var api4 = addr + pramLocationBasedList + servicekey + numOfRows + pageNo + AppTest
 	           + pramArrrange + "A" + contentTypeId + pramMapX + "126.981611" + pramMapY + "37.568477" + pramRadius + pramListYN + type;
-	/*위치정보조회*/
+	/*이미지정보조회*/
 	$.getJSON(api,function(data){
 		var myData = data.response.body.items.item;
-		console.log(myData);		
+		console.log(myData);
+		
+      /* $.each(myData,function(index,element){
+			
+			$(".content").append("<table border='1'>")
+			$(".content").append("<tr>")
+			$(".content").append("<td rowspan='2' colspan='2'><img src=" + element.originimgurl+" onError=\"this.src='images/default.png'\"></td><td>&nbsp</td>")
+			$(".content").append("</tr>")
+			$(".content").append("<tr>")
+			$(".content").append("<td>")
+			$(".content").append("</td>")
+			$(".content").append("</tr>")
+			$(".content").append("<hr >")
+			
+		}); */
+      
 	});
 	/*공통정보조회*/
 	$.getJSON(api2,function(data){
 		var myData2 = data.response.body.items.item;
-		console.log(myData2);		
+		console.log(myData2);	
+		
+		$.each(myDate2,function(key,value){
+			$(".content").append("<strong>"+상세정보+"</strong>")
+		});
 	});
 	/*상세정보조회*/
 	$.getJSON(api3,function(data){
@@ -137,5 +157,9 @@ $(function(){
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 <!-- Top -->
     <c:import url="/common/Top.jsp" />
+    <div class="content">
+       <strong>상세정보</strong>
+
+</div>
 </body>
 </html>

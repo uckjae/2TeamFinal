@@ -11,27 +11,25 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-		/* http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList
-		?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D
-				&contentTypeId=25&areaCode=&sigunguCode=&cat1=C01&cat2=&cat3=
-					&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B&numOfRows=12&pageNo=1&_type=json */
-			var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-			var servicekey = "serviceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
-			var paramArea = "&contentTypeId=25&areaCode=1";
-			var paramSigungu = "&sigunguCode=";
-			var paramCat = "&cat1=C01&cat2=";
-			var paramList = "&cat3=&listYN=Y";
-			var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
-			var paramNumOfRows = "&numOfRows=6";
-			var paramPageNo =  "&pageNo=";
-			var type = "&_type=json";
-			var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
-			var api = "";
-		
-			api = addr + "areaBasedList?" + addr2 + "1" + type;
+			// 시군코드 서울1,인천2,경기31 // 중분류 112~117 
+			
+			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+			let servicekey = "serviceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
+			let paramArea = "&contentTypeId=25&areaCode=1";
+			let paramSigungu = "&sigunguCode=";
+			let paramCat = "&cat1=C01&cat2=";
+			let paramList = "&cat3=&listYN=Y";
+			let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
+			let paramNumOfRows = "&numOfRows=1000";
+			let paramPageNo =  "&pageNo=1";
+			let type = "&_type=json";
+			let addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+			let api = "";
+			
+			api = addr + "areaBasedList?" + addr2 + type;
 			
 			$.getJSON(api,function(data){
-				var myData = data.response.body.items.item;
+				let myData = data.response.body.items.item;
 				console.log(myData);
 				$.each(myData, function(index, element){
 					$('#apiFirst').append(
@@ -52,6 +50,14 @@
 				});
 				
 			}); 
+			
+			addr2 = servicekey + paramArea + paramSigungu + paramCat + "0112" + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+			api = addr + "areaBasedList?" + addr2 + type;
+			$.getJSON(api, function(data){
+				let myData = data.response.body.items.item;
+				console.log(data);
+				$.each()
+			});
 		});
 	</script>
 	<style type="text/css">
@@ -108,6 +114,13 @@
 		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
 		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
 		</div>
+	<div class="content">
+		<div class="row">
+			<div class="col-md-4">1</div>
+			<div class="col-md-4">2</div>
+			<div class="col-md-4">3</div>
+		</div>
+	</div>
 	<div class="content">
 		<!-- <div class="row" id="apiFirst"> -->
 			<div class="container" id="apiFirst">
