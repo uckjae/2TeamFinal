@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
 <title>코스 상세보기</title>
  <style type="text/css">
@@ -83,6 +84,34 @@
 				//console.log(titleData);
 				$("#title").text(titleData);
 				
+				//날씨api
+				var rs = dfs_xy_conv(data.response.body.items.item.mapy,data.response.body.items.item.mapx);
+				console.log(rs);
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth()+1;
+				var day = date.getDate();
+				var hour = date.getHours();
+				var minutes = date.getMinutes();
+				if(minutes<41){
+					hour -= 1;
+				}
+				var x = rs.lat;
+				var y = rs.lng;
+				console.log("x"+x);
+				console.log("y"+y);
+				
+				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
+				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
+				var baseTime = "&base_date="+year+month+day+hour+"00";
+				var nx = "&nx="+x;
+				var ny = "&ny="+y;
+				var type = "&_type=json";
+				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
+				console.log("날씨!!"+weatherUrl);
+				
+				
+				//인근지역 정보
 				apiRegion += "&mapX="+data.response.body.items.item.mapx+"&mapY="+ data.response.body.items.item.mapy+"&radius=1000&listYN=Y&numOfRows=4&arrange=E&MobileOS=ETC&MobileApp=AppTest&contentTypeId=12";
 				$.getJSON(apiRegion,function(arroundData){
 					console.log("지역기반");
@@ -190,7 +219,7 @@
 			 });
 			
 		});
-	
+			
 	});
 </script>        
 </head>
