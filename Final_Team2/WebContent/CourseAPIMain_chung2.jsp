@@ -43,9 +43,69 @@
                 $.each(myItem, function (index, element) {
 
                     if (index < 3) {
-                    	firstFn(element);
+
+                        var div1 = $("<div class='col-md-4'>");
+                        var divProj = $("<div class='project mb-4'>");
+                        var divImg = $("<div class='image'>");
+                        var img = $('<img>');
+                        $(img).attr('src', element.firstimage);
+                        $(img).attr('alt', 'No Image');
+                        $(img).attr('style', 'width:100%');
+                        $(img).attr('class', 'firstImg');
+                        var divText = $("<div class='mb-3'>");
+                        var textSize = $("<h5>");
+
+                        var aTag = $('<a>');
+
+                        $(aTag).attr('href', '#');
+                        $(aTag).attr('onclick', 'goCourseDetail(this.nextSibling)');
+
+                        var inputTag = $("<input>");
+                        $(inputTag).attr('type', 'hidden');
+                        $(inputTag).attr('name', 'contentid');
+                        $(inputTag).attr('value', element.contentid);
+
+                        $(textSize).text(element.title);
+                        $(aTag).append(textSize);
+                        $(divText).append(aTag);
+                        $(divText).append(inputTag);
+
+                        $(divImg).append(img);
+                        $(divProj).append(divImg);
+
+                        $(div1).append(divProj);
+                        $(div1).append(divText);
+                        $("#apiFirst").append(div1);
                     } else {
-                    	secondFn(element);
+                        var div1 = $("<div class='col-md-4'>");
+                        var divProj = $("<div class='project mb-4'>");
+                        var divImg = $("<div class='image'>");
+                        var img = $('<img>');
+                        $(img).attr('src', element.firstimage);
+                        $(img).attr('alt', 'No Image');
+                        $(img).attr('style', 'width:100%');
+                        $(img).attr('class', 'firstImg');
+                        var divText = $("<div class='mb-3'>");
+                        var textSize = $("<h5>");
+
+                        var aTag = $('<a>');
+
+                        $(aTag).attr('href', '#');
+                        $(aTag).attr('onclick', 'goCourseDetail(this.nextSibling)');
+
+                        var inputTag = $("<input>");
+                        $(inputTag).attr('type', 'hidden');
+                        $(inputTag).attr('name', 'contentid');
+                        $(inputTag).attr('value', element.contentid);
+                        $(textSize).text(element.title);
+                        $(aTag).append(textSize);
+                        $(divText).append(aTag);
+                        $(divText).append(inputTag);
+                        $(divImg).append(img);
+                        $(divProj).append(divImg);
+                        $(div1).append(divProj);
+                        $(div1).append(divText);
+                        $("#apiSecond").append(div1);
                     }
                 });
             });
@@ -71,13 +131,75 @@
 
                 var myItem = data.response.body.items.item;
                 $.each(myItem, function (index, element) {
-                	
+
+
                     if (index < 3) {
 
-                    	firstFn(element);
+                        var div1 = $("<div class='col-md-4'>");
+                        var divProj = $("<div class='project mb-4'>");
+                        var divImg = $("<div class='image'>");
+                        var img = $('<img>');
+                        $(img).attr('src', element.firstimage);
+                        $(img).attr('alt', 'No Image');
+                        $(img).attr('style', 'width:100%');
+                        $(img).attr('class', 'firstImg');
+                        var divText = $("<div class='mb-3'>");
+                        var textSize = $("<h5>");
+
+                        var aTag = $('<a>');
+
+                        $(aTag).attr('href', '#');
+                        $(aTag).attr('onclick',
+                            'goCourseDetail(this.nextSibling)');
+
+                        var inputTag = $("<input>");
+                        $(inputTag).attr('type', 'hidden');
+                        $(inputTag).attr('name', 'contentid');
+                        $(inputTag).attr('value', element.contentid);
+
+                        $(textSize).text(element.title);
+                        $(aTag).append(textSize);
+                        $(divText).append(aTag);
+                        $(divText).append(inputTag);
+
+                        $(divImg).append(img);
+                        $(divProj).append(divImg);
+
+                        $(div1).append(divProj);
+                        $(div1).append(divText);
+                        $("#apiFirst").append(div1);
 
                     } else {
-                        secondFn(element);
+                        var div1 = $("<div class='col-md-4'>");
+                        var divProj = $("<div class='project mb-4'>");
+                        var divImg = $("<div class='image'>");
+                        var img = $('<img>');
+                        $(img).attr('src', element.firstimage);
+                        $(img).attr('alt', 'No Image');
+                        $(img).attr('style', 'width:100%');
+                        $(img).attr('class', 'firstImg');
+                        var divText = $("<div class='mb-3'>");
+                        var textSize = $("<h5>");
+
+                        var aTag = $('<a>');
+
+                        $(aTag).attr('href', '#');
+                        $(aTag).attr('onclick',
+                            'goCourseDetail(this.nextSibling)');
+
+                        var inputTag = $("<input>");
+                        $(inputTag).attr('type', 'hidden');
+                        $(inputTag).attr('name', 'contentid');
+                        $(inputTag).attr('value', element.contentid);
+                        $(textSize).text(element.title);
+                        $(aTag).append(textSize);
+                        $(divText).append(aTag);
+                        $(divText).append(inputTag);
+                        $(divImg).append(img);
+                        $(divProj).append(divImg);
+                        $(div1).append(divProj);
+                        $(div1).append(divText);
+                        $("#apiSecond").append(div1);
                     }
                 });
             });
@@ -95,74 +217,8 @@
             var parent = number.parentNode;
             $(parent).attr('class','active');
         }
-        
         function firstFn(element){
-        	 var div1 = $("<div class='col-md-4'>");
-             var divProj = $("<div class='project mb-4'>");
-             var divImg = $("<div class='image'>");
-             var img = $('<img>');
-             $(img).attr('src', element.firstimage);
-             $(img).attr('alt', 'No Image');
-             $(img).attr('style', 'width:100%');
-             $(img).attr('class', 'firstImg');
-             var divText = $("<div class='mb-3'>");
-             var textSize = $("<h5>");
-
-             var aTag = $('<a>');
-
-             $(aTag).attr('href', '#');
-             $(aTag).attr('onclick',
-                 'goCourseDetail(this.nextSibling)');
-
-             var inputTag = $("<input>");
-             $(inputTag).attr('type', 'hidden');
-             $(inputTag).attr('name', 'contentid');
-             $(inputTag).attr('value', element.contentid);
-
-             $(textSize).text(element.title);
-             $(aTag).append(textSize);
-             $(divText).append(aTag);
-             $(divText).append(inputTag);
-
-             $(divImg).append(img);
-             $(divProj).append(divImg);
-
-             $(div1).append(divProj);
-             $(div1).append(divText);
-             $("#apiFirst").append(div1);
-        }
-        
-        function secondFn(element){
-        	 var div1 = $("<div class='col-md-4'>");
-             var divProj = $("<div class='project mb-4'>");
-             var divImg = $("<div class='image'>");
-             var img = $('<img>');
-             $(img).attr('src', element.firstimage);
-             $(img).attr('alt', 'No Image');
-             $(img).attr('style', 'width:100%');
-             $(img).attr('class', 'firstImg');
-             var divText = $("<div class='mb-3'>");
-             var textSize = $("<h5>");
-
-             var aTag = $('<a>');
-
-             $(aTag).attr('href', '#');
-             $(aTag).attr('onclick',
-                 'goCourseDetail(this.nextSibling)');
-
-             var inputTag = $("<input>");
-             $(inputTag).attr('type', 'hidden');
-             $(inputTag).attr('name', 'contentid');
-             $(inputTag).attr('value', element.contentid);
-             $(textSize).text(element.title);
-             $(aTag).append(textSize);
-             $(divText).append(aTag);
-             $(divText).append(inputTag);
-             $(divImg).append(img);
-             $(divProj).append(divImg);
-             $(div1).append(divProj);
-             $(div1).append(divText);
-             $("#apiSecond").append(div1);
+        	
         }
     </script>
 </head>
