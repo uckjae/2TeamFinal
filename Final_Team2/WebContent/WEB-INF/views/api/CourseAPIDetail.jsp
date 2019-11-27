@@ -25,7 +25,7 @@
 
 		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
-		var contentId = "&contentId="+request.getAttribute(name);
+		var contentId = "&contentId="+${requestScope.contentId};
 		var forCommon = "&defaultYN=Y&firstImageYN=Y";
 		var type = "&_type=json";
 		var apiDetail = "";

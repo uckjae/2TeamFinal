@@ -42,28 +42,41 @@
 				 
 
 	if (index < 3) {
-					// 	console.log("컨텐트 아이디:" + element.contentid); 
-					var contentId = element.contentid;
 
-					var div1 = $("<div class='col-md-4'>");
-					var divProj = $("<div class='project mb-4'>");
-					var divImg = $("<div class='image'>");
-					var img = $('<img>');
-					$(img).attr('src', element.firstimage);
-					$(img).attr('alt', 'No Image');
-					$(img).attr('style', 'width:100%');
-					$(img).attr('class', 'firstImg');
-					var divText = $("<div class='mb-3'>");
-					var textSize = $("<h5>");
-					$(textSize).text(element.title);
-					$(divText).append(textSize);
+		var div1 = $("<div class='col-md-4'>");
+		var divProj = $("<div class='project mb-4'>");
+		var divImg = $("<div class='image'>");
+		var img = $('<img>');
+		$(img).attr('src', element.firstimage);
+		$(img).attr('alt', 'No Image');
+		$(img).attr('style', 'width:100%');
+		$(img).attr('class', 'firstImg');
+		var divText = $("<div class='mb-3'>");
+		var textSize = $("<h5>");
+		
+		var aTag = $('<a>');
+		
+		$(aTag).attr('href','#');
+		$(aTag).attr('onclick','goCourseDetail(this.nextSibling)');
+		
+		var inputTag = $("<input>");
+		$(inputTag).attr('type','hidden'); 
+		$(inputTag).attr('name','contentid');
+		$(inputTag).attr('value',element.contentid);
+		
+		$(textSize).text(element.title);
+		$(aTag).append(textSize);
+		$(divText).append(aTag);
+		$(divText).append(inputTag);
 
-					$(divImg).append(img);
-					$(divProj).append(divImg);
+		$(divImg).append(img);
+		$(divProj).append(divImg);
 
-					$(div1).append(divProj);
-					$(div1).append(divText);
-					$("#apiFirst").append(div1);
+		$(div1).append(divProj);
+		$(div1).append(divText);
+		$("#apiFirst").append(div1);
+		
+
 
 				} else {
 					var div1 = $("<div class='col-md-4'>");
@@ -76,8 +89,21 @@
 					$(img).attr('class', 'firstImg');
 					var divText = $("<div class='mb-3'>");
 					var textSize = $("<h5>");
+					
+					var aTag = $('<a>');
+					
+					$(aTag).attr('href','#');
+					$(aTag).attr('onclick','goCourseDetail(this.nextSibling)');
+					
+					var inputTag = $("<input>");
+					$(inputTag).attr('type','hidden'); 
+					$(inputTag).attr('name','contentid');
+					$(inputTag).attr('value',element.contentid);
+					
 					$(textSize).text(element.title);
-					$(divText).append(textSize);
+					$(aTag).append(textSize);
+					$(divText).append(aTag);
+					$(divText).append(inputTag);
 
 					$(divImg).append(img);
 					$(divProj).append(divImg);
@@ -91,12 +117,13 @@
 		});
 
 		//contentId가져오기 
-		$('.firstImg').click(function() {
-			var text = $(this).text();
-			console.log("클릭시  text 값 : " + text);
 
-		});
 	});
+	function goCourseDetail(own){
+		console.log($(own).val());
+		request.setAttribute("contentId", $(own).val());
+		location.href("courseAPIDetail.do");
+	}
 </script>    
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
