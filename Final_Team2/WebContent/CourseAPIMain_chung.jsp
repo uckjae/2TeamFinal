@@ -91,6 +91,7 @@
 
         function pageChange(number) {
             var page = $(number).text();
+            console.log("페이지 : " + page);
             pagingFn(page);
             var parent = number.parentNode;
             $(parent).attr('class','active');
