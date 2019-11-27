@@ -15,6 +15,7 @@
 	margin-left: 10em;
 	margin-right: 10em;
 }
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,6 +29,7 @@ $(function(){
 	var type = "&_type=json";	
 	/*공통Json*/
 	var numOfRows = "&numOfRows=10";
+	var numOfRows2 = "&numOfRows=1";
 	var pageNo = "&pageNo=1";
 	var contentTypeId = "&contentTypeId=12";
 	var areaCode = "&areaCode=";
@@ -54,45 +56,22 @@ $(function(){
 	var pramMapY ="&mapY=";
 	var pramRadius = "&radius=3000";
 	var pramListYN = "&listYN=Y";
+	var pramDetailInfo = "detailInfo?";
 	var api = "";
 	var api2 = "";
 	var api3 = "";
 	var api4= "";
 	
-	/* http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?
-			serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D
-			&numOfRows=10
-			&pageNo=1
-			&MobileOS=ETC&MobileApp=AppTest
-			&contentId=1254680
-			&contentTypeId=12
-			&defaultYN=Y
-			&firstImageYN=Y
-			&areacodeYN=Y
-			&catcodeYN=Y
-			&addrinfoYN=Y
-			&mapinfoYN=Y
-			&overviewYN=Y
-			
-			http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?
-					serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D
-					&numOfRows=10
-					&pageNo=1
-					&MobileOS=ETC&MobileApp=AppTest
-					&contentId=1254680
-					&contentTypeId=12
-					
-			http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?
-					serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D
-					&numOfRows=10
-					&pageNo=1
-					&MobileOS=ETC&MobileApp=AppTest
-					&arrange=A
-					&contentTypeId=12
-					&mapX=126.981611
-					&mapY=37.568477
-					&radius=3000
-					&listYN=Y
+	/* 
+	http://api.visitkorea.or.kr/openapi/service/rest/KorService/
+	detailInfo?
+	serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D
+	&numOfRows=10
+	&pageNo=1
+	&MobileOS=ETC&MobileApp=AppTest
+	&contentId=1254680
+	&contentTypeId=12
+	
 			*/
 	
 	var api = addr + pramDetailImage + servicekey + numOfRows + pageNo + AppTest 
@@ -107,24 +86,14 @@ $(function(){
 	
 	var api4 = addr + pramLocationBasedList + servicekey + numOfRows + pageNo + AppTest
 	           + pramArrrange + "A" + contentTypeId + pramMapX + "126.981611" + pramMapY + "37.568477" + pramRadius + pramListYN + type;
+	
+	var api5 = addr + pramDetailInfo + servicekey + numOfRows2 + pageNo + AppTest
+	            + pramContentId + "1254680" + contentTypeId + type;
+	
 	/*이미지정보조회*/
 	$.getJSON(api,function(data){
 		var myData = data.response.body.items.item;
 		console.log(myData);
-		
-      /* $.each(myData,function(index,element){
-			
-			$(".content").append("<table border='1'>")
-			$(".content").append("<tr>")
-			$(".content").append("<td rowspan='2' colspan='2'><img src=" + element.originimgurl+" onError=\"this.src='images/default.png'\"></td><td>&nbsp</td>")
-			$(".content").append("</tr>")
-			$(".content").append("<tr>")
-			$(".content").append("<td>")
-			$(".content").append("</td>")
-			$(".content").append("</tr>")
-			$(".content").append("<hr >")
-			
-		}); */
       
 	});
 	/*공통정보조회*/
@@ -142,17 +111,20 @@ $(function(){
 			$("#MainContent").append("<div>" + value + "</div>");
 			$("#MainContent").append("<hr>");
 			$("#MainContent").append("<h3>상세정보</h3>");
-			}else if(key=="addr1"){
-				 
-				 $("#addrContent").append("<strong>주소</strong>");
-				 
-				 $("#addrContent").append("<div>" + value + "</div>");
-			}else if(key=="homepage"){
+			$("#MainContent").append("<br>");
+			
+			}
+			else if(key=="addr1"){ //주소	 
+			 $("#addrContent").append("<div>"+value+"</div>");	
+			 $("#addrContent").append("<br>");
+			 $("#addrContent").append("<br>");
+			 $("#addrContent").append("<br>");
 			 
-			 $("#DetailContent").append("<strong>홈페이지</strong>");
-			 
-			 $("#DetailContent").append("<div>" + value + "</div>");
-			 
+			}else if(key=="homepage"){	 //홈페이지
+			 $("#DetailContent").append("<div>"+value+"</div>");
+			 $("#DetailContent").append("<br>");
+			 $("#DetailContent").append("<br>");
+			 $("#DetailContent").append("<br>");
 			}
 		});
 	});
@@ -161,13 +133,52 @@ $(function(){
 		var myData3 = data.response.body.items.item;
 		console.log(myData3);
 		
-
-		
+		$.each(myData3,function(key,value){ 
+			console.log(key);
+			if(key=="restdate"){ //휴무
+			$("#RestdateContent").append("<div>" + value + "</div>");
+			$("#RestdateContent").append("<br>");
+			$("#RestdateContent").append("<br>");
+			$("#RestdateContent").append("<br>");
+			}
+			else if(key=="usetime"){//이용시간			
+			$("#UsetimeContent").append("<div>" + value + "</div>");
+			$("#UsetimeContent").append("<br>");
+			$("#UsetimeContent").append("<br>");
+			$("#UsetimeContent").append("<br>");
+			}
+			else if(key=="infocenter"){//문의 및 안내	
+			$("#InfocenterContent").append("<div>" + value + "</div>");
+			$("#InfocenterContent").append("<br>");
+			$("#InfocenterContent").append("<br>");
+			$("#InfocenterContent").append("<br>");
+			
+			
+			}
+	    });
 	});
 	/*위치기반정보조회*/
 	$.getJSON(api4,function(data){
 		var myData4 = data.response.body.items.item;
 		console.log(myData4);		
+	});
+	/*반복정보조회*/
+	$.getJSON(api5,function(data){
+		var myData5 = data.response.body.items.item;
+		console.log("5번");
+		console.log(myData5);
+		
+		$.each(myData5,function(key,value){
+			if(key=="infotext"){
+			 //정보
+			$("#InfotextContent").append("<div>" + value + "</div>");
+			$("#InfotextContent").append("<br>");
+			$("#InfotextContent").append("<br>");
+			$("#InfotextContent").append("<br>");
+			
+			
+			}
+	    });
 	});
 
 });
@@ -187,20 +198,46 @@ $(function(){
 	<section class="ftco-section">
 		<div class="row">
 
-			<div id="MainContent" class="position">
-				
+			<div id="MainContent" class="position">			
 			</div>
 			
-			<div id="addrContent" class="position">
-				
-				
-			</div>
+			<div  class="container">
 			
-			<div id="DetailContent" class="position">
+				<div class="col-md-12">
+   				<div class="row">
+   					<div class="col-md-6 d-flex" id="addrContent">
+						<strong>주소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>	
+  					</div>
+					<div class="col-md-6 d-flex" id="DetailContent">
+						<strong>홈페이지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>			
+					</div>
+				</div>
+   			</div>
+   			
+			<div class="col-md-12">
+   				<div class="row">
+   					<div class="col-md-6 d-flex" id="RestdateContent">
+						<strong>휴무&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+  					</div>
+					<div class="col-md-6 d-flex" id="UsetimeContent">
+						<strong>이용시간&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>		
+					</div>
+				</div>
+   			</div>
+   			
+   			<div class="col-md-12">
+   				<div class="row">
+					<div class="col-md-6 d-flex" id="InfotextContent">
+						<strong>정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>		
+					</div>
+					<div class="col-md-6 d-flex" id="InfocenterContent">
+						<strong>문의 및 안내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+  					</div>
+				</div>
+   			</div>
+   					
+		 </div>
 				
-				
-			</div>
-			
 		</div>
 	</section>
 </body>
