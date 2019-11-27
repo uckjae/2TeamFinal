@@ -35,8 +35,9 @@
 		var addr2 = servicekey + paramArea + paramCat + paramArrange
 				+ paramPageNo;
 		var api = "";
-		api = addr + "areaBasedList" + addr2 + pageChange(page) + type;
+		api = addr + "areaBasedList" + addr2 + 1 + type;
 		console.log("api 주소: " + api);
+			
 		$.getJSON(api, function(data) {
 			var myItem = data.response.body.items.item;
 			
@@ -114,6 +115,7 @@
 						}
 					});
 		});
+		
 	});
 
 	function goCourseDetail(own) {
@@ -125,6 +127,7 @@
 		var page = $(number).text()
 	//	api = addr + "areaBasedList" + addr2 + page + type;
 		console.log(page);
+		
 	}
 	
 </script>    
