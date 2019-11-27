@@ -96,8 +96,7 @@ function pagingFn(page) {
 
 function goCourseDetail(own) {
     console.log($(own).val());
-    request.setAttribute("contentId", $(own).val());
-    location.href("courseAPIDetail.do");
+    location.href="CourseAPIDetail.do?contentId="+$(own).val();
 }
 
 function pageChange(number) {
@@ -213,16 +212,17 @@ function getData(code){
 	var addr2 = servicekey +paramArea + paramCat + paramArrange + paramPageNo;
 	
 	//var addr2 = servicekey + paramArea + paramCat + paramArrange + paramPageNo;
-	var api = addr + "areaBasedList" + addr2  + 1 + paramArea;
+	var api = addr + "areaBasedList" + addr2  + 1 + paramCat;
 	
 	for(let i = 0; i < 1; i++){//contentId.length
 		console.log("코드 : " + code);
-		api += contentId[i].code + type;
+		//api += contentId[i].code + type;
+		api += code + type;
 		console.log("포문 안 : " + api);
 		//<div class="col-md-4"><img src='images/default.png' alt='no img' style='width: 50%;'>
 		$.getJSON(api,function(data){
 			let myData = data.response.body.items.item;
-			console.log('myData');
+			
 			console.log(myData);
 			$.each(myData, function(index, element){
 	            if (index < 3) {	
