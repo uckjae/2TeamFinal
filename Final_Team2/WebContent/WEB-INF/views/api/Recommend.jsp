@@ -10,11 +10,14 @@
 	<title>코스</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
+		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
 		$(function(){
+			
+			getTag();
 			// 시군코드 서울1,인천2,경기31 // 중분류 112~117 
 			
 			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-			let servicekey = "serviceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
+			let service = "serviceKey="+servicekey;
 			let paramArea = "&contentTypeId=25&areaCode=1";
 			let paramSigungu = "&sigunguCode=";
 			let paramCat = "&cat1=C01&cat2=";
@@ -23,10 +26,8 @@
 			let paramNumOfRows = "&numOfRows=1000";
 			let paramPageNo =  "&pageNo=1";
 			let type = "&_type=json";
-			let addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
-			let api = "";
-			
-			api = addr + "areaBasedList?" + addr2 + type;
+			let addr2 = service + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+			let api = addr + "areaBasedList?" + addr2 + type;
 			
 			$.getJSON(api,function(data){
 				let myData = data.response.body.items.item;
@@ -51,7 +52,7 @@
 				
 			}); 
 			
-			addr2 = servicekey + paramArea + paramSigungu + paramCat + "0112" + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+			addr2 = service + paramArea + paramSigungu + paramCat + "0112" + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 			api = addr + "areaBasedList?" + addr2 + type;
 			$.getJSON(api, function(data){
 				let myData = data.response.body.items.item;
@@ -59,6 +60,26 @@
 				$.each()
 			});
 		});
+		
+		function getTag() {
+			let api ="http://api.visitkorea.or.kr/openapi/service/rest/KorService/categoryCode?"
+						+ "ServiceKey="+servicekey
+						+ "&contentTypeId=25&&cat1=C01"
+						+ "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest"
+						+ "&_type=json";
+	
+			$.getJSON(api, function(data){
+				let tags = data.response.body.items.item;
+				console.log("tag");
+				console.log(tags);
+				let control = "<a href='#' class='btn btn-primary mr-3'>#전체</a>";
+				$.each(tags, function(index, element){
+					control+="<a href='어쩌구.do?code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+				})
+
+				$("#tagBox").append(control);
+			});
+		}
 	</script>
 	<style type="text/css">
         html,
@@ -106,13 +127,10 @@
 				</form>
 			</div>		
 		</div>
-		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
-		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#도보코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
+		
+		<!-- 검색 태그 영역 -->
+		<div id="tagBox"> </div>
+		
 		</div>
 	<div class="content">
 		<div class="row">
