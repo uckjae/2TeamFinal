@@ -45,7 +45,7 @@
 		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
 		//detailCommon? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-
+		
 		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
 		var contentId = "&contentId="+${requestScope.contentId};
@@ -54,15 +54,15 @@
 		var apiDetail = "";
 		var apiCommon = "";
 		var apiIntro = "";
-		
+		var apiRegion = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList";
 		
 		var distanceData = "";
 		var takeTimeData = "";
 		
-			apiDetail = addr + "detailInfo" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-			apiIntro = addr + "detailIntro" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-			apiCommon = addr + "detailCommon" + servicekey +paramArea +contentId + forCommon +"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-			
+			apiDetail = addr + "detailInfo" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y&mapinfoYN=Y" + type;
+			apiIntro = addr + "detailIntro" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y&mapinfoYN=Y" + type;
+			apiCommon = addr + "detailCommon" + servicekey +paramArea +contentId + forCommon +"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y&mapinfoYN=Y" + type;
+			apiRegion += servicekey;
 			
 			
 			
@@ -82,6 +82,36 @@
 				var titleData = data.response.body.items.item.title;
 				//console.log(titleData);
 				$("#title").text(titleData);
+				
+				apiRegion += "&mapX="+data.response.body.items.item.mapx+"&mapY="+ data.response.body.items.item.mapy+"&radius=1000&listYN=Y&numOfRows=4&arrange=E&MobileOS=ETC&MobileApp=AppTest&contentTypeId=12";
+				$.getJSON(apiRegion,function(arroundData){
+					console.log("지역기반");
+					console.log(arroundData);
+					var arroundItem = arroundData.response.body.items.item
+					
+					var row = $('<div class="row">');
+					$.each(arroundItem,function(index,element){
+						var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+						var pjt = $('<div class="project">');
+						var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
+							var img = $('<img class="img-fluid">');
+							$(img).attr("src",element.firstimage);
+							$(img).attr("onError","this.src='images/scenery.png'");
+							$(img).attr("alt","여행지사진");
+						$(imgDiv).append(img);
+						var txtDiv = $('<div class="text">');
+							var spotName = $('<h6>');
+								$(spotName).text(element.title);
+							$(txtDiv).append(spotName);
+						
+						$(pjt).append(imgDiv);
+						$(pjt).append(txtDiv);
+						$(col).append(pjt);
+						$(row).append(col);
+						
+					});
+					$("#arroundContent").append(row);
+				});
 			});
 			
 			
@@ -91,7 +121,7 @@
 			 console.log(data);
 			 console.log(myItem)
 			 
-			 $(".content").append('<div id="conference-timeline">');
+			 $("#mainContent").append('<div id="conference-timeline">');
 			 $("#conference-timeline").append('<div class="timeline-start">');
 			 $("#conference-timeline").append('<div class="conference-center-line">');
 			 $("#conference-timeline").append('<div class="conference-timeline-content">');
@@ -169,7 +199,7 @@
 	
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-    <div class="content">
+    <div class="content" id="mainContent">
     	<div class="row">
    			<h1 class="text-center" id="title"></h1>
     	</div>
@@ -180,6 +210,9 @@
    				<span id="takeTime"></span>
    			</div>
    		</div>
+    </div>
+    <div class="content" id="arroundContent">
+    	
     </div>
    
 </body>
