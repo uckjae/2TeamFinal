@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
 <style type="text/css">
-
+	.position {
+		position: relative;
+   	    margin-top: 7em;
+        margin-left: 10em;
+        margin-right: 10em;
+        }
+	
 </style>
 <script type="text/javascript">
 $(function(){
@@ -75,9 +81,10 @@ $(function(){
 		console.log(myData);
 		$.each(myData,function(key,value){
 			if(key=="overview"){
-				$(".overview").append("<h3>축제 정보</h3>");
-				$(".overview").append("<br>");
-				$(".overview").append("<div>" + value + "</div>");
+				$("#overview").append("<hr>");
+				$("#overview").append("<h3>축제 정보</h3>");
+				$("#overview").append("<div>" + value + "</div>");
+				$("#overview").append("<hr>");
 			}
 			
 		});
@@ -92,12 +99,12 @@ $(function(){
 		console.log(myData2);
 		$.each(myData2,function(key,value){
 			$(".content").append("<ul>");
-			$(".content").append("<li>");
-			$(".content").append("<ul>");
-			$(".content").append("<ul>");
-			$(".content").append("<ul>");
-			$(".content").append("<ul>");
-			$(".content").append("<ul>");
+			if(key == "sponsor1"){
+				$(".content").append("<li>" + value + "</li>");
+			}else if(key == "sponsor1tel"){
+				$(".content").append("<li>" + value + "</li>");	
+			}
+			
 		});
 	
 	});
@@ -133,17 +140,18 @@ $(function(){
 	<section class="ftco-section">
 	<div class="row">
 
-	<center>
-	
-			<div id="imgarea" >
+		
+		<center>
+			<div id="imgarea">
 		
 			</div>
-			<div class="overview"  style="width: 80%; text-align: left">
+		</center>	
+			<div id="overview" class="position" style="width: 80%; text-align: left">
 
 </div>
-	</center>
+	
 
-<div class="content">
+<div class="position">
 	
 </div>
 </div>

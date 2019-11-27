@@ -40,7 +40,7 @@
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
-									+ "<a href='RecommendDetail.do'>" + element.title
+									+ "<a href='RecommendDetail.do?contentId="+ element.contentid +"'>" + element.title
 								+"</div>"
 								+"<div class='col-md-12'>"
 									
@@ -74,7 +74,7 @@
 				console.log(tags);
 				let control = "<a href='#' class='btn btn-primary mr-3'>#전체</a>";
 				$.each(tags, function(index, element){
-					control+="<a href='Recommand.do?cmd=tagSearch&code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+					control+="<a href='Recommend.do?cmd=tagSearch&code="+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
 				})
 
 				$("#tagBox").append(control);
@@ -114,7 +114,6 @@
 								</div>
 							</div>
 						</div>
-					
 						<div class="col-lg align-self-end">
 							<div class="form-group">
 								<div class="form-field col-md-4">

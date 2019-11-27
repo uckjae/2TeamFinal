@@ -11,13 +11,12 @@ public class RecommendService implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-
 		String cmd = request.getParameter("cmd");
 
 		if (cmd.equals("main")) {
 			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		} else if (cmd.equals("tagSearch")) {
-			forward.setPath("/WEB-INF/views/api/RecommandSearch.jsp");
+			forward.setPath("/WEB-INF/views/api/RecommendSearch.jsp");
 		} else if (cmd.equals("detail")) {
 
 		}

@@ -15,9 +15,9 @@
 		}
 	</style>
 <script type="text/javascript">
-	$(function() 
+	$(function() {
 		// 관광정보 api 
-		
+		let contentId = "&contentId=" + ${requestScope.contentId};
 		//http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailInfo?ServiceKey=인증키&contentTypeId=25&contentId=1952978&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y
 		//detailCommon? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
@@ -34,21 +34,50 @@
 		var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 		var api = "";
 	 
-			api = addr + "detailInfo" + servicekey +paramArea +"&contentId=" +2044565 + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+			api = addr + "detailCommon" + servicekey +paramArea + contentId + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
 
 			$.getJSON(api,function(data) { 
 			var myItem = data.response.body.items.item;
 			console.log("api : "  + api);
 			console.log("myItem"+myItem);
-			$.each(myItem,function(index,element){
-				$(".content").append( "<h3>"+element.subnum +"코스 : </strong>&nbsp; "+ element.subname +" </h3>");				
-				$(".content").append( "<img src ='"+ element.subdetailimg + "'/>");
-				$(".content").append("<p>"+element.subdetailoverview+"</p>");
-				
-			 });
-			
+			$.each(myData, function(index, element){
+				$('#detail').append(
+					"<div class='row'>"
+						+"<div class='col-md-3'>"
+							+"<img src='"+ element.firstimage +"' alt='" + element.firstimage2 + "' style='width:100%'>"
+						+"</div>"
+						+"<div class='col-md-9'>"
+							+"<div class='col-md-12'>"
+								+ "<a href='RecommendDetail.do?contentId="+element.contentid+"'	>" + element.title
+							+"</div>"
+							+"<div class='col-md-12'>"
+								
+							+"</div>"
+						+"</div>"
+					+"</div><hr>"
+				);
+			});
 		});
 	
 	});
 </script>        
 </head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+	<c:set var="currUser" value="${sessionScope.memberId }"/>
+	
+    <!-- Top -->
+    <c:import url="/common/Top.jsp" />
+    <div class="content">
+    	<div class="row">
+   			<h1 class="text-center" id="title">title</h1>
+    	</div>
+   		<div class="row">
+   			<div class="text-right">
+   				<span id="detail">1</span>
+   				&nbsp;&nbsp;&nbsp;
+   				<span id="takeTime">2</span>
+   			</div>
+   		</div>
+    </div>
+</body>
+</html>
