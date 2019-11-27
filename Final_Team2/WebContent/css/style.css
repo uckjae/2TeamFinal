@@ -9737,15 +9737,14 @@ textarea.form-control {
       opacity: .5; }
 
 .tagcloud a {
-  text-transform: uppercase;
+  
   display: inline-block;
   padding: 4px 10px;
   margin-bottom: 7px;
   margin-right: 4px;
   border-radius: 4px;
   color: #000000;
-  border: 1px solid #f2f2f2;
-  font-size: 11px;
+  border: 1px solid #f2f2f2;  
   background: #f2f2f2; }
   .tagcloud a:hover {
     border: 1px solid #000; }
