@@ -9,6 +9,12 @@
 <title>여행지 메인</title>
 <script type="text/javascript">
 $(function(){
+	
+	function goCourseDetail(ogu) {
+		console.log($(ogu).val());
+		location.href = "FestivalDetail.do?contentId=" + $(ogu).val();
+	}
+	
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
 	var paramArea = "&contentTypeId=15&areaCode=1";
@@ -28,22 +34,23 @@ $(function(){
 		var myData = data.response.body.items.item;
 		console.log(myData);
 		$.each(myData,function(index,element){
-			
-			$(".content").append("<table border='1'>")
-			$(".content").append("<tr>")
-			$(".content").append("<td rowspan='2' colspan='2'><img src=" + element.firstimage2 +"></td><td>&nbsp</td>")
-			$(".content").append("<td><b>" + element.title + "</b><br>" + element.addr1 + "</td>")
-			$(".content").append("</tr>")
-			$(".content").append("<tr>")
-			$(".content").append("<td>")
-			$(".content").append("</td>")
-			$(".content").append("</tr>")
-			$(".content").append("<hr >")
-			
+			$('#dataBox').append(
+					"<div class='row'>"
+						+"<div class='col-md-3'>"
+							+"<img src="+ element.firstimage2 + ">"
+						+"</div>"
+						+"<div class='col-md-9'>"
+							+"<div class='col-md-12'>"
+								+ "<a href='FestivalDetail.do?contentId="+ element.contentid +"'>" + element.title
+							+"</div>"
+							+"<div class='col-md-12'>"
+								
+							+"</div>"
+						+"</div>"
+					+"</div><hr>"
+				);
 		});
-	});
-	
-	
+});
 });
 </script>
  <style type="text/css">
@@ -66,9 +73,24 @@ $(function(){
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 <div class="content">
- 
 
+<div id="mainContentBox" class="content">
+			<div class="row">
+				<div class="col-md-4">1</div>
+				<div class="col-md-4">2</div>
+				<div class="col-md-4">3</div>
+			</div>
+		</div>
+<div  id="dataBox"></div>
+<div class="pagination-sm mt-3 mb-3" style="text-align:center">
+			    <a href="#" class="btn btn-primary">&laquo;</a>
+				<a href="#" class="btn btn-primary">1</a>
+				<a href="#" class="btn btn-primary">2</a>
+				<a href="#" class="btn btn-primary">3</a>
+				<a href="#" class="btn btn-primary">4</a>
+				<a href="#" class="btn btn-primary">5</a>
+				<a href="#" class="btn btn-primary">&raquo;</a>
+			</div>
 </div>
-
 </body>
 </html>

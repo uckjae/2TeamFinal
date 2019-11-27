@@ -36,16 +36,17 @@ $(function(){
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
 	var type = "&_type=json&";
-	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=2618874";
+	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=";
 	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=1";
+	var contentid = ${requestScope.contentId};
 	//공통정보조회 변수
 	var paramArea = "&contentTypeId=15&areaCode=1";
 	var paramSigungu = "&sigunguCode=";
 	var paramCat = "&cat1=&cat2=";
 	var paramList = "&cat3=&listYN=Y";
 	var etc = "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y";
-	var addr2 = servicekey + paramNumOfRows + paramPageNo +paramArrange;
+	var addr2 = servicekey + paramNumOfRows + paramPageNo +paramArrange + contentid;
 	var apicommon = "";
 	apicommon = addr + "detailCommon?" + addr2  + type + etc;
 	
@@ -53,14 +54,14 @@ $(function(){
 	//소개정보조회 변수
 	var contentType = "&contentTypeId=15";
 	var apidetail = "";
-	var addr3 = servicekey  + paramNumOfRows + paramPageNo + paramArrange;
+	var addr3 = servicekey  + paramNumOfRows + paramPageNo + paramArrange + contentid;
 	apidetail = addr + "detailIntro?" +  addr3  + type + contentType;
 	
 	
 	//이미지 조회변수
 	var etc2 = "&imageYN=Y&subImageYN=Y";
 	var apiimage = "";
-	var addr4 = servicekey + paramNumOfRows + paramPageNo + paramArrange;
+	var addr4 = servicekey + paramNumOfRows + paramPageNo + paramArrange + contentid; 
 	apiimage = addr + "detailImage?" + addr4 + type + etc2;
 	
 	//http://api.visitkorea.or.kr/openapi/service/rest/KorService/
@@ -98,6 +99,8 @@ $(function(){
 				$("#overview").append("<div>" + value + "</div>");
 				$("#overview").append("<hr>");	
 				$("#overview").append("<h3><b>상세정보</b></h3>");
+			}else if(key =="homepage"){
+				$('#url').append("<ul><li>무브컬쳐 주식회사 " + value + "</li></ul>");
 			}
 			
 			
@@ -134,10 +137,12 @@ $(function(){
 									$("#info").append("<ul><li>시간 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
 								}else if(key == "usetimefestival"){
 									$("#content").append("<ul><li>이용요금 &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
+									
 								}
 					
-			
+									
 		});
+		$("#content").append("<hr>");
 	
 	});
 	
@@ -183,10 +188,13 @@ $(function(){
 </div>
 	
 
-<div class="position" id="content">
+<div class="position" id="content" >
 	
 </div>
 <div class="position" id="info">
+
+</div>
+<div class="position" id="url">
 
 </div>
 </div>
