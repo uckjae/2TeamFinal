@@ -72,7 +72,7 @@
 			 $("#conference-timeline").append('<div class="timeline-start">');
 			 $("#conference-timeline").append('<div class="conference-center-line">');
 			 $("#conference-timeline").append('<div class="conference-timeline-content">');
-			 $("#conference-timeline").append('<div class="timeline-end"')
+			 $("#conference-timeline").append('<div class="timeline-end">')
 			 
 			 $.each(myItem,function(index,element){
 				
@@ -80,26 +80,26 @@
 					var article = $('<div class="timeline-article">');
 					var leftContainer = $('<div class="content-left-container">');
 					var contentLeft = $('<div class="content-left">');
-					
-					$(contentLeft).append('<p style="overflow : auto; margin-left : 2px;">'+element.subdetailoverview+'</p>');
 					var spanNum = $('<span class="article-number">');
 					$(spanNum).text(index+1);
 					$(contentLeft).append(spanNum);
+					$(contentLeft).append('<p style="overflow : auto; margin-left : 2px;">'+element.subdetailoverview+'</p>');
+					
 					var spanAuthor = $('<span class="timeline-author">');
 					$(spanAuthor).text(element.subname);
 					var metaDate = $('<div class="meta-date">');
 					var img = $('<img>');
 					$(img).attr("class","image2");
 					$(img).attr('src',element.subdetailimg);
-					$(img).attr('onError',"images/scenery.png");
+					$(img).attr('onError',"this.images/scenery.png");
 					$(img).attr('alt','여행사진');
 					var imglink = $('<a>');
 					$(imglink).attr('href',element.subdetailimg);
 					$(imglink).attr('target','_blank');
 					$(imglink).append(img);
 					$(metaDate).append(imglink);
-					$(leftContainer).append(contentLeft);
 					$(leftContainer).append(spanAuthor);
+					$(leftContainer).append(contentLeft);
 					$(leftContainer).append(metaDate);
 					$(article).append(leftContainer);
 					$(".conference-timeline-content").append(article);
@@ -107,10 +107,11 @@
 					var article = $('<div class="timeline-article">');
 					var rightContainer = $('<div class="content-right-container">');
 					var contentRight = $('<div class="content-right">');
-					$(contentRight).append('<p style="overflow : auto; margin-left : 2px;">'+element.subdetailoverview+'</p>');
 					var spanNum = $('<span class="article-number">');
 					$(spanNum).text(index+1);
 					$(contentRight).append(spanNum);
+					$(contentRight).append('<p style="overflow : auto; margin-left : 2px;">'+element.subdetailoverview+'</p>');
+					
 					var spanAuthor = $('<span class="timeline-author">');
 					$(spanAuthor).text(element.subname);
 					var metaDate = $('<div class="meta-date">');
@@ -124,8 +125,8 @@
 					$(imglink).attr('target','_blank');
 					$(imglink).append(img);
 					$(metaDate).append(imglink);
-					$(rightContainer).append(contentRight);
 					$(rightContainer).append(spanAuthor);
+					$(rightContainer).append(contentRight);
 					$(rightContainer).append(metaDate);
 					$(article).append(rightContainer);
 					$(".conference-timeline-content").append(article);

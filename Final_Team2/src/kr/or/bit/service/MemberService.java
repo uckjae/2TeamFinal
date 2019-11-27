@@ -19,7 +19,7 @@ public class MemberService implements Action {
 
 		MemberDao dao = new MemberDao();
 		Member member = dao.getMemberById(id);
-		
+
 		request.setAttribute("member", member);
 		request.setAttribute("cmd", cmd);
 		forward.setPath("/WEB-INF/views/admin/Member.jsp");

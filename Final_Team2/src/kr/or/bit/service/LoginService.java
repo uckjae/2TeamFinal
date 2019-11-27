@@ -19,18 +19,22 @@ public class LoginService implements Action {
 
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		
 
 		MemberDao dao = new MemberDao();
 		Member member = dao.login(id, pwd);
-		System.out.println("member : " + member);
-		if (member != null) {
-			request.getSession().setAttribute("memberId", member.getId());
-			request.getSession().setAttribute("isAdmin", member.isAdmin());
-			forward.setPath("index.jsp");
-		} else
-			forward.setPath("Login.do");
 
+		String path = "Login.do";
+		if (member != null) {
+			if (member.isDisable()) {
+				path = "/WEB-INF/views/login/Disable.jsp";
+			} else {
+				request.getSession().setAttribute("memberId", member.getId());
+				request.getSession().setAttribute("isAdmin", member.isAdmin());
+				path = "index.jsp";
+			}
+		}
+
+		forward.setPath(path);
 		return forward;
 	}
 }
