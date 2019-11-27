@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
 <style type="text/css">
-	
+
 </style>
 <script type="text/javascript">
 $(function(){
@@ -75,6 +75,8 @@ $(function(){
 		console.log(myData);
 		$.each(myData,function(key,value){
 			if(key=="overview"){
+				$(".overview").append("<h3>축제 정보</h3>");
+				$(".overview").append("<br>");
 				$(".overview").append("<div>" + value + "</div>");
 			}
 			
@@ -88,6 +90,15 @@ $(function(){
 		var myData2 = data2.response.body.items.item;
 		console.log("소개정보")
 		console.log(myData2);
+		$.each(myData2,function(key,value){
+			$(".content").append("<ul>");
+			$(".content").append("<li>");
+			$(".content").append("<ul>");
+			$(".content").append("<ul>");
+			$(".content").append("<ul>");
+			$(".content").append("<ul>");
+			$(".content").append("<ul>");
+		});
 	
 	});
 	
@@ -99,6 +110,7 @@ $(function(){
 		console.log(myData3);
 		$.each(myData3,function(index,element){
 			$("#imgarea").append("<img src='" + element.originimgurl + "'>");
+			
 		});
 		
 	});
@@ -117,19 +129,20 @@ $(function(){
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<c:import url="/common/Top.jsp" />
 	<section class="ftco-section">
 	<div class="row">
-<c:import url="/common/Top.jsp" />
 
 	<center>
 	
 			<div id="imgarea" >
 		
 			</div>
-	</center>
-<div class="overview">
+			<div class="overview"  style="width: 80%; text-align: left">
 
 </div>
+	</center>
+
 <div class="content">
 	
 </div>
