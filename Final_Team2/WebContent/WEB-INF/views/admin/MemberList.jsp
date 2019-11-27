@@ -107,9 +107,6 @@
                     </c:forEach>
                    </tbody>
                 </table>
-               <div class="text-right mt-3">
-					<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 추가 </a>
-				</div>
             </div>
         </div>
     </div>

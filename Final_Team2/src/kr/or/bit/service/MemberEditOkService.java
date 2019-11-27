@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.MemberDao;
+import kr.or.bit.dto.Member;
 
 public class MemberEditOkService implements Action {
 
@@ -17,12 +18,6 @@ public class MemberEditOkService implements Action {
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
 		String address = request.getParameter("postCode") + "/" + request.getParameter("address");
-		String teString = request.getParameter("disable");
-		System.out.println(id);
-		System.out.println(name);
-		System.out.println(pwd);
-		System.out.println(address);
-		System.out.println(teString);
 		int isDisable = Integer.parseInt(request.getParameter("disable"));
 
 		MemberDao dao = new MemberDao();
@@ -34,9 +29,9 @@ public class MemberEditOkService implements Action {
 		} else {
 			msg = "수정 실패!";
 		}
-
+		
 		request.setAttribute("board_msg", msg);
-		request.setAttribute("board_url", "Member.do?cdm=detail&id" + id);
+		request.setAttribute("board_url", "Member.do?cmd=detail&id="+id);
 
 		forward.setPath("/common/Redirect.jsp");
 

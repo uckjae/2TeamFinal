@@ -23,7 +23,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT ID, ISADMIN FROM MEMBER WHERE ID=? AND PWD=?";
+		String sql = "SELECT ID, ISADMIN, ISDISABLE FROM MEMBER WHERE ID=? AND PWD=?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -35,6 +35,7 @@ public class MemberDao {
 				member = new Member();
 				member.setId(rs.getString(1));
 				member.setAdmin(rs.getBoolean(2));
+				member.setDisable(rs.getBoolean(3));
 			}
 
 		} catch (SQLException e) {
