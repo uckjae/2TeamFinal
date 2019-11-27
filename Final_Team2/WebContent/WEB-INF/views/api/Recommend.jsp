@@ -10,7 +10,7 @@
 	<title>추천 여행지</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
+		let servicekey = "A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		$(function(){
 			init();
 		});
@@ -21,7 +21,7 @@
 						+ "&contentTypeId=25&&cat1=C01"
 						+ "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest"
 						+ "&_type=json";
-	
+		
 			$.getJSON(api, function(data){
 				let tags = data.response.body.items.item;
 				console.log("tag");
@@ -39,15 +39,16 @@
 		let oldCode = "";
 		
 		let contentId = [
-			{name : "관광지", code : 12},
-			{name : "문화시설", code : 14},
-			{name : "축제공연행사", code : 15},
-			{name : "여행코스", code : 25},
-			{name : "레포츠", code : 28},
-			{name : "숙박", code : 32},
-			{name : "쇼핑", code : 38},
-			{name : "음식점", code : 39}
+			{name : "관광지", code :12},
+			{name : "문화시설", code :14},
+			{name : "축제공연행사", code :15},
+			{name : "여행코스", code :25},
+			{name : "레포츠", code :28},
+			{name : "숙박", code :32},
+			{name : "쇼핑", code :38},
+			{name : "음식점", code :39}
 		];
+		
 		function getData(code){
 			$('#dataBox').empty();
 			
@@ -73,56 +74,25 @@
 			let addr2 = service + paramSigungu + paramCat + paramList + paramNumOfRows;
 			let paramArea = "&contentTypeId=";
 			let api = addr + "areaBasedList?" + addr2 + paramArea;
-			let locApi = "";
-			
-			locApi = api + contentId[0].code + type;
-			console.log('for문 : ' + i);
-			//console.log(api);
+			let apicontent = "";
+			apicontent = api + contentId[0].code + type;
+			console.log(apicontent);
 				
-			$('#mainContentBox').append("<div class='row' id='test'></div>");
-			$.getJSON(locApi,function(data){
-				
+			$.getJSON(apicontent,function(data){
 				let myData = data.response.body.items.item;
-				console.log('myData');
 				console.log(myData);
-				
 				$.each(myData, function(index, element){
-					console.log('each문 : ' + index);
 						$('#test').append("<div class='col-md-4'>"
 								+"<div class='contain'>"
 											+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 100%;'>"
 										+ "<span id='text'>" + element.title + "</span></div></div>"
-						
+						);
 					});
-				}
-			});
-			
-			
-			//console.log(api);
-			/* $.getJSON(api,function(data){
-				let myData = data.response.body.items.item;
-				$.each(myData, function(index, element){
-					$('#dataBox').append(
-						"<div class='row'>"
-							+"<div class='col-md-3'>"
-								+"<img src='"+ element.firstimage +"' alt='" + element.firstimage2 + "' style='width:100%'>"
-							+"</div>"
-							+"<div class='col-md-9'>"
-								+"<div class='col-md-12'>"
-									+ "<a href='RecommendDetail.do?contentId="+ element.contentid +"'>" + element.title
-								+"</div>"
-								+"<div class='col-md-12'>"
-									
-								+"</div>"
-							+"</div>"
-						+"</div><hr>"
-					);
-				});
 				
-			});  */
-			
+			});
 			oldCode = code;
 		}
+
 	</script>
 	<style type="text/css">
         html,
