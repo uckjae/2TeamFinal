@@ -293,15 +293,14 @@ public class BoardDao {
 					pstmt.setInt(1, reBidx);
 					pstmt.executeUpdate();
 
-					deleteBoardBybIdx(connection, pstmt, reBidx);
+					resultRow = deleteBoardBybIdx(connection, pstmt, reBidx);
 				}
+			}else {
+				pstmt = connection.prepareStatement(fsql);
+				pstmt.setInt(1, bIdx);
+				pstmt.executeUpdate();
+				resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
 			}
-
-			pstmt = connection.prepareStatement(fsql);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-			
 			connection.commit();
 		} catch (Exception e) {
 			try {
