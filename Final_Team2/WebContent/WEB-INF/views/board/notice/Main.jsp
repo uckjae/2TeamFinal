@@ -105,9 +105,11 @@
              </table>
              </div>
              <c:if test="${sessionScope.isAdmin == 'true'}">
+             <div class="text-right mt-3">
             <a href="NoticeBoardWrite.do?cmd=write">
             	<input type="button" class="btn btn-primary" value="글쓰기" id="nboad" name="nboard">
             </a>
+            </div>
             </c:if>
         </div>   
     </div>
