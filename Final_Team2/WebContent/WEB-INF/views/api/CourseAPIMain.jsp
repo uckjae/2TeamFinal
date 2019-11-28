@@ -54,10 +54,6 @@ function init() {
     });
 }
 
-function goCourseDetail(own) {
-    location.href="CourseAPIDetail.do?contentId="+$(own).val();
-}
-
 // 메인 컨텐츠 만들기 
 function makeRow(element){
 	 var div1 = $("<div class='col-md-4'>");
@@ -73,34 +69,26 @@ function makeRow(element){
 
      var aTag = $('<a>');
 
-     $(aTag).attr('href', '#');
-     $(aTag).attr('onclick',
-         'goCourseDetail(this.nextSibling)');
-
-     var inputTag = $("<input>");
-     $(inputTag).attr('type', 'hidden');
-     $(inputTag).attr('name', 'contentid');
-     $(inputTag).attr('value', element.contentid);
+     $(aTag).attr('href', 'CourseAPIDetail.do?contentId='+ element.contentid );
 
      $(textSize).text(element.title);
      $(aTag).append(textSize);
      $(divText).append(aTag);
-     $(divText).append(inputTag);
 
      $(divImg).append(img);
      $(divProj).append(divImg);
 
      $(div1).append(divProj);
      $(div1).append(divText);
-     $(".apiFirst").append(div1);
+     $("#apibox").append(div1);
 }
 //
 
 
 let oldCode = "";
 let areaCode = "";
+let order = "";
 function getData(code){
-	console.log("areaCode : "+areaCode);
    $('#apibox').empty();
    if(oldCode != "")
       $("#"+oldCode).attr("class","btn btn-primary tagclouda");
@@ -111,11 +99,15 @@ function getData(code){
       cat2= code;
    }else{ // 나머지 태그 클릭시 
    } 
-//   let areaCode = $('#areaSel option:selected').val();
-   console.log("지역 코드: " + areaCode);
+   if (order == ""){
+	   order = 'new';
+   } else {} 
+   if (areaCode == ""){
+	   areaCode = 1;
+   } else {} 
    
    let paramArea = "&contentTypeId=25&areaCode=" + areaCode;
-   let paramCat = "&cat1=C01&cat2="+cat2;
+   let paramCat = "&cat1=C01&cat2="+ cat2;
    let paramList = "&cat3=&listYN=Y";
    let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
 
@@ -123,51 +115,28 @@ function getData(code){
    let api = addr + "areaBasedList" + addr2 + type;
    $.getJSON(api,function(data){
       let myData = data.response.body.items.item;
-      $.each(myData, function(index, element){
-    		     var div1 = $("<div class='col-md-4'>");
-    		     var divProj = $("<div class='project mb-4'>");
-    		     var divImg = $("<div class='image'>");
-    		     var img = $('<img>');
-    		     $(img).attr('src', element.firstimage);
-    		     $(img).attr('alt', 'No Image');
-    		     $(img).attr('style', 'width:100%');
-    		     $(img).attr('class', 'firstImg');
-    		     var divText = $("<div class='mb-3'>");
-    		     var textSize = $("<h5>");
-
-    		     var aTag = $('<a>');
-
-    		     $(aTag).attr('href', '#');
-    		     $(aTag).attr('onclick',
-    		         'goCourseDetail(this.nextSibling)');
-
-    		     var inputTag = $("<input>");
-    		     $(inputTag).attr('type', 'hidden');
-    		     $(inputTag).attr('name', 'contentid');
-    		     $(inputTag).attr('value', element.contentid);
-
-    		     $(textSize).text(element.title);
-    		     $(aTag).append(textSize);
-    		     $(divText).append(aTag);
-    		     $(divText).append(inputTag);
-
-    		     $(divImg).append(img);
-    		     $(divProj).append(divImg);
-
-    		     $(div1).append(divProj);
-    		     $(div1).append(divText);
-    		     $("#apibox").append(div1);
-      });
-      
+      if (order == 'new') {
+          $.each(myData, function(index, element){
+     		 makeRow(element);
+       });
+      } else if (order == 'old') {
+    	  $.each(myData.reverse(), function(index, element){
+      		 makeRow(element);
+        });
+      }   
    }); 
    
    oldCode = code;
 }
 
 function areaSelFn () {
-	areaCode = $('#areaSel option:selected').val();
-	 console.log("지역 코드2: " + areaCode);
-	// getData("all");
+	 areaCode = $('#areaSel option:selected').val();
+	 getData("all");
+}
+function orderSelFn(){
+	order = $("#orderSel option:selected").val();
+	console.log("너의 타입 : " + typeof(order));
+	 getData("all");
 }
 
 </script>    
@@ -188,9 +157,9 @@ function areaSelFn () {
                                 <label for="#"></label>
                                 <div class="form-field">
                                     <div class="select-wrap">
-                                        <select name="orderSel" id="orderSel" class="form-control">
-                                            <option value="old">오래된 순으로 보기</option>
+                                        <select name="orderSel" id="orderSel" class="form-control" onchange="orderSelFn()">
                                             <option value="new">최신순으로 보기</option>
+                                            <option value="old">오래된순으로 보기</option>
                                         </select>
                                     </div>
                                 </div>
@@ -238,14 +207,11 @@ function areaSelFn () {
 			</div>		
 		</div>
 
-		<div class="col-md-10 offset-md-2 tagcloud" id="tagBox">
+		<div class="col-md-10 offset-md-2 tagcloud" id="tagBox"></div>
+		<div class="container mt-5" id="contentBox">
+			<div class="row" id="apibox"></div>
 		</div>
-	<div class="container mt-5" id= "contentBox">
-		 <div class="row" id="apibox">
-			
-		</div>
-		</div>
-<!-- 		             <div class="row mt-5 mb-4">
+		<!-- 		             <div class="row mt-5 mb-4">
                         <div class="col text-center">
                             <div class="block-27">
                                 <ul class="pageul">
