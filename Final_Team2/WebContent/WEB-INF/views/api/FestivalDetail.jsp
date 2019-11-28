@@ -209,7 +209,7 @@ body {
 			var map = new kakao.maps.Map(mapContainer, mapOption);
 
 			var markerPosition = new kakao.maps.LatLng(y, x);
-
+			
 			var marker = new kakao.maps.Marker({
 				position : markerPosition
 			});
