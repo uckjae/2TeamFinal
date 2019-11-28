@@ -11,8 +11,8 @@ public class RecommendDetailService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		int contentId = Integer.parseInt(request.getParameter("contentId"));
-		System.out.println("apicourseDetailService" + contentId);
+		int contentId = Integer.parseInt(request.getParameter("conId"));
+		System.out.println("contentId : " + contentId);
 		request.setAttribute("contentId", contentId);
 		
 		forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");

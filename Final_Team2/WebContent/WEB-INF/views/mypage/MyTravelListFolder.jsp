@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>내 여행리스트</title>
     <c:import url="/common/HeadTag.jsp" />
+ 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
     <style type="text/css">
