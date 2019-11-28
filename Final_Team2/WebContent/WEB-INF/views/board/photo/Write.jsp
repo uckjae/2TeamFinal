@@ -38,8 +38,9 @@ $(document).ready(function(){
 			return true;
 		}
 		return false;
+		
 	});
-	 
+	
 	$('#Photo').change(function(){
 		var reader = new FileReader();
 		
@@ -56,7 +57,7 @@ $(document).ready(function(){
 	            $(this).val($(this).val().substring(0, 200));
 	        }
 	    });
-
+	 
 
 	
 });
@@ -126,7 +127,7 @@ $(document).ready(function(){
 							</c:when>
 							<c:otherwise>
 							<td>
-							<input type="file" name="Photo" id="Photo" aceept="image/*">
+							<input type="file" name="Photo" id="Photo" accept="image/*">
 							</td>
 							</c:otherwise>
 							</c:choose>
