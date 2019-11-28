@@ -22,7 +22,7 @@
 <script type="text/javascript">
 let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 let servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
-let paramPageNo = "&numOfRows=6&pageNo=";
+let paramPageNo = "&numOfRows=100&pageNo=1";
 let type = "&_type=json";
 
 $(function () {
@@ -41,24 +41,15 @@ function init() {
     $.getJSON(api, function (data) {
 
         var myItem = data.response.body.items.item;
-        let control = "<a href='#' onclick='getData(\"all\")' id='all' class='btn btn-secondary mr-3'>#전체</a>";
+        let control = "<a href='#' onclick='getData(\"all\")' id='all' class='tagclouda btn btn-secondary'>#전체</a>";
         
         $.each(myItem, function(index, element){
-			control+="<a href='#' onclick='getData(\""+ element.code +"\")' id='"+ element.code +"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
+			control+="<a href='#' onclick='getData(\""+ element.code +"\")' id='"+ element.code +"' class='tagclouda btn btn-primary'>#"+element.name+"</a>";
         })
 
 		$("#tagBox").append(control);
+        
 		getData("all");
-        
-        
-        /* $.each(myItem, function (index, element) {
-
-            if (index < 3) {
-            	firstFn(element);
-            } else {
-            	secondFn(element);
-            }
-        }); */
     });
 }
 
@@ -108,7 +99,7 @@ function pageChange(number) {
     $(parent).attr('class','active');
 }
 
-function firstFn(element){
+function makeRow(element){
 	 var div1 = $("<div class='col-md-4'>");
      var divProj = $("<div class='project mb-4'>");
      var divImg = $("<div class='image'>");
@@ -141,103 +132,71 @@ function firstFn(element){
 
      $(div1).append(divProj);
      $(div1).append(divText);
-     $("#apiFirst").append(div1);
+     $(".apiFirst").append(div1);
 }
-
-function secondFn(element){
-	 var div1 = $("<div class='col-md-4'>");
-     var divProj = $("<div class='project mb-4'>");
-     var divImg = $("<div class='image'>");
-     var img = $('<img>');
-     $(img).attr('src', element.firstimage);
-     $(img).attr('alt', 'No Image');
-     $(img).attr('style', 'width:100%');
-     $(img).attr('class', 'firstImg');
-     var divText = $("<div class='mb-3'>");
-     var textSize = $("<h5>");
-
-     var aTag = $('<a>');
-
-     $(aTag).attr('href', '#');
-     $(aTag).attr('onclick',
-         'goCourseDetail(this.nextSibling)');
-
-     var inputTag = $("<input>");
-     $(inputTag).attr('type', 'hidden');
-     $(inputTag).attr('name', 'contentid');
-     $(inputTag).attr('value', element.contentid);
-     $(textSize).text(element.title);
-     $(aTag).append(textSize);
-     $(divText).append(aTag);
-     $(divText).append(inputTag);
-     $(divImg).append(img);
-     $(divProj).append(divImg);
-     $(div1).append(divProj);
-     $(div1).append(divText);
-     $("#apiSecond").append(div1);
-}
-
-let contentId = [
-	{name : "관광지", code : 12},
-	{name : "문화시설", code : 14},
-	{name : "축제공연행사", code : 15},
-	{name : "여행코스", code : 25},
-	{name : "레포츠", code : 28},
-	{name : "숙박", code : 32},
-	{name : "쇼핑", code : 38},
-	{name : "음식점", code : 39}
-];
 
 let oldCode = "";
 function getData(code){
-	
-	$('#apiFirst').empty();
-	$('#apiSecond').empty();
-	if(oldCode != "")
-		$("#"+oldCode).attr("class","btn btn-primary mr-3");
-	$("#"+code).attr("class","btn btn-secondary mr-3");
+   $('#apibox').empty();
+   if(oldCode != "")
+      $("#"+oldCode).attr("class","btn btn-primary tagclouda");
+   $("#"+code).attr("class","btn btn-secondary tagclouda");
 
-	let cat2="";
-	if(code != "all"){ // 전체 클릭시
-		cat2= code;
-		// $("#mainContentBox").css("display","none") 
-	}else{ // 나머지 태그 클릭시
-		// $("#mainContentBox").css("display","block")
-	}
-	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-	var paramArea = "&contentTypeId=25&areaCode=1";
-	var paramCat = "&cat1=C01&cat2=";
-	var paramArea = "&contentTypeId=";
-	var paramList = "&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-	var addr2 = servicekey +paramArea + paramCat + paramArrange + paramPageNo;
-	
-	//var addr2 = servicekey + paramArea + paramCat + paramArrange + paramPageNo;
-	var api = addr + "areaBasedList" + addr2  + 1 + paramCat;
-	
-	for(let i = 0; i < 1; i++){//contentId.length
-		console.log("코드 : " + code);
-		//api += contentId[i].code + type;
-		api += code + type;
-		console.log("포문 안 : " + api);
-		//<div class="col-md-4"><img src='images/default.png' alt='no img' style='width: 50%;'>
-		$.getJSON(api,function(data){
-			let myData = data.response.body.items.item;
-			
-			console.log(myData);
-			$.each(myData, function(index, element){
-	            if (index < 3) {	
-	            	console.log("이치문 안 : " + element.title);
-	            	firstFn(element);
-	            } else {
-	            	secondFn(element);
-	            }
-					
-				
-				//}
-			});
-		});
-	}
-	oldCode = code;
+   let cat2="";
+   if(code != "all"){ // 전체 클릭시
+      cat2= code;
+   }else{ // 나머지 태그 클릭시 
+   } 
+   
+   let paramArea = "&contentTypeId=25&areaCode=1";
+   let paramCat = "&cat1=C01&cat2="+cat2;
+   let paramList = "&cat3=&listYN=Y";
+   let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
+
+   let addr2 = servicekey + paramArea + paramCat + paramList + paramArrange + paramPageNo;
+   let api = addr + "areaBasedList" + addr2 + type;
+   console.log(api);
+   $.getJSON(api,function(data){
+      let myData = data.response.body.items.item;
+      $.each(myData, function(index, element){
+    		     var div1 = $("<div class='col-md-4'>");
+    		     var divProj = $("<div class='project mb-4'>");
+    		     var divImg = $("<div class='image'>");
+    		     var img = $('<img>');
+    		     $(img).attr('src', element.firstimage);
+    		     $(img).attr('alt', 'No Image');
+    		     $(img).attr('style', 'width:100%');
+    		     $(img).attr('class', 'firstImg');
+    		     var divText = $("<div class='mb-3'>");
+    		     var textSize = $("<h5>");
+
+    		     var aTag = $('<a>');
+
+    		     $(aTag).attr('href', '#');
+    		     $(aTag).attr('onclick',
+    		         'goCourseDetail(this.nextSibling)');
+
+    		     var inputTag = $("<input>");
+    		     $(inputTag).attr('type', 'hidden');
+    		     $(inputTag).attr('name', 'contentid');
+    		     $(inputTag).attr('value', element.contentid);
+
+    		     $(textSize).text(element.title);
+    		     $(aTag).append(textSize);
+    		     $(divText).append(aTag);
+    		     $(divText).append(inputTag);
+
+    		     $(divImg).append(img);
+    		     $(divProj).append(divImg);
+
+    		     $(div1).append(divProj);
+    		     $(div1).append(divText);
+    		     $("#apibox").append(div1);
+      });
+      
+   }); 
+   
+   oldCode = code;
 }
 </script>    
 </head>
@@ -260,8 +219,8 @@ function getData(code){
                                             <span class="ion-ios-arrow-down"></span>
                                         </div>
                                         <select name="" id="" class="form-control">
+                                            <option value="">오래된 순으로 보기</option>
                                             <option value="">최신순으로 보기</option>
-                                            <option value="">오래된순으로 보기</option>
                                         </select>
                                     </div>
                                 </div>
@@ -277,8 +236,7 @@ function getData(code){
 										<div class="icon">
 											<span class="ion-ios-arrow-down"></span>
 										</div>
-										<select name="" id="" class="form-control">
-										    <option value="">--지역을 선택하세요--</option>
+										<select name="areaSel" id="areaSel" class="form-control">
 											<option value="">서울</option>
 											<option value="">경기</option>
 											<option value="">인천</option>
@@ -312,27 +270,15 @@ function getData(code){
 				</form>
 			</div>		
 		</div>
-		<div id="tagBox"> </div>	
-		<div class="col-md-10 offset-md-2 tagcloud">
-		<a class = "tagclouda btn btn-primary">#전체</a>	
-		<a href="#" class = "btn btn-primary tagclouda">#가족 코스</a>
-		<a href="#" class = "btn btn-primary tagclouda">#나홀로 코스</a>
-		<a href="#" class = "btn btn-primary tagclouda">#힐링코스</a>
-		<a href="#" class = "btn btn-primary tagclouda">#도보코스</a>
-		<a href="#" class = "btn btn-primary tagclouda">#캠핑코스</a>
-		<a href="#" class = "btn btn-primary tagclouda">#맛코스</a>
+
+		<div class="col-md-10 offset-md-2 tagcloud" id="tagBox">
 		</div>
-		</div>
-	<div class="container mt-5">
-	
-	
-		<div class="row" id="apiFirst">
+	<div class="container mt-5" id= "contentBox">
+		 <div class="row" id="apibox">
 			
 		</div>
-		<div class="row"  id="apiSecond">
 		</div>
-		
-		             <div class="row mt-5 mb-4">
+<!-- 		             <div class="row mt-5 mb-4">
                         <div class="col text-center">
                             <div class="block-27">
                                 <ul class="pageul">
@@ -346,7 +292,7 @@ function getData(code){
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 	</div>
 
 

@@ -133,15 +133,22 @@
 				</form>
 			</div>		
 		</div>
-		
-		<a href="#" class = "btn btn-primary mr-3">#전체</a>		
-		<a href="#" class = "btn btn-primary mr-3">#가족 코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#나홀로 코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#힐링코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#도보코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#캠핑코스</a>
-		<a href="#" class = "btn btn-primary mr-3">#맛코스</a>
+
+		<div id="tagBox"> </div>	
+		<div class="col-md-10 offset-md-2 tagcloud">
+		<a class = "tagclouda btn btn-primary">#전체</a>	
+		<a href="#" class = "btn btn-primary tagclouda">#가족 코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#나홀로 코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#힐링코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#도보코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#캠핑코스</a>
+		<a href="#" class = "btn btn-primary tagclouda">#맛코스</a>
 		</div>
+
+
+
+
+
 	<div class="container mt-5">
 		<div class="row" id="apiFirst">
 			

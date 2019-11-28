@@ -74,7 +74,7 @@
                 <table class="table table-bordered hover" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="10%">NO</th>
+                            <th width="10%" data-orderable="false">NO</th>
                             <th width="40%">TITLE</th>
                             <th width="20%">DATE</th>
                             <th width="20%">WRITER</th>
@@ -84,8 +84,8 @@
                     <tbody>
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
-                        		<td>${board.bIdx}</td>
-                        		<td class="sorting_1"><a onclick="showDetail(${board.bIdx})"  href="#">
+                        		<td >${board.bIdx}</td>
+                        		<td><a onclick="showDetail(${board.bIdx})"  href="#">
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
                         				<c:choose>
                         					<c:when test="${depth == 1}">Re : </c:when>
