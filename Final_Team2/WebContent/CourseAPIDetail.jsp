@@ -36,7 +36,30 @@
 
 }
 
+.timeline-article .meta-date {
+  position: absolute;
+  top: 0;
+  left: 55%;
+  width: 150px;
+  height: 150px;
+  margin-left: -119px;
+  color: #fff;
+  border-radius: 100%;
+  background: #00b0bd;
+}
 
+@media only screen and (max-width: 830px) {
+	 .timeline-article .meta-date {
+    width : 62px;
+    height :62px;
+    margin-left: 0;
+    left: 20px;
+  }
+   #conference-timeline .timeline-start,
+  #conference-timeline .timeline-end {
+    margin-left: 28px;
+  }
+}
 </style>
 
 <script type="text/javascript">
@@ -50,7 +73,7 @@
 		
 		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
-		var contentId = "&contentId="+2590223;
+		var contentId = "&contentId="+${requestScope.contentId};
 		var forCommon = "&defaultYN=Y&firstImageYN=Y";
 		var type = "&_type=json";
 		var apiDetail = "";
@@ -113,8 +136,27 @@
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
 				$.getJSON(weatherUrl,function(weatherData){
 					console.log(weatherData);
-					var icon = $('<i class="diw-cloud">');
-					$("#title").before(icon);
+					var icon = $('<i>');
+					var totalRain = $('<span>');
+					var degree = $('<span>');
+					$.each(weatherData.response.body.items.item,function(index,element){
+						console.log(element.category);
+						if(element.category =="PTY"){
+							console.log("해가 들어오나??");
+							if(element.obsrValue == 0){
+								$(icon).attr("class","wi wi-day-sunny");
+							}else if(element.category > 1){
+								$(icon).attr("class","wi wi-day-rain");
+							}
+						}else if(element.category == "RN1"){
+							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
+						}else if(element.category == "T1H"){
+							$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
+						}
+					});
+					$("#title").after(totalRain);
+					$("#title").after(degree);
+					$("#title").after(icon);
 				});
 				
 				
@@ -237,7 +279,7 @@
     <c:import url="/common/Top.jsp" />
     <div class="content" id="mainContent">
     	<div class="row">
-   			<h1 class="text-center" id="title"></h1><span class="diw-cloud" style="height:50px; weidth:50px;">ss</span>
+   			<h1 class="text-center" id="title"></h1>
     	</div>
    		<div class="row">
    			<div class="text-right">
