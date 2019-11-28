@@ -82,7 +82,7 @@
                            <c:if test="${topnotice.isTop == 'true'}">
                          <tr>
                        <td width="10%">${topnotice.bIdx}</td> 
-                       <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">()top${topnotice.title}</a></td>
+                       <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a></td>
                        <td width="20%">
                        <fmt:formatDate value="${topnotice.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                        </td>
