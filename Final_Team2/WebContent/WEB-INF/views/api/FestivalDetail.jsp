@@ -35,7 +35,6 @@ body {
 </style>
 <script type="text/javascript">
 	$(function() {
-		//공통으로 쓰이는 변수
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 		var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
 		var type = "&_type=json&";
@@ -216,10 +215,6 @@ body {
 
 			marker.setMap(map);
 		}
-
-		$("#kakaoLink").click(function() {
-			console.log("kakaoLink click");
-		})
 	});
 </script>
 </head>
@@ -236,10 +231,7 @@ body {
 					<div class="col-10">
 						<h1 id="title"></h1>
 					</div>
-					<jsp:include page="/common/MoreButton.jsp">
-						<jsp:param value="FestivalDetail.do?contentId=2624154" name="link" />
-						<jsp:param value="축제" name="name" />
-					</jsp:include>
+					<jsp:include page="/common/MoreButton.jsp"/>
 				</div>
 				<hr>
 			</div>
