@@ -78,6 +78,7 @@ body {
 		//&mapX=127.1109831778
 		//&mapY=37.4960925880
 		//&radius=3000&listYN=Y
+		
 		//위치 기반 변수
 		var x = "";
 		var y = "";
@@ -140,8 +141,7 @@ body {
 				
 					$.each(myData3, function(index, element) {
 						var img2 = $('<img>');
-						console.log("처음");
-						console.log($(img2));
+					console.log($(img2));
 							$(img2).attr("src",element.originimgurl);
 							$(img2).attr("onError","this.src="+image);
 						$("#imgarea").append(img2);
@@ -203,11 +203,11 @@ body {
 		});
 
 	
-
+		//위치주변 정보조회
 		function getLocation() {
 			$.getJSON(apilocation, function(data4) {
 				var myData4 = data4.response.body.items.item;
-
+				
 				console.log("위치");
 				console.log(myData4);
 			});
@@ -268,6 +268,15 @@ body {
 			<div class="position" id="info"></div>
 			<div class="position" id="url"></div>
 			<div class="position" id="map"></div>
+			
+			<div id="mainContentBox" class="content">
+			<div class="row">
+				<div class="col-md-4">1</div>
+				<div class="col-md-4">2</div>
+				<div class="col-md-4">3</div>
+			</div>
+		</div>
+			
 		</div>
 	</section>
 
