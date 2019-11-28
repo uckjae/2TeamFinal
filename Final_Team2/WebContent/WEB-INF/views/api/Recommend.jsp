@@ -10,7 +10,7 @@
 	<title>추천 여행지</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		let servicekey = "A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
+		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
 		$(function(){
 			init();
 		});
@@ -30,7 +30,7 @@
 				$.each(tags, function(index, element){
 					control+="<a href='#' onclick='getData(\""+element.code+"\")' id='"+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
 				})
-
+				
 				$("#tagBox").append(control);
 				getData("all");
 			});
@@ -50,6 +50,7 @@
 		];
 		
 		function getData(code){
+			console.log("코드 : " + code);
 			$('#dataBox').empty();
 			
 			if(oldCode != "")
@@ -59,9 +60,9 @@
 			let cat2="";
 			if(code != "all"){ // 전체 클릭시
 				cat2= code;
-				$("#mainContentBox").css("display","none")
+			//	$("#mainContentBox").css("display","none")
 			}else{ // 나머지 태그 클릭시
-				$("#mainContentBox").css("display","block")
+			//	$("#mainContentBox").css("display","block")
 			}
 			
 			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
@@ -75,21 +76,27 @@
 			let paramArea = "&contentTypeId=";
 			let api = addr + "areaBasedList?" + addr2 + paramArea;
 			let apicontent = "";
-			apicontent = api + contentId[0].code + type;
-			console.log(apicontent);
+			
+			for(let i = 0; i < 3; i++){
 				
-			$.getJSON(apicontent,function(data){
+			apiContent = api + contentId[i].code + type;
+			conId = contentId[i].code;
+			console.log(apicontent);
+			console.log("code : " + conId)
+			
+			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				$.each(myData, function(index, element){
-						$('#test').append("<div class='col-md-4'>"
+					
+						$('#'+conId).append("<div class='col-md-4'>"
 								+"<div class='contain'>"
 											+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 100%;'>"
-										+ "<span id='text'>" + element.title + "</span></div></div>"
-						);
-					});
-				
+										+ "<span id='text'>" + element.title + "</span></div></div>");
+					
+				});
 			});
+			}// for
 			oldCode = code;
 		}
 
@@ -170,18 +177,14 @@ html, body {
 		
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
-			<div class="row" id="test">
+			<div class="row" id="12">
 				
-			</div>
-			<div class="row">
-				<div class="col-md-4">1</div>
-				<div class="col-md-4">2</div>
-				<div class="col-md-4">3</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">1</div>
-				<div class="col-md-4">2</div>
-				<div class="col-md-4">3</div>
+			</div><hr>
+			<div class="row" id="14">
+				
+			</div><hr>
+			<div class="row" id="15";>
+				
 			</div>
 		</div>
 		<div class="content">

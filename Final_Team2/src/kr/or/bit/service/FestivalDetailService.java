@@ -10,10 +10,13 @@ public class FestivalDetailService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		int contentId = Integer.parseInt(request.getParameter("contentid"));
-		System.out.println("apicourseDetailService" + contentId);
-		request.setAttribute("contentId", contentId);
+		int contentId = Integer.parseInt(request.getParameter("contentId"));
+		String positionx = request.getParameter("mapx");
+		String positiony = request.getParameter("mapy");
 		
+		request.setAttribute("contentId", contentId);
+		request.setAttribute("xposition", positionx);
+		request.setAttribute("yposition", positiony);
 		forward.setPath("/WEB-INF/views/api/FestivalDetail.jsp");
 		return forward;
 	}
