@@ -11,10 +11,22 @@
 <title>Insert title here</title>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript" src="js/sendKaKaoLink.js"></script>
- <script type="text/javascript">
-
- 	function copy(){
- 		let link = "localhost/contentId=789";
+<script type="text/javascript">
+	
+	let link = "";
+	let description = "#이곳저곳 ";
+	let imagePath = "";
+	let likecount = 0;
+	let commentCount = 0;
+	function moreButtonInit(title, cmd, des, image, like, comment) {
+		link="http://localhost:8090/Final_Team2/"+cmd;
+		description += des;
+		imagePath=image;
+		likecount=like;
+		commentCount=comment;
+	}
+	
+ 	function copy() {
  		let temp =$("<input type='text'>");
  		$("body").append(temp);
  		temp.val(link).select();
@@ -23,15 +35,15 @@
  		alert("링크가 클립보드로 복사 되었습니다.");
  	}
 
- 	function kakaoLink(){
- 		// 파라미터 조합해야함
- 		sendKaKaoLink();
+ 	function kakaoLink() {
+
+ 		sendKaKaoLink("789789");
  	}
  </script>
 </head>
 <body>
 <div class="col-2" style="align-self: center;">
-	<div class="dropup text-right">
+	<div class="dropup text-right" id="more">
 		<button class="btn btn-default " type="button" data-toggle="dropdown">
 			<i class="fas fa-ellipsis-v" style="font-size: 1.5em;"></i>
 		</button>
