@@ -19,7 +19,8 @@
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 
 		var servicekey = "?ServiceKey=63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
-		var paramArea = "&contentTypeId=25&areaCode=1";
+		var paramArea = "&areaCode=1";
+		var contentTypeId = "&contentTypeId=" +${requestScope.contentTypeId};
 		var contentId = "&contentId="+${requestScope.contentId};
 		var forCommon = "&defaultYN=Y&firstImageYN=Y";
 		var type = "&_type=json";
@@ -27,12 +28,13 @@
 		var apiCommon = "";
 		var apiIntro = "";
 		
-		apiDetail = addr + "detailInfo" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-		apiIntro = addr + "detailIntro" + servicekey +paramArea +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
-		apiCommon = addr + "detailCommon" + servicekey +paramArea +contentId + forCommon +"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+		apiDetail = addr + "detailInfo" + servicekey +paramArea+ contentTypeId +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+		apiIntro = addr + "detailIntro" + servicekey +paramArea+ contentTypeId +contentId  + "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
+		apiCommon = addr + "detailCommon" + servicekey +paramArea+ contentTypeId +contentId + forCommon +"&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&listYN=Y" + type;
 		
 		$.getJSON(apiCommon,function(data){
-			console.log("common");
+			console.log("common");	
+			console.log(apiCommon);
 			console.log(data);
 			var titleData = data.response.body.items.item.title;
 			console.log(titleData);
@@ -41,6 +43,7 @@
 		
 		$.getJSON(apiIntro,function(data){
 			console.log("intro");
+			console.log(apiIntro);
 			console.log(data);
 			distanceData = data.response.body.items.item.distance;
 			takeTimeData = data.response.body.items.item.taketime;
@@ -53,6 +56,7 @@
 		$.getJSON(apiDetail,function(data) { 
 			 var myItem = data.response.body.items.item;
 			 console.log("detail");
+			 console.log(apiDetail);
 			 console.log(data);
 			 console.log(myItem)
 		});
@@ -61,15 +65,17 @@
 			
 			console.log("myItem" + apiCommon);
 			$.each(apiCommon, function(index, element) {
-				$('#deil').append(
-						"<div class='row'>" + "<div class='col-md-3'>"
+				$('#detail').append(
+						"<div>"+element.firstimage+"</div>"
+						/* "<div class='row'>" + "<div class='col-md-3'>"
 								+ "<img src='" + element.firstimage + "' alt='"
 								+ element.firstimage2 + "' style='width:100%'>"
 								+ "</div>" + "<div class='col-md-9'>"
 								+ "<div class='col-md-12'>"
 								+ "" + element.title
 								+ "</div>" + "<div class='col-md-12'>"
-								+ "</div>" + "</div>" + "</div><hr>");
+								+ "</div>" + "</div>" + "</div><hr>" */
+				);
 			});
 		});
 
@@ -83,10 +89,9 @@
     <c:import url="/common/Top.jsp" />
     <div class="container">
     	<div id="mainContentBox" class="content">
-			<div class="row">
-				<div class="col-md-4" class="1">1</div>
-				<div class="col-md-4" class="2">2</div>
-				<div class="col-md-4" class="3">3</div>
+    		<h2 id="title"></h2>
+			<div class="contain" id="detail">
+				 <p>detail</p>
 			</div>
 		</div>
     </div>
