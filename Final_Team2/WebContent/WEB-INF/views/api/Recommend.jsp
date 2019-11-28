@@ -76,27 +76,101 @@
 			let paramArea = "&contentTypeId=";
 			let api = addr + "areaBasedList?" + addr2 + paramArea;
 			let apicontent = "";
-			
-			for(let i = 0; i < 3; i++){
-				
-			apiContent = api + contentId[i].code + type;
-			conId = contentId[i].code;
-			console.log(apicontent);
-			console.log("code : " + conId)
+			let conId = 0;
+			apiContent = api + contentId[0].code + type;
 			
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				$.each(myData, function(index, element){
-					
-						$('#'+conId).append("<div class='col-md-4'>"
-								+"<div class='contain'>"
-											+ "<img src='"+element.firstimage+"' alt='No Image' style='width: 100%;'>"
-										+ "<span id='text'>" + element.title + "</span></div></div>");
-					
+						$('#'+12).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
 				});
 			});
-			}// for
+			apiContent = api + contentId[1].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+14).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
+			apiContent = api + contentId[2].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+15).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
+			
+			apiContent = api + contentId[3].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+25).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
+			
+			apiContent = api + contentId[4].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+28).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
+			
+			apiContent = api + contentId[5].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+32).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
+			
+			apiContent = api + contentId[6].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+38).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
+			
+			apiContent = api + contentId[7].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				$.each(myData, function(index, element){
+						$('#'+39).append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+				});
+			});
 			oldCode = code;
 		}
 
@@ -177,13 +251,36 @@ html, body {
 		
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
-			<div class="row" id="12">
+		<h3>관광지</h3>
+			<div class="row" id="12" style="width: 100%; height:100%;">
 				
-			</div><hr>
-			<div class="row" id="14">
+			</div><br><hr><br>
+			<h3>문화시설</h3>
+			<div class="row" id="14" style="width: 100%; height:100%;">
 				
-			</div><hr>
-			<div class="row" id="15";>
+			</div><br><hr><br>
+			<h3>축제공연행사</h3>
+			<div class="row" id="15"; style="width: 100%; height:100%;">
+				
+			</div><br><hr><br>
+			<h3>여행코스</h3>
+			<div class="row" id="25"; style="width: 100%; height:100%;">
+				
+			</div><br><hr><br>
+			<h3>레포츠</h3>
+			<div class="row" id="28"; style="width: 100%; height:100%;">
+				
+			</div><br><hr><br>
+			<h3>숙박</h3>
+			<div class="row" id="32"; style="width: 100%; height:100%;">
+				
+			</div><br><hr><br>
+			<h3>쇼핑</h3>
+			<div class="row" id="38"; style="width: 100%; height:100%;">
+				
+			</div><br><hr><br>
+			<h3>음식점</h3>
+			<div class="row" id="39"; style="width: 100%; height:100%;">
 				
 			</div>
 		</div>
