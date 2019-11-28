@@ -54,37 +54,6 @@ function init() {
 }
 
 
-// 페이징 
-function pagingFn(page) {
-    var paramArea = "&contentTypeId=25&areaCode=1";
-    var paramCat = "&cat1=C01&cat2=";
-    var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-    
-    var addr2 = servicekey + paramArea + paramCat + paramArrange + paramPageNo;
-    var api = "";
-    var contentId = "";
-
-    api = addr + "areaBasedList" + addr2 + page + type;
-    $("#apiFirst").empty();
-    $("#apiSecond").empty();      
-    $(".pageul > li").removeClass('active');
-    
-    $.getJSON(api, function (data) {
-
-        var myItem = data.response.body.items.item;
-        $.each(myItem, function (index, element) {
-        	
-            if (index < 3) {
-
-            	firstFn(element);
-
-            } else {
-                secondFn(element);
-            }
-        });
-    });
-}
-
 function goCourseDetail(own) {
     console.log($(own).val());
     location.href="CourseAPIDetail.do?contentId="+$(own).val();
@@ -198,6 +167,8 @@ function getData(code){
    
    oldCode = code;
 }
+
+
 </script>    
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -219,8 +190,8 @@ function getData(code){
                                             <span class="ion-ios-arrow-down"></span>
                                         </div>
                                         <select name="" id="" class="form-control">
-                                            <option value="">오래된 순으로 보기</option>
-                                            <option value="">최신순으로 보기</option>
+                                            <option value="old">오래된 순으로 보기</option>
+                                            <option value="new">최신순으로 보기</option>
                                         </select>
                                     </div>
                                 </div>
