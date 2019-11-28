@@ -38,29 +38,26 @@
 			    					<div class="star d-flex clearfix">
 			    						<div class="mr-auto float-left">
 				    						<span><fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></span>
-				    						
+				    						<span class="rate"><a href="#">${board.rNum }</a></span>
 			    						</div>
-			    						<div class="float-right">
-			    							<span class="rate"><a href="#">${board.rNum }</a></span>
-			    						</div>
+			    						
 			    					</div>
 			    				</div>
 			    					 
 		    					
-		    				<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId !=null && sessionScope.isAdmin == 'true')}">
-					
+		    	
+			    		
+		    				</c:forEach>  
+		    			
+		    		<c:if test="${sessionScope.memberId !=null}">
 				    <div class="container">
 				    <a href="PhotoWrite.do?cmd=write">
 				    	<input type="button" value="글작성" id="photo" name="photo">	
 				    </a>
 				    </div>
-				    </c:if>	
-			    		
-		    				</c:forEach>  
-		    			
-		    				
+				    </c:if>			
 	
-	 			
+	 		</div>	
     </section>
     
 </body>
