@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
-   <link rel="stylesheet" href="css/weather-icons.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>코스 </title>
  <style type="text/css">
@@ -50,25 +50,15 @@ function init() {
 
 		$("#tagBox").append(control);
         
-		getData("all");
+		getData("all",1);
     });
 }
 
-
 function goCourseDetail(own) {
-    console.log($(own).val());
     location.href="CourseAPIDetail.do?contentId="+$(own).val();
 }
 
-function pageChange(number) {
-    var page = $(number).text();
-    pagingFn(page);
-    console.log("page : " + page);
-
-    var parent = number.parentNode;
-    $(parent).attr('class','active');
-}
-
+// 메인 컨텐츠 만들기 
 function makeRow(element){
 	 var div1 = $("<div class='col-md-4'>");
      var divProj = $("<div class='project mb-4'>");
@@ -104,9 +94,13 @@ function makeRow(element){
      $(div1).append(divText);
      $(".apiFirst").append(div1);
 }
+//
+
 
 let oldCode = "";
+let areaCode = "";
 function getData(code){
+	console.log("areaCode : "+areaCode);
    $('#apibox').empty();
    if(oldCode != "")
       $("#"+oldCode).attr("class","btn btn-primary tagclouda");
@@ -117,15 +111,16 @@ function getData(code){
       cat2= code;
    }else{ // 나머지 태그 클릭시 
    } 
+//   let areaCode = $('#areaSel option:selected').val();
+   console.log("지역 코드: " + areaCode);
    
-   let paramArea = "&contentTypeId=25&areaCode=1";
+   let paramArea = "&contentTypeId=25&areaCode=" + areaCode;
    let paramCat = "&cat1=C01&cat2="+cat2;
    let paramList = "&cat3=&listYN=Y";
    let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
 
    let addr2 = servicekey + paramArea + paramCat + paramList + paramArrange + paramPageNo;
    let api = addr + "areaBasedList" + addr2 + type;
-   console.log(api);
    $.getJSON(api,function(data){
       let myData = data.response.body.items.item;
       $.each(myData, function(index, element){
@@ -169,6 +164,11 @@ function getData(code){
    oldCode = code;
 }
 
+function areaSelFn () {
+	areaCode = $('#areaSel option:selected').val();
+	 console.log("지역 코드2: " + areaCode);
+	// getData("all");
+}
 
 </script>    
 </head>
@@ -180,7 +180,6 @@ function getData(code){
 	<div class="content">
 	
 		<div class="row mb-4 mt-10">
-		 <i class="wi wi-day-sunny"></i>
 			<div class="col-md-11 offset-md-1">
 				<form action="#" class="search-property-1">
 					<div class="row">					
@@ -189,10 +188,7 @@ function getData(code){
                                 <label for="#"></label>
                                 <div class="form-field">
                                     <div class="select-wrap">
-                                        <div class="icon">
-                                            <span class="ion-ios-arrow-down"></span>
-                                        </div>
-                                        <select name="" id="" class="form-control">
+                                        <select name="orderSel" id="orderSel" class="form-control">
                                             <option value="old">오래된 순으로 보기</option>
                                             <option value="new">최신순으로 보기</option>
                                         </select>
@@ -207,13 +203,10 @@ function getData(code){
 								<label for="#"></label>
 								<div class="form-field">
 									<div class="select-wrap">
-										<div class="icon">
-											<span class="ion-ios-arrow-down"></span>
-										</div>
-										<select name="areaSel" id="areaSel" class="form-control">
-											<option value="">서울</option>
-											<option value="">경기</option>
-											<option value="">인천</option>
+										<select name="areaSel" id="areaSel" class="form-control" onchange="areaSelFn()">
+											<option value="1">서울</option>
+											<option value="31">경기</option>
+											<option value="2">인천</option>
 										</select>
 									</div>
 								</div>
@@ -234,7 +227,7 @@ function getData(code){
 						
 						<div class="col-md align-self-end">
 							<div class="form-group">
-								<div class="form-field col-lg-6">
+								<div class="form-field col-xl-6">
 									<input type="submit" value="검색"
 										class="form-control btn btn-primary">
 								</div>
