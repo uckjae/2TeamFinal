@@ -41,7 +41,7 @@ $(function(){
 						+"</div>"
 						+"<div class='col-md-9'>"
 							+"<div class='col-md-12'>"
-								+ "<a href='FestivalDetail.do?contentId="+ element.contentid +"'>" + element.title
+								+ "<a href='FestivalDetail.do?contentId="+ element.contentid+"&mapx=" + element.mapx +"&mapy="+element.mapy +"'>" + element.title
 							+"</div>"
 							+"<div class='col-md-12'>"
 								

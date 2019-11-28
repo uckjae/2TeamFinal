@@ -39,7 +39,7 @@ $(function(){
 	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=";
 	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=1";
-	var contentid = ${requestScope.contentId};
+	var contentid = "${requestScope.contentId}";
 	//공통정보조회 변수
 	var paramArea = "&contentTypeId=15&areaCode=1";
 	var paramSigungu = "&sigunguCode=";
@@ -76,8 +76,8 @@ $(function(){
 	//&mapY=37.4960925880
 	//&radius=3000&listYN=Y
 	//위치 기반 변수
-	var x = "&mapX=127.0234738367";
-	var y = "&mapY=37.5186022892";
+	var x = "&mapX=${requestScope.xposition}";
+	var y = "&mapY=${requestScope.yposition}";
 	var arrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide";
 	var array = "&arrange=E";
 	var range = "&radius=3000&listYN=Y";
@@ -100,7 +100,7 @@ $(function(){
 				$("#overview").append("<hr>");	
 				$("#overview").append("<h3><b>상세정보</b></h3>");
 			}else if(key =="homepage"){
-				$('#url').append("<ul><li>무브컬쳐 주식회사 " + value + "</li></ul>");
+				$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
 			}
 			
 			
@@ -117,7 +117,7 @@ $(function(){
 		$.each(myData2,function(key,value){			
 			if(key == "eventplace"){
 				$("#content").append("<ul><li>주소 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
-				}else if(key == "eventstartdate"){
+				}else if(key == "eventenddate"){
 					$("#info").append("<ul><li>종료날짜  &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");	
 					}
 				else if(key == "sponsor1"){
@@ -129,7 +129,7 @@ $(function(){
 				else if(key == "sponsor2"){
 									$("#info").append("<ul><li>주관 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
 									}
-				else if(key == "eventenddate"){
+				else if(key == "eventstartdate"){
 									$("#content").append("<ul><li>시작날짜   &nbsp;&nbsp;&nbsp;" + value + "</li><ul>");
 								}else if(key == "sponsor2tel"){
 									$("#info").append("<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value + "</li></ul>");
@@ -179,10 +179,10 @@ $(function(){
 
 		
 		<center>
-			<div id="imgarea">
+			<div id="imgarea" class ="position">
 		
 			</div>
-		</center>	
+	</center>
 			<div id="overview" class="position" style="width: 80%; text-align: left">
 
 </div>
@@ -197,7 +197,30 @@ $(function(){
 <div class="position" id="url">
 
 </div>
+<div class="position" id="map">
+
+</div>
 </div>
 </section>
+
+	<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng("${requestScope.yposition}", "${requestScope.xposition}"), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	var markerPosition  = new kakao.maps.LatLng("${requestScope.yposition}", "${requestScope.xposition}"); 
+	
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+	
+	marker.setMap(map);
+	</script>
 </body>
+
 </html>

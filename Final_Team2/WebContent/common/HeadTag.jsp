@@ -36,8 +36,8 @@
 	<script src="js/aos.js"></script>
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="js/google-map.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=490780f812ec4d1465f4c9d4b00baac0"></script>
+	<!-- <script src="js/google-map.js"></script> -->
 	
 	<script type="text/javascript" src="js/setReadNum.js"></script>
 	<script type="text/javascript" src="js/checkReadBoad.js"></script>
