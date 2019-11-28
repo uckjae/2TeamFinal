@@ -92,8 +92,10 @@
                         		<td><a onclick="showDetail(${board.bIdx})"  href="#">
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
                         				<c:choose>
-                        					<c:when test="${depth == 1}">Re : </c:when>
-                        					<c:otherwise>: : </c:otherwise>
+                        					<c:if test="${board.depth > 1}">
+                        						<c:when test="${depth == board.depth}">┖&nbsp;</c:when>
+                        					</c:if>
+                        				<c:otherwise>&nbsp; &nbsp; &nbsp; &nbsp;</c:otherwise>
                         				</c:choose>
                         			</c:forEach>
                         		${board.title}</a></td>
