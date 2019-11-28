@@ -28,16 +28,26 @@
     </script>
 </head>
 <body>
-<div class="dropup">
-	<button class="btn btn-default" type="button" data-toggle="dropdown">
-		<i class="fas fa-ellipsis-v"></i>
-	</button>
-
-    <div class="dropdown-menu">
-		<a class="dropdown-item" href="javascript:copy()" >링크 복사</a>	
-		<a class="dropdown-item" href="javascript:kakaoLink()" id="kakaoLink">카카오톡으로 공유</a>	
-		<a class="dropdown-item" href="#" >내 여행 리스트에 추가</a>	
+<div class="container-fluid">
+	<div class="row" >
+		<div class="col-10">
+			<h1>동대문 어쩌구</h1>
+		</div>
+		<div class="col-2" style="align-self: center;">
+			<div class="dropup">
+				<button class="btn btn-default" type="button" data-toggle="dropdown">
+					<i class="fas fa-ellipsis-v" style="font-size: 1.5em;"></i>
+				</button>
+			    <div class="dropdown-menu">
+					<a class="dropdown-item" href="javascript:copy()" >링크 복사</a>	
+					<a class="dropdown-item" href="javascript:kakaoLink()" id="kakaoLink">카카오톡으로 공유</a>	
+					<a class="dropdown-item" href="#" >내 여행 리스트에 추가</a>	
+				</div>
+			</div>
+		</div>
 	</div>
-  </div>
+	
+</div>
+
 </body>
 </html>

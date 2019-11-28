@@ -76,8 +76,8 @@ $(function(){
 	//&mapY=37.4960925880
 	//&radius=3000&listYN=Y
 	//위치 기반 변수
-	var x = "&mapX=${requestScope.xposition}";
-	var y = "&mapY=${requestScope.yposition}";
+	var x = "";
+	var y = "";
 	var arrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide";
 	var array = "&arrange=E";
 	var range = "&radius=3000&listYN=Y";
@@ -92,6 +92,7 @@ $(function(){
 		var myData = data.response.body.items.item;
 		console.log("공통정보");
 		console.log(myData);
+		$("#title").text(myData.title);
 		$.each(myData,function(key,value){
 			if(key=="overview"){
 				$("#overview").append("<hr>");
@@ -101,10 +102,19 @@ $(function(){
 				$("#overview").append("<h3><b>상세정보</b></h3>");
 			}else if(key =="homepage"){
 				$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
+			}else if(key == "mapx"){
+				x = value;
+				console.log(x);
+			}else if(key == "mapy"){
+				y = value;
+				console.log(y);
 			}
 			
 			
 		});
+		console.log("call getMaps");
+		getLocation();
+		getMaps();
 		
 	});
 	//end
@@ -159,15 +169,37 @@ $(function(){
 		
 	});
 	
-	
+	function getLocation(){
 	$.getJSON(apilocation,function(data4){
 		var myData4 = data4.response.body.items.item;
 		
 		console.log("위치");
 		console.log(myData4);
 	});
+	}
+	
+	function getMaps(){
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+        level: false // 지도의 확대 레벨
+    };
 	
 	
+		console.log("in getMaps");
+		console.log("x:"+x);
+		console.log("y:"+y);
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		var markerPosition  = new kakao.maps.LatLng(y, x); 
+		
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+		
+		marker.setMap(map);
+	}
 });
 </script>
 </head>
@@ -177,7 +209,19 @@ $(function(){
 	<section class="ftco-section">
 	<div class="row">
 
-		
+	<!-- 제목 -->
+	<div class=" position" style="width: 80%; text-align: left">
+		<div class="row">
+			<div class="col-10">
+				<h1 id="title"></h1>
+			</div>
+			<jsp:include page="/common/MoreButton.jsp">
+				<jsp:param value="link" name=""/>
+			</jsp:include>
+		</div>
+		<hr>
+	</div>
+
 		<center>
 			<div id="imgarea" class ="position">
 		
@@ -203,24 +247,7 @@ $(function(){
 </div>
 </section>
 
-	<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng("${requestScope.yposition}", "${requestScope.xposition}"), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
-
-	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
-	var markerPosition  = new kakao.maps.LatLng("${requestScope.yposition}", "${requestScope.xposition}"); 
-	
-	var marker = new kakao.maps.Marker({
-	    position: markerPosition
-	});
-	
-	marker.setMap(map);
-	</script>
 </body>
 
 </html>
