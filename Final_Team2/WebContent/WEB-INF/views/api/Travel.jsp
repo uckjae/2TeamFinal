@@ -10,70 +10,89 @@
 <title>여행지 메인</title>
 <script type="text/javascript">
 $(function(){
+	
+	function goCourseDetail(ogu) {
+		console.log($(ogu).val());
+		location.href = "FestivalDetail.do?contentId=" + $(ogu).val();
+	}
+	
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-	var servicekey = "serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
+	var servicekey = "sserviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
 	var paramArea = "&contentTypeId=12&areaCode=2";
 	var paramSigungu = "&sigunguCode=";
-	var paramList = "&cat1=&cat2=&cat3=&listYN=Y";
-	var paramAppTest = "&MobileOS=ETC&MobileApp=AppTest";
-	var paramArrange ="&arrange=A";
+	var paramCat = "&cat1=&cat2=";
+	var paramList = "&cat3=&listYN=Y";
+	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
 	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=";
-	var type = "&_type=json";
-	var addr2 = servicekey + paramArea + paramSigungu + paramList + paramAppTest+ paramArrange+ paramNumOfRows + paramPageNo;
+	var type = "&_type=json&";
+	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 	var api = "";
 	
-	api = addr + "areaBasedList?" + addr2 + "1" + type;
-	//http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival?serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&listYN=Y&areaCode=2&sigunguCode=1&eventStartDate=20170901
+	api = addr + "searchFestival?" + addr2 + "1" + type;
 	
 	$.getJSON(api,function(data){
 		var myData = data.response.body.items.item;
 		console.log(myData);
-		
-          $.each(myData,function(index,element){
-			
-			$(".content").append("<table border='1'>")
-			$(".content").append("<tr>")
-			$(".content").append("<td rowspan='2' colspan='2'><img src=" + element.firstimage+" onError=\"this.src='images/default.png'\"></td><td>&nbsp</td>")
-			$(".content").append("<td><b>" + element.title + "</b><br>" + element.addr1 + "</td>")
-			$(".content").append("</tr>")
-			$(".content").append("<tr>")
-			$(".content").append("<td>")
-			$(".content").append("</td>")
-			$(".content").append("</tr>")
-			$(".content").append("<hr >")
-			
+		$.each(myData,function(index,element){
+			$('#dataBox').append(
+					"<div class='row'>"
+						+"<div class='col-md-3'>"
+							+"<img src="+ element.firstimage2 + ">"
+						+"</div>"
+						+"<div class='col-md-9'>"
+							+"<div class='col-md-12'>"
+								+ "<a href='FestivalDetail.do?contentId="+ element.contentid+"&mapx=" + element.mapx +"&mapy="+element.mapy +"'>" + element.title
+							+"</div>"
+							+"<div class='col-md-12'>"
+								
+							+"</div>"
+						+"</div>"
+					+"</div><hr>"
+				);
 		});
-	});		
-			
-			
-			
+});
 });
 
 </script>
- <style type="text/css">
-        html,
-        body {
-            height: 100%;
-        }
-        table{
-        	border: 1px;
-        	border-style: solid;
-        }
-        img{
-         width:150px;
-         hight:113px;
-        }
+<style type="text/css">
+       html,
+       body {
+           height: 100%;
+       }
+       table{
+       	border: 1px;
+       	border-style: solid;
+       }
+       img{
+       	width: 150px;
+       	height: 113px;
+       }
 </style> 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-     
-<!-- Top -->
-<c:import url="/common/Top.jsp" />
-    
-<div class="content">
- 
 
+    <!-- Top -->
+    <c:import url="/common/Top.jsp" />
+<div class="content">
+
+<div id="mainContentBox" class="content">
+			<div class="row">
+				<div class="col-md-4">1</div>
+				<div class="col-md-4">2</div>
+				<div class="col-md-4">3</div>
+			</div>
+		</div>
+<div  id="dataBox"></div>
+<div class="pagination-sm mt-3 mb-3" style="text-align:center">
+			    <a href="#" class="btn btn-primary">&laquo;</a>
+				<a href="#" class="btn btn-primary">1</a>
+				<a href="#" class="btn btn-primary">2</a>
+				<a href="#" class="btn btn-primary">3</a>
+				<a href="#" class="btn btn-primary">4</a>
+				<a href="#" class="btn btn-primary">5</a>
+				<a href="#" class="btn btn-primary">&raquo;</a>
+			</div>
 </div>
 
 </body>
