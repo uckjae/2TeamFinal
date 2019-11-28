@@ -224,21 +224,6 @@ function searchFn() {
 		<div class="container mt-5" id="contentBox">
 			<div class="row" id="apibox"></div>
 		</div>
-		<!-- 		             <div class="row mt-5 mb-4">
-                        <div class="col text-center">
-                            <div class="block-27">
-                                <ul class="pageul">
-                                    <li><a href="#" onclick = "pageChange(this)">&lt;</a></li>
-                                    <li class="active"><a href="#" onclick = "pageChange(this)">1</a>               
-                                    <li><a href="#" onclick = "pageChange(this)">2</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">3</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">4</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">5</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">&gt;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
 	</div>
 
 
