@@ -37,10 +37,10 @@
 		})
 
 		$("#sendPwd").click(function() { 
-			console.log($("#id").val());
+			console.log($("#id1").val());
 			$.ajax({
 				url : "SendMail",
-				data : { cmd : "forgotPwd", id : $("#id").val()},
+				data : { cmd : "forgotPwd", id : $("#id1").val()},
 				success : function(data){
 					console.log(data);
 					if(data == 'true'){
@@ -94,7 +94,7 @@
               <div class="form-group">
                 <label for="mid" class="control-label col-xs-2">ID</label>
                 <div class="col-xs-10">
-                  <input type="text" class="form-control" id="id" name="id" required>
+                  <input type="text" class="form-control" id="id1" name="id" required>
                 </div>
               </div>
               <div class="form-group">
