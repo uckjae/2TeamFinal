@@ -70,11 +70,11 @@
                             <c:set var="number" value="${status.index}" />
                             <div class="timeline-article">
                                 <div class="content-left-container">
-                                    <div class="content-left">
+                                    <div class="content-left" style="margin-right:50px">
                                         <p>${mCBoard.contentsList[number*2]}</p>
                                         <span class="article-number">${number+1}</span>
                                     </div>
-                                    <span class="timeline-author">${mCBoard.contentsList[number*2+1]}</span>
+                                    <span class="timeline-author" style="margin-right:50px">${mCBoard.contentsList[number*2+1]}</span>
                                     <div class="meta-date">
                                         <img class="image2" src="upload/${photo.photoName }" alt="여행지사진"
                                             onError="this.src='images/scenery.png'">
@@ -86,11 +86,11 @@
                             <c:set var="number" value="${status.index}" />
                             <div class="timeline-article">
                                 <div class="content-right-container">
-                                    <div class="content-right">
+                                    <div class="content-right" style="margin-left:50px">
                                         <p>${mCBoard.contentsList[number*2]}</p>
                                         <span class="article-number">${number+1}</span>
                                     </div>
-                                    <span class="timeline-author">${mCBoard.contentsList[number*2+1]}</span>
+                                    <span class="timeline-author" style="margin-left:50px">${mCBoard.contentsList[number*2+1]}</span>
                                     <div class="meta-date">
                                         <img class="image2" src="upload/${photo.photoName }" alt="여행지사진"
                                             onError="this.src='images/scenery.png'">
@@ -124,16 +124,7 @@
     </div>
 
     <!-- // Vertical Timeline -->
-    <div class="content" style="text-align: center;">
-        <h1>지도자리</h1>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    </div>
+    
 </body>
 
 </html>

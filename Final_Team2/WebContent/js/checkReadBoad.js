@@ -1,5 +1,7 @@
 
 function checkReadBoad(result, bIdx, href){
+	console.log("result");
+	console.log("result" + result);
 	if(result){
 		location.href=href+"?bIdx="+bIdx;
 	}else{

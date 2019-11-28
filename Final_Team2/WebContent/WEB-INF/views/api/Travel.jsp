@@ -18,33 +18,21 @@ $(function(){
 	
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
-	var paramArea = "&contentTypeId=12&areaCode=2";
-	var paramSigungu = "&sigunguCode=";
-	var paramCat = "&cat1=&cat2=";
-	var paramList = "&cat3=&listYN=Y";
-	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A";
+	var paramContentTypeId = "&contentTypeId=12"
+	var ParamAreaCode = "&areaCode=2";
+	var paramAppTest = "&MobileApp=AppTest&MobileOS=ETC";
+	var pramArrange = "&arrange=A";
 	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=";
-	var type = "&_type=json&";
-	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+	var pramAreaBasedList ="areaBasedList?";
+	var type = "&_type=json";
+	var pramList = "&listYN=Y";
 	var api = "";
 	
-	api = addr + "searchFestival?" + addr2 + "1" + type;
-	
-	/*
-	http://api.visitkorea.or.kr/openapi/service/rest/KorService/
-	areaBasedList?
-	serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D
-	&pageNo=1
-	&numOfRows=10
-	&MobileApp=AppTest
-	&MobileOS=ETC
-	&arrange=A
-	&contentTypeId=12
-	&areaCode=2
-	&listYN=Y
-	*/
-	
+	var api = addr + pramAreaBasedList + servicekey + paramPageNo +"1" +
+	          paramNumOfRows + paramAppTest + pramArrange + paramContentTypeId
+	          + ParamAreaCode + pramList + type; 
+		
 	$.getJSON(api,function(data){
 		var myData = data.response.body.items.item;
 		console.log(myData);
@@ -56,7 +44,7 @@ $(function(){
 						+"</div>"
 						+"<div class='col-md-9'>"
 							+"<div class='col-md-12'>"
-								+ "<a href='TravelDetail.do?contentId="+ element.contentid+"&mapx=" + element.mapx +"&mapy="+element.mapy +"'>" + element.title
+								+ "<a href='TravelDetail.do?contentId="+ element.contentid+"'>" + element.title
 							+"</div>"
 							+"<div class='col-md-12'>"
 								

@@ -320,6 +320,12 @@ public class FrontController extends HttpServlet {
 			action = new RecommendDetailService();
 			forward = action.execute(request, response);
 		}
+		// 마이페이지 내 정보 조회 
+		else if (url_Command.equals("/MyInformation.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/mypage/MyInformation.jsp");
+		}
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

@@ -77,14 +77,15 @@
 			let api = addr + "areaBasedList?" + addr2 + paramcontent;
 			let apicontent = "";
 			
+			/* 관광지 */
 			apiContent = api + contentId[0].code + paramArea + areaCode[0].code + type;
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#12 > #1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -93,9 +94,9 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#12 > #2').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -104,14 +105,82 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#12 > #31').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
+											+"<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
 			
+			/* 여행축제 */
+			apiContent = api + contentId[1].code + paramArea + areaCode[0].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				//$.each(myData, function(index, element){
+						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
+			});
+			apiContent = api + contentId[1].code + paramArea + areaCode[1].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				//$.each(myData, function(index, element){
+						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
+			});
+			apiContent = api + contentId[1].code + paramArea + areaCode[2].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				//$.each(myData, function(index, element){
+						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
+			});
 			
+			/* 여행코스 */
+			apiContent = api + contentId[2].code + paramArea + areaCode[0].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				//$.each(myData, function(index, element){
+						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
+			});
+			apiContent = api + contentId[2].code + paramArea + areaCode[1].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				//$.each(myData, function(index, element){
+						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
+			});
+			apiContent = api + contentId[2].code + paramArea + areaCode[2].code + type;
+			$.getJSON(apiContent,function(data){
+				let myData = data.response.body.items.item;
+				console.log(myData);
+				//$.each(myData, function(index, element){
+						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+											+"<div class='contain'>"
+											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
+			});
 			oldCode = code;
 		}
 
@@ -161,7 +230,7 @@ html, body {
 			<div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row" >
-						<div class="col-lg align-self-end">
+						<div class="col-lg align-self-end col-md-10">
 							<div class="form-group">								
 								<div class="form-field">
 									<div class="icon">
@@ -172,7 +241,7 @@ html, body {
 								</div>
 							</div>
 						</div>
-						<div class="col-lg align-self-end">
+						<div class="col-lg align-self-end col-md-2">
 							<div class="form-group">
 								<div class="form-field col-md-4">
 									<input type="submit" value="검색"
@@ -192,50 +261,24 @@ html, body {
 		
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
-			<div id="12">
-				<h2>서울</h2>
+			<div id="contentId-1">
 				<h4>관광지</h4>
-				<div class="row" id="1" style="width: 100%; height:100%;">
-					
-				</div><hr>
-				<h4>축제공연행사</h4>
-				<div class="row" id="2"; style="width: 100%; height:100%;">
-					
-				</div><hr>
-				<h4>여행코스</h4>
-				<div class="row" id="31"; style="width: 100%; height:100%;">
+				<div class="row" id="area1" style="width: 100%; height:100%;">
 					
 				</div><hr>
 			</div>
 			
-			<div id="15">
-				<h1>인천</h1>
-				<h3>관광지</h3>
-				<div class="row" id="1" style="width: 100%; height:100%;">
+			<div id="contentId-2">
+				<h3>여행축제</h3>
+				<div class="row" id="area2" style="width: 100%; height:100%;">
 					
 				</div><hr>
-				<h3>축제공연행사</h3>
-				<div class="row" id="2"; style="width: 100%; height:100%;">
-					
-				</div><hr>
-				<h3>여행코스</h3>
-				<div class="row" id="31"; style="width: 100%; height:100%;">
-					
-				</div><hr>
+				
 			</div>
 			
-			<div id="25">
-				<h1>경기</h1>
-				<h3>관광지</h3>
-				<div class="row" id="1" style="width: 100%; height:100%;">
-					
-				</div><hr>
-				<h3>축제공연행사</h3>
-				<div class="row" id="2"; style="width: 100%; height:100%;">
-					
-				</div><hr>
+			<div id="contentId-3">
 				<h3>여행코스</h3>
-				<div class="row" id="31"; style="width: 100%; height:100%;">
+				<div class="row" id="area3" style="width: 100%; height:100%;">
 					
 				</div><hr>
 			</div>
