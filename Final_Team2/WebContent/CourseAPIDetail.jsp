@@ -97,10 +97,11 @@
 				if(minutes<41){
 					hour -= 1;
 				}
+				if(hour<10){
+					hour = "0"+hour;
+				}
 				var x = rs.x;
 				var y = rs.y;
-				console.log("x"+x);
-				console.log("y"+y);
 				
 				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
 				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
@@ -109,7 +110,11 @@
 				var ny = "&ny="+y;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
-				console.log("날씨!!"+weatherUrl);
+				$.getJSON(weatherUrl,function(weatherData){
+					console.log(weatherData);
+					var icon = $('<i class="diw-cloud">');
+					$("#title").before(icon);
+				});
 				
 				
 				//인근지역 정보
@@ -231,7 +236,7 @@
     <c:import url="/common/Top.jsp" />
     <div class="content" id="mainContent">
     	<div class="row">
-   			<h1 class="text-center" id="title"></h1>
+   			<h1 class="text-center" id="title"></h1><span class="diw-cloud" style="height:50px; weidth:50px;">ss</span>
     	</div>
    		<div class="row">
    			<div class="text-right">
