@@ -128,15 +128,19 @@ function getData(code){
   
    $.getJSON(api,function(data){
       let myData = data.response.body.items.item;
+      if($.type(myData) === "array") {
       if (order == 'new') {
           $.each(myData, function(index, element){
-     		 makeRow(element);
+        	  makeRow(element);
        });
       } else if (order == 'old') {
     	  $.each(myData.reverse(), function(index, element){
       		 makeRow(element);
         });
-      }   
+      } 
+      } else {
+    	  makeRow(myData);
+      }
    }); 
    
    oldCode = code;

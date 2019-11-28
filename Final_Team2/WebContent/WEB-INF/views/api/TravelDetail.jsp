@@ -39,7 +39,7 @@
 		var areaCode = "&areaCode=";
 		var Sigungu = "&sigunguCode=";
 		var pramContentId = "&contentId=";
-
+		/*  */
 		var pramSubImage = "&cat1=&cat2=&cat3=&listYN=Y";
 		var pramDetailImage = "detailImage?";
 		var pramImage = "&imageYN=Y";
@@ -60,61 +60,57 @@
 		var pramRadius = "&radius=3000";
 		var pramListYN = "&listYN=Y";
 		var pramDetailInfo = "detailInfo?";
+		var pramrange = "&radius=3000";
+		var loArray = "&arrange=E";
 		var api = "";
 		var api2 = "";
 		var api3 = "";
 		var api4 = "";
 		var api5 = "";
+		var api6 = "";
+		/*위치기반 변수*/
+		var x = "";
+		var y = "";
+		var apilocation = "";
+		var pramlocationBasedList = "locationBasedList?";
 
-		var api = addr + pramDetailImage + servicekey + numOfRows + pageNo
+		var api = addr + pramDetailImage + servicekey + numOfRows + pageNo /*이미지조회*/
 				+ AppTest + pramContentId + "1254680" + pramImage
 				+ pramSubImage + type;
 
-		var api2 = addr + pramDetailCommon + servicekey + numOfRows + pageNo
+		var api2 = addr + pramDetailCommon + servicekey + numOfRows + pageNo /*공통조회*/
 				+ AppTest + pramContentId + "1254680" + contentTypeId
 				+ pramDefault + pramFirstImage + pramAreaCode + pramCatCode
 				+ pramAddrInfo + pramMapInfo + pramOverView + type;
 
-		var api3 = addr + pramDetailIntro + servicekey + numOfRows + pageNo
+		var api3 = addr + pramDetailIntro + servicekey + numOfRows + pageNo /*상세조회1*/
 				+ AppTest + pramContentId + "1254680" + contentTypeId + type;
 
-		var api4 = addr + pramLocationBasedList + servicekey + numOfRows
-				+ pageNo + AppTest + pramArrrange + "A" + contentTypeId
-				+ pramMapX + "126.981611" + pramMapY + "37.568477" + pramRadius
-				+ pramListYN + type;
-
-		var api5 = addr + pramDetailInfo + servicekey + numOfRows2 + pageNo
+		var api4 = addr + pramDetailInfo + servicekey + numOfRows2 + pageNo /*상세조회2*/
 				+ AppTest + pramContentId + "1254680" + contentTypeId + type;
 
-		/*이미지정보조회*/
+		/* 이미지정보조회 */
 		$.getJSON(api, function(data) {
 			var myData = data.response.body.items.item;
 			console.log(myData);
 
 		});
-		/*공통정보조회*/
+		/* 공통정보조회 -상세*/
 		$.getJSON(api2, function(data) {
 			var myData2 = data.response.body.items.item;
 			console.log("공통정보");
 			console.log(myData2);
-			
 
 			$.each(myData2, function(key, value) {
 				console.log(key);
-				
-				
+
 				if (key == "title") {
 					$("#title").append("<div>" + value + "</div>");
+
+				} else if (key == "overview") {
 					
-				}else if(key =="overview"){
-					$("#MainContent").append("<br>");
-					$("#MainContent").append("<hr>");
-					$("#MainContent").append("<h3>여행정보</h3>");
-					$("#MainContent").append("<br>");
 					$("#MainContent").append("<div>" + value + "</div>");
-					$("#MainContent").append("<hr>");
-					$("#MainContent").append("<h3>상세정보</h3>");
-					$("#MainContent").append("<br>");
+					
 
 				} else if (key == "addr1") { //주소	 
 					$("#addrContent").append("<div>" + value + "</div>");
@@ -127,10 +123,16 @@
 					$("#DetailContent").append("<br>");
 					$("#DetailContent").append("<br>");
 					$("#DetailContent").append("<br>");
+				} else if (key == "mapx") {
+					x = value;
+				} else if (key == "mapy") {
+					y = value;
 				}
+				getMaps();
 			});
+
 		});
-		/*상세정보조회*/
+		/* 상세정보조회 -상세 */
 		$.getJSON(api3, function(data) {
 			var myData3 = data.response.body.items.item;
 			console.log(myData3);
@@ -156,20 +158,15 @@
 				}
 			});
 		});
-		/*위치기반정보조회*/
+
+		/* 반복정보조회 -상세 */
 		$.getJSON(api4, function(data) {
 			var myData4 = data.response.body.items.item;
+			console.log("4번");
 			console.log(myData4);
-		});
-		/*반복정보조회*/
-		$.getJSON(api5, function(data) {
-			var myData5 = data.response.body.items.item;
-			console.log("5번");
-			console.log(myData5);
 
-			$.each(myData5, function(key, value) {
-				if (key == "infotext") {
-					//정보
+			$.each(myData4, function(key, value) {
+				if (key == "infotext") {//정보
 					$("#InfotextContent").append("<div>" + value + "</div>");
 					$("#InfotextContent").append("<br>");
 					$("#InfotextContent").append("<br>");
@@ -178,6 +175,35 @@
 				}
 			});
 		});
+
+		function getMaps() {
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center : new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+				level : 2
+			// 지도의 확대 레벨
+			};
+
+			console.log("in getMaps");
+			console.log("x:" + x);
+			console.log("y:" + y);
+			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+
+			var markerPosition = new kakao.maps.LatLng(y, x);
+
+			var marker = new kakao.maps.Marker({
+				position : markerPosition
+			});
+			
+			marker.setMap(map);
+			
+		}
+
+		$("#kakaoLink").click(function() {
+			console.log("kakaoLink click");
+			
+		})
 
 	});
 </script>
@@ -195,15 +221,17 @@
 
 
 		<div class="row">
-		
-		    <!-- 제목 -->
+
+			<!-- 제목 -->
 			<div class=" position" style="width: 100%; text-align: center;">
 				<div class="row">
 					<div class="col-12">
 						<p style="font-size: 70px" id="title"></p>
 					</div>
 				</div>
+				<br>
 				<hr>
+				<br>
 			</div>
 
 			<!-- 회전목마 -->
@@ -247,12 +275,14 @@
 			<!-- ////회전목마 -->
 
 			<!-- 여행정보 -->
-			<div id="MainContent" class="position"></div>
+			<div class="container"><br><br><hr><h1>여행정보</h1><br><br></div>
+			<div id="MainContent" class="container"></div>
 
 			<div class="container">
-
+                 <div class="container"><br><br><hr><h1>상세정보</h1><br><br></div>
 				<div class="col-md-12">
 					<div class="row">
+					
 						<div class="col-md-6 d-flex" id="addrContent">
 							<strong>주소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 						</div>
@@ -279,13 +309,13 @@
 							<strong>정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 						</div>
 						<div class="col-md-6 d-flex" id="InfocenterContent">
-							<strong>문의 및
-								안내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							<strong>문의 및 안내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 						</div>
 					</div>
 				</div>
-
 			</div>
+			<div class="container"><br><br><hr><h1>여행지 지도</h1><br><br></div>
+			<div class="container" id="map"></div>
 
 		</div>
 	</section>
