@@ -30,7 +30,7 @@
 				$.each(tags, function(index, element){
 					control+="<a href='#' onclick='getData(\""+element.code+"\")' id='"+element.code+"' class='btn btn-primary mr-3'>#"+element.name+"</a>";
 				})
-
+				
 				$("#tagBox").append(control);
 				getData("all");
 			});
@@ -50,6 +50,7 @@
 		];
 		
 		function getData(code){
+			console.log("코드 : " + code);
 			$('#dataBox').empty();
 			
 			if(oldCode != "")
@@ -59,9 +60,9 @@
 			let cat2="";
 			if(code != "all"){ // 전체 클릭시
 				cat2= code;
-				$("#mainContentBox").css("display","none")
+			//	$("#mainContentBox").css("display","none")
 			}else{ // 나머지 태그 클릭시
-				$("#mainContentBox").css("display","block")
+			//	$("#mainContentBox").css("display","block")
 			}
 			
 			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
