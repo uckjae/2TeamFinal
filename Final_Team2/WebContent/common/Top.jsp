@@ -84,7 +84,7 @@
 									<li class="nav-item dropdown">
 										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> My page</a>
 										<div class="dropdown-menu">
-					              			<a class="dropdown-item" href="#" target="_self">내정보조회</a>	
+					              			<a class="dropdown-item" href="MyInformation.do" target="_self">내정보조회</a>	
 					              			<a class="dropdown-item" href="MTFolderList.do" target="_self">내 여행리스트</a>	
 				              			</div>				
 									</li>

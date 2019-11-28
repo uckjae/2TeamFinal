@@ -1,12 +1,8 @@
 
 let key = "14d18883665f9c759edcd5510920bce0";
 Kakao.init(key);
-$(function(){
-	console.log("sendKaKaoLink");
-	console.log("sendKaKaoLink");
-	console.log(key);
-})
-function sendKaKaoLink(t){
+
+function sendKaKaoLink(){
 	let title =t;
 	let description = "#어쩌구 #저꺼구";
 	let imagePath = "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png";
@@ -18,7 +14,7 @@ function sendKaKaoLink(t){
 	      container: '#kakaoLink',
 	      objectType: 'feed',
 	      content: {
-	        title: $("#title").val(),
+	        title: $("#title").text(),
 	        description: description,
 	        imageUrl: document.images[0].src,
 	        link: {

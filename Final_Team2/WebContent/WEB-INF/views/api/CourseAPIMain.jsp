@@ -112,14 +112,17 @@ function getData(code){
 	
    let paramSearch = "&MobileOS=ETC&MobileApp=AppTest";
    let paramKeyword = "&keyword=";
-   
+   let url = encodeURI(searchKey);
    let addr2 = servicekey + paramArea + paramCat + paramList + paramArrange + paramPageNo;
-   let addrSearch = addr + "searchKeyword" + servicekey + paramKeyword + +paramSearch ;
-   let api = "";
-   if(searchKey == "") {
+   let addrSearch = addr + "searchKeyword" + url + paramKeyword + +paramSearch ;
+   console.log("서치 후 인코딩 전 : "  + searchKey);
+   console.log("인코딩 후 : " + url);
+   var api = "";
+   if(url == "") {
 	   api = addr + "areaBasedList" + addr2 + type;
+	   console.log("url  인 : " + api);
    } else {
-	   api =   addr + "searchKeyword" + servicekey + paramKeyword + searchKey + paramSearch ;
+	   api =   addr + "searchKeyword" + servicekey + paramKeyword + url + paramSearch ;
 	   console.log("서치 한 후 api 주소 : " + api);
    }
   
@@ -149,7 +152,8 @@ function orderSelFn(){
 }
 function searchFn() {
 	searchKey = $("#searchBar").val();
-	console.log("서치 안 함수 :"+ searchKey);
+	console.log("서치 : " + searchKey);
+	getData("all");
 }
 </script>    
 </head>
@@ -220,21 +224,6 @@ function searchFn() {
 		<div class="container mt-5" id="contentBox">
 			<div class="row" id="apibox"></div>
 		</div>
-		<!-- 		             <div class="row mt-5 mb-4">
-                        <div class="col text-center">
-                            <div class="block-27">
-                                <ul class="pageul">
-                                    <li><a href="#" onclick = "pageChange(this)">&lt;</a></li>
-                                    <li class="active"><a href="#" onclick = "pageChange(this)">1</a>               
-                                    <li><a href="#" onclick = "pageChange(this)">2</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">3</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">4</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">5</a></li>
-                                    <li><a href="#" onclick = "pageChange(this)">&gt;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
 	</div>
 
 
