@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
+<link rel="stylesheet" href="css/weather-icons.min.css">
 <title>코스 상세보기</title>
  <style type="text/css">
         html,
@@ -35,7 +36,30 @@
 
 }
 
+.timeline-article .meta-date {
+  position: absolute;
+  top: 0;
+  left: 55%;
+  width: 150px;
+  height: 150px;
+  margin-left: -119px;
+  color: #fff;
+  border-radius: 100%;
+  background: #00b0bd;
+}
 
+@media only screen and (max-width: 830px) {
+	 .timeline-article .meta-date {
+    width : 62px;
+    height :62px;
+    margin-left: 0;
+    left: 20px;
+  }
+   #conference-timeline .timeline-start,
+  #conference-timeline .timeline-end {
+    margin-left: 28px;
+  }
+}
 </style>
 
 <script type="text/javascript">
@@ -47,7 +71,7 @@
 		//detailCommon? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 		
-		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
+		var servicekey = "?ServiceKey=BJSdO77vJdDgWTuBLkMbQFYP110BrRRUQay88s1EcRuNNXSTBVyUf5EwecAvQNEEzYxDSl69x5xcNSjN8IvRXA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
 		var contentId = "&contentId="+${requestScope.contentId};
 		var forCommon = "&defaultYN=Y&firstImageYN=Y";
@@ -68,8 +92,8 @@
 			
 			
 			$.getJSON(apiIntro,function(data){
-				console.log("intro");
-				console.log(data);
+				//console.log("intro");
+				//console.log(data);
 				distanceData = data.response.body.items.item.distance;
 				takeTimeData = data.response.body.items.item.taketime;
 				$("#distance").text(distanceData);
@@ -78,15 +102,16 @@
 			});
 			
 			$.getJSON(apiCommon,function(data){
-				console.log("common");
-				console.log(data);
+				//console.log("common");
+				//console.log(data);
 				var titleData = data.response.body.items.item.title;
 				//console.log(titleData);
 				$("#title").text(titleData);
-				
+				//console.log(data.response.body.items.item.mapx);
+				//console.log(data.response.body.items.item.mapy);
 				//날씨api
-				var rs = dfs_xy_conv(data.response.body.items.item.mapy,data.response.body.items.item.mapx);
-				console.log(rs);
+				var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
+				//console.log(rs);
 				var date = new Date();
 				var year = date.getFullYear();
 				var month = date.getMonth()+1;
@@ -96,10 +121,11 @@
 				if(minutes<41){
 					hour -= 1;
 				}
-				var x = rs.lat;
-				var y = rs.lng;
-				console.log("x"+x);
-				console.log("y"+y);
+				if(hour<10){
+					hour = "0"+hour;
+				}
+				var x = rs.x;
+				var y = rs.y;
 				
 				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
 				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
@@ -108,47 +134,120 @@
 				var ny = "&ny="+y;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
-				console.log("날씨!!"+weatherUrl);
+				
+				$.ajax({
+					url: weatherUrl, 
+					dataType: 'jsonp',
+					type:"GET",
+					jsonpCallback:"myCallback",
+					success: function(qwe){
+						console.log("success"+ qwe);
+					},
+					/* error: function(jqXHR, textStatus, errorThrown){
+						console.log("error"+textStatus);
+					} */
+				});
+				
+				function myCallback(base){
+					console.log("mycall");
+					console.log(base);
+					return data;
+				}
+				/* $.getJSON(weatherUrl,function(weatherData){
+					console.log(weatherData);
+					var icon = $('<i>');
+					var totalRain = $('<span>');
+					var degree = $('<span>');
+					$.each(weatherData.response.body.items.item,function(index,element){
+						if(element.category =="PTY"){
+							console.log("해가 들어오나??");
+							if(element.obsrValue == 0){
+								$(icon).attr("class","wi wi-day-sunny");
+							}else if(element.category > 1){
+								$(icon).attr("class","wi wi-day-rain");
+							}
+						}else if(element.category == "RN1"){
+							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
+						}else if(element.category == "T1H"){
+							$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
+						}
+					});
+					$("#title").after(totalRain);
+					$("#title").after(degree);
+					$("#title").after(icon);
+				}); */
 				
 				
 				//인근지역 정보
 				apiRegion += "&mapX="+data.response.body.items.item.mapx+"&mapY="+ data.response.body.items.item.mapy+"&radius=1000&listYN=Y&numOfRows=4&arrange=E&MobileOS=ETC&MobileApp=AppTest&contentTypeId=12";
 				$.getJSON(apiRegion,function(arroundData){
-					console.log("지역기반");
-					console.log(arroundData);
+					//console.log("지역기반");
+					//console.log(arroundData);
 					var arroundItem = arroundData.response.body.items.item
 					
 					var row = $('<div class="row">');
-					$.each(arroundItem,function(index,element){
-						var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+					if(arroundItem.length>1){
+						$("#arroundContent").append('<h4>주변 관광지</h4>');
+						$.each(arroundItem,function(index,element){
+							
+							var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+							var pjt = $('<div class="project">');
+							var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
+								var img = $('<img class="img-fluid">');
+								$(img).attr("src",element.firstimage);
+								$(img).attr("onError","this.src='images/scenery.png'");
+								$(img).attr("alt","여행지사진");
+							$(imgDiv).append(img);
+							var txtDiv = $('<div class="text">');
+								var link = $('<a>');
+								$(link).attr("href","FestivalDetail.do?contentId="+arroundItem.contentid);
+								var spotName = $('<h6>');
+									$(spotName).text(element.title);
+								$(link).append(spontName);
+								$(txtDiv).append(link);
+							
+							$(pjt).append(imgDiv);
+							$(pjt).append(txtDiv);
+							$(col).append(pjt);
+							$(row).append(col);
+							
+							
+						});
+						$("#arroundContent").append(row);
+					}else{
+						
+						$("#arroundContent").append('<h4>주변 관광지</h4>');
+						var col = $('<div class="col-md-12 col-lg-12 ftco-animate fadeInUp ftco-animated">');
 						var pjt = $('<div class="project">');
-						var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
+						var imgDiv = $('<div class="img">');
 							var img = $('<img class="img-fluid">');
-							$(img).attr("src",element.firstimage);
+							$(img).attr("src",arroundItem.firstimage);
 							$(img).attr("onError","this.src='images/scenery.png'");
 							$(img).attr("alt","여행지사진");
 						$(imgDiv).append(img);
 						var txtDiv = $('<div class="text">');
+							var link = $('<a>');
+							$(link).attr("href","FestivalDetail.do?contentId="+arroundItem.contentid);
 							var spotName = $('<h6>');
-								$(spotName).text(element.title);
-							$(txtDiv).append(spotName);
+								$(spotName).text(arroundItem.title);
+							$(link).append(spotName);
+							$(txtDiv).append(link);
 						
 						$(pjt).append(imgDiv);
 						$(pjt).append(txtDiv);
 						$(col).append(pjt);
 						$(row).append(col);
-						
-					});
-					$("#arroundContent").append(row);
+						$("#arroundContent").append(row);
+					}
 				});
 			});
 			
 			
 			$.getJSON(apiDetail,function(data) { 
 			 var myItem = data.response.body.items.item;
-			 console.log("detail");
-			 console.log(data);
-			 console.log(myItem)
+			 //console.log("detail");
+			 //console.log(data);
+			 //console.log(myItem)
 			 
 			 $("#mainContent").append('<div id="conference-timeline">');
 			 $("#conference-timeline").append('<div class="timeline-start">');
