@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
-<link rel="stylesheet" href="css/webfont.css">
+<link rel="stylesheet" href="css/weather-icons.min.css">
 <title>코스 상세보기</title>
  <style type="text/css">
         html,
@@ -71,7 +71,7 @@
 		//detailCommon? 공통정보 //detailIntro?   소개정보 //detailInfo? 코스정보 
 		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 		
-		var servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
+		var servicekey = "?ServiceKey=BJSdO77vJdDgWTuBLkMbQFYP110BrRRUQay88s1EcRuNNXSTBVyUf5EwecAvQNEEzYxDSl69x5xcNSjN8IvRXA%3D%3D";
 		var paramArea = "&contentTypeId=25&areaCode=1";
 		var contentId = "&contentId="+${requestScope.contentId};
 		var forCommon = "&defaultYN=Y&firstImageYN=Y";
@@ -92,8 +92,8 @@
 			
 			
 			$.getJSON(apiIntro,function(data){
-				console.log("intro");
-				console.log(data);
+				//console.log("intro");
+				//console.log(data);
 				distanceData = data.response.body.items.item.distance;
 				takeTimeData = data.response.body.items.item.taketime;
 				$("#distance").text(distanceData);
@@ -102,16 +102,16 @@
 			});
 			
 			$.getJSON(apiCommon,function(data){
-				console.log("common");
-				console.log(data);
+				//console.log("common");
+				//console.log(data);
 				var titleData = data.response.body.items.item.title;
 				//console.log(titleData);
 				$("#title").text(titleData);
-				console.log(data.response.body.items.item.mapx);
-				console.log(data.response.body.items.item.mapy);
+				//console.log(data.response.body.items.item.mapx);
+				//console.log(data.response.body.items.item.mapy);
 				//날씨api
 				var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
-				console.log(rs);
+				//console.log(rs);
 				var date = new Date();
 				var year = date.getFullYear();
 				var month = date.getMonth()+1;
@@ -134,13 +134,31 @@
 				var ny = "&ny="+y;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
-				$.getJSON(weatherUrl,function(weatherData){
+				
+				$.ajax({
+					url: weatherUrl, 
+					dataType: 'jsonp',
+					type:"GET",
+					jsonpCallback:"myCallback",
+					success: function(qwe){
+						console.log("success"+ qwe);
+					},
+					/* error: function(jqXHR, textStatus, errorThrown){
+						console.log("error"+textStatus);
+					} */
+				});
+				
+				function myCallback(base){
+					console.log("mycall");
+					console.log(base);
+					return data;
+				}
+				/* $.getJSON(weatherUrl,function(weatherData){
 					console.log(weatherData);
 					var icon = $('<i>');
 					var totalRain = $('<span>');
 					var degree = $('<span>');
 					$.each(weatherData.response.body.items.item,function(index,element){
-						console.log(element.category);
 						if(element.category =="PTY"){
 							console.log("해가 들어오나??");
 							if(element.obsrValue == 0){
@@ -157,47 +175,79 @@
 					$("#title").after(totalRain);
 					$("#title").after(degree);
 					$("#title").after(icon);
-				});
+				}); */
 				
 				
 				//인근지역 정보
 				apiRegion += "&mapX="+data.response.body.items.item.mapx+"&mapY="+ data.response.body.items.item.mapy+"&radius=1000&listYN=Y&numOfRows=4&arrange=E&MobileOS=ETC&MobileApp=AppTest&contentTypeId=12";
 				$.getJSON(apiRegion,function(arroundData){
-					console.log("지역기반");
-					console.log(arroundData);
+					//console.log("지역기반");
+					//console.log(arroundData);
 					var arroundItem = arroundData.response.body.items.item
 					
 					var row = $('<div class="row">');
-					$.each(arroundItem,function(index,element){
-						var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+					if(arroundItem.length>1){
+						$("#arroundContent").append('<h4>주변 관광지</h4>');
+						$.each(arroundItem,function(index,element){
+							
+							var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+							var pjt = $('<div class="project">');
+							var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
+								var img = $('<img class="img-fluid">');
+								$(img).attr("src",element.firstimage);
+								$(img).attr("onError","this.src='images/scenery.png'");
+								$(img).attr("alt","여행지사진");
+							$(imgDiv).append(img);
+							var txtDiv = $('<div class="text">');
+								var link = $('<a>');
+								$(link).attr("href","FestivalDetail.do?contentId="+arroundItem.contentid);
+								var spotName = $('<h6>');
+									$(spotName).text(element.title);
+								$(link).append(spontName);
+								$(txtDiv).append(link);
+							
+							$(pjt).append(imgDiv);
+							$(pjt).append(txtDiv);
+							$(col).append(pjt);
+							$(row).append(col);
+							
+							
+						});
+						$("#arroundContent").append(row);
+					}else{
+						
+						$("#arroundContent").append('<h4>주변 관광지</h4>');
+						var col = $('<div class="col-md-12 col-lg-12 ftco-animate fadeInUp ftco-animated">');
 						var pjt = $('<div class="project">');
-						var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
+						var imgDiv = $('<div class="img">');
 							var img = $('<img class="img-fluid">');
-							$(img).attr("src",element.firstimage);
+							$(img).attr("src",arroundItem.firstimage);
 							$(img).attr("onError","this.src='images/scenery.png'");
 							$(img).attr("alt","여행지사진");
 						$(imgDiv).append(img);
 						var txtDiv = $('<div class="text">');
+							var link = $('<a>');
+							$(link).attr("href","FestivalDetail.do?contentId="+arroundItem.contentid);
 							var spotName = $('<h6>');
-								$(spotName).text(element.title);
-							$(txtDiv).append(spotName);
+								$(spotName).text(arroundItem.title);
+							$(link).append(spotName);
+							$(txtDiv).append(link);
 						
 						$(pjt).append(imgDiv);
 						$(pjt).append(txtDiv);
 						$(col).append(pjt);
 						$(row).append(col);
-						
-					});
-					$("#arroundContent").append(row);
+						$("#arroundContent").append(row);
+					}
 				});
 			});
 			
 			
 			$.getJSON(apiDetail,function(data) { 
 			 var myItem = data.response.body.items.item;
-			 console.log("detail");
-			 console.log(data);
-			 console.log(myItem)
+			 //console.log("detail");
+			 //console.log(data);
+			 //console.log(myItem)
 			 
 			 $("#mainContent").append('<div id="conference-timeline">');
 			 $("#conference-timeline").append('<div class="timeline-start">');

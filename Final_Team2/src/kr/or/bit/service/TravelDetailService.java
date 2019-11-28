@@ -6,19 +6,18 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 
-public class RecommendDetailService implements Action{
-
+public class TravelDetailService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		int contentTypeId = Integer.parseInt(request.getParameter("contentTypeId"));
 		int contentId = Integer.parseInt(request.getParameter("contentId"));
-		System.out.println("contentId : " + contentId);
-		request.setAttribute("contentId", contentId);
-		request.setAttribute("contentTypeId", contentTypeId);
+		//String positionx = request.getParameter("mapx");
+		//String positiony = request.getParameter("mapy");
 		
-		forward.setPath("/WEB-INF/views/api/RecommendDetail.jsp");
+		request.setAttribute("contentId", contentId);
+		//request.setAttribute("xposition", positionx);
+		//request.setAttribute("yposition", positiony);
+		forward.setPath("/WEB-INF/views/api/TravelDetail2.jsp");
 		return forward;
 	}
-
 }

@@ -18,8 +18,6 @@
     function dfs_xy_conv(code, v1, v2) {
         var DEGRAD = Math.PI / 180.0;
         var RADDEG = 180.0 / Math.PI;
-        console.log(v1);
-        console.log(v2);
         var re = RE / GRID;
         var slat1 = SLAT1 * DEGRAD;
         var slat2 = SLAT2 * DEGRAD;
@@ -34,7 +32,6 @@
         ro = re * sf / Math.pow(ro, sn);
         var rs = {};
         if (code == "toXY") {
-        	console.log("된다!!")
             rs['lat'] = v1;
             rs['lng'] = v2;
             var ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
