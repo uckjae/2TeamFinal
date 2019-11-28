@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
+<link rel="stylesheet" href="css/webfont.css">
 <title>코스 상세보기</title>
  <style type="text/css">
         html,
