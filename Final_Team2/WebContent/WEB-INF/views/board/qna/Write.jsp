@@ -23,6 +23,11 @@
             $('#summernote').summernote({
                 height: 310,
                 placeholder: "글을 입력하세요.",
+                popover: {
+                    image: [],
+                    link: [],
+                    air: []
+                  }
             });
 
             $('.note-statusbar').hide();

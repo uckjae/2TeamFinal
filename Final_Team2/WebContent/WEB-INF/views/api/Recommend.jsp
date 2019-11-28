@@ -85,7 +85,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -96,7 +96,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -107,7 +107,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -120,12 +120,10 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
-			
-			/* 여행코스 */
 			apiContent = api + contentId[1].code + paramArea + areaCode[1].code + type;
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
@@ -133,7 +131,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -144,11 +142,12 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
 			
+			/* 여행코스 */
 			apiContent = api + contentId[2].code + paramArea + areaCode[0].code + type;
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
@@ -156,7 +155,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -167,7 +166,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
@@ -178,7 +177,7 @@
 				//$.each(myData, function(index, element){
 						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+"<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
 				//});
 			});
