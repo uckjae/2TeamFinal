@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
+<link rel="stylesheet" href="css/webfont.css">
 <title>코스 상세보기</title>
  <style type="text/css">
         html,
@@ -35,7 +36,30 @@
 
 }
 
+.timeline-article .meta-date {
+  position: absolute;
+  top: 0;
+  left: 55%;
+  width: 150px;
+  height: 150px;
+  margin-left: -119px;
+  color: #fff;
+  border-radius: 100%;
+  background: #00b0bd;
+}
 
+@media only screen and (max-width: 830px) {
+	 .timeline-article .meta-date {
+    width : 62px;
+    height :62px;
+    margin-left: 0;
+    left: 20px;
+  }
+   #conference-timeline .timeline-start,
+  #conference-timeline .timeline-end {
+    margin-left: 28px;
+  }
+}
 </style>
 
 <script type="text/javascript">
@@ -83,9 +107,10 @@
 				var titleData = data.response.body.items.item.title;
 				//console.log(titleData);
 				$("#title").text(titleData);
-				
+				console.log(data.response.body.items.item.mapx);
+				console.log(data.response.body.items.item.mapy);
 				//날씨api
-				var rs = dfs_xy_conv(data.response.body.items.item.mapy,data.response.body.items.item.mapx);
+				var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
 				console.log(rs);
 				var date = new Date();
 				var year = date.getFullYear();
@@ -96,10 +121,11 @@
 				if(minutes<41){
 					hour -= 1;
 				}
-				var x = rs.lat;
-				var y = rs.lng;
-				console.log("x"+x);
-				console.log("y"+y);
+				if(hour<10){
+					hour = "0"+hour;
+				}
+				var x = rs.x;
+				var y = rs.y;
 				
 				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
 				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
@@ -108,7 +134,30 @@
 				var ny = "&ny="+y;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
-				console.log("날씨!!"+weatherUrl);
+				$.getJSON(weatherUrl,function(weatherData){
+					console.log(weatherData);
+					var icon = $('<i>');
+					var totalRain = $('<span>');
+					var degree = $('<span>');
+					$.each(weatherData.response.body.items.item,function(index,element){
+						console.log(element.category);
+						if(element.category =="PTY"){
+							console.log("해가 들어오나??");
+							if(element.obsrValue == 0){
+								$(icon).attr("class","wi wi-day-sunny");
+							}else if(element.category > 1){
+								$(icon).attr("class","wi wi-day-rain");
+							}
+						}else if(element.category == "RN1"){
+							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
+						}else if(element.category == "T1H"){
+							$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
+						}
+					});
+					$("#title").after(totalRain);
+					$("#title").after(degree);
+					$("#title").after(icon);
+				});
 				
 				
 				//인근지역 정보
