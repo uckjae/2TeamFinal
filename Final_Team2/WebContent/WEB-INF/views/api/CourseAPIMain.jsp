@@ -48,6 +48,7 @@ function init() {
         })
 
 		$("#tagBox").append(control);
+        
 		getData("all");
         
         
@@ -190,54 +191,74 @@ let contentId = [
 
 let oldCode = "";
 function getData(code){
-	
-	$('#apiFirst').empty();
-	$('#apiSecond').empty();
-	if(oldCode != "")
-		$("#"+oldCode).attr("class","btn btn-primary mr-3");
-	$("#"+code).attr("class","btn btn-secondary mr-3");
+   $('#apiFirst').empty();
+   $('#apiSecond').empty();
+   if(oldCode != "")
+      $("#"+oldCode).attr("class","btn btn-primary mr-3");
+   $("#"+code).attr("class","btn btn-secondary mr-3");
 
-	let cat2="";
-	if(code != "all"){ // 전체 클릭시
-		cat2= code;
-		// $("#mainContentBox").css("display","none") 
-	}else{ // 나머지 태그 클릭시
-		// $("#mainContentBox").css("display","block")
-	}
-	var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-	var paramArea = "&contentTypeId=25&areaCode=1";
-	var paramCat = "&cat1=C01&cat2=";
-	var paramArea = "&contentTypeId=";
-	var paramList = "&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-	var addr2 = servicekey +paramArea + paramCat + paramArrange + paramPageNo;
-	
-	//var addr2 = servicekey + paramArea + paramCat + paramArrange + paramPageNo;
-	var api = addr + "areaBasedList" + addr2  + 1 + paramCat;
-	
-	for(let i = 0; i < 1; i++){//contentId.length
-		console.log("코드 : " + code);
-		//api += contentId[i].code + type;
-		api += code + type;
-		console.log("포문 안 : " + api);
-		//<div class="col-md-4"><img src='images/default.png' alt='no img' style='width: 50%;'>
-		$.getJSON(api,function(data){
-			let myData = data.response.body.items.item;
-			
-			console.log(myData);
-			$.each(myData, function(index, element){
-	            if (index < 3) {	
-	            	console.log("이치문 안 : " + element.title);
-	            	firstFn(element);
-	            } else {
-	            	secondFn(element);
-	            }
-					
-				
-				//}
-			});
-		});
-	}
-	oldCode = code;
+   let cat2="";
+   if(code != "all"){ // 전체 클릭시
+      cat2= code;
+   //   $("#mainContentBox").css("display","none")
+   }else{ // 나머지 태그 클릭시
+    //  $("#mainContentBox").css("display","block")
+   }
+   
+   let paramArea = "&contentTypeId=25&areaCode=1";
+   let paramCat = "&cat1=C01&cat2="+cat2;
+   let paramList = "&cat3=&listYN=Y";
+   let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
+
+   let addr2 = servicekey + paramArea + paramCat + paramList + paramArrange + paramPageNo + 1;
+   let api = addr + "areaBasedList" + addr2 + type;
+   console.log(api);
+   $.getJSON(api,function(data){
+      let myData = data.response.body.items.item;
+      $.each(myData, function(index, element){
+    	  if (index < 3) {
+    		 	 var div1 = $("<div class='col-md-4'>");
+    		     var divProj = $("<div class='project mb-4'>");
+    		     var divImg = $("<div class='image'>");
+    		     var img = $('<img>');
+    		     $(img).attr('src', element.firstimage);
+    		     $(img).attr('alt', 'No Image');
+    		     $(img).attr('style', 'width:100%');
+    		     $(img).attr('class', 'firstImg');
+    		     var divText = $("<div class='mb-3'>");
+    		     var textSize = $("<h5>");
+
+    		     var aTag = $('<a>');
+
+    		     $(aTag).attr('href', '#');
+    		     $(aTag).attr('onclick',
+    		         'goCourseDetail(this.nextSibling)');
+
+    		     var inputTag = $("<input>");
+    		     $(inputTag).attr('type', 'hidden');
+    		     $(inputTag).attr('name', 'contentid');
+    		     $(inputTag).attr('value', element.contentid);
+
+    		     $(textSize).text(element.title);
+    		     $(aTag).append(textSize);
+    		     $(divText).append(aTag);
+    		     $(divText).append(inputTag);
+
+    		     $(divImg).append(img);
+    		     $(divProj).append(divImg);
+
+    		     $(div1).append(divProj);
+    		     $(div1).append(divText);
+    		     $("#apiFirst").append(div1);
+
+          } else {
+              secondFn(element);
+          }
+      });
+      
+   }); 
+   
+   oldCode = code;
 }
 </script>    
 </head>
@@ -324,12 +345,13 @@ function getData(code){
 		</div>
 		</div>
 	<div class="container mt-5">
-	
+	<div id="mainContentBox" class="content">
 	
 		<div class="row" id="apiFirst">
 			
 		</div>
 		<div class="row"  id="apiSecond">
+		</div>
 		</div>
 		
 		             <div class="row mt-5 mb-4">
