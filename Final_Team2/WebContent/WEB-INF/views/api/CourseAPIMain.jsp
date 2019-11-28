@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
+   <link rel="stylesheet" href="css/weather-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>코스 </title>
  <style type="text/css">
@@ -175,9 +176,11 @@ function getData(code){
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
+
 	<div class="content">
 	
 		<div class="row mb-4 mt-10">
+		 <i class="wi wi-day-sunny"></i>
 			<div class="col-md-11 offset-md-1">
 				<form action="#" class="search-property-1">
 					<div class="row">					
