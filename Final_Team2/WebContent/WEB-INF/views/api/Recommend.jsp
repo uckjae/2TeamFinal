@@ -40,15 +40,14 @@
 		
 		let contentId = [
 			{name : "관광지", code :12},
-			{name : "문화시설", code :14},
 			{name : "축제공연행사", code :15},
-			{name : "여행코스", code :25},
-			{name : "레포츠", code :28},
-			{name : "숙박", code :32},
-			{name : "쇼핑", code :38},
-			{name : "음식점", code :39}
+			{name : "여행코스", code :25}
 		];
-		
+		let areaCode = [
+			{name : "서울", code :1},
+			{name : "인천", code :2},
+			{name : "경기", code :31}
+		]
 		function getData(code){
 			console.log("코드 : " + code);
 			$('#dataBox').empty();
@@ -67,110 +66,52 @@
 			
 			let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 			let service = "serviceKey="+servicekey;
-			let paramSigungu = "&areaCode=1&sigunguCode=";
+			let paramSigungu = "&sigunguCode=";
+			let paramArea = "&sigunguCode=&areaCode=";
 			let paramCat = "&cat1=&cat2=&cat3=";
 			let paramList = "&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=B";
-			let paramNumOfRows = "&numOfRows=3&pageNo=1";
+			let paramNumOfRows = "&numOfRows=1&pageNo=1";
 			let type = "&_type=json";
-			let addr2 = service + paramSigungu + paramCat + paramList + paramNumOfRows;
-			let paramArea = "&contentTypeId=";
-			let api = addr + "areaBasedList?" + addr2 + paramArea;
+			let addr2 = service + paramCat + paramList + paramSigungu + paramNumOfRows;
+			let paramcontent = "&contentTypeId=";
+			let api = addr + "areaBasedList?" + addr2 + paramcontent;
 			let apicontent = "";
-			let conId = 0;
-			apiContent = api + contentId[0].code + type;
 			
+			apiContent = api + contentId[0].code + paramArea + areaCode[0].code + type;
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
 				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+12).append("<div class='col-md-4'>"
+				//$.each(myData, function(index, element){
+						$('#12 > #1').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
+											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
 			});
-			apiContent = api + contentId[1].code + type;
+			apiContent = api + contentId[0].code + paramArea + areaCode[1].code + type;
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
 				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+14).append("<div class='col-md-4'>"
+				//$.each(myData, function(index, element){
+						$('#12 > #2').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
+											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
+				//});
 			});
-			apiContent = api + contentId[2].code + type;
+			apiContent = api + contentId[0].code + paramArea + areaCode[2].code + type;
 			$.getJSON(apiContent,function(data){
 				let myData = data.response.body.items.item;
 				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+15).append("<div class='col-md-4'>"
+				//$.each(myData, function(index, element){
+						$('#12 > #31').append("<div class='col-md-4'>"
 											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
+											+ "<a href='RecommendDetail.do?contentId="+ myData.contentid +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
-			});
-			
-			apiContent = api + contentId[3].code + type;
-			$.getJSON(apiContent,function(data){
-				let myData = data.response.body.items.item;
-				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+25).append("<div class='col-md-4'>"
-											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
+				//});
 			});
 			
-			apiContent = api + contentId[4].code + type;
-			$.getJSON(apiContent,function(data){
-				let myData = data.response.body.items.item;
-				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+28).append("<div class='col-md-4'>"
-											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
-			});
 			
-			apiContent = api + contentId[5].code + type;
-			$.getJSON(apiContent,function(data){
-				let myData = data.response.body.items.item;
-				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+32).append("<div class='col-md-4'>"
-											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
-			});
-			
-			apiContent = api + contentId[6].code + type;
-			$.getJSON(apiContent,function(data){
-				let myData = data.response.body.items.item;
-				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+38).append("<div class='col-md-4'>"
-											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
-			});
-			
-			apiContent = api + contentId[7].code + type;
-			$.getJSON(apiContent,function(data){
-				let myData = data.response.body.items.item;
-				console.log(myData);
-				$.each(myData, function(index, element){
-						$('#'+39).append("<div class='col-md-4'>"
-											+"<div class='contain'>"
-											+ "<a href='RecommendDetail.do?conId="+ conId +"'><img src='"+element.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + element.title + "</span></a></div></div>");
-				});
-			});
 			oldCode = code;
 		}
 
@@ -251,37 +192,52 @@ html, body {
 		
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
-		<h3>관광지</h3>
-			<div class="row" id="12" style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>문화시설</h3>
-			<div class="row" id="14" style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>축제공연행사</h3>
-			<div class="row" id="15"; style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>여행코스</h3>
-			<div class="row" id="25"; style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>레포츠</h3>
-			<div class="row" id="28"; style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>숙박</h3>
-			<div class="row" id="32"; style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>쇼핑</h3>
-			<div class="row" id="38"; style="width: 100%; height:100%;">
-				
-			</div><br><hr><br>
-			<h3>음식점</h3>
-			<div class="row" id="39"; style="width: 100%; height:100%;">
-				
+			<div id="12">
+				<h2>서울</h2>
+				<h4>관광지</h4>
+				<div class="row" id="1" style="width: 100%; height:100%;">
+					
+				</div><hr>
+				<h4>축제공연행사</h4>
+				<div class="row" id="2"; style="width: 100%; height:100%;">
+					
+				</div><hr>
+				<h4>여행코스</h4>
+				<div class="row" id="31"; style="width: 100%; height:100%;">
+					
+				</div><hr>
+			</div>
+			
+			<div id="15">
+				<h1>인천</h1>
+				<h3>관광지</h3>
+				<div class="row" id="1" style="width: 100%; height:100%;">
+					
+				</div><hr>
+				<h3>축제공연행사</h3>
+				<div class="row" id="2"; style="width: 100%; height:100%;">
+					
+				</div><hr>
+				<h3>여행코스</h3>
+				<div class="row" id="31"; style="width: 100%; height:100%;">
+					
+				</div><hr>
+			</div>
+			
+			<div id="25">
+				<h1>경기</h1>
+				<h3>관광지</h3>
+				<div class="row" id="1" style="width: 100%; height:100%;">
+					
+				</div><hr>
+				<h3>축제공연행사</h3>
+				<div class="row" id="2"; style="width: 100%; height:100%;">
+					
+				</div><hr>
+				<h3>여행코스</h3>
+				<div class="row" id="31"; style="width: 100%; height:100%;">
+					
+				</div><hr>
 			</div>
 		</div>
 		<div class="content">

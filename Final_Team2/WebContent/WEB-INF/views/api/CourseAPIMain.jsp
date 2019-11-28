@@ -23,7 +23,7 @@
 <script type="text/javascript">
 let addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 let servicekey = "?ServiceKey=A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
-let paramPageNo = "&numOfRows=100&pageNo=1";
+let paramPageNo = "&numOfRows=147&pageNo=1";
 let type = "&_type=json";
 
 $(function () {
@@ -50,7 +50,7 @@ function init() {
 
 		$("#tagBox").append(control);
         
-		getData("all",1);
+		getData("all");
     });
 }
 
@@ -82,12 +82,12 @@ function makeRow(element){
      $(div1).append(divText);
      $("#apibox").append(div1);
 }
-//
 
 
 let oldCode = "";
 let areaCode = "";
 let order = "";
+let searchKey = "";
 function getData(code){
    $('#apibox').empty();
    if(oldCode != "")
@@ -97,22 +97,35 @@ function getData(code){
    let cat2="";
    if(code != "all"){ // 전체 클릭시
       cat2= code;
-   }else{ // 나머지 태그 클릭시 
-   } 
+   }
    if (order == ""){
 	   order = 'new';
-   } else {} 
+   } 
    if (areaCode == ""){
 	   areaCode = 1;
-   } else {} 
+   }
    
    let paramArea = "&contentTypeId=25&areaCode=" + areaCode;
    let paramCat = "&cat1=C01&cat2="+ cat2;
    let paramList = "&cat3=&listYN=Y";
    let paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=R";
-
+	
+   let paramSearch = "&MobileOS=ETC&MobileApp=AppTest";
+   let paramKeyword = "&keyword=";
+   let url = encodeURI(searchKey);
    let addr2 = servicekey + paramArea + paramCat + paramList + paramArrange + paramPageNo;
-   let api = addr + "areaBasedList" + addr2 + type;
+   let addrSearch = addr + "searchKeyword" + url + paramKeyword + +paramSearch ;
+   console.log("서치 후 인코딩 전 : "  + searchKey);
+   console.log("인코딩 후 : " + url);
+   var api = "";
+   if(url == "") {
+	   api = addr + "areaBasedList" + addr2 + type;
+	   console.log("url  인 : " + api);
+   } else {
+	   api =   addr + "searchKeyword" + servicekey + paramKeyword + url + paramSearch ;
+	   console.log("서치 한 후 api 주소 : " + api);
+   }
+  
    $.getJSON(api,function(data){
       let myData = data.response.body.items.item;
       if (order == 'new') {
@@ -135,10 +148,13 @@ function areaSelFn () {
 }
 function orderSelFn(){
 	order = $("#orderSel option:selected").val();
-	console.log("너의 타입 : " + typeof(order));
-	 getData("all");
+	getData("all");
 }
-
+function searchFn() {
+	searchKey = $("#searchBar").val();
+	console.log("서치 : " + searchKey);
+	getData("all");
+}
 </script>    
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -185,11 +201,8 @@ function orderSelFn(){
 						<div class="col-md align-self-end">
 							<div class="form-group">								
 								<div class="form-field">
-								 <div class="icon">
-										<span class="ion-ios-search ml-3" style="color:black"></span>
-									</div> 
 									<input type="text" class="form-control"
-										placeholder="   검색어를 입력하세요" name="search">										
+										placeholder="   검색어를 입력하세요" name="searchBar" id="searchBar">										
 								</div>
 							</div>
 						</div>
@@ -197,8 +210,8 @@ function orderSelFn(){
 						<div class="col-md align-self-end">
 							<div class="form-group">
 								<div class="form-field col-xl-6">
-									<input type="submit" value="검색"
-										class="form-control btn btn-primary">
+									<input type="button" value="검색"
+										class="form-control btn btn-primary" onclick="searchFn()">
 								</div>
 							</div>
 						</div>
