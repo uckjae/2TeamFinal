@@ -87,12 +87,14 @@ body {
 		var apilocation = "";
 		var addr5 = servicekey + paramNumOfRows + paramPageNo + arrange + array
 				+ contentType + x + y + range;
+		var image = "";
 		apilocation = addr + "locationBasedList?" + addr5 + type;
 
 		//공통정보 JSON each문
 		$.getJSON(apicommon, function(data) {
 			var myData = data.response.body.items.item;
 			console.log("공통정보");
+			
 			console.log(myData);
 			$("#title").text(myData.title);
 			$.each(myData, function(key, value) {
@@ -110,13 +112,43 @@ body {
 				} else if (key == "mapy") {
 					y = value;
 					console.log(y);
+				}else if(key =="firstimage2"){
+					image = value;
+					console.log(image);
 				}
 
 			});
+			console.log("image222");
+			console.log(image);
 			console.log("call getMaps");
 			getLocation();
 			getMaps();
-
+			//이미지 정보 JSON
+			$.getJSON(apiimage, function(data3) {
+				var myData3 = data3.response.body.items.item;
+				console.log(data3);
+				console.log("이미지");
+				console.log(myData3);
+				if(myData3==null){
+					console.log("if ok");
+					console.log(image);
+					var img2 = $('<img>');
+					console.log($(img2));
+						$(img2).attr("src",image);
+					$("#imgarea").append(img2);
+				}else{
+				
+					$.each(myData3, function(index, element) {
+						var img2 = $('<img>');
+						console.log("처음");
+						console.log($(img2));
+							$(img2).attr("src",element.originimgurl);
+							$(img2).attr("onError","this.src="+image);
+						$("#imgarea").append(img2);
+			
+					});
+				}
+			});
 		});
 		//end
 
@@ -170,19 +202,7 @@ body {
 
 		});
 
-		//이미지 정보 JSON
-		$.getJSON(apiimage, function(data3) {
-			var myData3 = data3.response.body.items.item;
-
-			console.log("이미지");
-			console.log(myData3);
-			$.each(myData3, function(index, element) {
-				$("#imgarea")
-						.append("<img src='" + element.originimgurl + "'>");
-
-			});
-
-		});
+	
 
 		function getLocation() {
 			$.getJSON(apilocation, function(data4) {
@@ -224,7 +244,6 @@ body {
 	<c:import url="/common/Top.jsp" />
 	<section class="ftco-section">
 		<div class="row">
-
 			<!-- 제목 -->
 			<div class=" position" style="width: 80%; text-align: left">
 				<div class="row">
@@ -237,7 +256,9 @@ body {
 			</div>
 
 			<center>
-				<div id="imgarea" class="position"></div>
+				<div id="imgarea" class="position">
+				
+				</div>
 			</center>
 			<div id="overview" class="position"
 				style="width: 80%; text-align: left"></div>
