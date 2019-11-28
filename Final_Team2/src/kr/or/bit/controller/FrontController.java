@@ -299,7 +299,7 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Travel.jsp");
 			
-		}else if(url_Command.equals("/TravelDetail2.do")) {
+		}else if(url_Command.equals("/TravelDetail.do")) {
 			action = new TravelDetailService();
 			forward = action.execute(request, response);
 		//축제

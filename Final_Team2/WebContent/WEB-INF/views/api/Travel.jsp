@@ -13,11 +13,11 @@ $(function(){
 	
 	function goCourseDetail(ogu) {
 		console.log($(ogu).val());
-		location.href = "FestivalDetail.do?contentId=" + $(ogu).val();
+		location.href = "TravellDetail.do?contentId=" + $(ogu).val();
 	}
 	
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-	var servicekey = "sserviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
+	var servicekey = "serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
 	var paramArea = "&contentTypeId=12&areaCode=2";
 	var paramSigungu = "&sigunguCode=";
 	var paramCat = "&cat1=&cat2=";
@@ -31,6 +31,20 @@ $(function(){
 	
 	api = addr + "searchFestival?" + addr2 + "1" + type;
 	
+	/*
+	http://api.visitkorea.or.kr/openapi/service/rest/KorService/
+	areaBasedList?
+	serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D
+	&pageNo=1
+	&numOfRows=10
+	&MobileApp=AppTest
+	&MobileOS=ETC
+	&arrange=A
+	&contentTypeId=12
+	&areaCode=2
+	&listYN=Y
+	*/
+	
 	$.getJSON(api,function(data){
 		var myData = data.response.body.items.item;
 		console.log(myData);
@@ -42,7 +56,7 @@ $(function(){
 						+"</div>"
 						+"<div class='col-md-9'>"
 							+"<div class='col-md-12'>"
-								+ "<a href='FestivalDetail.do?contentId="+ element.contentid+"&mapx=" + element.mapx +"&mapy="+element.mapy +"'>" + element.title
+								+ "<a href='TravelDetail.do?contentId="+ element.contentid+"&mapx=" + element.mapx +"&mapy="+element.mapy +"'>" + element.title
 							+"</div>"
 							+"<div class='col-md-12'>"
 								
