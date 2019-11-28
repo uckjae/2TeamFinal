@@ -92,6 +92,7 @@ $(function(){
 		var myData = data.response.body.items.item;
 		console.log("공통정보");
 		console.log(myData);
+		$("#title").text(myData.title);
 		$.each(myData,function(key,value){
 			if(key=="overview"){
 				$("#overview").append("<hr>");
@@ -177,7 +178,19 @@ $(function(){
 	<section class="ftco-section">
 	<div class="row">
 
-		
+	<!-- 제목 -->
+	<div class=" position" style="width: 80%; text-align: left">
+		<div class="row">
+			<div class="col-10">
+				<h1 id="title"></h1>
+			</div>
+			<jsp:include page="/common/MoreButton.jsp">
+				<jsp:param value="link" name=""/>
+			</jsp:include>
+		</div>
+		<hr>
+	</div>
+
 		<center>
 			<div id="imgarea" class ="position">
 		
