@@ -119,13 +119,13 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <div class="content-center">
-        <div class="row justify-content-center pb-5">
-            <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
+    <div class="content">
+        <!-- <div class="row justify-content-center pb-5"> -->
+          <!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
                 <h2 class="text-center mb-3">REGISTER</h2>
                 <form action="RegisterOk.do" class="search-property-1" method="post">
-                    <div class="row">
-                        <div class="col-lg-12  mb-3">
+                    <!-- <div class="row"> -->
+                        <div class="col-lg-6 offset-lg-3 mb-3">
                             <div class="form-group">
                                 <label for="#">ID</label>
                                 <div class="form-field">
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 align-items-end mb-3">
+                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">EMAIL</label>
                                 <div class="form-field">
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 align-items-end mb-3">
+                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">NAME</label>
                                 <div class="form-field">
@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 align-items-end mb-3">
+                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">PASSWORD</label>
                                 <div class="form-field">
@@ -167,23 +167,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 align-items-end mb-3">
+                        <div class="col-lg-6 offset-lg-3  align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">BIRTH</label>
                                 <div class="form-field">
                                 <div class="row">
-                                	<div class="col-lg-6">
+                                	<div class="col-lg-6 ">
                                 		 <input type="text" class="form-control" id="birth" name="birth" maxlength="6" onkeypress="inNumber()" oninput="maxLengthCheck(this)"> 
                                 	</div>
                                 	
-                                	<div class="col-lg-6"> 
+                                	<div class="col-lg-6 "> 
                                 		<input type="text" class="form-control" id="gender" name="gender"  maxlength="1" oninput="maxLengthCheck(this)" onkeypress="inGender()" >
                                 	</div>
                                 </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 align-items-end mb-3">
+                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">ADDRESS</label>
                                 <input type="number" id="postCode" name="postCode"  class="form-control" placeholder="우편번호" aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
@@ -198,18 +198,18 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-12 align-self-end">
+                        <div class="col-lg-6 offset-lg-3">
                             <div class="form-group">
                                 <div class="form-field">
                                     <input type="submit" value="REGISTER" class="form-control btn btn-primary">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                  <!--   </div> -->
                 </form>
             </div>
-        </div>
-    </div>
+        <!-- </div> -->
+   <!-- </div> -->
 
 </body>
 
