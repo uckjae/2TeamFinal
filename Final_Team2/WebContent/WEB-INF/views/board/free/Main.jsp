@@ -20,6 +20,7 @@
         $(function () {
             let table = $('#dataTable').DataTable({
             	 stateSave: true, // 페이지 상태 저장
+            	 "ordering": false
             });
 
             $('#dataTable_filter').prepend(
@@ -77,11 +78,11 @@
                 <table class="table table-bordered hover" id="dataTable">
                     <thead>
                         <tr>
-                            <th width="10%" data-orderable="false">NO</th>
-                            <th width="40%">TITLE</th>
-                            <th width="20%">DATE</th>
-                            <th width="20%">WRITER</th>
-                            <th width="10%">READNUM</th>
+                            <th width="10%" >NO</th>
+                            <th width="40%" >TITLE</th>
+                            <th width="20%" >DATE</th>
+                            <th width="20%" >WRITER</th>
+                            <th width="10%" >READNUM</th>
                         </tr>
                     </thead>
                     <tbody>
