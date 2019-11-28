@@ -55,7 +55,10 @@
         });
         
         function showDetail(bIdx){
-        	let result = (${!sessionScope.isAdmin} || ${sessionScope.memberId eq null});
+        	//관리자 거나 회원이거
+        	
+        	let result = (${sessionScope.memberId != null});
+        	console.log('result : '+result);
         	checkReadBoad(result, bIdx, "FreeBoardDetail.do");
         }
     </script>
