@@ -56,6 +56,7 @@ import kr.or.bit.service.QnABoardWriteService;
 import kr.or.bit.service.RecommendDetailService;
 
 import kr.or.bit.service.RegisterOkService;
+import kr.or.bit.service.TravelDetailService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -296,11 +297,16 @@ public class FrontController extends HttpServlet {
 		//여행지
 		else if(url_Command.equals("/Travel.do")) {
 			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/api/TravelDetail2.jsp");
+			forward.setPath("/WEB-INF/views/api/Travel.jsp");
+			
+		}else if(url_Command.equals("/TravelDetail.do")) {
+			action = new TravelDetailService();
+			forward = action.execute(request, response);
 		//축제
 		}else if(url_Command.equals("/Festival.do")) {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Festival.jsp");
+			
 		}else if(url_Command.equals("/FestivalDetail.do")) {
 			action = new FestivalDetailService();
 			forward = action.execute(request, response);
