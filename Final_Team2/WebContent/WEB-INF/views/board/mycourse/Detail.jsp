@@ -124,16 +124,7 @@
     </div>
 
     <!-- // Vertical Timeline -->
-    <div class="content" style="text-align: center;">
-        <h1>지도자리</h1>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    </div>
+    
 </body>
 
 </html>

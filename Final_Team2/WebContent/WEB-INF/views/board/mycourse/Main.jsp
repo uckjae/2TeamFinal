@@ -52,7 +52,8 @@
                     table.column(colIndex).search(searchText).column(2).search(deptno).draw();
                 }
             }
-            
+            console.log("ddd");
+            console.log('${sessionScope.memberId}');
         });
         
     </script>
@@ -86,7 +87,7 @@
         									${board.likeNum}
         								</h4>
         								<h3>
-        									<a onclick="checkReadBoad(${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a>
+        									<a onclick="checkReadBoad(${sessionScope.memberId!=null} ,${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>
@@ -111,7 +112,7 @@
                     <c:forEach var="board" items="${MCBList}">
                     	<tr>
                             <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a onclick="goToDetail(${board.bIdx})" href="#">${board.title}</a></td>
+                            <td class="sorting_1"><a onclick="checkReadBoad(${sessionScope.memberId!=null},${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a></td>
                             <td>${board.id}</td>
                             <td>
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />

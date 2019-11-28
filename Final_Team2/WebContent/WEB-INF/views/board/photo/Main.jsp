@@ -32,7 +32,7 @@
 			    				<div class="text">
 			    					<h4 class="price">${board.id }</h4>
 			    					<span>${board.bIdx}</span>
-			    					<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId !=null && sessionScope.isAdmin == 'true')}">
+			    					<c:if test="${sessionScope.memberId !=null}">
 			    					<h3><a href="PhotoBoardDetail.do?bIdx=${board.bIdx }">${board.title }</a></h3>
 			    					</c:if>
 			    					<div class="star d-flex clearfix">

@@ -17,7 +17,7 @@ public class TravelDetailService implements Action{
 		request.setAttribute("contentId", contentId);
 		//request.setAttribute("xposition", positionx);
 		//request.setAttribute("yposition", positiony);
-		forward.setPath("/WEB-INF/views/api/TravelDetail2.jsp");
+		forward.setPath("/WEB-INF/views/api/TravelDetail.jsp");
 		return forward;
 	}
 }
