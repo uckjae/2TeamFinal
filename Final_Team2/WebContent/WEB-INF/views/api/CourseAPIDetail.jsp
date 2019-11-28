@@ -124,8 +124,8 @@
 				if(hour<10){
 					hour = "0"+hour;
 				}
-				var x = rs.x;
-				var y = rs.y;
+				var xValue = rs.x;
+				var yValue = rs.y;
 				
 				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
 				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
@@ -134,13 +134,13 @@
 				var ny = "&ny="+y;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
-				
+				var xy = {"x": xValue,"y":yValue};
 				$.ajax({
-					url: weatherUrl, 
-					dataType: 'jsonp',
+					url: "Weather.ajax", 
+					dataType: 'json',
 					type:"GET",
-					jsonpCallback:"myCallback",
-					success: function(qwe){
+					data: xy,
+					success: function(weather){
 						console.log("success"+ qwe);
 					},
 					/* error: function(jqXHR, textStatus, errorThrown){
