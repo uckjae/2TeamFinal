@@ -15,7 +15,7 @@ html, body {
 	height: 100%;
 }
 </style>
-
+<script src="https://kit.fontawesome.com/8a07c7597a.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 
@@ -94,7 +94,7 @@ html, body {
 							<c:if test="${topnotice.isTop == 'true'}">
 								<tr>
 
-								<td width="10%">${topnotice.bIdx}</td>
+								<td width="10%"><i class="fas fa-exclamation-triangle"></i></td>
 								<td width="60%" class="sorting_1">
 								<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a>
 								<td width="20%"><fmt:formatDate value="${topnotice.wDate}"
