@@ -96,10 +96,9 @@ body {
 		$.getJSON(apicommon, function(data) {
 			var myData = data.response.body.items.item;
 			
-			
-			
 			$("#title").text(myData.title);
 			
+			console.log("마이 데이터 : " + apicommon);
 			$("#spotName").val(myData.title);
 			$.each(myData, function(key, value) {
 				if (key == "overview") {
@@ -109,10 +108,14 @@ body {
 					$("#overview").append("<hr>");
 					$("#overview").append("<h3><b>상세정보</b></h3>");
 					
+					console.log(" 링크 : " + value);
 					
 				} else if (key == "homepage") {
-					$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
+					console.log(" 링크 : " + value);
 					$("#spotLink").val(value);
+					$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
+					
+					
 				} else if (key == "mapx") {
 					x = value;
 					
@@ -237,6 +240,7 @@ body {
 		}
 		
 	});
+
 	function showTList(){
 		var jsonId = {"id":"${sessionScope.memberId}"};
 		$.ajax({
@@ -250,17 +254,22 @@ body {
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
-						$("#innerModalIntro").append("<p><a href='MTListContentAdd.do?tlidx="+element.tlidx +"' onclick='submitFn()'>"+ element.name + "</a></p>");
-			
-						console.log("index값 each 문 안 : " + element.tlidx);
-						
+						var ptag = $('<p>');
+							var atag = $('<a>');
+								$(atag).attr("onclick",'submitFn('+this+')');
+								$(atag).attr("href","#");
+								$(atag).text(element.name);
+						$(ptag).append(atag);
+						$("#innerModalIntro").append(ptag);
+						//$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn(element.tlidx)'>"+ element.name + "</a></p>");
 						
 					});
 				} else {
-					$("#innerModalIntro").text(data.name);
-					console.log("index값 each 문 안 : " +data.tlidx);
+				//	$("#innerModalIntro").append(data.name);
 					$("#tlidx").val(data.tlidx);
-					
+					console.log("index값 each 문 안 : " +data.tlidx);
+				//	$("#innerModalIntro").append("<p>"+ data.name + "</p>");
+					$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn()'>"+ data.name + "</a></p>");	
 				} 
 			},
 			error:function(request, status, error){
@@ -269,9 +278,14 @@ body {
 	       }
 		});
 		}	
-	function submitFn() {
-		$("#frm").submit();
-	}
+/* 	function submitFn(idxNum) {
+		var sendingJsonData = {"tlidx":idxNum,"": ,}
+		$.ajax({
+			url:"MTListContentAdd.do",
+			type:"json",
+			data:"{name}"
+		})
+	}  */
 	
 </script>
 </head>
@@ -326,11 +340,11 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "post" action="MTListContentAdd.do">
+        <form id="frm" method = "get" action = "MTListContentAdd.do">
         <div class="modal-body" id="innerModalIntro">   		
 			 <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" >목록보기</button> 	
 			 
-			 <input   name="tlidx" type="hidden" id="tlidx">
+			 <!-- <input   name="tlidx" type="hidden" id="tlidx"> -->
 			 <input  name="spotName" type="hidden" id="spotName">
 			 <input  name="mTLimage" type="hidden" id="mTLimage">
 			 <input  name="spotDate" type="hidden" id="spotDate">
@@ -339,6 +353,7 @@ body {
 			          
         </div>
         <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 "> 
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
         </form>

@@ -41,17 +41,17 @@
                    
 						<div class="vcard bio">
 							<!--이미지 경로 나중에 다시 설정하기 -->
-							<img src="upload/${mTLContent.image}" alt="trip image">
+							<img src="${mTLContent.image}" alt="trip image">
 						</div>
 							<div class="comment-body">
 							<h4>${ mTLContent.spotName}</h4>
 							<div class="meta">${mTLContent.spotDate}</div>
-							<p>
-								${ mTLContent.spotAddr} <a href="${ mTLContent.spotLink}"
-									class="btn btn-primary ml-3 mr-3">${ mTLContent.spotLink}</a> <a
+							<p> 주소 : ${ mTLContent.spotAddr} </p>
+							<p> 링크 : ${ mTLContent.spotLink}</p>
+									<a
 									href="MTListDelete.do?tLCidx=${mTLContent.tLCidx}&tLidx=${ mTLContent.tLidx}"
 									class="btn btn-secondary">삭제 </a>
-							</p>
+							
 						</div>
 					</c:forEach> 
                   
