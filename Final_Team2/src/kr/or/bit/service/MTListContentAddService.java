@@ -3,6 +3,7 @@ package kr.or.bit.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,17 +16,21 @@ public class MTListContentAddService implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("처음1");
+	
 		ActionForward forward = new ActionForward();
 		BoardDao boardDao = new BoardDao();
-		System.out.println("처음2");
+		
+		Enumeration<String> e = request.getParameterNames();
+		while(e.hasMoreElements()) {
+			System.out.println("enumeration done!!!");
+			System.out.println(e.nextElement());
+		}
+		
+		System.out.println(request.getParameter("tlidx"));
 		int tLidx = Integer.parseInt(request.getParameter("tlidx"));
 		String spotName= request.getParameter("spotName");
-		System.out.println("처음4");
 		String image = request.getParameter("mTLimage");
-		System.out.println("처음5");
 	//	Date spotDate = null;
-		System.out.println("처음3");
 		System.out.println("tLidx : " + tLidx);
 		System.out.println("spotName : " + spotName);
 		System.out.println("image : " + image);
