@@ -269,7 +269,7 @@ public class BoardDao {
 		ResultSet resultSet = null;
 
 		String depthRefer = "SELECT DEPTH, REFER FROM FREEBOARD WHERE BIDX=?";
-		String ohterboard = "SELECT BIDX FROM FREEBOARD WHERE REFER=?";
+		String ohterboard = "SELECT BIDX FROM FREEBOARD WHERE REFER=? AND DEPTH >= ?";
 		String fsql = "DELETE FROM FREEBOARD WHERE BIDX=?";
 
 		try {
@@ -283,24 +283,19 @@ public class BoardDao {
 
 			connection.setAutoCommit(false);
 
-			if (depth == 0) {
-				pstmt = connection.prepareStatement(ohterboard);
-				pstmt.setInt(1, refer);
-				resultSet = pstmt.executeQuery();
-				while (resultSet.next()) {
-					reBidx = resultSet.getInt(1);
-					pstmt = connection.prepareStatement(fsql);
-					pstmt.setInt(1, reBidx);
-					pstmt.executeUpdate();
-
-					resultRow = deleteBoardBybIdx(connection, pstmt, reBidx);
-				}
-			}else {
+			pstmt = connection.prepareStatement(ohterboard);
+			pstmt.setInt(1, refer);
+			pstmt.setInt(2, depth);
+			resultSet = pstmt.executeQuery();
+			while (resultSet.next()) {
+				reBidx = resultSet.getInt(1);
 				pstmt = connection.prepareStatement(fsql);
-				pstmt.setInt(1, bIdx);
+				pstmt.setInt(1, reBidx);
 				pstmt.executeUpdate();
-				resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
+				
+				resultRow = deleteBoardBybIdx(connection, pstmt, reBidx);
 			}
+			
 			connection.commit();
 		} catch (Exception e) {
 			try {
