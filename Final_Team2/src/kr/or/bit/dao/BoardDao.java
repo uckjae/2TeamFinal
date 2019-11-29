@@ -1502,7 +1502,7 @@ public class BoardDao {
 	}
 
 	// 여행리스트 추가하기
-	public int mTListContentAdd(int tlidx,String spotName,String image, java.util.Date spotDate, String spotAddr, String spotLink) {
+	public int mTListContentAdd(int tlidx,String spotName,String image, String spotDate, String spotAddr, String spotLink) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		int resultRow = 0;
@@ -1514,7 +1514,7 @@ public class BoardDao {
 			pstmt.setInt(1, tlidx);
 			pstmt.setString(2, spotName);
 			pstmt.setString(3, image);
-			pstmt.setDate(4, (Date) spotDate);
+			pstmt.setString(4, spotDate);
 			pstmt.setString(5, spotAddr);
 			pstmt.setString(6, spotLink);
 
