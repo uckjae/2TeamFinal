@@ -1384,7 +1384,6 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select tlidx,id,tlname from MTLIST where id = ? order by tlidx";
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -1397,7 +1396,7 @@ public class BoardDao {
 				mtFolderList.add(mtFolder);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("mtfolderlist() :" + e.getMessage());
 		} finally {
 			DBHelper.close(pstmt);
 			DBHelper.close(rs);

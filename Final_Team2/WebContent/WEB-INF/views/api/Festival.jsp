@@ -9,6 +9,10 @@
 <title>여행지 메인</title>
 <script type="text/javascript">
 $(function(){
+	var areacode = $("#areaSel").change(function(){
+		areacode = $("#areaSel").val();
+	});
+		console.log(areacode);
 	
 	function goCourseDetail(ogu) {
 		console.log($(ogu).val());
@@ -17,7 +21,7 @@ $(function(){
 	
 	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
 	var servicekey = "serviceKey=YgFOnPiGzVE9oRN9OFn2nqQIc7Eg260SSHWd4RD88z6cshzjM4HgcYMytNdDw1YVMSN2wIuAIsgPFa%2F9SbYQag%3D%3D";
-	var paramArea = "&contentTypeId=15&areaCode=1";
+	var paramArea = "&contentTypeId=15&areaCode=";
 	var paramSigungu = "&sigunguCode=";
 	var paramCat = "&cat1=&cat2=";
 	var paramList = "&cat3=&listYN=Y";
@@ -25,7 +29,7 @@ $(function(){
 	var paramNumOfRows = "&numOfRows=10";
 	var paramPageNo =  "&pageNo=";
 	var type = "&_type=json&";
-	var addr2 = servicekey + paramArea + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
+	var addr2 = servicekey + paramArea + areacode + paramSigungu + paramCat + paramList + paramArrange+ paramNumOfRows + paramPageNo;
 	var api = "";
 	
 	api = addr + "searchFestival?" + addr2 + "1" + type;
@@ -74,13 +78,20 @@ $(function(){
     <c:import url="/common/Top.jsp" />
 <div class="content">
 
-<div id="mainContentBox" class="content">
-			<div class="row">
-				<div class="col-md-4">1</div>
-				<div class="col-md-4">2</div>
-				<div class="col-md-4">3</div>
-			</div>
-		</div>
+<div class="col-md align-items-end">
+							<div class="form-group">
+								<label for="#"></label>
+								<div class="form-field">
+									<div class="select-wrap">
+										<select name="areaSel" id="areaSel" class="form-control" onchange="areaSelFn()">
+											<option value="1">서울</option>
+											<option value="31">경기</option>
+											<option value="2">인천</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
 <div  id="dataBox"></div>
 <div class="pagination-sm mt-3 mb-3" style="text-align:center">
 			    <a href="#" class="btn btn-primary">&laquo;</a>

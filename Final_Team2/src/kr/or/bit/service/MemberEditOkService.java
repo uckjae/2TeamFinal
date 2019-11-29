@@ -14,6 +14,7 @@ public class MemberEditOkService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
+		String cmd = request.getParameter("cmd");
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String pwd = request.getParameter("pwd");
@@ -29,9 +30,17 @@ public class MemberEditOkService implements Action {
 		} else {
 			msg = "수정 실패!";
 		}
-		
+
+		String url = "";
+		if (cmd.equals("admin")) {
+			url = "Member.do?cmd=detail&id=" + id;
+		} else if (cmd.equals("user")) {
+			url = "MyInformation.do";
+		}
+
 		request.setAttribute("board_msg", msg);
-		request.setAttribute("board_url", "Member.do?cmd=detail&id="+id);
+		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", result);
 
 		forward.setPath("/common/Redirect.jsp");
 

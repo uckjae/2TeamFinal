@@ -32,7 +32,7 @@
     	$(function(){
 
     		if(${isEdit}){
-    		 	$("#frm").attr("action", "MemberEditOk.do");
+    		 	$("#frm").attr("action", "MemberEditOk.do?cmd=admin");
     			$("#id").attr("readonly", "readonly");
     			$("#email").attr("readonly", "readonly");
     			$("#birth").attr("readonly", "readonly"); 

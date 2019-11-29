@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	
@@ -32,7 +33,7 @@
 	    <div class="dropdown-menu ">
 			<a class="dropdown-item" href="javascript:copy()" >링크 복사</a>	
 			<a class="dropdown-item" href="javascript:sendKaKaoLink()" id="kakaoLink">카카오톡으로 공유</a>	
-			<a class="dropdown-item" href="#" data-toggle="modal" data-target="myTravelListModal" >내 여행 리스트에 추가</a>	
+			<a class="dropdown-item" href="#" data-toggle="modal" data-target="#myTravelListModalIntro" >내 여행 리스트에 추가</a>	
 		</div>
 	</div>
 </div>
