@@ -46,7 +46,7 @@
             	답글 작성
             </h1>
             <form action="FreeBoardReWriteOk.do?bIdx=${freeReWrite.bIdx}" method="post"class="p-5 bg-light">
-                <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목">
+                <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="Re: ${freeReWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx">
                 <textarea rows="10" cols="60" id="summernote" name="content">
                 	

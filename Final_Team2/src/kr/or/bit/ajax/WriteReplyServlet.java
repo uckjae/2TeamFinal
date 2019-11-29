@@ -42,10 +42,13 @@ public class WriteReplyServlet extends HttpServlet {
 		
 		//추가
 		if(cmd.equals("add")) {
+			System.out.println("in add reply");
 			int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 			String replyContent = request.getParameter("replyContent").trim();
 			String memberId = (String) request.getSession().getAttribute("memberId");
-
+			System.out.println(bIdx);
+			System.out.println(replyContent);
+			System.out.println(memberId);
 			int rIdx = dao.insertReply(bIdx, memberId, replyContent);
 
 			Reply reply = new Reply();

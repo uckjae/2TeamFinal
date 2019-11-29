@@ -91,14 +91,12 @@
                         		<td >${board.bIdx}</td>
                         		<td><a onclick="showDetail(${board.bIdx})"  href="#">
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
-                        				<c:choose>
-                        					<c:if test="${board.depth > 1}">
-                        						<c:when test="${depth == board.depth}">┖&nbsp;</c:when>
-                        					</c:if>
-                        				<c:otherwise>&nbsp; &nbsp; &nbsp; &nbsp;</c:otherwise>
-                        				</c:choose>
+                        				&nbsp;&nbsp;&nbsp;&nbsp;
                         			</c:forEach>
-                        		${board.title}</a></td>
+                        			<c:if test="${board.depth > 0}">
+                        				<img src="images/re.gif" >
+                        			</c:if>
+                        			${board.title}</a></td>
                         		<td>
                             		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             	</td>
