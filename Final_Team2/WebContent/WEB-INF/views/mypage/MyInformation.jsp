@@ -61,7 +61,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <c:set var="member" value="${requestScope.member}" />
+    <c:set var="member" value="${requestScope.memberInfo}" />
 	<div class="content-center">
 		<div class="row justify-content-center pb-5">
 			<div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
@@ -120,12 +120,12 @@
 									<div class="col-lg-6">
 										<input type="radio" class="form-check-input" id="gender"
 											name="gender" value="0"
-											<c:if test="${! member.gender}">checked</c:if> readonly>남
+											<c:if test="${! member.gender}">checked</c:if> disabled>남
 									</div>
 									<div class="col-lg-6">
 										<input type="radio" class="form-check-input" id="gender"
 											name="gender" value="1"
-											<c:if test="${ member.gender}">checked</c:if> readonly>여
+											<c:if test="${ member.gender}">checked</c:if> disabled>여
 									</div>
 								</div>
 							</div>
@@ -151,14 +151,29 @@
 
 							</div>
 						</div>
-						<div class="col-lg-12 align-self-end">
+						
+						<div class="col-md-6 align-self-end">
 							<div class="form-group">
-								<div class="form-field">
-									<input type="submit" value="목록으로"
-										class="form-control btn btn-primary">
+								<div class="form-field ">
+								<a href="MyInforamtionEdit?id=${member.id }">
+									<button  type="button" class="btn btn-primary  form-control"> 
+										수정
+									</button></a>
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-md-6 align-self-end">
+							<div class="form-group">
+								<div class="form-field">
+								<a href="MyInforamtionEdit?id=${member.id }">
+								<button  type="button" class="btn  form-control"> 
+										탈퇴
+									</button></a>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 				</form>
 			</div>
