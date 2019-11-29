@@ -237,6 +237,7 @@ body {
 		}
 		
 	});
+
 	function showTList(){
 		var jsonId = {"id":"${sessionScope.memberId}"};
 		$.ajax({
@@ -250,16 +251,15 @@ body {
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
-						$("#innerModalIntro").append("<p><a href='MTListContentAdd.do?tlidx="+element.tlidx +"' onclick='submitFn()'>"+ element.name + "</a></p>");
-			
-						console.log("index값 each 문 안 : " + element.tlidx);
-						
+						$("#innerModalIntro").append("<p><a href='MTListContentAdd.do?tlidx="+ element.tlidx +"' onclick='submitFn()'>"+ element.name + "</a></p>");
 						
 					});
 				} else {
-					$("#innerModalIntro").text(data.name);
-					console.log("index값 each 문 안 : " +data.tlidx);
+				//	$("#innerModalIntro").append(data.name);
 					$("#tlidx").val(data.tlidx);
+					console.log("index값 each 문 안 : " +data.tlidx);
+					$("#innerModalIntro").append("<p><a href='MTListContentAdd.do?tlidx="+ data.tlidx +"' onclick='submitFn()'>"+ data.name + "</a></p>");
+					
 					
 				} 
 			},
@@ -271,7 +271,7 @@ body {
 		}	
 	function submitFn() {
 		$("#frm").submit();
-	}
+	} 
 	
 </script>
 </head>
@@ -326,7 +326,7 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "post" action="MTListContentAdd.do">
+        <form id="frm" method = "get" >
         <div class="modal-body" id="innerModalIntro">   		
 			 <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" >목록보기</button> 	
 			 
