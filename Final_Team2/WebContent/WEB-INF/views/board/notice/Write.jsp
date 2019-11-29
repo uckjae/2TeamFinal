@@ -20,6 +20,11 @@ html, body {
             $('#summernote').summernote({
                 height: 400,
                 placeholder: "글을 입력하세요.",
+                popover: {
+                    image: [],
+                    link: [],
+                    air: []
+                  }
             }); 
             
             $('.note-statusbar').hide();
