@@ -8,7 +8,7 @@
 <c:import url="/common/HeadTag.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
 <style type="text/css">
@@ -271,7 +271,29 @@ body {
 			
 		</div>
 	</section>
-<!-- 모달창  -->
+<!--  모달창 첫 화면 -->	
+<div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="frm" method = "post" action="APIMTFolderList.do">
+        <div class="modal-body" id="innerModal">   		
+			폴더 목록보기 
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" id="modalBtn">          
+       <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>	
+<!-- 모달창  폴더 -->
 <div class="modal fade" id="myTravelListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -283,11 +305,29 @@ body {
         </div>
         <form id="frm" method = "post">
         <div class="modal-body" id="innerModal">   		
-        	<input type="text" name="editFolder" id="inputInnerModal"> 
+          <c:set var="mTFolderList" value ="${requestScope.mTList}"/>
+			<table class="table">
+				<tr>
+					<th class="pl-5">NO</th>
+					<th>폴더 리스트</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<c:forEach var="mTFolder" items="${ mTFolderList}" varStatus="status">
+					<tr>
+						<td class="pl-5">${status.count}</td>
+						<td><a href="MTList.do?tLidx=${mTFolder.tLidx}">${ mTFolder.tLName}</a></td>
+						<td><a href="#" id="editbtn" class="btn btn-primary"
+							data-toggle="modal" data-target="#editModal1" data-cmd="edit"
+							data-edit-tlidx="${mTFolder.tLidx}"
+							data-edit-tlname="${mTFolder.tLName}">수정 </a></td>
+						<td><a href="MTFolderListDelete.do?tLidx=${mTFolder.tLidx}" class="btn btn-secondary"> 삭제 </a></td>
+					</tr>
+				</c:forEach>
+			</table>
         </div>
         <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" id="modalBtn">
-          
+          <input type="submit" class="btn btn-primary" id="modalBtn">          
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
         </form>
