@@ -22,7 +22,11 @@
     <script type="text/javascript">
     	$(function(){
 
-    		if(${isEdit}){
+    		$("input").attr("readonly", "readonly");
+			$("#frm").attr("action", "MemberList.do");
+			$(":checkbox").attr("disabled", "disabled");
+			
+  /*    		if(${isEdit}){
     		 	$("#frm").attr("action", "MemberEditOk.do");
     			$("#id").attr("readonly", "readonly");
     			$("#email").attr("readonly", "readonly");
@@ -33,25 +37,92 @@
     				$("#disable").val(0);
         		$("#openPostCode").click(execDaumPostcode);
     			$("#postCode").click(execDaumPostcode);
-    		}else{
-    			$("input").attr("readonly", "readonly");
-    			$("#frm").attr("action", "MemberList.do");
-    			$(":checkbox").attr("disabled", "disabled");
-    		}
+    		} */
     		
     		$("#postCode").attr("readonly", "readonly");
     		$("#address").attr("readonly", "readonly");
     		$("input:radio").attr("disabled", "disabled");
     		$("input:submit").removeAttr("disabled"); 
     		
-    		$("#checkbox").change(function(){
+    	/* 	$("#checkbox").change(function(){
     			if(this.checked)
     				$("#disable").val(1);
     			else
     				$("#disable").val(0);
-    		})
+    		})  */
     	})
+    	
+    	function delMember(){
+    		//let href = "MemberDelete.do?cmd=myInfo&id=" + deleteId;
+    		Swal.fire({
+  			  title: 'Are you sure?',
+  			  icon: 'warning',
+  			  showCancelButton: true,
+  			  confirmButtonColor: '#3085d6',
+  			  cancelButtonColor: '#d33',
+  			  confirmButtonText: 'Yes'
+  			}).then((result) => {
+  			  if (result.value) {
+  				checkPassword();
+  			  }
+  			})
+    	}
 
+    	function checkPassword(){
+    		(async () => {
+    			const { value: password } = await Swal.fire({
+    			  title: 'Enter your password',
+    			  input: 'password',
+    			  inputPlaceholder: 'Enter your password',
+    			  inputAttributes: {
+    			    maxlength: 10,
+    			    autocapitalize: 'off',
+    			    autocorrect: 'off'
+    			  }
+    			})
+    			
+    			 if (password == ${member.pwd }) {
+    				 $.ajax({
+    					 url : "OutMember",
+    					 type:'POST',
+    					 success : function(data){
+    						 console.log(data);
+    						 if(data){
+    							 Swal.fire({
+    			    				  title: '탈퇴 완료',
+    			    				  text : '메인 화면으로 이동합니다.',
+    			    				  showConfirmButton: false,
+    			    				  timer: 2000
+    			    			  }).then(function() {
+    			    				  location.href = 'index.jsp';
+    			    			  })
+    						 }
+    						 else{
+    							 Swal.fire({
+    			      				  title: '탈퇴 실패',
+    			      				  showConfirmButton: false,
+    			      				  timer: 1000
+    			      			  })
+    						 }
+    					 },
+    					 error : function( jqXHR, text, exception){
+    						 Swal.fire({
+			      				  title: text,
+			      				  showConfirmButton: false,
+			      				  timer: 1000
+			      			  })
+    					 }
+    				 })
+    			} else{
+    				Swal.fire({
+      				  title: '탈퇴 실패',
+      				  text : '비밀번호가 일치하지 않습니다.',
+      				  showConfirmButton: false,
+      				  timer: 1000
+      			  })
+    			}
+    			})( )
+    	}
     </script>
 </head>
 
@@ -61,7 +132,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <c:set var="member" value="${requestScope.memberInfo}" />
+    <c:set var="member" value="${requestScope.member}" />
 	<div class="content-center">
 		<div class="row justify-content-center pb-5">
 			<div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
@@ -166,10 +237,9 @@
 						<div class="col-md-6 align-self-end">
 							<div class="form-group">
 								<div class="form-field">
-								<a href="MyInforamtionEdit?id=${member.id }">
-								<button  type="button" class="btn  form-control"> 
-										탈퇴
-									</button></a>
+									<a href="#" onclick="delMember()">
+										<button  type="button" class="btn  form-control" >  탈퇴 </button>
+									</a>
 								</div>
 							</div>
 						</div>
