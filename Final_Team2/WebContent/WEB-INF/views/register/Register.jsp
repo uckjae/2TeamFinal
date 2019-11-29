@@ -19,6 +19,10 @@
     	}
     </style>
     <script type="text/javascript">
+    /* 정규식 */
+    let reIdPwd = /^[a-zA-Z0-9]{4,12}$/; // 아이디와 패스워드가 적합한지 검사할 정규식
+	let reEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;  // 이메일이 적합한지 검사할 정규식
+	
     let emailCode = "";
     let checkEmail = false;
 	$(function () {
@@ -46,16 +50,16 @@
 				if(data == "true"){
 					$("#checkId").text("중복된 아이디입니다.")
 					$("#checkId").attr("style","color : red");
-				}else{
+				}else if() {
+					
+				}else {
 					$("#checkId").text("사용 가능한 아이디입니다.")
 					$("#checkId").attr("style","color : green");
 				}
 				
 				$("#checkId").removeAttr("hidden");
 			},
-			error : function(){
-				
-			}
+			error : function(){ }
 		});
 	}
 	
@@ -110,6 +114,23 @@
 			event.returnValue = false;
 		}
 	}
+	
+	function validate() {
+		let reIdPwd = /^[a-zA-Z0-9]{4,12}$/; // 아이디와 패스워드가 적합한지 검사할 정규식
+		let reEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;  // 이메일이 적합한지 검사할 정규식
+		
+		var id = document.getElementById("id");
+		var email = document.getElementById("email");
+		var pw = document.getElementById("pwd");
+		if(!check(reIdPwd, id, "아이디는 4~12 자리 영문 대소문자와 숫자 조합")) {
+			reg.id.focus();
+			return false;
+		}
+		if(!check(reIdPwd,pw,"패스워드는 4~12자의 영문 대소문자와 숫자로 조합")) {
+			reg.id.focus();
+			return false;
+		}
+	}
 </script>
 </head>
 
@@ -123,7 +144,7 @@
         <!-- <div class="row justify-content-center pb-5"> -->
           <!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
                 <h2 class="text-center mb-3">REGISTER</h2>
-                <form action="RegisterOk.do" class="search-property-1" method="post">
+                <form action="RegisterOk.do" class="search-property-1" method="post" name="reg" onsubmit="return validate();">
                     <!-- <div class="row"> -->
                         <div class="col-lg-6 offset-lg-3 mb-3">
                             <div class="form-group">
