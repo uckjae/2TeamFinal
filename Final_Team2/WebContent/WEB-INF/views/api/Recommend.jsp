@@ -255,7 +255,7 @@ html, body {
 		</div>
 		
 		<!-- 검색 태그 영역 -->
-		<div id="tagBox"> </div>
+		<!-- <div id="tagBox"> </div> -->
 		
 		</div>
 		
