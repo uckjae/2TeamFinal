@@ -26,11 +26,10 @@ public class PhotoBoardDeleteService implements Action{
 		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "PhotoBoardList.do");
-
+		request.setAttribute("board_result", result > 0);
+		
 		forward.setPath("/common/Redirect.jsp");
-		
-		
-		
+
 		return forward;
 	}
 }

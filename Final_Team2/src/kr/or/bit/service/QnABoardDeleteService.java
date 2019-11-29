@@ -28,7 +28,8 @@ public class QnABoardDeleteService implements Action {
 
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "QnABoardList.do");
-
+		request.setAttribute("board_result", result);
+		
 		forward.setPath("/common/Redirect.jsp");
 		
 		return forward;
