@@ -107,11 +107,13 @@
                     </tbody>
                 </table>
             </div>
-            <a href="FreeBoardWrite.do?cmd=write">
-            	<c:if test="${sessionScope.memberId != null || (sessionScope.memberId != null && sessionScope.isAdmin == 'true')}">
-                	<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
-                </c:if>
-            </a>
+			<div class="text-right mt-3">
+				<a href="FreeBoardWrite.do?cmd=write">
+					<c:if test="${sessionScope.memberId != null || (sessionScope.memberId != null && sessionScope.isAdmin == 'true')}">
+               	 		<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
+					</c:if>
+				</a>
+			</div>
         </div>
     </div>
 </body>

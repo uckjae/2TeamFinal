@@ -1285,8 +1285,40 @@ public class BoardDao {
 	}
 
 	// 나만의 코스 게시판 게시글 삭제하기
-	public int courseDelete() {
-		return 0;
+	public boolean courseDelete(int bIdx) {
+		int resultRow = 0;
+
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String courseDelete = "DELETE FROM MCBOARD WHERE BIDX=?";
+
+		try {
+			connection.setAutoCommit(false);
+
+			// QNABOARD 데이터 삭제
+			pstmt = connection.prepareStatement(courseDelete);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+
+			// BOARD 데이터 삭제
+			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
+
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 
 	// 나만의 코스 게시판 게시글 수정하기
