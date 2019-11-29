@@ -14,8 +14,8 @@ textarea{
 		  resize:none;
 }
 	img {
-		width:100%;
-		height:464px;
+		width:600px;
+		height:600px;
 		background-size: cover;	
 		overflow: auto;
 		overflow: hidden;
@@ -60,11 +60,17 @@ $(document).ready(function(){
 		reader.readAsDataURL(this.files[0]);
 	});
 	
-	 $('#content').keyup(function() {
-	        if($(this).val().length > 200) {
-	            $(this).val($(this).val().substring(0, 200));
-	        }
-	    });
+	$('#content').on('keyup', function() {
+
+		if($(this).val().length > 200) {
+
+	alert("글자수는 50자로 이내로 제한됩니다.");
+
+			$(this).val($(this).val().substring(0, 200));
+
+		}
+
+	});
 	 
 
 	
@@ -102,20 +108,18 @@ $(document).ready(function(){
 			<c:when test="${Edit }">edit&bidx=${photowrite.bIdx} </c:when>
 				<c:otherwise>write </c:otherwise>
 				</c:choose>" method="post" enctype="multipart/form-data">
-	
-	<div class="position" style="height: 550px">
+	<div class="position" style="height: 720px">
+		<input type="text" class="form-control mb-3 input" id="title" name="title" value="${photowrite.title}"  placeholder="제목을 입력하세요">
 		<div class="col-lg-6" style="float: left">
-			<br>
+			
 				<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }">
 				<label class="btn btn-primary btn-file">
 				 <input type="file" name="Photo" id="Photo" accept="image/*">
 				</label>
 		</div>
 			<div class="col-lg-6" style="display: table-caption;">
-			<br>
-				<input type="text" name="title" id="title" value="${photowrite.title }" style="width: 550px;" placeholder="제목을 입력하세요">
-			<br><br>
-			<textarea style="width: 550px; height: 400px;" placeholder="내용을 입력하세요" id="content" name="content">${photowrite.content }</textarea>
+			
+			<textarea style="width: 600px; height: 600px;" placeholder="내용을 입력하세요" id="content" name="content">${photowrite.content }</textarea>
 			
 			<c:choose>
 				<c:when test="${Edit }">
