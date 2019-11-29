@@ -35,11 +35,12 @@ public class MemberEditOkService implements Action {
 		if (cmd.equals("admin")) {
 			url = "Member.do?cmd=detail&id=" + id;
 		} else if (cmd.equals("user")) {
-			url="MyInformation.do";
+			url = "MyInformation.do";
 		}
-		
+
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", result);
 
 		forward.setPath("/common/Redirect.jsp");
 
