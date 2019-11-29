@@ -56,7 +56,6 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
-import kr.or.bit.service.RecommendDetailService;
 
 import kr.or.bit.service.RegisterOkService;
 import kr.or.bit.service.TravelDetailService;

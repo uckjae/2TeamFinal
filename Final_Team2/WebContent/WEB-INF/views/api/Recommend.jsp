@@ -83,7 +83,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>서울</span>"
 											+"<div class='contain'>"
 											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -94,7 +94,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>인천</span>"
 											+"<div class='contain'>"
 											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -105,7 +105,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>경기</span>"
 											+"<div class='contain'>"
 											+"<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -118,7 +118,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>서울</span>"
 											+"<div class='contain'>"
 											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -129,7 +129,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>인천</span>"
 											+"<div class='contain'>"
 											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -140,7 +140,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>경기</span>"
 											+"<div class='contain'>"
 											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -153,7 +153,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>서울</span>"
 											+"<div class='contain'>"
 											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -164,7 +164,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>인천</span>"
 											+"<div class='contain'>"
 											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -175,7 +175,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>경기</span>"
 											+"<div class='contain'>"
 											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
