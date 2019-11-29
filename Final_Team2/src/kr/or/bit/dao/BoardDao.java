@@ -434,7 +434,9 @@ public class BoardDao {
 				+ "VALUES (BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 1) ";
 		String Sql2 = "INSERT INTO NOTICEBOARD (NIDX, BIDX, ISTOP) "
 				+ "VALUES (NIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?) ";
-
+		
+		String upSql = "Update noticeboard set istop=0 where istop=1";
+		
 		try {
 			connection.setAutoCommit(false);
 
@@ -443,7 +445,11 @@ public class BoardDao {
 			pstmt.setString(2, title);
 			pstmt.setString(3, summernote);
 			pstmt.executeUpdate();
-
+            
+			if(isTop ==1) {
+				pstmt = connection.prepareStatement(upSql);
+			    pstmt.executeUpdate();
+			}
 			pstmt = connection.prepareStatement(Sql2);
 			pstmt.setInt(1, isTop);
 			pstmt.executeUpdate();
@@ -531,6 +537,7 @@ public class BoardDao {
 
 		String Sql1 = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE BIDX = ?";
 		String Sql2 = "UPDATE NOTICEBOARD SET ISTOP = ? WHERE BIDX = ? ";
+		String upSql = "Update noticeboard set istop=0 where istop=1";
 
 		try {
 			connection.setAutoCommit(false);
@@ -539,6 +546,10 @@ public class BoardDao {
 			pstmt.setString(2, content);
 			pstmt.setInt(3, bIdx);
 			pstmt.executeUpdate();
+			if(isTop ==1) {
+				pstmt = connection.prepareStatement(upSql);
+			    pstmt.executeUpdate();
+			}
 
 			pstmt = connection.prepareStatement(Sql2);
 			pstmt.setInt(1, isTop);
