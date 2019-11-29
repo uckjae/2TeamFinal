@@ -32,6 +32,7 @@
     let checkName = false;
     let checkPwd = false;
     let checkBirth = false;
+    let checkAddress = false;
     
 	$(function () {
 		$("#openPostCode").click(execDaumPostcode);
@@ -186,14 +187,24 @@
 	}
 	
 	function validate() {
-		console.log("validate");
+		if($("#gender").val()=="")
+			checkBirth = false;
+
+		if($("#postCode").val()=="")
+			checkAddress=false;
+		
 		console.log("checkEmail : "+checkEmail);
 		console.log("checkId : "+checkId);
 		console.log("checkName : "+checkName);
 		console.log("checkPwd : "+checkPwd);
 		console.log("checkBirth : "+checkBirth);
-
-		 return false;
+		console.log("checkAddress : "+checkAddress);
+		console.log((checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress));
+		return false;
+		/* if(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress){
+			alert("입력 내용을 확인해주세요.");
+		 	return false;
+		} */
 	}
 </script>
 </head>
