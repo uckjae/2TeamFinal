@@ -155,15 +155,28 @@
 	
 	function checkEmailCode(){
 		if(emailCode == $("#emailCode").val()){
-			alert("이메일 인증 완료");
-		    $("#emailCodeControl").attr("hidden","hidden");
-			$("#email").attr("readonly","readonly");
-			$("#sendEmail").text("인증 완료");
-			$("#sendEmail").attr("disabled","disabled"); 
-			checkEmail = true;
+			Swal.fire({
+				  icon: 'success',
+				  title: '이메일 인증 성공',
+				  showConfirmButton: false,
+				  timer: 1500
+				}).then(function(){
+					 $("#emailCodeControl").attr("hidden","hidden");
+					 $("#email").attr("readonly","readonly");
+					 $("#sendEmail").text("인증 완료");
+					 $("#sendEmail").attr("disabled","disabled"); 
+					 checkEmail = true;
+				})
 		}else{
-			alert("이메일 인증 실패");
-			checkEmail = false;
+			Swal.fire({
+				  icon: 'error',
+				  title: '이메일 인증 실패',
+				  showConfirmButton: false,
+				  timer: 1500
+				}).then(function(){
+					checkEmail = false;
+				})
+			
 		}
 	}
 	
@@ -187,28 +200,24 @@
 	}
 	
 	function validate() {
-		validateBirth();
+		checkBirth = getJumin.test($("#birth").val());
 		if($("#gender").val()=="")
 			checkBirth = false;
 
-		console.log($("#gender").val());
 		if($("#postCode").val()=="")
 			checkAddress=false;
 		else
 			checkAddress=true;
 		
-		console.log("checkEmail : "+checkEmail);
-		console.log("checkId : "+checkId);
-		console.log("checkName : "+checkName);
-		console.log("checkPwd : "+checkPwd);
-		console.log("checkBirth : "+checkBirth);
-		console.log("checkAddress : "+checkAddress);
-		console.log((checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress));
-		return false;
-		/* if(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress){
-			alert("입력 내용을 확인해주세요.");
+	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
+		   Swal.fire({
+				  icon: 'error',
+				  title: '입력 내용을 확인해주세요.',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		 	return false;
-		} */
+		} 
 	}
 </script>
 </head>
