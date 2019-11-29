@@ -28,6 +28,7 @@ import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderDeleteService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MTListContentAddService;
 import kr.or.bit.service.MTListContentDeleteService;
 import kr.or.bit.service.MTListContentSevice;
 import kr.or.bit.service.MemberDeleteService;
@@ -282,6 +283,10 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request,response);
 		}
 		//여행리스트 리스트 추가하기 
+		else if (url_Command.equals("/MTListContentAdd.do")) {			
+			action = new MTListContentAddService();
+			forward = action.execute(request,response);
+		}
 		//여행리스트 리스트 삭제하기
 		else if (url_Command.equals("/MTListDelete.do")) {			
 			action = new MTListContentDeleteService();

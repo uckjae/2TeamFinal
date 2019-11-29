@@ -131,12 +131,13 @@ body {
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
 				var myData3 = data3.response.body.items.item;
-				$("#mTLimage").val(myData3.image);
+				$("#mTLimage").val(image);
 				if(myData3==null){
 					
 					var img2 = $('<img>');
 					
 						$(img2).attr("src",image);
+						$("#mTLimage").val(image);
 					$("#imgarea").append(img2);
 				}else{
 				
@@ -320,7 +321,7 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "post">
+        <form id="frm" method = "post" action="MTListContentAdd.do">
         <div class="modal-body" id="innerModalIntro">   		
 			 <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" >목록보기</button> 	
 			 
