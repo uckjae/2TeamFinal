@@ -15,12 +15,8 @@
             height: 100%;
         }
     </style>
-    <%
-    	System.out.print(request.getParameter("freeBoardReWrite"));
-    %>
 	<script type="text/javascript">
         $(function () {
-        	out.print('rewrite.jsp');
             $('#summernote').summernote(
             	{
         			placeholder: '내용을 입력하세요',
@@ -31,6 +27,20 @@
             
             $('.note-statusbar').hide();
         })
+        
+        function writeCheck(){
+        	if(!reWrite.title.value){
+        		alert('글 제목을 입력하세요');
+        		reWrite.title.focus();
+        		return false;
+        	}
+        	if(!reWrite.content.value){
+        		alert('글 내용을 입력하세요');
+        		reWrite.content.focus();
+        		return false;
+        	}
+        	document.reWrite.submit();
+        }
 	</script>
 </head>
 <body>
@@ -39,20 +49,20 @@
     <c:import url="/common/Top.jsp" />
     
     <!-- Contant -->
-    <c:set var="freeReWrite" value="${requestScope.freeBoardReWrite}"></c:set>
+    <c:set var="freeReWrite" value="${requestScope.freeBoardReWrite}" />
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">
             	답글 작성
             </h1>
-            <form action="FreeBoardReWriteOk.do?bIdx=${freeReWrite.bIdx}" method="post"class="p-5 bg-light">
+            <form action="FreeBoardReWriteOk.do?bIdx=${freeReWrite.bIdx}" name="reWrite" method="post"class="p-5 bg-light">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="Re: ${freeReWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx">
                 <textarea rows="10" cols="60" id="summernote" name="content">
                 	
 				</textarea>
 				<div class="text-center">
-                	<input type="submit" class="btn btn-primary mr-3" value="작성">
+                	<input type="button" class="btn btn-primary mr-3" value="작성" onclick="writeCheck()">
                     <input type="reset" class="btn btn-primary" value="취소" onClick="location.href='FreeBoardList.do'">
                 </div>
             </form>

@@ -149,7 +149,7 @@
 						var degree = $('<span>');
 						$.each(weatherData.response.body.items.item,function(index,element){
 							if(element.category =="PTY"){
-								console.log("해가 들어오나??");
+								
 								if(element.obsrValue == 0){
 									$(icon).attr("class","wi wi-day-sunny");
 								}else if(element.category > 1){

@@ -42,6 +42,7 @@
 	
 	<script type="text/javascript" src="js/setReadNum.js"></script>
 	<script type="text/javascript" src="js/checkReadBoad.js"></script>
+	<script type="text/javascript" src="js/deleteAlert.js"></script>
 	
 	<!-- fontawesome -->
 	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>

@@ -6,31 +6,30 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
-import kr.or.bit.dto.QnABoard;
 
-public class QnABoardDeleteService implements Action {
+public class MyCourseBoardDeleteService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-
-		int bIdx = Integer.parseInt(request.getParameter("bIdx")) ;
-
+		
+		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
+		
 		BoardDao dao = new BoardDao();
-		boolean result = dao.deleteQnABoard(bIdx);
-
+		boolean mCBoardDelete = dao.courseDelete(bIdx);
+		
 		String msg = "";
-		if (result) {
-			msg = "Q & A 삭제 완료! 글 목록 페이지로 이동합니다.";
+		if(mCBoardDelete) {
+			msg = "게시글 삭제 완료";
 		} else {
-			msg = "Q & A 삭제 실패! 글 목록 페이지로 이동합니다.";
+			msg = "게시글 삭제 실패";
 		}
-
 		request.setAttribute("board_msg", msg);
-		request.setAttribute("board_url", "QnABoardList.do");
+		request.setAttribute("board_url", "MyCourseBoardList.do");
 
 		forward.setPath("/common/Redirect.jsp");
 		
 		return forward;
 	}
+	
 }
