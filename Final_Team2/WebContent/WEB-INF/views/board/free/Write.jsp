@@ -27,6 +27,20 @@
             
             $('.note-statusbar').hide();
         })
+        
+        function writeCheck(){
+        	if(!write.title.value){
+        		alert('글 제목을 입력하세요');
+        		reWrite.title.focus();
+        		return false;
+        	}
+        	if(!write.content.value){
+        		alert('글 내용을 입력하세요');
+        		reWrite.content.focus();
+        		return false;
+        	}
+        	document.write.submit();
+        }
 	</script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -59,7 +73,7 @@
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
                 	<c:otherwise>write</c:otherwise>
-                </c:choose> " class="p-5 bg-light" method="post">
+                </c:choose> " class="p-5 bg-light" method="post" name="write">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${freeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${freeWrite.bIdx}">
                 <textarea rows="10" cols="60" id="summernote" name="content">
@@ -68,10 +82,10 @@
 				<div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 
-                		<input type="submit" class="btn btn-primary mr-3" value="수정">
+                		<input type="button" onclick="writeCheck()" class="btn btn-primary mr-3" value="수정">
                 	 </c:when>
                 	<c:otherwise> 
-                		<input type="submit" class="btn btn-primary mr-3" value="작성">
+                		<input type="button" onclick="writeCheck()" class="btn btn-primary mr-3" value="작성">
                  	</c:otherwise>
                 </c:choose> 
                     
