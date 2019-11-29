@@ -24,46 +24,113 @@
     let getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/); // id / pwd
 	let getEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); // email
 	let getName= RegExp(/^[가-힣]+$/); // 이름
-	/* let getJumin = RegExp(/^\d{6}$/); // 주민번호 앞자리
-	let getGender = RegExp(/^[1-4]/); // 주민번호 앞자리 */
+	let getJumin = RegExp(/^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))/); // 주민번호 앞자리
 	
     let emailCode = "";
     let checkEmail = false;
+    let checkId = false;
+    let checkName = false;
+    let checkPwd = false;
+    let checkBirth = false;
+    
 	$(function () {
 		$("#openPostCode").click(execDaumPostcode);
 		$("#postCode").click(execDaumPostcode);
 		$("#sendEmail").click(sendMail);
 		$("#checkEmailCode").click(checkEmailCode);
-		$("#id").blur(checkId);
-		$("form").submit(test);
+		$("#id").blur(validateId);
+		$("#name").blur(validateName);
+		$("#pwd").blur(validatePwd);
+		$("#birth").blur(validateBirth);
+		$("form").submit(validate);
 	})
 	
-	function checkId(){
-		let id = document.getElementById("id");
-		if( $("#id").val() == ""){
+	function validateBirth(){
+		if( $("#birth").val() == ""){
+			checkBirth = false;
 			return;
 		}
-
+		
+		checkBirth = getJumin.test($("#birth").val());
+		if(checkBirth){
+			checkBirth = true;
+			$("#gender").focusin();
+			$("#checkBirth").attr("hidden","hidden");
+		}else{
+			checkBirth = false;
+			$("#checkBirth").removeAttr("hidden");
+			$("#checkBirth").text("주민등록번호 앞자리가 형식에 맞지 않습니다.");
+			$("#checkBirth").attr("style","color : red");
+		}
+	}
+	
+	function validateName(){
+		if( $("#name").val() == ""){
+			checkName = false;
+			return;
+		}
+		
+		checkName = getName.test($("#name").val());
+		if(checkName){
+			checkName = true;
+			$("#checkName").attr("hidden","hidden");
+		}else{
+			checkName = false;
+			$("#checkName").removeAttr("hidden");
+			$("#checkName").text("이름을 다시 확인해주세요.");
+			$("#checkName").attr("style","color : red");
+		}
+	}
+	
+	function validatePwd(){
+		if( $("#pwd").val() == ""){
+			checkPwd = false;
+			return;
+		}
+		
+		checkPwd = getCheck.test($("#pwd").val());
+		if(checkPwd){
+			checkPwd = true;
+			$("#checkPwd").attr("hidden","hidden");
+		}else{
+			checkPwd = false;
+			$("#checkPwd").removeAttr("hidden");
+			$("#checkPwd").text("형식에 맞지않는 비밀번호입니다.");
+			$("#checkPwd").attr("style","color : red");
+		}
+	}
+	
+	function validateId(){
+		let id = document.getElementById("id");
+		if( $("#id").val() == ""){
+			checkId = false;
+			return;
+		}
+		
+		checkId = getCheck.test($("#id").val())
+		if(!checkId) {
+			$("#checkId").text("형식에 맞지 않는 아이디입니다");
+			$("#checkId").attr("style","color : red");
+			$("#checkId").removeAttr("hidden");
+			return;
+		}
+		
 		$.ajax({
 			url : "CheckMemberId",
 			data : {id : $("#id").val()},
 			success : function(data){
 				if(data == "true"){
-					$("#checkId").text("중복된 아이디입니다.")
+					checkId = false;
+					$("#checkId").text("중복된 아이디입니다.");
 					$("#checkId").attr("style","color : red");
 				}else {
-					if(!getCheck.test($("#id").val())) {
-						$("#checkId").text("형식에 맞지 않는 아이디입니다")
-						$("#checkId").attr("style","color : red");
-					}else{
-					$("#checkId").text("사용 가능한 아이디입니다.")
+					checkId = true;
+					$("#checkId").text("사용 가능한 아이디입니다.");
 					$("#checkId").attr("style","color : green");
-					}
 				}
 				
 				$("#checkId").removeAttr("hidden");
-			},
-			error : function(){ }
+			}
 		});
 	}
 	
@@ -81,9 +148,6 @@
 				console.log(data);
 				emailCode = data;
 				$("#emailCodeControl").removeAttr("hidden","");
-			},
-			error : function(){
-				
 			}
 		});
 	}
@@ -91,7 +155,7 @@
 	function checkEmailCode(){
 		if(emailCode == $("#emailCode").val()){
 			alert("이메일 인증 완료");
-		   $("#emailCodeControl").attr("hidden","hidden");
+		    $("#emailCodeControl").attr("hidden","hidden");
 			$("#email").attr("readonly","readonly");
 			$("#sendEmail").text("인증 완료");
 			$("#sendEmail").attr("disabled","disabled"); 
@@ -122,38 +186,14 @@
 	}
 	
 	function validate() {
-		if(!getCheck.test($("#pwd").val())){
-	        alert("비밀번호 형식이 맞지않습니다");
-	        $("#pwd").val("");
-	        $("#pwd").focus();
-	        return false;
-		}
-		if(!getName.test($("#name").val())){
-	        alert("이름을 정확히 입력해주세요");
-	        $("#name").focus();
-	        return false;
-		}
-		/* if(!getJumin.test($("#birth").val())){
-	        alert("생년월일을 적확히 입력해주세요 ex)191129");
-	        $("#birth").focus();
-	        return false;
-		}
-		if(!getGender.test($("#gender").val())){
-	        alert("1~4 입력 ");
-	        $("#gender").focus();
-	        return false;
-		} */
-		if($("address").val() == null){
-	        alert("주소를 입력해주세요");
-	        console.log($("postCode").val());
-	        $("#openPostCode").click();
-	        return false;
-		}
-		if(!checkEmail) {
-			alert("이메일 인증을 해주세요");
-			$("#emailCode").focus();
-			return false;
-		}
+		console.log("validate");
+		console.log("checkEmail : "+checkEmail);
+		console.log("checkId : "+checkId);
+		console.log("checkName : "+checkName);
+		console.log("checkPwd : "+checkPwd);
+		console.log("checkBirth : "+checkBirth);
+
+		 return false;
 	}
 </script>
 </head>
@@ -168,7 +208,7 @@
         <!-- <div class="row justify-content-center pb-5"> -->
           <!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
                 <h2 class="text-center mb-3">REGISTER</h2>
-                <form action="RegisterOk.do" class="search-property-1" method="post" name="form" onsubmit="return validate()">
+                <form action="RegisterOk.do" class="search-property-1" method="post" name="form">
                     <!-- <div class="row"> -->
                         <div class="col-lg-6 offset-lg-3 mb-3">
                             <div class="form-group">
@@ -201,6 +241,7 @@
                                 <label for="#">NAME</label>
                                 <div class="form-field">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="enter your name" >
+                                    <div  id="checkName" hidden></div>
                                 </div>
                             </div>
                         </div>
@@ -209,6 +250,7 @@
                                 <label for="#">PASSWORD</label>
                                 <div class="form-field">
                                     <input type="password" class="form-control" id="pwd" name="pwd" placeholder="enter your password">
+                                    <div  id="checkPwd" hidden></div>
                                 </div>
                             </div>
                         </div>
@@ -219,6 +261,7 @@
                                 <div class="row">
                                 	<div class="col-lg-6 ">
                                 		 <input type="text" class="form-control" id="birth" name="birth" maxlength="6" onkeypress="inNumber()" oninput="maxLengthCheck(this)"> 
+                                		 <div  id="checkBirth" hidden></div>
                                 	</div>
                                 	
                                 	<div class="col-lg-6 "> 
