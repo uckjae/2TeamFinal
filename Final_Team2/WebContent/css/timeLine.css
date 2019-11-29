@@ -31,8 +31,8 @@ img.image2{
   position: absolute;
   width: 3px;
   height: 100%;
-  left: 50%;
-  margin-left: -2px;
+ /*  left: 50%;  */
+ /*  margin-left: -2px; */
   background: #00b0bd;
   z-index: -1;
 }
@@ -142,8 +142,8 @@ img.image2{
     margin: 0;
   }
   #conference-timeline .conference-center-line {
-    margin-left: 0;
-    left: 50px;
+    /* margin-left: 0;
+    left: 50px; */
   }
   .timeline-article .meta-date {
     margin-left: 0;

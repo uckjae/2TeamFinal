@@ -247,10 +247,14 @@
                         <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">EMAIL</label>
-                                <div class="form-field">
+                                <div class=" row form-field">
+                                <div class="col-md-9">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
-                                	<div class="input-group-append">
+                                    </div>
+                                    <div class="col-md-1">
+                                	<!-- <div class="input-group-append"> -->
 							          <button class="btn btn-primary" type="button" id="sendEmail"> 이메일 인증 </button>
+							          <!-- </div> -->
 							        </div>
                                 </div>
                                 <div class="form-field" id="emailCodeControl" hidden="hidden">

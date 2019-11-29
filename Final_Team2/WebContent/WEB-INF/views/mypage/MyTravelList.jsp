@@ -47,7 +47,7 @@
 							<h4>${ mTLContent.spotName}</h4>
 							<div class="meta">${mTLContent.spotDate}</div>
 							<p> 주소 : ${ mTLContent.spotAddr} </p>
-							<p> 링크 : ${ mTLContent.spotLink}</p>
+							<p> 링크 : ${ mTLContent.spotLink} </p>
 									<a
 									href="MTListDelete.do?tLCidx=${mTLContent.tLCidx}&tLidx=${ mTLContent.tLidx}"
 									class="btn btn-secondary">삭제 </a>
