@@ -8,8 +8,9 @@
 <c:import url="/common/HeadTag.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
+<link rel="stylesheet" href="css/weather-icons.min.css">
 <title>Insert title here</title>
 <style type="text/css">
 .position {
@@ -154,6 +155,64 @@ body {
 				}
 			});
 			
+			var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
+			//console.log(rs);
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth()+1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var minutes = date.getMinutes();
+			if(minutes<41){
+				hour -= 1;
+			}
+			if(hour<10){
+				hour = "0"+hour;
+			}
+			var xValue = rs.x;
+			var yValue = rs.y;
+			
+			var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
+			var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
+			var baseTime = "&base_date="+year+month+day+hour+"00";
+			var nx = "&nx="+xValue;
+			var ny = "&ny="+yValue;
+			var type = "&_type=json";
+			var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
+			var jsonWeatherUrl = {"weatherUrl": weatherUrl};
+			$.ajax({
+				url: "Weather.ajax", 
+				dataType: 'json',
+				type:"GET",
+				data: jsonWeatherUrl,
+				success: function(weatherData){
+					//console.log("success");
+					//console.log(weatherData);
+					var icon = $('<i>');
+					var totalRain = $('<span>');
+					var degree = $('<span>');
+					$.each(weatherData.response.body.items.item,function(index,element){
+						if(element.category =="PTY"){
+							
+							if(element.obsrValue == 0){
+								$(icon).attr("class","wi wi-day-sunny");
+							}else if(element.category > 1){
+								$(icon).attr("class","wi wi-day-rain");
+							}
+						}else if(element.category == "RN1"){
+							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
+						}else if(element.category == "T1H"){
+							$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
+						}
+					});
+					$("#title").after(totalRain);
+					$("#title").after(degree);
+					$("#title").after(icon);
+				},
+				/* error: function(jqXHR, textStatus, errorThrown){
+					console.log("error"+textStatus);
+				} */
+			});
 			
 			
 		});
@@ -225,12 +284,13 @@ body {
 			var around = "";
 			$.getJSON(apilocation, function(data4) {
 				console.log("in");
-				var myData4 = data4.response.body;
+				var myData4 = data4.response.body.items.item;
 				console.log(data4);
-				$.each(myData4,function(index,element){
+				$.each(myData4,function(index,element){	
 					around = element.firstimage2;
-					var itag = $('<img class="img-fluid" >');
+					var itag = $('<img class="img-fluid">');
 					itag.attr("src",around);
+					console.log(itag);
 					$("#imginfo").append(itag);
 				});
 				
@@ -341,11 +401,17 @@ body {
 			<div class="position" id="map"></div>
 			
 			<div id="mainContentBox" class="content">
-			<div class="row">
-				<div class="img" id="imginfo">
-					
-
-					</div>
+				<div class="row">
+					<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
+							<div class="project">
+								<div class="img" style="max-height:150px; width:auto;" id="imginfo">
+								
+							
+									
+								</div>
+						</div>
+				</div>
+							
 			</div>
 		</div>
 			
