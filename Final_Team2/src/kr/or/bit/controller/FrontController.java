@@ -328,10 +328,6 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		}
-		else if (url_Command.equals("/RecommendDetail.do")) {
-			action = new RecommendDetailService();
-			forward = action.execute(request, response);
-		}
 		// 마이페이지 내 정보 조회 
 		else if (url_Command.equals("/MyInformation.do")) {
 			action = new MyInformationService();
