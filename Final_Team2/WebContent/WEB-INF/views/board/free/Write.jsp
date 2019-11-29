@@ -104,7 +104,7 @@
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form action="FreeBoardWriteOk.do?cmd=
+            <form id="frm" action="FreeBoardWriteOk.do?cmd=
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
                 	<c:otherwise>write</c:otherwise>
@@ -118,10 +118,10 @@
 				<div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 
-                		<input type="button" onclick="writeCheck()" class="btn btn-primary mr-3" value="수정">
+                		<input type="submit" class="btn btn-primary mr-3" value="수정">
                 	 </c:when>
                 	<c:otherwise> 
-                		<input type="button" onclick="writeCheck()" class="btn btn-primary mr-3" value="작성">
+                		<input type="submit" class="btn btn-primary mr-3" value="작성">
                  	</c:otherwise>
                 </c:choose> 
                     
