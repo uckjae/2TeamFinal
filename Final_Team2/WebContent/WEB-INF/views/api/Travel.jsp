@@ -30,7 +30,7 @@ function getDatas(code){
 	var ParamAreaCode = "&areaCode=";
 	var paramAppTest = "&MobileApp=AppTest&MobileOS=ETC";
 	var pramArrange = "&arrange=A";
-	var paramNumOfRows = "&numOfRows=10";
+	var paramNumOfRows = "&numOfRows=20";
 	var paramPageNo =  "&pageNo=";
 	var pramAreaBasedList ="areaBasedList?";
 	var type = "&_type=json";
