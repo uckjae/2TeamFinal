@@ -21,7 +21,6 @@
     <script type="text/javascript">
    		let charLimit = 4000;
         $(function () {
-
             $('#summernote').summernote({
                 height: 310,
                 placeholder: "글을 입력하세요.",
@@ -58,10 +57,8 @@
         })
         
         function vaildate(){
-        	if($('#title').val()=="" || $('#summernote').val()=="" || stringToByte($('#summernote').val()) > charLimit){
-        		errorAlert("입력 내용을 확인해주세요.");
-        		return false;
-        	}
+        	let result = checkBoardConten($('#title').val(), $('#summernote').val());
+        	return result;
         }
     </script>
 </head>
@@ -113,11 +110,12 @@
 								 <c:if test="${ !qnaWrite.isPublic() }"> checked </c:if> 
 						>비공개
 					</label>
-				
 				</div>
+				
 				<div class="text-right" id="lengthBox"> 
 					<span id="total-characters"></span>/<span id="max"></span>
 				</div>
+				
                 <div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 
