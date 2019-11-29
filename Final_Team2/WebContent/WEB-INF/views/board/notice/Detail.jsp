@@ -34,7 +34,7 @@
                 <div class="text-right">
                 	<c:if test="${noticeDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                 		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='NoticeBoardWrite.do?cmd=edit&bIdx=${noticeDetail.bIdx}'">
-                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='NoticeBoardDelete.do?bIdx=${noticeDetail.bIdx}'">
+                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="deleteAlert('NoticeBoardDelete.do?',${noticeDetail.bIdx})">
                 	</c:if>
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='NoticeBoardList.do'" >
                 </div>

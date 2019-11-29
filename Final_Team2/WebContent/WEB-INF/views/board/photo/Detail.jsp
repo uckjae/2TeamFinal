@@ -74,7 +74,7 @@ textarea{
 							<td colspan="2" >
 							<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
 							<input type="button" class="btn btn-primary" value="수정" onclick="location.href='PhotoWrite.do?cmd=edit&bidx=${board.bIdx}'">
-							<input type="button" class="btn btn-danger" value="삭제" onclick="location.href='PhotoBoardDelete.do?bidx=${board.bIdx}'">
+							<input type="button" class="btn btn-danger" value="삭제" onclick="deleteAlert('PhotoBoardDelete.do?',${board.bIdx})">
 							</c:if>
 							<input type="reset" value="목록" class="btn btn-primary" onclick="location.href='PhotoBoardList.do'">	
 							</td>
