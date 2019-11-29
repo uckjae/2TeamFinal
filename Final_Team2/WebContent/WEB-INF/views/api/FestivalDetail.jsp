@@ -227,7 +227,35 @@ body {
 
 			marker.setMap(map);
 		}
+		
 	});
+	function showTList(){
+		var jsonId = {"id":"${sessionScope.memberId}"};
+		$.ajax({
+			type :'POST',
+			url : "APIMTLFolderList",
+			data: jsonId,
+			dataType: "json",
+			success : function (data){
+				console.log($.type(data));
+				if($.type(data) == 'array') {
+					$.each(data, function(index,element){
+						$("#innerModalIntro").append("<p>" + element.name + "</p>");
+						console.log("index값 each 문 안 : " + element.tlidx);
+					});
+				} else {
+					$("#innerModalIntro").text(data.name);
+					console.log("index값 each 문 안 : " +data.tlidx);
+					
+				} 
+			},
+			error:function(request, status, error){
+				console.log(error);
+	            alert("실패");
+	       }
+		});
+		}	
+	
 </script>
 </head>
 
@@ -281,12 +309,12 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "post" action="APIMTFolderList.do">
-        <div class="modal-body" id="innerModal">   		
-			폴더 목록보기 
+        <form id="frm" method = "post">
+        <div class="modal-body" id="innerModalIntro">   		
+			
         </div>
         <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" id="modalBtn">          
+          <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" value="목록보기">목록보기</button>          
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
         </form>
