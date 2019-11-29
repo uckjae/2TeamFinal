@@ -53,9 +53,7 @@
 				
 				$("#checkId").removeAttr("hidden");
 			},
-			error : function(){
-				
-			}
+			error : function(){ }
 		});
 	}
 	
