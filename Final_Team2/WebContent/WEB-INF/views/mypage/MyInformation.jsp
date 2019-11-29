@@ -65,7 +65,7 @@
 	<div class="content-center">
 		<div class="row justify-content-center pb-5">
 			<div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
-				<h2 class="text-center mb-3">[ ${member.id }]님 정보 조회 </h2>
+				<h2 class="text-center mb-3">My Information </h2>
 				<form id="frm" class="search-property-1" method="post">
 					<div class="row">
 						<div class="col-lg-12  mb-3">

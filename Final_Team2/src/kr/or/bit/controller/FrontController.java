@@ -38,7 +38,7 @@ import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWrite;
 import kr.or.bit.service.MyCourseBoardWriteOkService;
-import kr.or.bit.service.MyInformationIntroService;
+import kr.or.bit.service.MyInformationService;
 import kr.or.bit.service.NoticeBoardDeleteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
@@ -323,7 +323,7 @@ public class FrontController extends HttpServlet {
 		}
 		// 마이페이지 내 정보 조회 
 		else if (url_Command.equals("/MyInformation.do")) {
-			action = new MyInformationIntroService();
+			action = new MyInformationService();
 			forward = action.execute(request, response);
 		}
 		
