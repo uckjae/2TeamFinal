@@ -9,6 +9,7 @@
     <!-- daum api -->
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" src="js/execDaumPostcode.js"></script>
+    <script language="javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <title>Main</title>
     <style type="text/css">
     	html, body{
@@ -19,6 +20,13 @@
     	}
     </style>
     <script type="text/javascript">
+	/* 정규식 */
+    let getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/); // id / pwd
+	let getEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); // email
+	let getName= RegExp(/^[가-힣]+$/); // 이름
+	let getJumin = RegExp(/^\d{6}$/); // 주민번호 앞자리
+	let getGender = RegExp(/^[1-4]/); // 주민번호 앞자리
+	
     let emailCode = "";
     let checkEmail = false;
 	$(function () {
@@ -29,12 +37,9 @@
 		$("#id").blur(checkId);
 		$("form").submit(test);
 	})
-
-	function test(){
-		console.log("test");
-	}
 	
 	function checkId(){
+		let id = document.getElementById("id");
 		if( $("#id").val() == ""){
 			return;
 		}
@@ -46,21 +51,26 @@
 				if(data == "true"){
 					$("#checkId").text("중복된 아이디입니다.")
 					$("#checkId").attr("style","color : red");
-				}else{
+				}else {
+					if(!getCheck.test($("#id").val())) {
+						$("#checkId").text("형식에 맞지 않는 아이디입니다")
+						$("#checkId").attr("style","color : red");
+					}else{
 					$("#checkId").text("사용 가능한 아이디입니다.")
 					$("#checkId").attr("style","color : green");
+					}
 				}
 				
 				$("#checkId").removeAttr("hidden");
 			},
-			error : function(){
-				
-			}
+			error : function(){ }
 		});
 	}
 	
 	function sendMail(){
 		if( $("#email").val() == ""){
+			alert("이메일을 입력하세요");
+			$("#email").focus();
 			return;
 		}
 		
@@ -110,6 +120,41 @@
 			event.returnValue = false;
 		}
 	}
+	
+	function validate() {
+		if(!getCheck.test($("#pwd").val())){
+	        alert("비밀번호 형식이 맞지않습니다");
+	        $("#pwd").val("");
+	        $("#pwd").focus();
+	        return false;
+		}
+		if(!getName.test($("#name").val())){
+	        alert("이름을 정확히 입력해주세요");
+	        $("#name").focus();
+	        return false;
+		}
+		if(!getJumin.test($("#birth").val())){
+	        alert("생년월일을 적확히 입력해주세요 ex)191129");
+	        $("#birth").focus();
+	        return false;
+		}
+		if(!getGender.test($("#gender").val())){
+	        alert("1~4 입력 ");
+	        $("#gender").focus();
+	        return false;
+		}
+		if($("address").val() == null){
+	        alert("주소를 입력해주세요");
+	        console.log($("postCode").val());
+	        $("#openPostCode").click();
+	        return false;
+		}
+		if(!checkEmail) {
+			alert("이메일 인증을 해주세요");
+			$("#emailCode").focus();
+			return false;
+		}
+	}
 </script>
 </head>
 
@@ -123,7 +168,7 @@
         <!-- <div class="row justify-content-center pb-5"> -->
           <!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
                 <h2 class="text-center mb-3">REGISTER</h2>
-                <form action="RegisterOk.do" class="search-property-1" method="post">
+                <form action="RegisterOk.do" class="search-property-1" method="post" name="form" onsubmit="return validate()">
                     <!-- <div class="row"> -->
                         <div class="col-lg-6 offset-lg-3 mb-3">
                             <div class="form-group">

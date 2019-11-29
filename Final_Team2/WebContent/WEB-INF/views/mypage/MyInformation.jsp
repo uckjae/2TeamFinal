@@ -21,37 +21,114 @@
     </style>
     <script type="text/javascript">
     	$(function(){
-
-    		if(${isEdit}){
-    		 	$("#frm").attr("action", "MemberEditOk.do");
-    			$("#id").attr("readonly", "readonly");
-    			$("#email").attr("readonly", "readonly");
-    			$("#birth").attr("readonly", "readonly"); 
-    			if($("#checkbox").is(":checked"))
-    				$("#disable").val(1);
-    			else
-    				$("#disable").val(0);
-        		$("#openPostCode").click(execDaumPostcode);
-    			$("#postCode").click(execDaumPostcode);
-    		}else{
-    			$("input").attr("readonly", "readonly");
-    			$("#frm").attr("action", "MemberList.do");
-    			$(":checkbox").attr("disabled", "disabled");
-    		}
+    		$("#okBox").css("display","none");
+    		$("#editAddressBox").css("display","none");
+    		$("input").attr("readonly", "readonly");
+			$("#frm").attr("action", "MemberList.do");
+			$(":checkbox").attr("disabled", "disabled");
     		
     		$("#postCode").attr("readonly", "readonly");
     		$("#address").attr("readonly", "readonly");
     		$("input:radio").attr("disabled", "disabled");
     		$("input:submit").removeAttr("disabled"); 
-    		
-    		$("#checkbox").change(function(){
-    			if(this.checked)
-    				$("#disable").val(1);
-    			else
-    				$("#disable").val(0);
-    		})
     	})
+    	
+    	function editMember(){
+    		$("#header").text("Edit My Information");	
+    		$("#okBox").css("display","block");
+    		$("#detailAddressBox").css("display","none");
+    		
+    		$("#editAddressBox").css("display","block");
+    		$("#editBox").css("display","none");
+    		$("#outBox").css("display","none");
+    		
+    		$("input").removeAttr("readonly");
+    		$("#frm").attr("action", "MemberEditOk.do?cmd=user");
+    		
+			$("#id").attr("readonly", "readonly");
+			$("#email").attr("readonly", "readonly");
+			$("#birth").attr("readonly", "readonly"); 
+			$("#postCode").attr("readonly", "readonly");
+    		$("#address").attr("readonly", "readonly");
+			
+    		$("#openPostCode").click(execDaumPostcode);
+			$("#postCode").click(execDaumPostcode);
+    		
+    		// 페이지 맨 위로 이동
+    		$("html").animate({ scrollTop: 0 }, 250);
+    	}
+    	
+    	function delMember(){
+    		//let href = "MemberDelete.do?cmd=myInfo&id=" + deleteId;
+    		Swal.fire({
+  			  title: 'Are you sure?',
+  			  icon: 'warning',
+  			  showCancelButton: true,
+  			  confirmButtonColor: '#3085d6',
+  			  cancelButtonColor: '#d33',
+  			  confirmButtonText: 'Yes'
+  			}).then((result) => {
+  			  if (result.value) {
+  				checkPassword();
+  			  }
+  			})
+    	}
 
+    	function checkPassword(){
+    		(async () => {
+    			const { value: password } = await Swal.fire({
+    			  title: 'Enter your password',
+    			  input: 'password',
+    			  inputPlaceholder: 'Enter your password',
+    			  inputAttributes: {
+    			    maxlength: 10,
+    			    autocapitalize: 'off',
+    			    autocorrect: 'off'
+    			  }
+    			})
+    			
+    			 if (password == ${member.pwd }) {
+    				 $.ajax({
+    					 url : "OutMember",
+    					 type:'POST',
+    					 success : function(data){
+    						 console.log(data);
+    						 if(data){
+    							 Swal.fire({
+    			    				  title: '탈퇴 완료',
+    			    				  text : '메인 화면으로 이동합니다.',
+    			    				  showConfirmButton: false,
+    			    				  timer: 2000
+    			    			  }).then(function() {
+    			    				  location.href = 'index.jsp';
+    			    			  })
+    						 }
+    						 else{
+    							 Swal.fire({
+    			      				  title: '탈퇴 실패',
+    			      				  showConfirmButton: false,
+    			      				  timer: 1000
+    			      			  })
+    						 }
+    					 },
+    					 error : function( jqXHR, text, exception){
+    						 Swal.fire({
+			      				  title: text,
+			      				  showConfirmButton: false,
+			      				  timer: 1000
+			      			  })
+    					 }
+    				 })
+    			} else{
+    				Swal.fire({
+      				  title: '탈퇴 실패',
+      				  text : '비밀번호가 일치하지 않습니다.',
+      				  showConfirmButton: false,
+      				  timer: 1000
+      			  })
+    			}
+    			})( )
+    	}
     </script>
 </head>
 
@@ -61,11 +138,11 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <c:set var="member" value="${requestScope.memberInfo}" />
+    <c:set var="member" value="${requestScope.member}" />
 	<div class="content-center">
 		<div class="row justify-content-center pb-5">
 			<div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
-				<h2 class="text-center mb-3">My Information </h2>
+				<h2 class="text-center mb-3" id="header">My Information </h2>
 				<form id="frm" class="search-property-1" method="post">
 					<div class="row">
 						<div class="col-lg-12  mb-3">
@@ -135,41 +212,53 @@
 							<div class="form-group">
 								<label for="#">ADDRESS</label>
 								<c:set var="address" value="${fn:split(member.address, '/')}" />
-								<input type="number" id="postCode"
-									name="postCode" class="form-control" value="${address[0]}"
-									aria-label="Search" aria-describedby="basic-addon2"
-									style="height: 50px">
-								<div class="input-group-append">
-									<button class="btn btn-primary" type="button" id="openPostCode">
-										<i class="fas fa-search"></i>
-									</button>
+								<div class="form-field" id="detailAddressBox">
+                                	<div class="row">
+	                                	<div class="col-lg-3">
+	                                	   <input type="number" id="dPostCode" name="dPostCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
+	                                	</div>
+	                                	<div class="col-lg-9"> 
+	                                		<input type="text" class="form-control" id="dAddress" name="dAddress" value="${address[1] }" >
+	                                	</div>
+	                                </div>
+                                </div>
+								<div id="editAddressBox">
+									<input type="number" id="postCode" name="postCode" class="form-control" aria-label="Search" aria-describedby="basic-addon2"
+											value="${address[0]}"style="height: 50px" >
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="button" id="openPostCode">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+									<div class="form-field">
+										<input type="text" class="form-control" id="address" name="address" value="${address[1] }">
+									</div>
 								</div>
-								<div class="form-field">
-									<input type="text" class="form-control" id="address"
-										name="address" value="${address[1] }">
-								</div>
-
 							</div>
 						</div>
 						
-						<div class="col-md-6 align-self-end">
+						<input type="hidden" id="disable" name="disable" value="${member.disable?1:0}"> 
+
+						<div class="col-md-6 align-self-end" id="editBox">
 							<div class="form-group">
 								<div class="form-field ">
-								<a href="MyInforamtionEdit?id=${member.id }">
-									<button  type="button" class="btn btn-primary  form-control"> 
-										수정
-									</button></a>
+									<input  type="button" class="btn btn-primary  form-control" onclick="editMember()" value="수정"> 
 								</div>
 							</div>
 						</div>
 						
-						<div class="col-md-6 align-self-end">
+						<div class="col-md-6 align-self-end" id="outBox">
 							<div class="form-group">
 								<div class="form-field">
-								<a href="MyInforamtionEdit?id=${member.id }">
-								<button  type="button" class="btn  form-control"> 
-										탈퇴
-									</button></a>
+									<input  type="button" class="btn  form-control" onclick="delMember()" value="탈퇴">  
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-12 align-self-end" id="okBox">
+							<div class="form-group">
+								<div class="form-field ">
+									<input  type="submit" class="btn btn-primary  form-control" id="okBtn" value="확인"> 
 								</div>
 							</div>
 						</div>

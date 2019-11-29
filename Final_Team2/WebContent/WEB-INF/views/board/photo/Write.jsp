@@ -119,11 +119,11 @@ $(document).ready(function(){
 			
 			<c:choose>
 				<c:when test="${Edit }">
-			<input type="reset" value="수정취소" class="btn btn-danger"  onclick="'PhotoBoardList.do'" style="float: right;margin-left: 50px">
+			<input type="reset" value="수정취소" class="btn btn-danger" onclick="location.href='PhotoBoardList.do'" style="float: right;margin-left: 50px">
 			<input id="PhotoGo" type="submit" value="수정" class="btn btn-primary" style=" float: right;">
 			</c:when>
 			<c:otherwise>
-			<input type="reset" value="작성취소" class="btn btn-danger"  onclick="'PhotoBoardList.do'" style="float: right;margin-left: 50px">
+			<input type="reset" value="작성취소" class="btn btn-danger"  onclick="location.href='PhotoBoardList.do'" style="float: right;margin-left: 50px">
     		<input id="PhotoGo" type="submit" value="작성완료" class="btn btn-primary" style=" float: right;">
 			</c:otherwise>
 			</c:choose>
