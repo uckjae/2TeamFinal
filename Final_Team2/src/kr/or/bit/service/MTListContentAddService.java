@@ -21,6 +21,9 @@ public class MTListContentAddService implements Action {
 		String spotName= request.getParameter("spotName");
 		String image = request.getParameter("mTLimage");
 		Date spotDate = null;
+		System.out.println("tLidx : " + tLidx);
+		System.out.println("spotName : " + spotName);
+		System.out.println("image : " + image);
 		try {
 			spotDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("spotDate"));
 		} catch (ParseException e) {
@@ -28,9 +31,14 @@ public class MTListContentAddService implements Action {
 		}
 		String spotAddr = request.getParameter("spotAddr");
 		String spotLink = request.getParameter("spotLink");
-		
+		System.out.println("tLidx : " + tLidx);
+		System.out.println("spotName : " + spotName);
+		System.out.println("image : " + image);
+		System.out.println("spotDate : " + spotDate);
+		System.out.println("spotAddr : " + spotAddr );
+		System.out.println("spotLink : " + spotLink);
 		int resultRow = boardDao.mTListContentAdd(tLidx,spotName,image,spotDate,spotAddr,spotLink);
-		
+		System.out.println("resultRow : " + resultRow);
 		forward.setPath("/WEB-INF/views/api/FestivalDetail.jsp");
 		return forward;
 	}
