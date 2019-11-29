@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -25,6 +27,16 @@
  </script>
 </head>
 <body>
+
+
+<c:choose>
+	<c:when test="${param.useMyTravel == null || param.useMyTravel == 'true'}">
+		<c:set var="useMyTravel" value="true"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="useMyTravel" value="false"/>
+	</c:otherwise>
+</c:choose>
 <div class="col-2" style="align-self: center;">
 	<div class="dropup text-right" id="more">
 		<button class="btn btn-default " type="button" data-toggle="dropdown">
@@ -33,7 +45,10 @@
 	    <div class="dropdown-menu ">
 			<a class="dropdown-item" href="javascript:copy()" >링크 복사</a>	
 			<a class="dropdown-item" href="javascript:sendKaKaoLink()" id="kakaoLink">카카오톡으로 공유</a>	
-			<a class="dropdown-item" href="#" data-toggle="modal" data-target="#myTravelListModalIntro" >내 여행 리스트에 추가</a>	
+			<c:if test="${useMyTravel}">
+				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#myTravelListModalIntro" >내 여행 리스트에 추가</a>	
+			</c:if>
+			
 		</div>
 	</div>
 </div>
