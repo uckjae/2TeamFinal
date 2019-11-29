@@ -8,6 +8,7 @@
 <c:import url="/common/HeadTag.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
 <title>Insert title here</title>
 <style type="text/css">
@@ -94,9 +95,9 @@ body {
 		//공통정보 JSON each문
 		$.getJSON(apicommon, function(data) {
 			var myData = data.response.body.items.item;
-			console.log("공통정보");
 			
-			console.log(myData);
+			
+			
 			$("#title").text(myData.title);
 			$.each(myData, function(key, value) {
 				if (key == "overview") {
@@ -109,39 +110,34 @@ body {
 					$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
 				} else if (key == "mapx") {
 					x = value;
-					console.log(x);
+					
 				} else if (key == "mapy") {
 					y = value;
-					console.log(y);
+					
 				}else if(key =="firstimage2"){
 					image = value;
-					console.log(image);
+					
 				}
 
 			});
-			console.log("image222");
-			console.log(image);
-			console.log("call getMaps");
+			
 			getLocation();
 			getMaps();
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
 				var myData3 = data3.response.body.items.item;
-				console.log(data3);
-				console.log("이미지");
-				console.log(myData3);
+				
 				if(myData3==null){
-					console.log("if ok");
-					console.log(image);
+					
 					var img2 = $('<img>');
-					console.log($(img2));
+					
 						$(img2).attr("src",image);
 					$("#imgarea").append(img2);
 				}else{
 				
 					$.each(myData3, function(index, element) {
 						var img2 = $('<img>');
-					console.log($(img2));
+					
 							$(img2).attr("src",element.originimgurl);
 							$(img2).attr("onError","this.src="+image);
 						$("#imgarea").append(img2);
@@ -155,8 +151,7 @@ body {
 		//소개정보 JSON
 		$.getJSON(apidetail, function(data2) {
 			var myData2 = data2.response.body.items.item;
-			console.log("소개정보")
-			console.log(myData2);
+			
 			$.each(myData2, function(key, value) {
 				if (key == "eventplace") {
 					$("#content").append(
@@ -208,8 +203,7 @@ body {
 			$.getJSON(apilocation, function(data4) {
 				var myData4 = data4.response.body.items.item;
 				
-				console.log("위치");
-				console.log(myData4);
+				
 			});
 		}
 
@@ -221,9 +215,7 @@ body {
 			// 지도의 확대 레벨
 			};
 
-			console.log("in getMaps");
-			console.log("x:" + x);
-			console.log("y:" + y);
+			
 			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 			var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -279,7 +271,29 @@ body {
 			
 		</div>
 	</section>
-
+<!-- 모달창  -->
+<div class="modal fade" id="myTravelListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="frm" method = "post">
+        <div class="modal-body" id="innerModal">   		
+        	<input type="text" name="editFolder" id="inputInnerModal"> 
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" id="modalBtn">
+          
+       <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 </body>
 

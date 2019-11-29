@@ -6,25 +6,30 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.BoardDao;
-import kr.or.bit.dto.Board;
-import kr.or.bit.dto.FreeBoard;
 
-public class FreeBoardReWriteService implements Action{
+public class MyCourseBoardDeleteService implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		FreeBoard freeBoardReWrite = null;
-		BoardDao dao = new BoardDao();
 		
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
-		freeBoardReWrite = dao.freeBoardDetail(bIdx);
+		BoardDao dao = new BoardDao();
+		boolean mCBoardDelete = dao.courseDelete(bIdx);
 		
-		request.setAttribute("freeBoardReWrite", freeBoardReWrite);
-		forward.setPath("/WEB-INF/views/board/free/ReWrite.jsp");
+		String msg = "";
+		if(mCBoardDelete) {
+			msg = "게시글 삭제 완료";
+		} else {
+			msg = "게시글 삭제 실패";
+		}
+		request.setAttribute("board_msg", msg);
+		request.setAttribute("board_url", "MyCourseBoardList.do");
+
+		forward.setPath("/common/Redirect.jsp");
 		
 		return forward;
 	}
-
+	
 }

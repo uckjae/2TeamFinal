@@ -109,6 +109,7 @@
 				$("#title").text(titleData);
 				//console.log(data.response.body.items.item.mapx);
 				//console.log(data.response.body.items.item.mapy);
+				
 				//날씨api
 				var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
 				//console.log(rs);
@@ -130,52 +131,47 @@
 				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
 				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
 				var baseTime = "&base_date="+year+month+day+hour+"00";
-				var nx = "&nx="+x;
-				var ny = "&ny="+y;
+				var nx = "&nx="+xValue;
+				var ny = "&ny="+yValue;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
-				var xy = {"x": xValue,"y":yValue};
+				var jsonWeatherUrl = {"weatherUrl": weatherUrl};
 				$.ajax({
 					url: "Weather.ajax", 
 					dataType: 'json',
 					type:"GET",
-					data: xy,
-					success: function(weather){
-						console.log("success"+ qwe);
+					data: jsonWeatherUrl,
+					success: function(weatherData){
+						console.log("success");
+						console.log(weatherData);
+						var icon = $('<i>');
+						var totalRain = $('<span>');
+						var degree = $('<span>');
+						$.each(weatherData.response.body.items.item,function(index,element){
+							if(element.category =="PTY"){
+								
+								if(element.obsrValue == 0){
+									$(icon).attr("class","wi wi-day-sunny");
+								}else if(element.category > 1){
+									$(icon).attr("class","wi wi-day-rain");
+								}
+							}else if(element.category == "RN1"){
+								$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
+							}else if(element.category == "T1H"){
+								$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
+							}
+						});
+						$("#title").after(totalRain);
+						$("#title").after(degree);
+						$("#title").after(icon);
 					},
 					/* error: function(jqXHR, textStatus, errorThrown){
 						console.log("error"+textStatus);
 					} */
 				});
+				//날씨api END!!
 				
-				function myCallback(base){
-					console.log("mycall");
-					console.log(base);
-					return data;
-				}
-				/* $.getJSON(weatherUrl,function(weatherData){
-					console.log(weatherData);
-					var icon = $('<i>');
-					var totalRain = $('<span>');
-					var degree = $('<span>');
-					$.each(weatherData.response.body.items.item,function(index,element){
-						if(element.category =="PTY"){
-							console.log("해가 들어오나??");
-							if(element.obsrValue == 0){
-								$(icon).attr("class","wi wi-day-sunny");
-							}else if(element.category > 1){
-								$(icon).attr("class","wi wi-day-rain");
-							}
-						}else if(element.category == "RN1"){
-							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
-						}else if(element.category == "T1H"){
-							$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
-						}
-					});
-					$("#title").after(totalRain);
-					$("#title").after(degree);
-					$("#title").after(icon);
-				}); */
+				
 				
 				
 				//인근지역 정보
@@ -203,7 +199,7 @@
 								$(link).attr("href","FestivalDetail.do?contentId="+arroundItem.contentid);
 								var spotName = $('<h6>');
 									$(spotName).text(element.title);
-								$(link).append(spontName);
+								$(link).append(spotName);
 								$(txtDiv).append(link);
 							
 							$(pjt).append(imgDiv);

@@ -205,6 +205,7 @@ function searchFn() {
 						<div class="col-md align-self-end">
 							<div class="form-group">								
 								<div class="form-field">
+								<div class="icon ml-2"><i class="ion-ios-search" style="color:black"></i></div>
 									<input type="text" class="form-control"
 										placeholder="   검색어를 입력하세요" name="searchBar" id="searchBar">										
 								</div>
@@ -214,6 +215,7 @@ function searchFn() {
 						<div class="col-md align-self-end">
 							<div class="form-group">
 								<div class="form-field col-xl-6">
+								<i class = > </i>
 									<input type="button" value="검색"
 										class="form-control btn btn-primary" onclick="searchFn()">
 								</div>

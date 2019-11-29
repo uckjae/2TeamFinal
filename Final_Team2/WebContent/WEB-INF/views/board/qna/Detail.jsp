@@ -24,6 +24,10 @@
     	$(function(){
     		setReadNum(${qnaDetail.bIdx});
     	});
+    	
+    	function deleteAlert(bIdx){
+    		
+    	}
     </script>
 </head>
 

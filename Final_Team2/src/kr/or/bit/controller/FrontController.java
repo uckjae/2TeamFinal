@@ -34,10 +34,12 @@ import kr.or.bit.service.MemberDeleteService;
 import kr.or.bit.service.MemberEditOkService;
 import kr.or.bit.service.MemberListService;
 import kr.or.bit.service.MemberService;
+import kr.or.bit.service.MyCourseBoardDeleteService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWrite;
 import kr.or.bit.service.MyCourseBoardWriteOkService;
+import kr.or.bit.service.MyInformationService;
 import kr.or.bit.service.NoticeBoardDeleteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
@@ -173,6 +175,10 @@ public class FrontController extends HttpServlet {
 		}
 		else if (url_Command.equals("/MyCourseBoardWriteOk.do")) {
 			action = new MyCourseBoardWriteOkService();
+			forward = action.execute(request, response);
+		}
+		else if (url_Command.equals("/MyCourseBoardDelete.do")) {
+			action = new MyCourseBoardDeleteService();
 			forward = action.execute(request, response);
 		}
 		// Notice Board
@@ -322,8 +328,8 @@ public class FrontController extends HttpServlet {
 		}
 		// 마이페이지 내 정보 조회 
 		else if (url_Command.equals("/MyInformation.do")) {
-			forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/mypage/MyInformation.jsp");
+			action = new MyInformationService();
+			forward = action.execute(request, response);
 		}
 		
 		if (forward != null) {

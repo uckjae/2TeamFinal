@@ -30,8 +30,9 @@
 
             // 검색 th 칼럼 별로 할 수 있게 select 생성
             let ths = $('#dataTable > thead > tr > th');
+            $('#select').append('<option>전체</option>');
             ths.each(function (index, element) {
-                if (index < 2) // 앞에 두개만
+                if (index < 3) // 앞에 3개만
                     $('#select').append('<option>' + element.innerHTML + '</option>');
             });
 
@@ -46,13 +47,14 @@
 
             function tableSearch() {
                 let colIndex = document.querySelector('#select').selectedIndex;
-                let deptno = $("#deptSelect option:selected").val();
                 let searchText = $('.dataTables_filter input').val();
-
-                if (deptno == "*") {
-                    table.column(colIndex).search(searchText).column(2).search("").draw();
-                } else {
-                    table.column(colIndex).search(searchText).column(2).search(deptno).draw();
+				// 전체 검색
+                if(colIndex==0){
+                	table.search(searchText).draw();
+                } 
+            	// 컬럼 검색
+                else{
+                	table.column(colIndex-1).search(searchText).draw();
                 }
             }
         });
@@ -91,19 +93,24 @@
                     <tbody>
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
-                            <td align="center">${board.bIdx}</td>
+                            <td>${board.bIdx}</td>
                             <td class="sorting_1">
                             <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx})" href="#">
-                            	<c:if test="${! board.isPublic() }">
-                            		<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
-                            	</c:if>
+                            	<c:choose>
+                            		<c:when test="${! board.isPublic() }">
+                            			<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
+                            		</c:when>
+                            		<c:otherwise>
+                            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            		</c:otherwise>
+                            	</c:choose>
                             	${board.title}</a></td>
-            	            <td align="center">${board.id}</td>
-                            <td align="center">
+            	            <td class="center">${board.id}</td>
+                            <td class="center">
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
 
-                            <td align="center">${board.rNum}</td>
+                            <td class="center">${board.rNum}</td>
                         </tr>
                     </c:forEach>
                    </tbody>
