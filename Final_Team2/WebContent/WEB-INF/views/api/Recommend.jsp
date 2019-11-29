@@ -10,7 +10,7 @@
 	<title>추천 여행지</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
+		let servicekey = "A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		$(function(){
 			init();
 		});
@@ -226,8 +226,11 @@ html, body {
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
     <div class="content">
-		<div class="row mb-4">
-			<div class="col-md-9">
+		<div class="comment-form-wrap pt-xl-2">
+			
+			<h1 class="text-center mb-3 bread" style="font-size: 60px;">추천 여행지</h1>
+			
+			<!-- <div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row" >
 						<div class="col-lg align-self-end col-md-10">
@@ -251,7 +254,7 @@ html, body {
 						</div>
 					</div>
 				</form>
-			</div>		
+			</div>	 -->	
 		</div>
 		
 		<!-- 검색 태그 영역 -->
@@ -283,22 +286,6 @@ html, body {
 				</div><hr>
 			</div>
 		</div>
-		<div class="content">
-			<div class="text-right" >
-	 				<button type="button" class="btn btn-primary" id="new">최신순</button>
-	 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
-			</div>
-			<div  id="dataBox"></div>
-			
-			<div class="pagination-sm mt-3 mb-3" style="text-align:center">
-			    <a href="#" class="btn btn-primary">&laquo;</a>
-				<a href="#" class="btn btn-primary">1</a>
-				<a href="#" class="btn btn-primary">2</a>
-				<a href="#" class="btn btn-primary">3</a>
-				<a href="#" class="btn btn-primary">4</a>
-				<a href="#" class="btn btn-primary">5</a>
-				<a href="#" class="btn btn-primary">&raquo;</a>
-			</div>
-		</div>
+		
 </body>
 </html>
