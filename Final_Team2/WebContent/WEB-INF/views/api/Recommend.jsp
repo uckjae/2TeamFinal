@@ -10,7 +10,7 @@
 	<title>추천 여행지</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
+		let servicekey = "A8dvXKFhG%2BUeavjNpRHKFWhv%2FqmYLxNXJvSBl77Uo0%2BLcCKhKLCEa9XUq5%2ByKy%2BI%2FjTU9Jjh5o0Mgbdzo4C3CA%3D%3D";
 		$(function(){
 			init();
 		});
@@ -83,7 +83,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>서울</span>"
 											+"<div class='contain'>"
 											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -94,7 +94,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>인천</span>"
 											+"<div class='contain'>"
 											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -105,7 +105,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>경기</span>"
 											+"<div class='contain'>"
 											+"<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -118,7 +118,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>서울</span>"
 											+"<div class='contain'>"
 											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -129,7 +129,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>인천</span>"
 											+"<div class='contain'>"
 											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -140,7 +140,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>경기</span>"
 											+"<div class='contain'>"
 											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -153,7 +153,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>서울</span>"
 											+"<div class='contain'>"
 											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -164,7 +164,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>인천</span>"
 											+"<div class='contain'>"
 											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -175,7 +175,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>경기</span>"
 											+"<div class='contain'>"
 											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
 											+"<span id='text'>" + myData.title + "</span></a></div></div>");
@@ -226,8 +226,11 @@ html, body {
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
     <div class="content">
-		<div class="row mb-4">
-			<div class="col-md-9">
+		<div class="comment-form-wrap pt-xl-2">
+			
+			<h1 class="text-center mb-3 bread" style="font-size: 60px;">추천 여행지</h1>
+			
+			<!-- <div class="col-md-9">
 				<form action="#" class="search-property-1">
 					<div class="row" >
 						<div class="col-lg align-self-end col-md-10">
@@ -251,11 +254,11 @@ html, body {
 						</div>
 					</div>
 				</form>
-			</div>		
+			</div>	 -->	
 		</div>
 		
 		<!-- 검색 태그 영역 -->
-		<div id="tagBox"> </div>
+		<!-- <div id="tagBox"> </div> -->
 		
 		</div>
 		
@@ -283,22 +286,6 @@ html, body {
 				</div><hr>
 			</div>
 		</div>
-		<div class="content">
-			<div class="text-right" >
-	 				<button type="button" class="btn btn-primary" id="new">최신순</button>
-	 				<button type="button" class="btn btn-primary" id="pop">인기순</button>
-			</div>
-			<div  id="dataBox"></div>
-			
-			<div class="pagination-sm mt-3 mb-3" style="text-align:center">
-			    <a href="#" class="btn btn-primary">&laquo;</a>
-				<a href="#" class="btn btn-primary">1</a>
-				<a href="#" class="btn btn-primary">2</a>
-				<a href="#" class="btn btn-primary">3</a>
-				<a href="#" class="btn btn-primary">4</a>
-				<a href="#" class="btn btn-primary">5</a>
-				<a href="#" class="btn btn-primary">&raquo;</a>
-			</div>
-		</div>
+		
 </body>
 </html>

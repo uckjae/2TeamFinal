@@ -56,7 +56,6 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
-import kr.or.bit.service.RecommendDetailService;
 
 import kr.or.bit.service.RegisterOkService;
 import kr.or.bit.service.TravelDetailService;
@@ -326,10 +325,6 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/Recommend.do")) {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
-		}
-		else if (url_Command.equals("/RecommendDetail.do")) {
-			action = new RecommendDetailService();
-			forward = action.execute(request, response);
 		}
 		// 마이페이지 내 정보 조회 
 		else if (url_Command.equals("/MyInformation.do")) {
