@@ -22,7 +22,7 @@
                     data: 'mCIdx=${mCBoard.mCidx}',
                     success: function (data) {
                         console.log(data);
-                        $("#likeNum").text(data);
+                        $("#likeNum").html("&nbsp;&nbsp;"+data);
                     }
 
                 });
@@ -77,8 +77,8 @@
             <div class="timeline-start">Start</div>
 
             <div class="text-right mt-3" style="float: right;">
-                <span class="like-button">추천</span>
-                <span id="likeNum">${mCBoard.likeNum }</span>
+                <button class="like-button btn btn-primary">추천</button>
+                <span id="likeNum">&nbsp;&nbsp;${mCBoard.likeNum }</span>
             </div>
             <div class="conference-center-line"></div>
             <div class="conference-timeline-content">
@@ -125,7 +125,7 @@
 
             <div class="text-right">
                 <c:if
-                    test="${qnaDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
+                    test="${mCBoard.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                     <input type="button" class="btn btn-primary" value="수정"
                         onclick="location.href='MyCourseBoardWrite.do?cmd=edit&bidx=${mCBoard.bIdx}'">
                     <input type="button" class="btn btn-primary" value="삭제"

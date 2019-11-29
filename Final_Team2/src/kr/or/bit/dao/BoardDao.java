@@ -1218,6 +1218,7 @@ public class BoardDao {
 			pstmt.setInt(1, mCIdx);
 			pstmt.setString(2, id);
 			rs = pstmt.executeQuery();
+			System.out.println("boardDao getCourseLikeNum() 이거하나 넣었다고 되네??");
 			if (rs.next()) {
 				String deleteLikeMemberSql = "DELETE FROM LMLIST WHERE ID=?";
 				pstmt = conn.prepareStatement(deleteLikeMemberSql);
@@ -1290,20 +1291,24 @@ public class BoardDao {
 
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
-
+		String photoDelete = "DELETE FROM PHOTO WHERE BIDX = ?";
 		String courseDelete = "DELETE FROM MCBOARD WHERE BIDX=?";
 
 		try {
 			connection.setAutoCommit(false);
-
-			// QNABOARD 데이터 삭제
+			
+			//사진삭제
+			pstmt = connection.prepareStatement(photoDelete);
+			pstmt.setInt(1, bIdx);
+			pstmt.executeUpdate();
+			// MCBOARD 데이터 삭제
 			pstmt = connection.prepareStatement(courseDelete);
 			pstmt.setInt(1, bIdx);
 			pstmt.executeUpdate();
-
+			System.out.println("boardDao courseDelete() mCB삭제");
 			// BOARD 데이터 삭제
 			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-
+			System.out.println("boardDao courseDelete() board삭제");
 			connection.commit();
 		} catch (Exception e) {
 			try {
