@@ -100,7 +100,7 @@
 			      			<c:set var="number" value="${status1.index}"/>
 			      			<div class="timeline-article">
 			      				<div class="content-right-container">
-										<textarea class="input" name="area" cols="25" rows="5" required>
+										<textarea class="input" name="area" cols="25" rows="5" required style="margin-left: 80px;">
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
@@ -145,7 +145,7 @@
 				    <!-- Article -->
 				    <div class="content timeline-article">
 				        <div class="content-right-container">
-				          <textarea class = "input" id="area" name="area" cols="25" rows="5"></textarea>
+				          <textarea class = "input" id="area" name="area" cols="25" rows="5" style="margin-left: 80px;"></textarea>
 				          <span class="article-number">02</span>
 				          <input type="file" id="photo1" name="photo1" accept="image/*">
 				          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
