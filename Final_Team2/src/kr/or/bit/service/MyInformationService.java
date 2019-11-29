@@ -14,10 +14,12 @@ public class MyInformationService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		
-		MemberDao memberDao = new MemberDao();
 		String id = (String)request.getSession().getAttribute("memberId");
-		Member memberInfo = memberDao.getMemberById(id);
-		request.setAttribute("memberInfo", memberInfo);
+		
+		MemberDao memberDao = new MemberDao();
+		Member member = memberDao.getMemberById(id);
+		request.setAttribute("member", member);
+		
 		forward.setPath("/WEB-INF/views/mypage/MyInformation.jsp");
 		return forward;
 	}
