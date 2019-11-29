@@ -26,6 +26,7 @@ public class MyCourseBoardDeleteService implements Action{
 		}
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "MyCourseBoardList.do");
+		request.setAttribute("board_result", mCBoardDelete);
 
 		forward.setPath("/common/Redirect.jsp");
 		

@@ -33,6 +33,7 @@ public class FreeBoardReWriteOkService implements Action{
 		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", (result > 0));
 		
 		forward.setPath("/common/Redirect.jsp");
 		

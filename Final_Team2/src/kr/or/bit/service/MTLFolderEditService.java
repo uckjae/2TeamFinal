@@ -25,7 +25,8 @@ public class MTLFolderEditService implements Action{
 		}
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "MTFolderList.do");
-		forward.setRedirect(false);
+		request.setAttribute("board_result", resultRow > 0);
+
 		forward.setPath("/common/Redirect.jsp");
 		return forward;
 	}

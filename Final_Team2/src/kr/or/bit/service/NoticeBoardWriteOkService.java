@@ -24,12 +24,14 @@ public class NoticeBoardWriteOkService implements Action{
 		int bIdx =0;
 		String msg="";
 		String url="";
+		boolean success=false;
 		
 		System.out.println("writeok:"+cmd);
 		if(cmd.equals("write")) {
 			bIdx=dao.noticeWrite(memberId, title, content, isTop);
 			System.out.println("bidx:"+bIdx);
 			if(bIdx>0) {
+				success=true;
 				msg ="공지사항 작성완료!";	
 			}else {
 				msg="공지사항 작성실패!";
@@ -38,6 +40,7 @@ public class NoticeBoardWriteOkService implements Action{
 			bIdx = Integer.parseInt(request.getParameter("bIdx"));
 			boolean result = dao.noticeEdit(bIdx, title, content, isTop);
 			if (result) {
+				success=true;
 				msg = "공지사항 수정 완료";
 			} else {
 				msg = "공지사항 수정 실패";
@@ -52,6 +55,7 @@ public class NoticeBoardWriteOkService implements Action{
 		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", success);
 		
 		forward.setPath("/common/Redirect.jsp");
 		
