@@ -40,7 +40,7 @@ $(function(){
 						$(right).prepend($('<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo3" name="photo3" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text("0"+num));
-						$(right).prepend($('<textarea class = "input" name="area" cols="25" rows="5">'));
+						$(right).prepend($('<textarea class = "input" name="area" cols="25" rows="5" style="margin-left: 80px;">'));
 						$(newArticle).prepend(right);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view3" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
@@ -86,7 +86,7 @@ $(function(){
 						$(right).prepend($('<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">'));
 						$(right).prepend($('<input type="file" id="photo5" name="photo5" accept="image/*">'));
 						$(right).prepend($('<span class="article-number">').text("0"+num));
-						$(right).prepend($('<textarea class = "input" name="area" cols="25" rows="5">'));
+						$(right).prepend($('<textarea class = "input" name="area" cols="25" rows="5" style="margin-left: 80px;">'));
 						$(newArticle).prepend(right);
 						$(newArticle).append($('<div class="meta-date">').html('<img class="image2" src="images/scenery.png" id="view5" alt="여행지 사진">'));
 						$(".conference-timeline-content").append(newArticle);
