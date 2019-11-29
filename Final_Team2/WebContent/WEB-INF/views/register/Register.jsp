@@ -39,10 +39,11 @@
 		$("#postCode").click(execDaumPostcode);
 		$("#sendEmail").click(sendMail);
 		$("#checkEmailCode").click(checkEmailCode);
-		$("#id").blur(validateId);
-		$("#name").blur(validateName);
-		$("#pwd").blur(validatePwd);
-		$("#birth").blur(validateBirth);
+
+		$("#id").on('keyup',validateId);
+		$("#name").on('keyup',validateName);
+		$("#pwd").on('keyup',validatePwd);
+		$("#birth").on('keyup',validateBirth);
 		$("form").submit(validate);
 	})
 	
@@ -55,7 +56,7 @@
 		checkBirth = getJumin.test($("#birth").val());
 		if(checkBirth){
 			checkBirth = true;
-			$("#gender").focusin();
+			$("#gender").focus();
 			$("#checkBirth").attr("hidden","hidden");
 		}else{
 			checkBirth = false;
