@@ -8,9 +8,9 @@
 
 <c:import url="/common/HeadTag.jsp" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="js/xy_convert.js"></script>
 <link rel="stylesheet" href="css/timeLine.css">
-
+<link rel="stylesheet" href="css/weather-icons.min.css">
 <title>Insert title here</title>
 <style type="text/css">
 .position {
@@ -79,7 +79,7 @@
 		var x = "";
 		var y = "";
 		var apilocation = "";
-		
+		var apiCommon = "";
 
 		var api = addr + pramDetailImage + servicekey + numOfRows + pageNo /*이미지조회*/
 				+ AppTest + pramContentId + contentid + type2 + etc2;
@@ -94,6 +94,7 @@
 
 		var api4 = addr + pramDetailInfo + servicekey + numOfRows2 + pageNo /*상세조회2*/
 				+ AppTest + pramContentId + contentid + contentTypeId + type;
+		
 
 		/* 이미지정보조회 
 		$.getJSON(api, function(data) {
@@ -103,6 +104,8 @@
 		});*/
 		
 		/* 공통정보조회 -상세*/
+
+		
 		$.getJSON(api2, function(data) {
 			var myData2 = data.response.body.items.item;
 			console.log("공통정보");
@@ -146,6 +149,8 @@
 				console.log("call getMaps");
 				
 				getMaps();
+				
+				
 			});
 			
 			$.getJSON(api, function(data) {
@@ -172,6 +177,69 @@
 					});
 				}
 			});
+			
+			//날씨api
+			var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
+			//console.log(rs);
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth()+1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var minutes = date.getMinutes();
+			if(minutes<41){
+				hour -= 1;
+			}
+			if(hour<10){
+				hour = "0"+hour;
+			}
+			var xValue = rs.x;
+			var yValue = rs.y;
+			
+			var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
+			var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
+			var baseTime = "&base_date="+year+month+day+hour+"00";
+			var nx = "&nx="+xValue;
+			var ny = "&ny="+yValue;
+			var type = "&_type=json";
+			var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
+			var jsonWeatherUrl = {"weatherUrl": weatherUrl};
+			$.ajax({
+				url: "Weather.ajax", 
+				dataType: 'json',
+				type:"GET",
+				data: jsonWeatherUrl,
+				success: function(weatherData){
+					//console.log("success");
+					//console.log(weatherData);
+					var icon = $('<i>');
+					var totalRain = $('<span>');
+					var degree = $('<span>');
+					$.each(weatherData.response.body.items.item,function(index,element){
+						if(element.category =="PTY"){
+							
+							if(element.obsrValue == 0){
+								$(icon).attr("class","wi wi-day-sunny");
+							}else if(element.category > 1){
+								$(icon).attr("class","wi wi-day-rain");
+							}
+						}else if(element.category == "RN1"){
+							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
+						}else if(element.category == "T1H"){
+							$(degree).html("&nbsp;&nbsp;&nbsp;&nbsp;현재기온 : " + element.obsrValue +"℃ ");
+						}
+					});
+					$("#title").after(totalRain);
+					$("#title").after(degree);
+					$("#title").after(icon);
+				},
+				/* error: function(jqXHR, textStatus, errorThrown){
+					console.log("error"+textStatus);
+				} */
+			});
+			//날씨api END!!
+			
+			
 		});
 		/* 상세정보조회 -상세 */
 		$.getJSON(api3, function(data) {
@@ -267,15 +335,14 @@ data-offset="300">
 		<div class="row">
 
 			<!-- 제목 -->
-			<div class=" position" style="width: 100%; text-align: center;">
+			<div class=" position" style="width: 80%; text-align: left">
 				<div class="row">
-					<div class="col-12">
-						<p style="font-size: 50px" id="title"></p>
+					<div class="col-10">
+						<h1 id="title"></h1>
 					</div>
+					<jsp:include page="/common/MoreButton.jsp"/>
 				</div>
-				<br>
 				<hr>
-				<br>
 			</div>
             
                 <div class="container">
@@ -335,5 +402,68 @@ data-offset="300">
 
 		</div>
 	</section>
+	<!--  모달창 첫 화면 -->	
+<div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="frm" method = "post">
+        <div class="modal-body" id="innerModalIntro">   		
+			
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" value="목록보기">목록보기</button>          
+       <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>	
+<!-- 모달창  폴더 -->
+<div class="modal fade" id="myTravelListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form id="frm" method = "post">
+        <div class="modal-body" id="innerModal">   		
+          <c:set var="mTFolderList" value ="${requestScope.mTList}"/>
+			<table class="table">
+				<tr>
+					<th class="pl-5">NO</th>
+					<th>폴더 리스트</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<c:forEach var="mTFolder" items="${ mTFolderList}" varStatus="status">
+					<tr>
+						<td class="pl-5">${status.count}</td>
+						<td><a href="MTList.do?tLidx=${mTFolder.tLidx}">${ mTFolder.tLName}</a></td>
+						<td><a href="#" id="editbtn" class="btn btn-primary"
+							data-toggle="modal" data-target="#editModal1" data-cmd="edit"
+							data-edit-tlidx="${mTFolder.tLidx}"
+							data-edit-tlname="${mTFolder.tLName}">수정 </a></td>
+						<td><a href="MTFolderListDelete.do?tLidx=${mTFolder.tLidx}" class="btn btn-secondary"> 삭제 </a></td>
+					</tr>
+				</c:forEach>
+			</table>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" id="modalBtn">          
+       <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
