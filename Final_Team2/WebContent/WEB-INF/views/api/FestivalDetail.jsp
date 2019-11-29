@@ -131,12 +131,13 @@ body {
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
 				var myData3 = data3.response.body.items.item;
-				$("#mTLimage").val(myData3.image);
+				$("#mTLimage").val(image);
 				if(myData3==null){
 					
 					var img2 = $('<img>');
 					
 						$(img2).attr("src",image);
+						$("#mTLimage").val(image);
 					$("#imgarea").append(img2);
 				}else{
 				
@@ -248,9 +249,11 @@ body {
 				$("#modalIntroBtn").css("display","none");
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
-						$("#innerModalIntro").append("<p>" + element.name + "</p>");
-						console.log("index값 each 문 안 : " + element.tlidx);
 						$("#tlidx").val(element.tlidx);
+						$("#innerModalIntro").append("<p><a href='MTListContentAdd.do?tlidx="+element.tlidx +"' onclick='submitFn()'>"+ element.name + "</a></p>");
+			
+						console.log("index값 each 문 안 : " + element.tlidx);
+						
 						
 					});
 				} else {
@@ -266,6 +269,9 @@ body {
 	       }
 		});
 		}	
+	function submitFn() {
+		$("#frm").submit();
+	}
 	
 </script>
 </head>
@@ -320,7 +326,7 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "post">
+        <form id="frm" method = "post" action="MTListContentAdd.do">
         <div class="modal-body" id="innerModalIntro">   		
 			 <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" >목록보기</button> 	
 			 
@@ -333,7 +339,6 @@ body {
 			          
         </div>
         <div class="modal-footer">
-       <input type="submit" class="btn btn-secondary"> 
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
         </form>

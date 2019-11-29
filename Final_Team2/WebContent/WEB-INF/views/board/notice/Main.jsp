@@ -18,39 +18,44 @@ html, body {
 
 <script type="text/javascript">
         $(function () {
-            let table = $('#dataTable').DataTable();
+            let table = $('#dataTable').DataTable({
+           	 stateSave: true, // 페이지 상태 저장
+           });
 
-            $('#dataTable_filter').prepend(
-                '<select id="select" class="custom-select" style="margin-right : 10px; width: 100px"></select>');
+           $('#dataTable_filter').prepend(
+               '<select id="select" class="custom-select" style="margin-right : 10px; width: 100px"></select>');
 
-            // 검색 th 칼럼 별로 할 수 있게 select 생성
-            let ths = $('#dataTable > thead > tr > th');
-            ths.each(function (index, element) {
-                if (index < 2) // 앞에 두개만
-                    $('#select').append('<option>' + element.innerHTML + '</option>');
-            });
+           // 검색 th 칼럼 별로 할 수 있게 select 생성
+           let ths = $('#dataTable > thead > tr > th');
+           $('#select').append('<option>전체</option>');
+           ths.each(function (index, element) {
+               if (index < 3) // 앞에 3개만
+                   $('#select').append('<option>' + element.innerHTML + '</option>');
+           });
 
-            // select에 따라 검색 결과 table에 표현
-            $('.dataTables_filter input').keyup(function () {
-                tableSearch();
-            });
+           // select에 따라 검색 결과 table에 표현
+           $('.dataTables_filter input').keyup(function () {
+               tableSearch();
+           });
 
-            $("#deptSelect").change(function () {
-                tableSearch();
-            })
+           $("#deptSelect").change(function () {
+               tableSearch();
+           });
 
-            function tableSearch() {
-                let colIndex = document.querySelector('#select').selectedIndex;
-                let deptno = $("#deptSelect option:selected").val();
-                let searchText = $('.dataTables_filter input').val();
-
-                if (deptno == "*") {
-                    table.column(colIndex).search(searchText).column(2).search("").draw();
-                } else {
-                    table.column(colIndex).search(searchText).column(2).search(deptno).draw();
-                }
-            }
-        });
+           function tableSearch() {
+               let colIndex = document.querySelector('#select').selectedIndex;
+               let searchText = $('.dataTables_filter input').val();
+				// 전체 검색
+               if(colIndex==0){
+               	table.search(searchText).draw();
+               } 
+           	// 컬럼 검색
+               else{
+               	table.column(colIndex-1).search(searchText).draw();
+               }
+           }
+       });
+       
     </script>
 </head>
 
