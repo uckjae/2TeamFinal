@@ -39,10 +39,11 @@
 		$("#postCode").click(execDaumPostcode);
 		$("#sendEmail").click(sendMail);
 		$("#checkEmailCode").click(checkEmailCode);
-		$("#id").blur(validateId);
-		$("#name").blur(validateName);
-		$("#pwd").blur(validatePwd);
-		$("#birth").blur(validateBirth);
+
+		$("#id").on('keyup',validateId);
+		$("#name").on('keyup',validateName);
+		$("#pwd").on('keyup',validatePwd);
+		$("#birth").on('keyup',validateBirth);
 		$("form").submit(validate);
 	})
 	
@@ -55,7 +56,7 @@
 		checkBirth = getJumin.test($("#birth").val());
 		if(checkBirth){
 			checkBirth = true;
-			$("#gender").focusin();
+			$("#gender").focus();
 			$("#checkBirth").attr("hidden","hidden");
 		}else{
 			checkBirth = false;
@@ -155,15 +156,28 @@
 	
 	function checkEmailCode(){
 		if(emailCode == $("#emailCode").val()){
-			alert("이메일 인증 완료");
-		    $("#emailCodeControl").attr("hidden","hidden");
-			$("#email").attr("readonly","readonly");
-			$("#sendEmail").text("인증 완료");
-			$("#sendEmail").attr("disabled","disabled"); 
-			checkEmail = true;
+			Swal.fire({
+				  icon: 'success',
+				  title: '이메일 인증 성공',
+				  showConfirmButton: false,
+				  timer: 1500
+				}).then(function(){
+					 $("#emailCodeControl").attr("hidden","hidden");
+					 $("#email").attr("readonly","readonly");
+					 $("#sendEmail").text("인증 완료");
+					 $("#sendEmail").attr("disabled","disabled"); 
+					 checkEmail = true;
+				})
 		}else{
-			alert("이메일 인증 실패");
-			checkEmail = false;
+			Swal.fire({
+				  icon: 'error',
+				  title: '이메일 인증 실패',
+				  showConfirmButton: false,
+				  timer: 1500
+				}).then(function(){
+					checkEmail = false;
+				})
+			
 		}
 	}
 	
@@ -187,28 +201,24 @@
 	}
 	
 	function validate() {
-		validateBirth();
+		checkBirth = getJumin.test($("#birth").val());
 		if($("#gender").val()=="")
 			checkBirth = false;
 
-		console.log($("#gender").val());
 		if($("#postCode").val()=="")
 			checkAddress=false;
 		else
 			checkAddress=true;
 		
-		console.log("checkEmail : "+checkEmail);
-		console.log("checkId : "+checkId);
-		console.log("checkName : "+checkName);
-		console.log("checkPwd : "+checkPwd);
-		console.log("checkBirth : "+checkBirth);
-		console.log("checkAddress : "+checkAddress);
-		console.log((checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress));
-		return false;
-		/* if(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress){
-			alert("입력 내용을 확인해주세요.");
+	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
+		   Swal.fire({
+				  icon: 'error',
+				  title: '입력 내용을 확인해주세요.',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		 	return false;
-		} */
+		} 
 	}
 </script>
 </head>
@@ -237,10 +247,14 @@
                         <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">EMAIL</label>
-                                <div class="form-field">
+                                <div class=" row form-field">
+                                <div class="col-md-9">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
-                                	<div class="input-group-append">
+                                    </div>
+                                    <div class="col-md-1">
+                                	<!-- <div class="input-group-append"> -->
 							          <button class="btn btn-primary" type="button" id="sendEmail"> 이메일 인증 </button>
+							          <!-- </div> -->
 							        </div>
                                 </div>
                                 <div class="form-field" id="emailCodeControl" hidden="hidden">

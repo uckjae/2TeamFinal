@@ -59,12 +59,22 @@
             }
         });
         
-        function showDetail(isPublic, bIdx){
-        	if(! isPublic && ${! sessionScope.isAdmin}){
-        		alert("관리자만 접근 가능합니다.");
+        function showDetail(isPublic, bIdx, writer){
+        	// 비공개 글일 경우 글쓴이 자신이거나, 관리자만 볼 수 있다. 
+        	let isWriter = (writer == '${sessionScope.memberId}');
+        	let isAdmin = ${sessionScope.isAdmin == 'true'};
+        	let isRead = (isAdmin || isWriter);
+        	
+        	 if(! isPublic && !isRead){
+        		 Swal.fire({
+                     icon: 'error',
+                     title: '접근 권한이 없습니다.',
+                     showConfirmButton: false,
+                     timer: 1000
+                   })
         	} else{
         		location.href="QnABoardDetail.do?bIdx="+bIdx;
-        	}
+        	} 
         }
     </script>
 </head>
@@ -95,7 +105,7 @@
                     	<tr>
                             <td>${board.bIdx}</td>
                             <td class="sorting_1">
-                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx})" href="#">
+                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx}, '${board.id }')" href="#">
                             	<c:choose>
                             		<c:when test="${! board.isPublic() }">
                             			<i class="fas fa-user-lock ml-2 mr-2 icon"></i>

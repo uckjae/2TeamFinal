@@ -61,19 +61,11 @@ $(document).ready(function(){
 	});
 	
 	$('#content').on('keyup', function() {
-
-		if($(this).val().length > 200) {
-
-	alert("글자수는 50자로 이내로 제한됩니다.");
-
-			$(this).val($(this).val().substring(0, 200));
-
+		if(stringToByte($(this).val()) > 200) {
+			 errorAlert("글자수를 초과하셨습니다.");
+			 $(this).val($(this).val().substring(0, 200));
 		}
-
 	});
-	 
-
-	
 });
 </script>
 </head>

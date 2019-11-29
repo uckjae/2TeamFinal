@@ -12,12 +12,12 @@ public class MyCourseBoardDeleteService implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-		
+		boolean mCBoardDelete = false;
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		boolean mCBoardDelete = dao.courseDelete(bIdx);
 		
+		mCBoardDelete = dao.courseDelete(bIdx);
 		String msg = "";
 		if(mCBoardDelete) {
 			msg = "게시글 삭제 완료";

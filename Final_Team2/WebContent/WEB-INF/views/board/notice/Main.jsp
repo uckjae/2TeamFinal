@@ -17,9 +17,12 @@ html, body {
 </style>
 
 <script type="text/javascript">
+
+
         $(function () {
             let table = $('#dataTable').DataTable({
            	 stateSave: true, // 페이지 상태 저장
+           	"ordering": false
            });
 
            $('#dataTable_filter').prepend(
@@ -66,21 +69,18 @@ html, body {
 
 
 	<!-- Contant -->
-	<c:set var="noticeList" value="${requestScope.noticeboardList}"/>
+	<c:set var="noticeList" value="${requestScope.noticeboardList}" />
 	<c:set var="board" value="${requestScope.board}" />
 	<div class="content">
 		<div class="comment-form-wrap pt-xl-2">
 			<h1 class="text-center mb-3 bread">공지사항</h1>
-			
-			<c:forEach var="topnotice" items="${noticeList}">
-				<c:if test="${topnotice.isTop == 'true'}">				
-						<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a></td>				
-				</c:if>
-			</c:forEach>
+
+
 
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable">
 					<thead>
+
 						<tr>
 							<th width="10%">No</th>
 							<th width="60%">제목</th>
@@ -90,13 +90,27 @@ html, body {
 					</thead>
 					<tbody>
 
+						<c:forEach var="topnotice" items="${noticeList}">
+							<c:if test="${topnotice.isTop == 'true'}">
+								<tr>
 
+								<td width="10%">${topnotice.bIdx}</td>
+								<td width="60%" class="sorting_1">
+								<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a>
+								<td width="20%"><fmt:formatDate value="${topnotice.wDate}"
+										pattern="yyyy-MM-dd HH:mm:ss" /></td>
+								<td width="10%">${topnotice.rNum}</td>
+							</tr>
+								
+							</c:if>
+						</c:forEach>
 
 						<c:forEach var="boardList" items="${noticeList}">
 							<tr>
+
 								<td width="10%">${boardList.bIdx}</td>
-								<td width="60%" class="sorting_1"><a
-									href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
+								<td width="60%" class="sorting_1">
+								<a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
 								<td width="20%"><fmt:formatDate value="${boardList.wDate}"
 										pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td width="10%">${boardList.rNum}</td>
