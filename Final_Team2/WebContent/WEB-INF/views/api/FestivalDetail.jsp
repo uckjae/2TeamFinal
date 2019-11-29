@@ -41,6 +41,7 @@ body {
 		var type = "&_type=json&";
 		var paramArrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&contentId=";
 		var paramNumOfRows = "&numOfRows=10";
+		var paramNumOfRow = "&numOfRows=4";
 		var paramPageNo = "&pageNo=1";
 		var contentid = "${requestScope.contentId}";
 		//공통정보조회 변수
@@ -55,7 +56,7 @@ body {
 		apicommon = addr + "detailCommon?" + addr2 + type + etc;
 
 		//소개정보조회 변수
-		var contentType = "&contentTypeId=15";
+		var contentType = "&contentTypeId=15&";
 		var apidetail = "";
 		var addr3 = servicekey + paramNumOfRows + paramPageNo + paramArrange
 				+ contentid;
@@ -83,14 +84,11 @@ body {
 		//위치 기반 변수
 		var x = "";
 		var y = "";
-		var arrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide";
-		var array = "&arrange=E";
-		var range = "&radius=3000&listYN=Y";
-		var apilocation = "";
-		var addr5 = servicekey + paramNumOfRows + paramPageNo + arrange + array
-				+ contentType + x + y + range;
+		var xpos = "&mapX=";
+		var ypos = "&mapY=";
+		console.log(x);
 		var image = "";
-		apilocation = addr + "locationBasedList?" + addr5 + type;
+		
 
 		//공통정보 JSON each문
 		$.getJSON(apicommon, function(data) {
@@ -116,17 +114,18 @@ body {
 				} else if (key == "mapx") {
 					x = value;
 					
+					console.log(x);
 				} else if (key == "mapy") {
 					y = value;
-					
+					console.log(y);
 				}else if(key =="firstimage2"){
 					image = value;
 					
 				}
-
 			});
+				getLocation();
 			
-			getLocation();
+			
 			getMaps();
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
@@ -151,6 +150,9 @@ body {
 					});
 				}
 			});
+			
+			
+			
 		});
 		//end
 
@@ -208,8 +210,23 @@ body {
 	
 		//위치주변 정보조회
 		function getLocation() {
+			
+			var arrange = "&MobileOS=ETC&MobileApp=TourAPI3.0_Guide";
+			var array = "&arrange=E";
+			var range = "&radius=3000&listYN=Y";
+			var apilocation = "";
+			var addr5 = servicekey + paramNumOfRow + paramPageNo + arrange + array + contentType + xpos + x + ypos + y + type + range;
+			console.log(xpos);
+			apilocation = addr + "locationBasedList?" + addr5;
+			console.log(apilocation);
+			var around = "";
 			$.getJSON(apilocation, function(data4) {
-				var myData4 = data4.response.body.items.item;
+				console.log("in");
+				var myData4 = data4.response.body;
+				console.log(data4);
+				$.each(myData4,function(index,element){
+					element.firsimage2
+				});
 				
 				
 			});
@@ -308,9 +325,10 @@ body {
 			
 			<div id="mainContentBox" class="content">
 			<div class="row">
-				<div class="col-md-4">1</div>
-				<div class="col-md-4">2</div>
-				<div class="col-md-4">3</div>
+				<div class="img">
+					<img class="img-fluid" id="imginfo">
+
+					</div>
 			</div>
 		</div>
 			
