@@ -23,6 +23,7 @@ public class MTLFolderDeleteService implements Action {
 	    }
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "MTFolderList.do");
+		request.setAttribute("board_result", (resultRow > 0));
 		forward.setRedirect(false);
 		forward.setPath("/common/Redirect.jsp");
 		return forward;

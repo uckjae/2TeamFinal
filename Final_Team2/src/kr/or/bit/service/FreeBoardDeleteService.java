@@ -26,6 +26,7 @@ public class FreeBoardDeleteService implements Action{
 		}
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "FreeBoardList.do");
+		request.setAttribute("board_result", freeBoardDelete);
 
 		forward.setPath("/common/Redirect.jsp");
 		

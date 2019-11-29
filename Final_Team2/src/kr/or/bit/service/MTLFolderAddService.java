@@ -27,6 +27,7 @@ public class MTLFolderAddService implements Action{
 		}
 		request.setAttribute("board_msg",msg );
 		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", (resultRow > 0));
 		forward.setRedirect(false);
 		//forward.setPath("/WEB-INF/views/mypage/MyTravelListFolder.jsp");
 		forward.setPath("/common/Redirect.jsp");
