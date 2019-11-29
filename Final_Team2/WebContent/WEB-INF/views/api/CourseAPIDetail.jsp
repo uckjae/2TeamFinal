@@ -297,9 +297,17 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
     <div class="content" id="mainContent">
-    	<div class="row">
-   			<h1 class="text-center" id="title"></h1>
-    	</div>
+    		
+    	<!-- 제목 -->
+		<div class="row">
+			<div class="col-10">
+				<h1 id="title"></h1>
+			</div>
+			<jsp:include page="/common/MoreButton.jsp">
+				<jsp:param value="false" name="useMyTravel"/>
+			</jsp:include>
+		</div>
+		<hr>
    		<div class="row">
    			<div class="text-right">
    				<span id="distance"></span>
