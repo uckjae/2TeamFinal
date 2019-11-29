@@ -249,9 +249,11 @@ body {
 				$("#modalIntroBtn").css("display","none");
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
-						$("#innerModalIntro").append("<p>" + element.name + "</p>");
-						console.log("index값 each 문 안 : " + element.tlidx);
 						$("#tlidx").val(element.tlidx);
+						$("#innerModalIntro").append("<p><a href='MTListContentAdd.do?tlidx="+element.tlidx +"' onclick='submitFn()'>"+ element.name + "</a></p>");
+			
+						console.log("index값 each 문 안 : " + element.tlidx);
+						
 						
 					});
 				} else {
@@ -267,6 +269,9 @@ body {
 	       }
 		});
 		}	
+	function submitFn() {
+		$("#frm").submit();
+	}
 	
 </script>
 </head>
@@ -334,7 +339,6 @@ body {
 			          
         </div>
         <div class="modal-footer">
-       <input type="submit" class="btn btn-secondary"> 
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
         </form>

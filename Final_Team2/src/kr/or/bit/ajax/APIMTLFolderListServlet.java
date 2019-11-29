@@ -34,8 +34,6 @@ public class APIMTLFolderListServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		BoardDao boardDao = new BoardDao();
 		List<MTList> mTFolderList = boardDao.mTLFolderList(id);
-		System.out.println("r u here?");
-		System.out.println(mTFolderList);
 		
 		StringBuilder json = new StringBuilder();
 		if(mTFolderList.size()>1) {
@@ -57,7 +55,6 @@ public class APIMTLFolderListServlet extends HttpServlet {
 			json.append("\"" + mTFolderList.get(0).gettLidx()+"\"");
 			json.append("}");
 		}
-		System.out.println(json);
 		out.print(json);
 		
 		
