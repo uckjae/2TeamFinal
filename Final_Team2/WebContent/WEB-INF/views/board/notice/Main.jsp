@@ -61,18 +61,15 @@ html, body {
 
 
 	<!-- Contant -->
-	<c:set var="noticeList" value="${requestScope.noticeboardList}" />
+	<c:set var="noticeList" value="${requestScope.noticeboardList}"/>
 	<c:set var="board" value="${requestScope.board}" />
 	<div class="content">
 		<div class="comment-form-wrap pt-xl-2">
 			<h1 class="text-center mb-3 bread">공지사항</h1>
+			
 			<c:forEach var="topnotice" items="${noticeList}">
-
-				<c:if test="${topnotice.isTop == 'true'}">
-					<tr>
-						<td width="60%" class="sorting_1"><a
-							href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a></td>
-					</tr>
+				<c:if test="${topnotice.isTop == 'true'}">				
+						<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a></td>				
 				</c:if>
 			</c:forEach>
 
