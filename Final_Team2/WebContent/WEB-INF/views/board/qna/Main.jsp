@@ -93,19 +93,24 @@
                     <tbody>
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
-                            <td align="center">${board.bIdx}</td>
+                            <td>${board.bIdx}</td>
                             <td class="sorting_1">
                             <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx})" href="#">
-                            	<c:if test="${! board.isPublic() }">
-                            		<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
-                            	</c:if>
+                            	<c:choose>
+                            		<c:when test="${! board.isPublic() }">
+                            			<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
+                            		</c:when>
+                            		<c:otherwise>
+                            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            		</c:otherwise>
+                            	</c:choose>
                             	${board.title}</a></td>
-            	            <td align="center">${board.id}</td>
-                            <td align="center">
+            	            <td class="center">${board.id}</td>
+                            <td class="center">
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
 
-                            <td align="center">${board.rNum}</td>
+                            <td class="center">${board.rNum}</td>
                         </tr>
                     </c:forEach>
                    </tbody>
