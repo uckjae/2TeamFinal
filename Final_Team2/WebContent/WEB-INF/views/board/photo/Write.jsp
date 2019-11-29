@@ -77,72 +77,21 @@ $(document).ready(function(){
 		</c:otherwise>
 	</c:choose>
 		<section class="ftco-section">
-			<div class="container">
-				<div class="text">
-				<h3>
-				<c:choose>
-					<c:when test="${Edit }">
-						포토 게시판 글 수정
-					</c:when>
-					<c:otherwise>
-						포토 게시판 글 작성
-					</c:otherwise>
-				</c:choose>
-				</h3>
-	<form action="PhotoWriteOk.do?cmd=<c:choose>
-			<c:when test="${Edit }">edit&bidx=${photowrite.bIdx} </c:when>
-			<c:otherwise>write </c:otherwise>
-		</c:choose>" method="post" enctype="multipart/form-data">
-	
-					<table border="1" style="width: 800px; height: 800px" >
+				
+		<div class="col-lg-6" style="float: left">
+				<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }" style="max-width: 100%; height: auto; display: block">
+				<input type="file" name="Photo" id="Photo" accept="image/*">
+		</div>
+			<div class="col-lg-6" style="display: table-caption;">
+			<input type="text" name="title" id="title" value="${photowrite.title }" >
+			<br><br>
+			<input type="text" name="title" id="title" >
+			
+						</div>						
+				
 					
-						<tr>
-							<td rowspan="3" style="background-color: lightgray" height="0">
-						
-							<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }" style="max-width: 100%; height: auto; display: block">
-						
-							</td>
-							<td>
-							<input type="text" name="title" id="title" value="${photowrite.title }" style="width: 100%" >
-							</td>
-						</tr>
-						
-						<tr>
-						<td rowspan="2" colspan="2" rows="12" cols="48">				
-							<textarea rows="15" cols="48" id="content" name="content">${photowrite.content }</textarea>
-							</td>
-						
-						</tr>
-						<tr>
-							
-						</tr>
-						
-						<tr>
-						<c:choose>
-							<c:when test="${Edit }">
-							<td>
-							<input id="PhotoGo" type="submit" value="수정" class="btn btn-primary" >
-							<input type="reset" value="수정취소" class="btn btn-danger"  onclick="'PhotoBoardList.do'">
-							</td>
-							</c:when>
-							<c:otherwise>
-							<td>
-							<input type="file" name="Photo" id="Photo" accept="image/*">
-							</td>
-							</c:otherwise>
-							</c:choose>
-							<td>
-							<input id="PhotoGo" type="submit" value="작성완료" class="btn btn-primary">
-							<input type="reset" value="작성취소" class="btn btn-danger"  onclick="'PhotoBoardList.do'">
-							</td>
-						</tr>
-						
-					</table>
-	</form>
-		
-				</div>
-			</div>
-
+				
+			
 		</section>
 
 

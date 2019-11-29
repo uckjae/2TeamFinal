@@ -82,7 +82,7 @@
                            <c:if test="${topnotice.isTop == 'true'}">
                          <tr>
                        <td width="10%">${topnotice.bIdx}</td> 
-                       <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">()top${topnotice.title}</a></td>
+                       <td width="60%" class="sorting_1"><a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a></td>
                        <td width="20%">
                        <fmt:formatDate value="${topnotice.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                        </td>
@@ -105,9 +105,11 @@
              </table>
              </div>
              <c:if test="${sessionScope.isAdmin == 'true'}">
+             <div class="text-right mt-3">
             <a href="NoticeBoardWrite.do?cmd=write">
             	<input type="button" class="btn btn-primary" value="글쓰기" id="nboad" name="nboard">
             </a>
+            </div>
             </c:if>
         </div>   
     </div>
