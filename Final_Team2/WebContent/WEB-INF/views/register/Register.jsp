@@ -187,11 +187,15 @@
 	}
 	
 	function validate() {
+		validateBirth();
 		if($("#gender").val()=="")
 			checkBirth = false;
 
+		console.log($("#gender").val());
 		if($("#postCode").val()=="")
 			checkAddress=false;
+		else
+			checkAddress=true;
 		
 		console.log("checkEmail : "+checkEmail);
 		console.log("checkId : "+checkId);
