@@ -16,6 +16,7 @@
         }
     </style>
 	<script type="text/javascript">
+		let charLimit = 4000;
         $(function () {
             $('#summernote').summernote(
             	{
@@ -25,26 +26,56 @@
                         image: [],
                         link: [],
                         air: []
-                      }
-            	}
-            );
-            
-            $('.note-statusbar').hide();
-        })
-        
-        function writeCheck(){
-        	if(!write.title.value){
-        		alert('글 제목을 입력하세요');
-        		reWrite.title.focus();
-        		return false;
-        	}
-        	if(!write.content.value){
-        		alert('글 내용을 입력하세요');
-        		reWrite.content.focus();
-        		return false;
-        	}
-        	document.write.submit();
+                      },
+                    callbacks: {
+						onKeyup: function(e) {
+						console.log("onKeydown");
+						console.log($(this).val());
+						let totalCharacters = stringToByte($(this).val());
+							if (totalCharacters > charLimit) {
+								$("#lengthBox").css("color", "red");
+							} else {
+								$("#lengthBox").css("color", "#999999");
+							}
+							
+						$("#total-characters").text(totalCharacters);
+						var t = e.currentTarget.innerText;
+						if (t.trim().length >= charLimit) {
+							if (e.keyCode != 8
+								&& !(e.keyCode >= 37 && e.keyCode <= 40)
+								&& e.keyCode != 46
+								&& !(e.keyCode == 88 && e.ctrlKey)
+								&& !(e.keyCode == 67 && e.ctrlKey))
+									e.preventDefault();
+								}
+							},
+						}
+					});
+			
+			$("#total-characters").text(stringToByte($('#summernote').val()));
+			$("#max").text(charLimit +"byte");
+			$('.note-statusbar').hide();
+			$("#frm").submit(vaildate);
+		})
+		
+		function vaildate(){
+        	let result = checkBoardConten($('#title').val(), $('#summernote').val());
+        	return result;
         }
+        
+		function writeCheck() {
+			if (!write.title.value) {
+				alert('글 제목을 입력하세요');
+				reWrite.title.focus();
+				return false;
+			}
+			if (!write.content.value) {
+				alert('글 내용을 입력하세요');
+				reWrite.content.focus();
+				return false;
+			}
+			document.write.submit();
+		}
 	</script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -80,9 +111,10 @@
                 </c:choose> " class="p-5 bg-light" method="post" name="write">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${freeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${freeWrite.bIdx}">
-                <textarea rows="10" cols="60" id="summernote" name="content">
-                	${ freeWrite.content }
-				</textarea>
+                <textarea rows="10" cols="60" id="summernote" name="content">${ freeWrite.content }</textarea>
+				<div class="text-right" id="lengthBox"> 
+					<span id="total-characters"></span>/<span id="max"></span>
+				</div>
 				<div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 
