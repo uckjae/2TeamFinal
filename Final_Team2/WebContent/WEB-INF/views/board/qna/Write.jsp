@@ -19,7 +19,9 @@
         }
     </style>
     <script type="text/javascript">
+   		let charLimit = 4000;
         $(function () {
+
             $('#summernote').summernote({
                 height: 310,
                 placeholder: "글을 입력하세요.",
@@ -27,11 +29,40 @@
                     image: [],
                     link: [],
                     air: []
-                  }
+                  },
+                  callbacks: {
+                	  onKeyup: function(e) {
+                		  console.log("onKeydown");
+                		  console.log($(this).val());
+	                	  let totalCharacters = stringToByte($(this).val());
+	                	  if(totalCharacters>charLimit){
+	                		  $("#lengthBox").css("color","red");
+	                	  }else{
+	                		  $("#lengthBox").css("color","#999999");
+	                	  }
+	                	  
+	                	  $("#total-characters").text(totalCharacters);
+	                	  var t = e.currentTarget.innerText;
+	                	  if (t.trim().length >= charLimit) {
+	                	  if (e.keyCode != 8 && !(e.keyCode >= 37 && e.keyCode <= 40) && e.keyCode != 46 && !(e.keyCode == 88 && e.ctrlKey) && !(e.keyCode == 67 && e.ctrlKey)) 
+	                		  e.preventDefault();
+	                	  }
+                	  },
+                	 }
             });
 
+            $("#total-characters").text(stringToByte($('#summernote').val()));
+        	$("#max").text(charLimit +"byte");
             $('.note-statusbar').hide();
+            $("#frm").submit(vaildate);
         })
+        
+        function vaildate(){
+        	if($('#title').val()=="" || $('#summernote').val()=="" || stringToByte($('#summernote').val()) > charLimit){
+        		errorAlert("입력 내용을 확인해주세요.");
+        		return false;
+        	}
+        }
     </script>
 </head>
 
@@ -41,7 +72,6 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-
 	<c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
 	<c:choose>
 		<c:when test="${qnaWrite.bIdx > 0}">
@@ -63,16 +93,14 @@
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form action="QnABoardWriteOk.do?cmd=
+            <form id="frm" action="QnABoardWriteOk.do?cmd=
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
                 	<c:otherwise>write </c:otherwise>
                 </c:choose> " class="p-5 bg-light" method="post">
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${qnaWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${qnaWrite.bIdx}">
-                <textarea rows="10" cols="60" id="summernote" name="summernote">
-                	${ qnaWrite.content }
-				</textarea>
+                <textarea rows="10" cols="60" id="summernote" name="summernote">${ qnaWrite.content }</textarea>
 				<div class="mt-3 text-right">
 
 					<label class="mr-3"> 
@@ -86,6 +114,9 @@
 						>비공개
 					</label>
 				
+				</div>
+				<div class="text-right" id="lengthBox"> 
+					<span id="total-characters"></span>/<span id="max"></span>
 				</div>
                 <div class="text-center">
                 <c:choose>
