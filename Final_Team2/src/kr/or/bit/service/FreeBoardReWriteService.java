@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.dao.BoardDao;
+import kr.or.bit.dto.Board;
 import kr.or.bit.dto.FreeBoard;
 
 public class FreeBoardReWriteService implements Action{
@@ -13,16 +15,15 @@ public class FreeBoardReWriteService implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 		FreeBoard freeBoardReWrite = null;
+		BoardDao dao = new BoardDao();
 		
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
-		System.out.println("rewritedo.bidx : " + bIdx);
 		
-		freeBoardReWrite = new FreeBoard();
-		freeBoardReWrite.setbIdx(bIdx);
+		freeBoardReWrite = dao.freeBoardDetail(bIdx);
 		
 		request.setAttribute("freeBoardReWrite", freeBoardReWrite);
 		forward.setPath("/WEB-INF/views/board/free/ReWrite.jsp");
-		System.out.println("rewritedo return;");
+		
 		return forward;
 	}
 
