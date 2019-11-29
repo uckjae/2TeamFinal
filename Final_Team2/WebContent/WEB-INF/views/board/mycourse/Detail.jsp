@@ -36,6 +36,26 @@
             });
         });
     </script>
+    
+    <style type="text/css">
+    	#conference-timeline .conference-center-line {
+		  position: absolute;
+		  width: 3px;
+		  height: 70%;
+		  left: 50%;
+		  margin-left: -2px;
+		  background: #00b0bd;
+		  z-index: -1;
+		}
+		
+		@media only screen and (max-width: 830px) {
+			#conference-timeline .conference-center-line {
+    			margin-left: 0;
+    			left: 50px;
+ 			}
+		}
+    </style>
+    
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -104,7 +124,6 @@
             <div class="timeline-end">End</div>
 
             <div class="text-right">
-                <a href="MyCourseBoardList.do"><span>목록</span></a>
                 <c:if
                     test="${qnaDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                     <input type="button" class="btn btn-primary" value="수정"
@@ -112,6 +131,7 @@
                     <input type="button" class="btn btn-primary" value="삭제"
                         onclick="deleteAlert('MyCourseBoardDelete.do?',${mCBoard.bIdx})">
                 </c:if>
+                <input type="button" class="btn btn-primary" value="목록" onclick="location.href='MyCourseBoardList.do'" >
             </div>
 
         </div>

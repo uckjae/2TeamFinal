@@ -17,49 +17,22 @@
             height: 100%;
         }
         
-        .scale {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
-}
-.scale:hover {
-  
-  transform: scale(5);
-  -webkit-transform: scale(5);
-  -moz-transform: scale(5);
-  -ms-transform: scale(5);
-  -o-transform: scale(5);
-  -position: fixed;
-
-}
-
-.timeline-article .meta-date {
-  position: absolute;
-  top: 0;
-  left: 55%;
-  width: 150px;
-  height: 150px;
-  margin-left: -119px;
-  color: #fff;
-  border-radius: 100%;
-  background: #00b0bd;
-}
-
-@media only screen and (max-width: 830px) {
-	 .timeline-article .meta-date {
-    width : 62px;
-    height :62px;
-    margin-left: 0;
-    left: 20px;
-  }
-   #conference-timeline .timeline-start,
-  #conference-timeline .timeline-end {
-    margin-left: 28px;
-  }
-}
+        #conference-timeline .conference-center-line {
+		  position: absolute;
+		  width: 3px;
+		  height: 97%;
+		  left: 50%;
+		  margin-left: -2px;
+		  background: #00b0bd;
+		  z-index: -1;
+		}
+		
+		@media only screen and (max-width: 830px) {
+			#conference-timeline .conference-center-line {
+    			margin-left: 0;
+    			left: 50px;
+ 			}
+		}
 </style>
 
 <script type="text/javascript">
@@ -142,8 +115,8 @@
 					type:"GET",
 					data: jsonWeatherUrl,
 					success: function(weatherData){
-						console.log("success");
-						console.log(weatherData);
+						//console.log("success");
+						//console.log(weatherData);
 						var icon = $('<i>');
 						var totalRain = $('<span>');
 						var degree = $('<span>');
@@ -177,8 +150,8 @@
 				//인근지역 정보
 				apiRegion += "&mapX="+data.response.body.items.item.mapx+"&mapY="+ data.response.body.items.item.mapy+"&radius=1000&listYN=Y&numOfRows=4&arrange=E&MobileOS=ETC&MobileApp=AppTest&contentTypeId=12";
 				$.getJSON(apiRegion,function(arroundData){
-					//console.log("지역기반");
-					//console.log(arroundData);
+					console.log("지역기반");
+					console.log(arroundData);
 					var arroundItem = arroundData.response.body.items.item
 					
 					var row = $('<div class="row">');
@@ -191,7 +164,7 @@
 							var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
 								var img = $('<img class="img-fluid">');
 								$(img).attr("src",element.firstimage);
-								$(img).attr("onError","this.src='images/scenery.png'");
+								$(img).attr("onError",'this.src="/images/scenery.png"');
 								$(img).attr("alt","여행지사진");
 							$(imgDiv).append(img);
 							var txtDiv = $('<div class="text">');
@@ -218,7 +191,7 @@
 						var imgDiv = $('<div class="img">');
 							var img = $('<img class="img-fluid">');
 							$(img).attr("src",arroundItem.firstimage);
-							$(img).attr("onError","this.src='images/scenery.png'");
+							$(img).attr("onError","this.src='/images/scenery.png'");
 							$(img).attr("alt","여행지사진");
 						$(imgDiv).append(img);
 						var txtDiv = $('<div class="text">');
@@ -267,9 +240,9 @@
 					
 					var metaDate = $('<div class="meta-date">');
 					var img = $('<img id="asd">');
-					$(img).attr("class","image2 scale");
+					$(img).attr("class","image2");
 					$(img).attr('src',element.subdetailimg);
-					$(img).attr('onError',"this.images/scenery.png");
+					$(img).attr('onError','this.src="/images/scenery.png"');
 					$(img).attr('alt','여행사진');
 					var imglink = $('<a>');
 					$(imglink).attr('href',element.subdetailimg);
@@ -294,9 +267,9 @@
 					$(spanAuthor).text(element.subname);
 					var metaDate = $('<div class="meta-date">');
 					var img = $('<img>');
-					$(img).attr("class","image2 scale");
+					$(img).attr("class","image2");
 					$(img).attr('src',element.subdetailimg);
-					$(img).attr('onError',"images/scenery.png");
+					$(img).attr('onError','this.src="/images/scenery.png"');
 					$(img).attr('alt','여행사진');
 					var imglink = $('<a>');
 					$(imglink).attr('href',element.subdetailimg);

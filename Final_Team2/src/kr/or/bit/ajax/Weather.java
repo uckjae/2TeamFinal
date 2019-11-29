@@ -28,7 +28,6 @@ public class Weather extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
     	String weatherUrl = request.getParameter("weatherUrl");
-    	System.out.println("Weather.java "+weatherUrl);
     	
     	URL url = new URL(weatherUrl);
     	
@@ -39,7 +38,6 @@ public class Weather extends HttpServlet {
     	bos.close();
     	
     	String data = bos.getOut().toString();
-    	System.out.println("Weather.java data" + data);
     	
     	
     	response.getWriter().print(data);
