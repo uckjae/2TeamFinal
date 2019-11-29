@@ -22,6 +22,7 @@
     <script type="text/javascript">
     	$(function(){
     		$("#okBox").css("display","none");
+    		$("#editAddressBox").css("display","none");
     		$("input").attr("readonly", "readonly");
 			$("#frm").attr("action", "MemberList.do");
 			$(":checkbox").attr("disabled", "disabled");
@@ -35,6 +36,9 @@
     	function editMember(){
     		$("#header").text("Edit My Information");	
     		$("#okBox").css("display","block");
+    		$("#detailAddressBox").css("display","none");
+    		
+    		$("#editAddressBox").css("display","block");
     		$("#editBox").css("display","none");
     		$("#outBox").css("display","none");
     		
@@ -203,23 +207,32 @@
 								</div>
 							</div>
 						</div>
-				
+
 						<div class="col-lg-12 align-items-end mb-3">
 							<div class="form-group">
 								<label for="#">ADDRESS</label>
 								<c:set var="address" value="${fn:split(member.address, '/')}" />
-								<input type="number" id="postCode"
-									name="postCode" class="form-control" value="${address[0]}"
-									aria-label="Search" aria-describedby="basic-addon2"
-									style="height: 50px">
-								<div class="input-group-append">
-									<button class="btn btn-primary" type="button" id="openPostCode">
-										<i class="fas fa-search"></i>
-									</button>
-								</div>
-								<div class="form-field">
-									<input type="text" class="form-control" id="address"
-										name="address" value="${address[1] }">
+								<div class="form-field" id="detailAddressBox">
+                                	<div class="row">
+	                                	<div class="col-lg-3">
+	                                	   <input type="number" id="dPostCode" name="dPostCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
+	                                	</div>
+	                                	<div class="col-lg-9"> 
+	                                		<input type="text" class="form-control" id="dAddress" name="dAddress" value="${address[1] }" >
+	                                	</div>
+	                                </div>
+                                </div>
+								<div id="editAddressBox">
+									<input type="number" id="postCode" name="postCode" class="form-control" aria-label="Search" aria-describedby="basic-addon2"
+											value="${address[0]}"style="height: 50px" >
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="button" id="openPostCode">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+									<div class="form-field">
+										<input type="text" class="form-control" id="address" name="address" value="${address[1] }">
+									</div>
 								</div>
 							</div>
 						</div>
