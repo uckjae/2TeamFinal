@@ -32,16 +32,18 @@
     let checkName = false;
     let checkPwd = false;
     let checkBirth = false;
+    let checkAddress = false;
     
 	$(function () {
 		$("#openPostCode").click(execDaumPostcode);
 		$("#postCode").click(execDaumPostcode);
 		$("#sendEmail").click(sendMail);
 		$("#checkEmailCode").click(checkEmailCode);
-		$("#id").blur(validateId);
-		$("#name").blur(validateName);
-		$("#pwd").blur(validatePwd);
-		$("#birth").blur(validateBirth);
+
+		$("#id").on('keyup',validateId);
+		$("#name").on('keyup',validateName);
+		$("#pwd").on('keyup',validatePwd);
+		$("#birth").on('keyup',validateBirth);
 		$("form").submit(validate);
 	})
 	
@@ -54,7 +56,7 @@
 		checkBirth = getJumin.test($("#birth").val());
 		if(checkBirth){
 			checkBirth = true;
-			$("#gender").focusin();
+			$("#gender").focus();
 			$("#checkBirth").attr("hidden","hidden");
 		}else{
 			checkBirth = false;
@@ -154,15 +156,28 @@
 	
 	function checkEmailCode(){
 		if(emailCode == $("#emailCode").val()){
-			alert("이메일 인증 완료");
-		    $("#emailCodeControl").attr("hidden","hidden");
-			$("#email").attr("readonly","readonly");
-			$("#sendEmail").text("인증 완료");
-			$("#sendEmail").attr("disabled","disabled"); 
-			checkEmail = true;
+			Swal.fire({
+				  icon: 'success',
+				  title: '이메일 인증 성공',
+				  showConfirmButton: false,
+				  timer: 1500
+				}).then(function(){
+					 $("#emailCodeControl").attr("hidden","hidden");
+					 $("#email").attr("readonly","readonly");
+					 $("#sendEmail").text("인증 완료");
+					 $("#sendEmail").attr("disabled","disabled"); 
+					 checkEmail = true;
+				})
 		}else{
-			alert("이메일 인증 실패");
-			checkEmail = false;
+			Swal.fire({
+				  icon: 'error',
+				  title: '이메일 인증 실패',
+				  showConfirmButton: false,
+				  timer: 1500
+				}).then(function(){
+					checkEmail = false;
+				})
+			
 		}
 	}
 	
@@ -186,14 +201,24 @@
 	}
 	
 	function validate() {
-		console.log("validate");
-		console.log("checkEmail : "+checkEmail);
-		console.log("checkId : "+checkId);
-		console.log("checkName : "+checkName);
-		console.log("checkPwd : "+checkPwd);
-		console.log("checkBirth : "+checkBirth);
+		checkBirth = getJumin.test($("#birth").val());
+		if($("#gender").val()=="")
+			checkBirth = false;
 
-		 return false;
+		if($("#postCode").val()=="")
+			checkAddress=false;
+		else
+			checkAddress=true;
+		
+	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
+		   Swal.fire({
+				  icon: 'error',
+				  title: '입력 내용을 확인해주세요.',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+		 	return false;
+		} 
 	}
 </script>
 </head>

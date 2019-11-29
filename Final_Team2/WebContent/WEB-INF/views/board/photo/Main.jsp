@@ -19,7 +19,7 @@
 			<div class="content">
         <div class="comment-form-wrap pt-xl-2">
         	<div class="col-md-12 heading-section text-center ftco-animate fadeInUp ftco-animated">
-            	<h1 class="mb-3 bread">나만의 코스</h1>
+            	<h1 class="mb-3 bread">포토 게시판</h1>
         	</div>
         	<div class="row">
         		<c:forEach var="photo" items="${photolist}">
@@ -38,6 +38,7 @@
         								<h3>
         								<a href="PhotoBoardDetail.do?bIdx=${board.bIdx }">${board.title }</a>
         								</h3>
+        								<h5>${board.id }</h5>
         							</div>
         						</c:if>
         					</c:forEach>

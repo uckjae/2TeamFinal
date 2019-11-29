@@ -14,7 +14,7 @@
 <style type="text/css">
 	img {
 		width:100%;
-		height:464px;
+		height:600px;
 		background-size: cover;	
 		overflow: auto;
 		overflow: hidden;
@@ -26,6 +26,9 @@
 	margin-left: 10em;
 	margin-right: 10em;
 } 
+td {
+	text-align: center;
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -55,11 +58,13 @@ textarea{
 						</div>
 			<div class="col-lg-6" style="display: table-caption;">
 			<table border="1">
-			<td style="width: 225px">글 번호 : ${board.bIdx }</td>
-			<td style="width: 225px">조회 수 : ${board.rNum }</td>
+			<td style="width: 300px">${board.bIdx }</td>
+			<td style="width: 300px">${board.id}</td>
+			<td style="width: 300px">${board.rNum }</td>
+		
 			</table>
 			<input type="text" name="title" id="title" value="${board.title }" style="width: 550px;" readonly>
-			<textarea style="width: 550px; height: 400px;" id="content" name="content" readonly>${board.content }</textarea>
+			<textarea style="width: 550px; height: 500px;" id="content" name="content" readonly>${board.content }</textarea>
 			<c:if test="${board.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
 			<input type="button" class="btn btn-primary" value="수정" onclick="location.href='PhotoWrite.do?cmd=edit&bidx=${board.bIdx}'" >
 			<input type="button" class="btn btn-danger" value="삭제" onclick="deleteAlert('PhotoBoardDelete.do?',${board.bIdx})" >
