@@ -16,7 +16,7 @@ import kr.or.bit.dto.MTList;
 /**
  * Servlet implementation class APIMTLFolderListServlet
  */
-@WebServlet("/APIMTLFolderListServlet")
+@WebServlet("/APIMTLFolderList")
 public class APIMTLFolderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,11 +32,35 @@ public class APIMTLFolderListServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		String id = request.getParameter("id");
-		
 		BoardDao boardDao = new BoardDao();
 		List<MTList> mTFolderList = boardDao.mTLFolderList(id);
+		System.out.println("r u here?");
+		System.out.println(mTFolderList);
 		
-		out.print(mTFolderList);
+		StringBuilder json = new StringBuilder();
+		if(mTFolderList.size()>1) {
+			json.append("[");
+			for(int i=0; i<mTFolderList.size(); i++) {
+				json.append("{\"name\":");
+				json.append("\"" + mTFolderList.get(i).gettLName()+"\",");
+				json.append("\"tlidx\":");
+				json.append("\"" + mTFolderList.get(i).gettLidx()+"\"");
+				json.append("},");
+			}
+			json.replace(json.length()-1, json.length(), "");
+			json.append("]");
+		}
+		else {
+			json.append("{\"name\":");
+			json.append("\""+mTFolderList.get(0).gettLName()+"\",");
+			json.append("\"tlidx\":");
+			json.append("\"" + mTFolderList.get(0).gettLidx()+"\"");
+			json.append("}");
+		}
+		System.out.println(json);
+		out.print(json);
+		
+		
 ;	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
