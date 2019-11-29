@@ -35,9 +35,12 @@ public class PhotoBoardWriteOkService implements Action{
 			
 			String msg = "";
 			String url = "";
+			boolean success = false;
+			
 			if(cmd.equals("write")) {
 				bIdx = dao.photoWrite(memberId, title, content, photoName);
 				if(bIdx > 0) {
+					success=true;
 					msg = "글 작성을 성공하셨습니다.";
 					url = "PhotoBoardList.do";
 			}else {
@@ -51,6 +54,7 @@ public class PhotoBoardWriteOkService implements Action{
 				 System.out.println(bIdx);
 				int result = dao.photoEdit(bIdx, title, content, photoName);
 				if(result > 0) {
+					success=true;
 					msg = "글 수정을 성공하셨습니다.";
 					url = "PhotoBoardList.do";
 				}else {
@@ -62,6 +66,7 @@ public class PhotoBoardWriteOkService implements Action{
 				
 			request.setAttribute("board_msg", msg);
 			request.setAttribute("board_url", url);
+			request.setAttribute("board_result", success);
 
 			forward.setPath("/common/Redirect.jsp");	
 		} catch (IOException e) {

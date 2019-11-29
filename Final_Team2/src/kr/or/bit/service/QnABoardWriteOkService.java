@@ -26,10 +26,12 @@ public class QnABoardWriteOkService implements Action {
 		int bIdx = 0;
 		String msg = "";
 		String url = "";
+		boolean success= false;
 		BoardDao dao = new BoardDao();
 		if (cmd.equals("write")) {
 			bIdx = dao.insertQnABoard(memberId, title, content, isPublic);
 			if (bIdx > 0) {
+				success=true;
 				msg = "Q & A 작성 완료!";
 			} else {
 				msg = "Q & A 작성 실패! 글 작성 페이지로 재 이동합니다.";
@@ -38,6 +40,7 @@ public class QnABoardWriteOkService implements Action {
 			bIdx = Integer.parseInt(request.getParameter("bIdx"));
 			boolean result = dao.updateQnABoard(bIdx, title, content, isPublic);
 			if (result) {
+				success=true;
 				msg = "Q & A 수정 완료!";
 			} else {
 				msg = "Q & A 수정 실패! 글 작성 페이지로 재 이동합니다.";
@@ -51,6 +54,7 @@ public class QnABoardWriteOkService implements Action {
 
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", success);
 
 		forward.setPath("/common/Redirect.jsp");
 

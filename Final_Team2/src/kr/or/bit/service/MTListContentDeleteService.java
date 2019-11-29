@@ -24,6 +24,7 @@ public class MTListContentDeleteService implements Action{
 		}
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "MTList.do?tLidx=" + tLidx);
+		request.setAttribute("board_result", resultRow > 0);
 		forward.setRedirect(false);
 		forward.setPath("/common/Redirect.jsp");
 		return forward;

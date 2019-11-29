@@ -79,6 +79,7 @@ public class MyCourseBoardWriteOkService implements Action{
 		board.setwDate(wDate);
 		board.setbCode(bCode);
 		
+		boolean success = false;
 		BoardDao dao = new BoardDao();
 		if(cmd.equals("write")) {
 									
@@ -102,6 +103,7 @@ public class MyCourseBoardWriteOkService implements Action{
 				msg = "게시글 작성 실패! 글 작성 페이지로 재 이동합니다.";
 				System.out.println("MyCourseBoardWriteOkService dao.courseWrite() error"); 
 			}else {
+				success=true;
 				msg = "게시글 작성 완료!";
 			}
 		}else if(cmd.equals("edit")) {
@@ -130,6 +132,7 @@ public class MyCourseBoardWriteOkService implements Action{
 				msg = "게시글 수정 실패! 글 작성 페이지로 재 이동합니다.";
 				System.out.println("MyCourseBoardWriteOkService dao.courseEdit() error"); 
 			}else {
+				success=true;
 				msg = "게시글 수정 완료!";
 			}
 		}
@@ -142,6 +145,7 @@ public class MyCourseBoardWriteOkService implements Action{
 		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", url);
+		request.setAttribute("board_result", success);
 
 		forward.setPath("/common/Redirect.jsp");
 		

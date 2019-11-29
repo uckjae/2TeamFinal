@@ -24,8 +24,8 @@
     let getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/); // id / pwd
 	let getEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); // email
 	let getName= RegExp(/^[가-힣]+$/); // 이름
-	let getJumin = RegExp(/^\d{6}$/); // 주민번호 앞자리
-	let getGender = RegExp(/^[1-4]/); // 주민번호 앞자리
+	/* let getJumin = RegExp(/^\d{6}$/); // 주민번호 앞자리
+	let getGender = RegExp(/^[1-4]/); // 주민번호 앞자리 */
 	
     let emailCode = "";
     let checkEmail = false;
@@ -133,7 +133,7 @@
 	        $("#name").focus();
 	        return false;
 		}
-		if(!getJumin.test($("#birth").val())){
+		/* if(!getJumin.test($("#birth").val())){
 	        alert("생년월일을 적확히 입력해주세요 ex)191129");
 	        $("#birth").focus();
 	        return false;
@@ -142,7 +142,7 @@
 	        alert("1~4 입력 ");
 	        $("#gender").focus();
 	        return false;
-		}
+		} */
 		if($("address").val() == null){
 	        alert("주소를 입력해주세요");
 	        console.log($("postCode").val());
