@@ -283,7 +283,8 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request,response);
 		}
 		//여행리스트 리스트 추가하기 
-		else if (url_Command.equals("/MTListContentAdd.do")) {			
+		else if (url_Command.equals("/MTListContentAdd.do")) {	
+			System.out.println("컨트롤러에 오니 여리야 ");
 			action = new MTListContentAddService();
 			forward = action.execute(request,response);
 		}
