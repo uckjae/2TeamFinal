@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <c:set var="bIdx" value="${param.bIdx}"/>
 <c:set var="replies" value="${requestScope.replies}"/>
 <script type="text/javascript">
@@ -31,25 +32,48 @@
 	});
 	
 	function delReply(rIdx){
-		 $.ajax({
-		        type:'POST',
-		        url : "WriteReply",
-		        data:{cmd : "del", rIdx : rIdx},
-		        success : function(data){
-		        	console.log("success");
-		        	if(data){
-		        		$("#"+rIdx).remove();
-		        		changReplyHeader();
-		        	}else{
-		        		alert("댓글 삭제 실패!");
-		        	}
-		        },
-		        error:function(request, status, error){
-		            alert("댓글 삭제 실패!");
-		       }
-		    });
+		Swal.fire({
+			  title: 'Are you sure?',
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+			  if (result.value) {
+				  deleteReply(rIdx);
+			  }
+			})
+		   
 	}
 	
+	function deleteReply(rIdx){
+		$.ajax({
+	        type:'POST',
+	        url : "WriteReply",
+	        data:{cmd : "del", rIdx : rIdx},
+	        success : function(data){
+	        	console.log("success");
+	        	if(data){
+	        		$("#"+rIdx).remove();
+	        		changReplyHeader();
+	        	}else{
+	        		deleteReplyError();
+	        	}
+	        },
+	        error:function(request, status, error){
+	        	deleteReplyError();
+	       }
+	    });
+	}
+	
+	function deleteReplyError(){
+		Swal.fire({
+			  icon: 'error',
+			  title: 'Oops...',
+			  text: 'Something went wrong!',
+			})
+	}
 	function addReply(data){
 		console.log(data);
 		let control = "<li class='comment box p-2 px-3 bg-light d-flex' id='"+data.rIdx+"'>"
@@ -78,10 +102,18 @@
 <body>
   <div class="p-5 bg-light mt-3">
      	<div class="form-group">
-      	<textarea name="replyContent" id="replyContent" cols="30" rows="3" class="form-control" placeholder="Message"></textarea>
+     	
+      	<textarea name="replyContent" id="replyContent" cols="30" rows="3" class="form-control" 
+      		<c:choose>
+	     		<c:when test="${sessionScope.memberId != null }">placeholder="Message"</c:when>
+	     		<c:otherwise>placeholder="로그인해주세요." readonly</c:otherwise>
+     		</c:choose>
+      	></textarea>
           </div>
           <div class="text-right">
-          	 <input id="reply" type="button" class="btn btn-primary " value="REPLY" >
+          	 <input id="reply" type="button" class="btn btn-primary " value="REPLY"
+          	 	<c:if test="${sessionScope.memberId == null }">disabled</c:if>
+          	 >
           </div>
     </div>
     

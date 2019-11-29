@@ -91,14 +91,12 @@
                         		<td >${board.bIdx}</td>
                         		<td><a onclick="showDetail(${board.bIdx})"  href="#">
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
-                        				<c:choose>
-                        					<c:if test="${board.depth > 1}">
-                        						<c:when test="${depth == board.depth}">┖&nbsp;</c:when>
-                        					</c:if>
-                        				<c:otherwise>&nbsp; &nbsp; &nbsp; &nbsp;</c:otherwise>
-                        				</c:choose>
+                        				&nbsp;&nbsp;&nbsp;&nbsp;
                         			</c:forEach>
-                        		${board.title}</a></td>
+                        			<c:if test="${board.depth > 0}">
+                        				<img src="images/re.gif" >
+                        			</c:if>
+                        			${board.title}</a></td>
                         		<td>
                             		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             	</td>
@@ -109,11 +107,13 @@
                     </tbody>
                 </table>
             </div>
-            <a href="FreeBoardWrite.do?cmd=write">
-            	<c:if test="${sessionScope.memberId != null || (sessionScope.memberId != null && sessionScope.isAdmin == 'true')}">
-                	<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
-                </c:if>
-            </a>
+			<div class="text-right mt-3">
+				<a href="FreeBoardWrite.do?cmd=write">
+					<c:if test="${sessionScope.memberId != null || (sessionScope.memberId != null && sessionScope.isAdmin == 'true')}">
+               	 		<input type="button" class="btn btn-primary" value="글쓰기" id="fboad" name="fboard">
+					</c:if>
+				</a>
+			</div>
         </div>
     </div>
 </body>
