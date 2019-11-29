@@ -64,7 +64,7 @@
     <c:import url="/common/Top.jsp" />
     <!-- Vertical Timeline -->
     <c:set var="mCBoard" value="${requestScope.mCBoard}" />
-    <div class="content">
+    <div class="container" style='margin-top:7em'>
         <div id="conference-timeline">
             <div class="row">
                 <div class="text-left">
