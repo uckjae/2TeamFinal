@@ -14,7 +14,6 @@ public class FreeBoardWriteOkService implements Action{
 		ActionForward forward = new ActionForward();
 		
 		String cmd = request.getParameter("cmd").trim();
-		System.out.println("writeok : " + cmd);
 		String id = (String)request.getSession().getAttribute("memberId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");

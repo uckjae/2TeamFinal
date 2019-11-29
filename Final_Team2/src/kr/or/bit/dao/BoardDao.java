@@ -181,7 +181,6 @@ public class BoardDao {
 
 	// 자유 게시판 답글쓰기
 	public int FreeBoardReWrite(String id, String title, String content, int bIdx) {
-		System.out.println("rewrite init");
 		int resultRow = 0;
 		int refer = 0, depth = 0, step = 0;
 
@@ -194,9 +193,7 @@ public class BoardDao {
 		String sql1 = "INSERT INTO BOARD(BIDX, ID, TITLE, CONTENT, WDATE, RNUM, BCODE) VALUES(BIDX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, 4)";
 		String sql2 = "INSERT INTO FREEBOARD(FIDX, BIDX, REFER, DEPTH, STEP) VALUES(FIDX_SEQ.NEXTVAL, BIDX_SEQ.CURRVAL, ?, ?, ?)";
 		String bIdxsql = "SELECT BIDX_SEQ.CURRVAL FROM DUAL";
-		System.out.println("sql set");
 		try {
-			System.out.println("rewrite try init");
 			pstmt = connection.prepareStatement(referDepthStep);
 			pstmt.setInt(1, bIdx);
 			resultSet = pstmt.executeQuery();
@@ -207,31 +204,30 @@ public class BoardDao {
 			}
 
 			connection.setAutoCommit(false);
-			System.out.println("set autocommit false");
+			
 			pstmt = connection.prepareStatement(stepUp);
 			pstmt.setInt(1, step);
 			pstmt.setInt(2, refer);
 			pstmt.executeUpdate();
-			System.out.println("step sql");
+			
 			pstmt = connection.prepareStatement(sql1);
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, content);
 			pstmt.executeUpdate();
-			System.out.println("insert board sql");
+			
 			pstmt = connection.prepareStatement(sql2);
 			pstmt.setInt(1, refer);
 			pstmt.setInt(2, depth + 1);
 			pstmt.setInt(3, step + 1);
 			pstmt.executeUpdate();
-			System.out.println("insert freeboard sql");
+
 			pstmt = connection.prepareStatement(bIdxsql);
 			resultSet = pstmt.executeQuery();
 			if (resultSet.next()) {
-				System.out.println("get bidx");
 				bIdx = resultSet.getInt(1);
 			}
-			System.out.println("commit ok");
+
 			connection.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -245,7 +241,6 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 			DBHelper.close(connection);
 		}
-		System.out.println("rewrite return");
 		return bIdx;
 	}
 
@@ -395,7 +390,6 @@ public class BoardDao {
 
 		String sql = " SELECT B.BIDX, B.ID, B.TITLE, B.CONTENT, B.WDATE, B.RNUM, N.NIDX, N.ISTOP"
 				+ " FROM BOARD B JOIN NOTICEBOARD N ON B.BIDX = N.BIDX" + " WHERE B.BIDX = ?";
-		System.out.println("bIdx ddd" + bIdx);
 		try {
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
