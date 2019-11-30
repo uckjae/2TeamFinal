@@ -28,7 +28,7 @@
 	
 	<div id="main">
 	<br><br><br><br><br>
-		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;메인 자리입니다. </h1>
+		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2조 파이팅 !!! </h1>
 	</div>
 	
 	<script src="js/main.js"></script>
