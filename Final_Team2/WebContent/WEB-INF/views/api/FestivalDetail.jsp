@@ -99,6 +99,12 @@ body {
 			
 			console.log("마이 데이터 : " + apicommon);
 			$(".spotName").val(myData.title);
+
+			if (window.sessionStorage) {
+                sessionStorage.setItem('spotName', myData.title);
+                var spotName = sessionStorage.getItem('spotName');
+            }
+
 			$.each(myData, function(key, value) {
 				if (key == "overview") {
 					$("#overview").append("<hr>");
@@ -134,7 +140,7 @@ body {
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
 				var myData3 = data3.response.body.items.item;
-				$(".mTLimage").val(image);
+				/* $(".mTLimage").val(image); */
 				if(myData3==null){
 					
 					var img2 = $('<img>');
@@ -350,10 +356,13 @@ body {
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
+						$("#innerModalIntro").append(
+								"<p>" + element.name +"</p>"
+								+ "<input type='button' value='추가하기' class='btn btn-primary' onclick = 'submitFn("+element.tlidx+")'>"  
+							
+						);
 						
 						
-						
-						$("#innerModalIntro").append(ptag);
 						//$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn(element.tlidx)'>"+ element.name + "</a></p>");
 						
 					});
@@ -371,6 +380,11 @@ body {
 	       }
 		});
 		}	
+	
+	function submitFn(idx){
+		$("#frm").attr("action","MTListContentAdd.do?tlidx="+idx);
+		$("#frm").submit();
+	}
 /* 	function submitFn(idxNum) {
 		var sendingJsonData = {"tlidx":idxNum,"": ,}
 		$.ajax({
@@ -438,17 +452,13 @@ body {
         </div>
       
         <div class="modal-body" id="innerModalIntro">  
-          <form id="frm" method = "get" action = "MTListContentAdd.do"> 		
-			<!--  <button type="button" class="btn btn-primary" id="modalIntroBtn"  >목록보기</button> 	 -->
-			 
-			 <!-- <input   name="tlidx" type="hidden" class="tlidx"> -->
+          <form id="frm" method="post"> 			 
 			 <input  name="spotName" type="hidden" class="spotName">
 			 <input  name="mTLimage" type="hidden" class="mTLimage">
 			 <input  name="spotDate" type="hidden" class="spotDate">
 			 <input  name="spotAddr" type="hidden" class="spotAddr">
 			 <input  name="spotLink" type="hidden" class="spotLink">
-			  <input type="submit" value="추가하기" class="btn btn-primary">  
-			  </form>     
+		  </form>    
         </div>
         <div class="modal-footer">
         <!-- <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 ">  -->
