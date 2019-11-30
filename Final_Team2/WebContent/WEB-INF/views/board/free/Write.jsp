@@ -104,11 +104,11 @@
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form id="frm" action="FreeBoardWriteOk.do?cmd=
+            <form id="frm" class="p-5 bg-light" method="post" name="write" 
             	<c:choose>
-                	 <c:when test="${isEdit}">edit</c:when>
-                	<c:otherwise>write</c:otherwise>
-                </c:choose> " class="p-5 bg-light" method="post" name="write">
+                	 <c:when test="${isEdit}">action="FreeBoardWriteOk.do?cmd=edit"</c:when>
+                	<c:otherwise>action="FreeBoardWriteOk.do?cmd=write"</c:otherwise>
+                </c:choose>>
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${freeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${freeWrite.bIdx}">
                 <textarea rows="10" cols="60" id="summernote" name="content">${ freeWrite.content }</textarea>

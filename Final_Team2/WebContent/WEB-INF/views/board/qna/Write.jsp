@@ -90,11 +90,11 @@
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form id="frm" action="QnABoardWriteOk.do?cmd=
+            <form id="frm" class="p-5 bg-light" method="post" 
             	<c:choose>
-                	 <c:when test="${isEdit}">edit</c:when>
-                	<c:otherwise>write </c:otherwise>
-                </c:choose> " class="p-5 bg-light" method="post">
+                	 <c:when test="${isEdit}">action="QnABoardWriteOk.do?cmd=edit"</c:when>
+                	<c:otherwise>action="QnABoardWriteOk.do?cmd=write"</c:otherwise>
+                </c:choose>>
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${qnaWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${qnaWrite.bIdx}">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">${ qnaWrite.content }</textarea>

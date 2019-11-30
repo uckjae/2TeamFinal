@@ -85,9 +85,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>서울</span>"
-											+"<div class='contain'>"
-											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="TravelDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			apiContent = api + contentId[0].code + paramArea + areaCode[1].code + type;
@@ -96,9 +98,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>인천</span>"
-											+"<div class='contain'>"
-											+ "<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+ "<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="TravelDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			apiContent = api + contentId[0].code + paramArea + areaCode[2].code + type;
@@ -107,9 +111,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>경기</span>"
-											+"<div class='contain'>"
-											+"<a href='TravelDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="TravelDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			
@@ -120,9 +126,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>서울</span>"
-											+"<div class='contain'>"
-											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="FestivalDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			apiContent = api + contentId[1].code + paramArea + areaCode[1].code + type;
@@ -131,9 +139,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>인천</span>"
-											+"<div class='contain'>"
-											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="FestivalDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			apiContent = api + contentId[1].code + paramArea + areaCode[2].code + type;
@@ -142,9 +152,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>경기</span>"
-											+"<div class='contain'>"
-											+"<a href='FestivalDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="FestivalDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			
@@ -155,9 +167,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>서울</span>"
-											+"<div class='contain'>"
-											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="CourseAPIDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			apiContent = api + contentId[2].code + paramArea + areaCode[1].code + type;
@@ -166,9 +180,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>인천</span>"
-											+"<div class='contain'>"
-											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="CourseAPIDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			apiContent = api + contentId[2].code + paramArea + areaCode[2].code + type;
@@ -177,9 +193,11 @@
 				console.log(myData);
 				//$.each(myData, function(index, element){
 						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>경기</span>"
-											+"<div class='contain'>"
-											+"<a href='CourseAPIDetail.do?contentId="+ myData.contentid +"'><img src='"+myData.firstimage+"' alt='No Image' style='width: 100%; height: 100%;'>"
-											+"<span id='text'>" + myData.title + "</span></a></div></div>");
+								+"<div class='contain'>"
+								+'		<a href="CourseAPIDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
+								+ '			<span id="text">' + myData.title + '</span>'
+								+ '		</a>'
+								+ "</div></div>");
 				//});
 			});
 			oldCode = code;
