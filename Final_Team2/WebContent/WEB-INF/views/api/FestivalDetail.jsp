@@ -87,7 +87,6 @@ body {
 		var y = "";
 		var xpos = "&mapX=";
 		var ypos = "&mapY=";
-		console.log(x);
 		var image = "";
 		
 
@@ -97,7 +96,6 @@ body {
 			
 			$("#title").text(myData.title);
 			
-			console.log("마이 데이터 : " + apicommon);
 			$(".spotName").val(myData.title);
 
 			if (window.sessionStorage) {
@@ -113,21 +111,18 @@ body {
 					$("#overview").append("<hr>");
 					$("#overview").append("<h3><b>상세정보</b></h3>");
 					
-					console.log(" 링크 : " + value);
 					
 				} else if (key == "homepage") {
-					console.log(" 링크 : " + value);
 					$(".spotLink").val(value);
 					$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
 					
 					
 				} else if (key == "mapx") {
 					x = value;
-					
-					console.log(x);
+
 				} else if (key == "mapy") {
 					y = value;
-					console.log(y);
+
 				}else if(key =="firstimage2"){
 					image = value;
 					
@@ -162,7 +157,6 @@ body {
 			});
 			
 			var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
-			//console.log(rs);
 			var date = new Date();
 			var year = date.getFullYear();
 			var month = date.getMonth()+1;
@@ -192,8 +186,7 @@ body {
 				type:"GET",
 				data: jsonWeatherUrl,
 				success: function(weatherData){
-					//console.log("success");
-					//console.log(weatherData);
+
 					var icon = $('<i>');
 					var totalRain = $('<span>');
 					var degree = $('<span>');
@@ -287,9 +280,9 @@ body {
 			apilocation = addr + "locationBasedList?" + addr5;
 			var around = "";
 			$.getJSON(apilocation, function(data4) {
-				console.log("in");
+			
 				var myData4 = data4.response.body.items.item;
-				console.log(myData4);
+
 				$.each(myData4,function(index,element){	
 				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
 					var pj = $('<div class="project">');
@@ -351,15 +344,15 @@ body {
 			data: jsonId,
 			dataType: "json",
 			success : function (data){
-				console.log($.type(data));
+				
 				$("#modalIntroBtn").css("display","none");
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
 						$("#innerModalIntro").append(
-								"<p>" + element.name +"</p>"
-								+ "<input type='button' value='추가하기' class='btn btn-primary' onclick = 'submitFn("+element.tlidx+")'>"  
-							
+								element.name 
+								+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mb-3 mt-0' onclick = 'submitFn("+element.tlidx+")'>"  
+							 	+ "<br>"
 						);
 						
 						
@@ -367,15 +360,16 @@ body {
 						
 					});
 				} else {
-				//	$("#innerModalIntro").append(data.name);
 					$("#tlidx").val(data.tlidx);
-					console.log("index값 each 문 안 : " +data.tlidx);
-				//	$("#innerModalIntro").append("<p>"+ data.name + "</p>");
-					$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn()'>"+ data.name + "</a></p>");	
+					$("#innerModalIntro").html(
+							data.name 
+							+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mb-3 mt-0' onclick = 'submitFn("+data.tlidx+")'>"  
+						 	+ "<br>"
+					);	
 				} 
 			},
 			error:function(request, status, error){
-				console.log(error);
+				
 	            alert("실패");
 	       }
 		});
@@ -385,15 +379,6 @@ body {
 		$("#frm").attr("action","MTListContentAdd.do?tlidx="+idx);
 		$("#frm").submit();
 	}
-/* 	function submitFn(idxNum) {
-		var sendingJsonData = {"tlidx":idxNum,"": ,}
-		$.ajax({
-			url:"MTListContentAdd.do",
-			type:"json",
-			data:"{name}"
-		})
-	}  */
-	
 </script>
 </head>
 
@@ -428,9 +413,10 @@ body {
 			<div class="position" id="map"></div>
 			
 			<div id="mainContentBox" class="content">
+				<h4>주변축제</h4>
+				<hr>
 				<div class="row" id="here">
 					
-								
 							
 									
 								</div>

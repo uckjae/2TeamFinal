@@ -25,9 +25,8 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <div class="container">
+    <div class="container mt-7">
     <div id="main">
-	<br><br><br><br> 
 		<h1><i class="flaticon-world mr-3"></i>나의 여행 리스트</h1>
 	<br>	 
 	<c:set var="mTLContentList" value ="${requestScope.mTLContent}"/>
