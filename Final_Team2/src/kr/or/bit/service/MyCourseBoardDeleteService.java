@@ -17,7 +17,7 @@ public class MyCourseBoardDeleteService implements Action{
 		
 		BoardDao dao = new BoardDao();
 		
-		mCBoardDelete = dao.courseDelete(bIdx);
+		mCBoardDelete = dao.deleteBoardBybIdx(bIdx);
 		String msg = "";
 		if(mCBoardDelete) {
 			msg = "게시글 삭제 완료";
