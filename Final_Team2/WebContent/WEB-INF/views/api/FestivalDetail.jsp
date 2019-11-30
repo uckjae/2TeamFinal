@@ -278,20 +278,36 @@ body {
 			var range = "&radius=3000&listYN=Y";
 			var apilocation = "";
 			var addr5 = servicekey + paramNumOfRow + paramPageNo + arrange + array + contentType + xpos + x + ypos + y + type + range;
-			console.log(xpos);
 			apilocation = addr + "locationBasedList?" + addr5;
-			console.log(apilocation);
 			var around = "";
 			$.getJSON(apilocation, function(data4) {
 				console.log("in");
 				var myData4 = data4.response.body.items.item;
-				console.log(data4);
+				console.log(myData4);
 				$.each(myData4,function(index,element){	
-					around = element.firstimage2;
-					var itag = $('<img class="img-fluid">');
-					itag.attr("src",around);
-					console.log(itag);
-					$("#imginfo").append(itag);
+				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+					var pj = $('<div class="project">');
+						var imgs = $('<div class="img" style="max-height:200px; width:auto;">');
+							var itag = $('<img class="img-fluid">');
+								around = element.firstimage;
+									$(itag).attr("src",around);
+									$(itag).attr("onError","this.src='/images/default.png'");
+									$(itag).attr("alt","여행지사진");
+								$(imgs).append(itag);	
+								
+								var txtDiv = $('<div class="text">');
+								var link = $('<a>');
+									$(link).attr("href","FestivalDetail.do?contentId="+element.contentid);
+									var spotName = $('<h6>');
+										$(spotName).text(element.title);
+								$(link).append(spotName);
+								$(txtDiv).append(link);
+								
+								$(pj).append(imgs);
+								$(pj).append(txtDiv);
+								$(col).append(pj);
+								$("#here").append(col);
+					
 				});
 				
 				
@@ -401,21 +417,17 @@ body {
 			<div class="position" id="map"></div>
 			
 			<div id="mainContentBox" class="content">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
-							<div class="project">
-								<div class="img" style="max-height:150px; width:auto;" id="imginfo">
+				<div class="row" id="here">
+					
 								
 							
 									
 								</div>
 						</div>
 				</div>
-							
-			</div>
-		</div>
-			
-		</div>
+				<div class="text-right">
+				<a href="Festival.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				</div>
 	</section>
 <!--  모달창 첫 화면 -->	
 <div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
