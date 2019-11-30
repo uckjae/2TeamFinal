@@ -56,11 +56,12 @@
 	
 	// 메인 컨텐츠 만들기 
 	function makeRow(element){
+		 let imagePath = (element.firstimage == undefined)?"./images/notImage.jpg":element.firstimage;
 		 var div1 = $("<div class='col-md-4'>");
 	     var divProj = $("<div class='project mb-4'>");
 	     var divImg = $("<div class='image'>");
 	     var img = $('<img>');
-	     $(img).attr('src', element.firstimage);
+	     $(img).attr('src',imagePath);
 	     $(img).attr('alt', 'No Image');
 	     $(img).attr('style', 'width:100%');
 	     $(img).attr('class', 'firstImg');
@@ -166,7 +167,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 
-	<div class="content">
+	<div class="container mt-7">
 	
 		<div class="row mb-4 mt-10">
 			<div class="col-md-11 offset-md-1">

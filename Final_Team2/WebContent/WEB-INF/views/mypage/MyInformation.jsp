@@ -22,6 +22,7 @@
     <script type="text/javascript">
     	$(function(){
     		$("#okBox").css("display","none");
+    		$("#cancelBox").css("display","none");
     		$("#editAddressBox").css("display","none");
     		$("input").attr("readonly", "readonly");
 			$("#frm").attr("action", "MemberList.do");
@@ -36,6 +37,7 @@
     	function editMember(){
     		$("#header").text("Edit My Information");	
     		$("#okBox").css("display","block");
+    		$("#cancelBox").css("display","block");
     		$("#detailAddressBox").css("display","none");
     		
     		$("#editAddressBox").css("display","block");
@@ -255,10 +257,18 @@
 							</div>
 						</div>
 						
-						<div class="col-md-12 align-self-end" id="okBox">
+						<div class="col-md-6 align-self-end" id="okBox">
 							<div class="form-group">
 								<div class="form-field ">
 									<input  type="submit" class="btn btn-primary  form-control" id="okBtn" value="확인"> 
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-6 align-self-end" id="cancelBox">
+							<div class="form-group">
+								<div class="form-field ">
+									<input  type="button" class="btn btn-primary  form-control" id="cancelBtn" onclick="location.href='MyInformation.do'" value="취소"> 
 								</div>
 							</div>
 						</div>

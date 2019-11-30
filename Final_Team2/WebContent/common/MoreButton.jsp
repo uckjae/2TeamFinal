@@ -46,7 +46,7 @@
 			<a class="dropdown-item" href="javascript:copy()" >링크 복사</a>	
 			<a class="dropdown-item" href="javascript:sendKaKaoLink()" id="kakaoLink">카카오톡으로 공유</a>	
 			<c:if test="${useMyTravel}">
-				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#myTravelListModalIntro" >내 여행 리스트에 추가</a>	
+				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#myTravelListModalIntro" onclick="showTList()">내 여행 리스트에 추가</a>	
 			</c:if>
 			
 		</div>

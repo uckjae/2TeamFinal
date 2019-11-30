@@ -17,7 +17,7 @@ public class NoticeBoardDeleteService implements Action{
 		int bIdx =Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		boolean noticeBoardDelete =dao.noticeDelete(bIdx);
+		boolean noticeBoardDelete =dao.deleteBoardBybIdx(bIdx);
 		
 		String msg="";
 		if(noticeBoardDelete) {
