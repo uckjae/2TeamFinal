@@ -98,7 +98,7 @@ body {
 			$("#title").text(myData.title);
 			
 			console.log("마이 데이터 : " + apicommon);
-			$("#spotName").val(myData.title);
+			$(".spotName").val(myData.title);
 			$.each(myData, function(key, value) {
 				if (key == "overview") {
 					$("#overview").append("<hr>");
@@ -111,7 +111,7 @@ body {
 					
 				} else if (key == "homepage") {
 					console.log(" 링크 : " + value);
-					$("#spotLink").val(value);
+					$(".spotLink").val(value);
 					$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
 					
 					
@@ -134,13 +134,13 @@ body {
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
 				var myData3 = data3.response.body.items.item;
-				$("#mTLimage").val(image);
+				$(".mTLimage").val(image);
 				if(myData3==null){
 					
 					var img2 = $('<img>');
 					
 						$(img2).attr("src",image);
-						$("#mTLimage").val(image);
+						$(".mTLimage").val(image);
 					$("#imgarea").append(img2);
 				}else{
 				
@@ -227,7 +227,7 @@ body {
 					$("#content").append(
 							"<ul><li>주소 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;"
 									+ value + "</li></ul>");
-					$("#spotAddr").val(value);
+					$(".spotAddr").val(value);
 				} else if (key == "eventenddate") {
 					$("#info").append(
 							"<ul><li>종료날짜  &nbsp;&nbsp;&nbsp;" + value
@@ -248,7 +248,7 @@ body {
 					$("#content").append(
 							"<ul><li>시작날짜   &nbsp;&nbsp;&nbsp;" + value
 									+ "</li><ul>");
-					$("#spotDate").val(value);
+					$(".spotDate").val(value);
 				} else if (key == "sponsor2tel") {
 					$("#info").append(
 							"<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value
@@ -350,12 +350,9 @@ body {
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
-						var ptag = $('<p>');
-							var atag = $('<a>');
-								$(atag).attr("onclick",'submitFn('+this+')');
-								$(atag).attr("href","#");
-								$(atag).text(element.name);
-						$(ptag).append(atag);
+						
+						
+						
 						$("#innerModalIntro").append(ptag);
 						//$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn(element.tlidx)'>"+ element.name + "</a></p>");
 						
@@ -439,23 +436,25 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "get" action = "MTListContentAdd.do">
-        <div class="modal-body" id="innerModalIntro">   		
-			 <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" >목록보기</button> 	
+      
+        <div class="modal-body" id="innerModalIntro">  
+          <form id="frm" method = "get" action = "MTListContentAdd.do"> 		
+			<!--  <button type="button" class="btn btn-primary" id="modalIntroBtn"  >목록보기</button> 	 -->
 			 
-			 <!-- <input   name="tlidx" type="hidden" id="tlidx"> -->
-			 <input  name="spotName" type="hidden" id="spotName">
-			 <input  name="mTLimage" type="hidden" id="mTLimage">
-			 <input  name="spotDate" type="hidden" id="spotDate">
-			 <input  name="spotAddr" type="hidden" id="spotAddr">
-			 <input  name="spotLink" type="hidden" id="spotLink">
-			          
+			 <!-- <input   name="tlidx" type="hidden" class="tlidx"> -->
+			 <input  name="spotName" type="hidden" class="spotName">
+			 <input  name="mTLimage" type="hidden" class="mTLimage">
+			 <input  name="spotDate" type="hidden" class="spotDate">
+			 <input  name="spotAddr" type="hidden" class="spotAddr">
+			 <input  name="spotLink" type="hidden" class="spotLink">
+			  <input type="submit" value="추가하기" class="btn btn-primary">  
+			  </form>     
         </div>
         <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 "> 
+        <!-- <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 ">  -->
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
-        </form>
+       
       </div>
     </div>
   </div>	
