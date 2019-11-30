@@ -14,7 +14,7 @@
 	#main{
 		background-repeat : no-repeat;
 		background-size : cover;
-		background-image: url("images/cky13.jpg");
+		background-image: url("images/cky_22.jpg");
 		width: 100%; 
 		height: 100%;
 	}
@@ -28,7 +28,7 @@
 	
 	<div id="main">
 	<br><br><br><br><br>
-		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2조 파이팅 !!! </h1>
+		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
 	</div>
 	
 	<script src="js/main.js"></script>
