@@ -29,9 +29,8 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <div class="container">
+    <div class="container mt-7">
     <div id="main">
-	<br><br><br><br>
 		<h1><i class="flaticon-world mr-3"></i> 나의 여행 리스트 폴더</h1>
 		
 		<button type="button" class="btn btn-primary mt-1 mb-3" data-toggle="modal" data-target="#editModal1" data-cmd="add">폴더 추가하기</button>
