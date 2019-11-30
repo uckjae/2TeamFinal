@@ -87,7 +87,7 @@
 				paging = false;	
 			}
 		});
-	};
+	}
 </script>
 <style type="text/css">
 html, body {
