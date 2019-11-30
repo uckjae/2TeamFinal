@@ -67,10 +67,11 @@ function getDatas(code){
 		if (myData != undefined && myData.length > 0) {
 			++pageNo;
 			$.each(myData,function(index,element){
+				let imagePath = (element.firstimage2 == undefined)?"./images/notImage.jpg":element.firstimage2;
 				$('#dataBox').append(
 						"<div class='row'>"
 							+"<div class='col-md-3'>"
-								+"<img src="+ element.firstimage2 + ">"
+								+"<img src="+ imagePath + ">"
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
