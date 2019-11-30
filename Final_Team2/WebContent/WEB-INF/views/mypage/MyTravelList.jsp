@@ -40,7 +40,6 @@
                    <c:forEach var="mTLContent" items="${mTLContentList}" >
                    
 						<div class="vcard bio">
-							<!--이미지 경로 나중에 다시 설정하기 -->
 							<img src="${mTLContent.image}" alt="trip image">
 						</div>
 							<div class="comment-body">

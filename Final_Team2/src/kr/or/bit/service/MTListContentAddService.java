@@ -20,13 +20,12 @@ public class MTListContentAddService implements Action {
 		ActionForward forward = new ActionForward();
 		BoardDao boardDao = new BoardDao();
 		
-		Enumeration<String> e = request.getParameterNames();
-		while(e.hasMoreElements()) {
-			System.out.println("enumeration done!!!");
-			System.out.println(e.nextElement());
-		}
-		
-		System.out.println(request.getParameter("tlidx"));
+		/*
+		 * Enumeration<String> e = request.getParameterNames();
+		 * while(e.hasMoreElements()) { System.out.println("enumeration done!!!");
+		 * System.out.println(e.nextElement()); }
+		 */
+
 		int tLidx = Integer.parseInt(request.getParameter("tlidx"));
 		String spotName= request.getParameter("spotName");
 		String image = request.getParameter("mTLimage");
