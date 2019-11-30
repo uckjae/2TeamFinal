@@ -21,7 +21,7 @@ public class QnABoardWriteService implements Action {
 		QnABoard qnaWrite = null;
 
 		String cmd = request.getParameter("cmd");
-
+		System.out.println("cmd : "+cmd);
 		if (cmd.equals("write")) {
 			qnaWrite = new QnABoard();
 			qnaWrite.setbIdx(-1);
