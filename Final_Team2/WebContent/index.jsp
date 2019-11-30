@@ -14,7 +14,7 @@
 	#main{
 		background-repeat : no-repeat;
 		background-size : cover;
-		background-image: url("images/cky13.jpg");
+		background-image: url("images/mainimg.jpg");
 		width: 100%; 
 		height: 100%;
 	}

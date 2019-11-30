@@ -8029,7 +8029,7 @@ h1, h2, h3, h4, h5,
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.9);
   font-weight: 400;
-  font-family: "Cormorant Garamond", Georgia, serif; }
+  font-family: 'Nanum Pen Script', cursive; }
 
 .text-primary {
   color: #e2c0bb !important; }
@@ -10320,4 +10320,10 @@ textarea.form-control {
 }
 .diw-wind:before {
   content: "|";
+}
+.font-jua {
+	font-family: 'Jua', sans-serif;
+}
+.font-pen {
+	font-family: 'Nanum Pen Script', cursive;
 }

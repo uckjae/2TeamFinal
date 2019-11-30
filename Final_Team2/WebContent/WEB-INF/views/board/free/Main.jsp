@@ -82,7 +82,7 @@
 	<c:set var="freeList" value="${requestScope.freeBoardList}"></c:set>
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
-            <h1 class="text-center mb-3 bread"> 자유 게시판 </h1>
+            <h1 class="text-center mb-3 bread" > 자유 게시판 </h1>
             <div class="table-responsive">
                 <table class="table table-bordered hover" id="dataTable">
                     <thead>

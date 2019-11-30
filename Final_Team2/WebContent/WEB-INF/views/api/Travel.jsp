@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <c:import url="/common/HeadTag.jsp" />
 <title>여행지 메인</title>
+<style type="text/css">
+	/* a {
+		/* font-family: 'Jua', sans-serif; */
+		 font-family: 'Nanum Pen Script', cursive; 
+		font-size: 25px;
+	} */
+
+</style>
 <script type="text/javascript">
 
 	let contentCount = 10; // 한번에 로드되는 api 데이터 갯수
