@@ -25,6 +25,7 @@
         	border: 1px solid #ced4da;
         	border-radius:5px;
         }
+        
     </style>
     <script type="text/javascript">
     	$(function(){
