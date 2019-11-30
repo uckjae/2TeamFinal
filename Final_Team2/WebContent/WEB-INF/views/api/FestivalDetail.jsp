@@ -87,7 +87,6 @@ body {
 		var y = "";
 		var xpos = "&mapX=";
 		var ypos = "&mapY=";
-		console.log(x);
 		var image = "";
 		
 
@@ -97,8 +96,13 @@ body {
 			
 			$("#title").text(myData.title);
 			
-			console.log("마이 데이터 : " + apicommon);
-			$("#spotName").val(myData.title);
+			$(".spotName").val(myData.title);
+
+			if (window.sessionStorage) {
+                sessionStorage.setItem('spotName', myData.title);
+                var spotName = sessionStorage.getItem('spotName');
+            }
+
 			$.each(myData, function(key, value) {
 				if (key == "overview") {
 					$("#overview").append("<hr>");
@@ -107,21 +111,18 @@ body {
 					$("#overview").append("<hr>");
 					$("#overview").append("<h3><b>상세정보</b></h3>");
 					
-					console.log(" 링크 : " + value);
 					
 				} else if (key == "homepage") {
-					console.log(" 링크 : " + value);
-					$("#spotLink").val(value);
+					$(".spotLink").val(value);
 					$('#url').append("<ul><li>회사 URL " + value + "</li></ul>");
 					
 					
 				} else if (key == "mapx") {
 					x = value;
-					
-					console.log(x);
+
 				} else if (key == "mapy") {
 					y = value;
-					console.log(y);
+
 				}else if(key =="firstimage2"){
 					image = value;
 					
@@ -134,13 +135,13 @@ body {
 			//이미지 정보 JSON
 			$.getJSON(apiimage, function(data3) {
 				var myData3 = data3.response.body.items.item;
-				$("#mTLimage").val(image);
+				/* $(".mTLimage").val(image); */
 				if(myData3==null){
 					
 					var img2 = $('<img>');
 					
 						$(img2).attr("src",image);
-						$("#mTLimage").val(image);
+						$(".mTLimage").val(image);
 					$("#imgarea").append(img2);
 				}else{
 				
@@ -156,7 +157,6 @@ body {
 			});
 			
 			var rs = dfs_xy_conv("toXY",data.response.body.items.item.mapy,data.response.body.items.item.mapx);
-			//console.log(rs);
 			var date = new Date();
 			var year = date.getFullYear();
 			var month = date.getMonth()+1;
@@ -186,8 +186,7 @@ body {
 				type:"GET",
 				data: jsonWeatherUrl,
 				success: function(weatherData){
-					//console.log("success");
-					//console.log(weatherData);
+
 					var icon = $('<i>');
 					var totalRain = $('<span>');
 					var degree = $('<span>');
@@ -227,7 +226,7 @@ body {
 					$("#content").append(
 							"<ul><li>주소 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;"
 									+ value + "</li></ul>");
-					$("#spotAddr").val(value);
+					$(".spotAddr").val(value);
 				} else if (key == "eventenddate") {
 					$("#info").append(
 							"<ul><li>종료날짜  &nbsp;&nbsp;&nbsp;" + value
@@ -248,7 +247,7 @@ body {
 					$("#content").append(
 							"<ul><li>시작날짜   &nbsp;&nbsp;&nbsp;" + value
 									+ "</li><ul>");
-					$("#spotDate").val(value);
+					$(".spotDate").val(value);
 				} else if (key == "sponsor2tel") {
 					$("#info").append(
 							"<ul><li>전화번호 &nbsp;&nbsp;&nbsp;" + value
@@ -281,10 +280,9 @@ body {
 			apilocation = addr + "locationBasedList?" + addr5;
 			var around = "";
 			$.getJSON(apilocation, function(data4) {
-				console.log("in");
+			
 				var myData4 = data4.response.body.items.item;
-				console.log(myData4);
-		
+
 				$.each(myData4,function(index,element){	
 				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
 					var pj = $('<div class="project">');
@@ -346,44 +344,41 @@ body {
 			data: jsonId,
 			dataType: "json",
 			success : function (data){
-				console.log($.type(data));
+				
 				$("#modalIntroBtn").css("display","none");
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
-						var ptag = $('<p>');
-							var atag = $('<a>');
-								$(atag).attr("onclick",'submitFn('+this+')');
-								$(atag).attr("href","#");
-								$(atag).text(element.name);
-						$(ptag).append(atag);
-						$("#innerModalIntro").append(ptag);
+						$("#innerModalIntro").append(
+								element.name 
+								+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mb-3 mt-0' onclick = 'submitFn("+element.tlidx+")'>"  
+							 	+ "<br>"
+						);
+						
+						
 						//$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn(element.tlidx)'>"+ element.name + "</a></p>");
 						
 					});
 				} else {
-				//	$("#innerModalIntro").append(data.name);
 					$("#tlidx").val(data.tlidx);
-					console.log("index값 each 문 안 : " +data.tlidx);
-				//	$("#innerModalIntro").append("<p>"+ data.name + "</p>");
-					$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn()'>"+ data.name + "</a></p>");	
+					$("#innerModalIntro").html(
+							data.name 
+							+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mb-3 mt-0' onclick = 'submitFn("+data.tlidx+")'>"  
+						 	+ "<br>"
+					);	
 				} 
 			},
 			error:function(request, status, error){
-				console.log(error);
+				
 	            alert("실패");
 	       }
 		});
 		}	
-/* 	function submitFn(idxNum) {
-		var sendingJsonData = {"tlidx":idxNum,"": ,}
-		$.ajax({
-			url:"MTListContentAdd.do",
-			type:"json",
-			data:"{name}"
-		})
-	}  */
 	
+	function submitFn(idx){
+		$("#frm").attr("action","MTListContentAdd.do?tlidx="+idx);
+		$("#frm").submit();
+	}
 </script>
 </head>
 
@@ -441,23 +436,21 @@ body {
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <form id="frm" method = "get" action = "MTListContentAdd.do">
-        <div class="modal-body" id="innerModalIntro">   		
-			 <button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" >목록보기</button> 	
-			 
-			 <!-- <input   name="tlidx" type="hidden" id="tlidx"> -->
-			 <input  name="spotName" type="hidden" id="spotName">
-			 <input  name="mTLimage" type="hidden" id="mTLimage">
-			 <input  name="spotDate" type="hidden" id="spotDate">
-			 <input  name="spotAddr" type="hidden" id="spotAddr">
-			 <input  name="spotLink" type="hidden" id="spotLink">
-			          
+      
+        <div class="modal-body" id="innerModalIntro">  
+          <form id="frm" method="post"> 			 
+			 <input  name="spotName" type="hidden" class="spotName">
+			 <input  name="mTLimage" type="hidden" class="mTLimage">
+			 <input  name="spotDate" type="hidden" class="spotDate">
+			 <input  name="spotAddr" type="hidden" class="spotAddr">
+			 <input  name="spotLink" type="hidden" class="spotLink">
+		  </form>    
         </div>
         <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 "> 
+        <!-- <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 ">  -->
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
-        </form>
+       
       </div>
     </div>
   </div>	

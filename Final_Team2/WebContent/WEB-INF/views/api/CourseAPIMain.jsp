@@ -166,7 +166,7 @@
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 
-	<div class="content">
+	<div class="container mt-7">
 	
 		<div class="row mb-4 mt-10">
 			<div class="col-md-11 offset-md-1">

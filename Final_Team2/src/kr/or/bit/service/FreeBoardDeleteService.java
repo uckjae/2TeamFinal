@@ -16,7 +16,7 @@ public class FreeBoardDeleteService implements Action{
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		boolean freeBoardDelete = dao.freeBoardDelete(bIdx);
+		boolean freeBoardDelete = dao.deleteBoardBybIdx(bIdx);
 		
 		String msg = "";
 		if(freeBoardDelete) {
