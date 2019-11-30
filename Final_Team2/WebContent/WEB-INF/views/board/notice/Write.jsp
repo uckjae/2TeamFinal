@@ -16,7 +16,7 @@ html, body {
 }
 </style>
 <script type="text/javascript">
-let charLimit = 4000;
+let charLimit = 4000;	
         $(function () {
             $('#summernote').summernote({
                 height: 400,
