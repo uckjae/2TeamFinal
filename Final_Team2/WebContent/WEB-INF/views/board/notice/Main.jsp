@@ -14,6 +14,9 @@
 html, body {
 	height: 100%;
 }
+.center{
+	text-align: center !important;
+}
 </style>
 <script src="https://kit.fontawesome.com/8a07c7597a.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -74,13 +77,9 @@ html, body {
 	<div class="content">
 		<div class="comment-form-wrap pt-xl-2">
 			<h1 class="text-center mb-3 bread">공지사항</h1>
-
-
-
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable">
 					<thead>
-
 						<tr>
 							<th width="10%">No</th>
 							<th width="60%">제목</th>
@@ -92,28 +91,30 @@ html, body {
 
 						<c:forEach var="topnotice" items="${noticeList}">
 							<c:if test="${topnotice.isTop == 'true'}">
-								<tr>
-
-								<td width="10%"><i class="fas fa-exclamation-triangle"></i></td>
-								<td width="60%" class="sorting_1">
-								<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}">★★★${topnotice.title}</a>
-								<td width="20%"><fmt:formatDate value="${topnotice.wDate}"
-										pattern="yyyy-MM-dd HH:mm:ss" /></td>
-								<td width="10%">${topnotice.rNum}</td>
-							</tr>
-								
+								<tr style="background-color : #ededed ;">
+									<td width="10%" style="color : red; text-align: center !important;">
+										<input type="button" class='btn notice'  value="공지">
+									</td>
+									<td width="60%" class="sorting_1">
+										<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}" style="color : red ;">${topnotice.title}</a>
+									</td>
+									<td width="20%" style="text-align: center !important;">
+										<fmt:formatDate value="${topnotice.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+									</td>
+									<td width="10%" style="text-align: center !important;">${topnotice.rNum}</td>
+								</tr>
 							</c:if>
 						</c:forEach>
 
 						<c:forEach var="boardList" items="${noticeList}">
-							<tr>
-
-								<td width="10%">${boardList.bIdx}</td>
-								<td width="60%" class="sorting_1">
-								<a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
-								<td width="20%"><fmt:formatDate value="${boardList.wDate}"
-										pattern="yyyy-MM-dd HH:mm:ss" /></td>
-								<td width="10%">${boardList.rNum}</td>
+							<tr >
+								<td width="10%" style="text-align: center !important;">${boardList.bIdx}</td>
+								<td width="60%" class="sorting_1" >
+									<a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
+								<td width="20%" style="text-align: center !important;">
+									<fmt:formatDate value="${boardList.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+								</td>
+								<td width="10%" style="text-align: center !important;">${boardList.rNum}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -9807,6 +9807,16 @@ textarea.form-control {
         .comment-list li .comment-body .del:hover {
           color: #fff;
           background: black; }
+      .notice {
+        padding: 5px 10px;
+        background: #ffe3e4;
+        color:  red;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: .1em;
+        font-weight: bold;
+        border: 1px solid red;
+        border-radius: 4px; }
 
 .search-form {
   background: #f2f2f2;
