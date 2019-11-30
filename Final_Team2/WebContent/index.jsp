@@ -12,7 +12,9 @@
 	}
 	
 	#main{
-		background-image: url("images/bg_1.jpg");
+		background-repeat : no-repeat;
+		background-size : cover;
+		background-image: url("images/mainimg.jpg");
 		width: 100%; 
 		height: 100%;
 	}

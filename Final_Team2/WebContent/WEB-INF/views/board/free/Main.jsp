@@ -97,7 +97,7 @@
                     <tbody>
                         <c:forEach var="board" items="${freeList}">
                         	<tr>
-                        		<td >${board.bIdx}</td>
+                        		<td style="text-align: center !important;">${board.bIdx}</td>
                         		<td><a onclick="showDetail(${board.bIdx})"  href="#">
                         			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
                         				&nbsp;&nbsp;&nbsp;&nbsp;
@@ -106,11 +106,11 @@
                         				<img src="images/re.gif" >
                         			</c:if>
                         			${board.title}</a></td>
-                        		<td>
+                        		<td style="text-align: center !important;">
                             		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
                             	</td>
-                        		<td>${board.id}</td>
-                        		<td>${board.rNum}</td>
+                        		<td style="text-align: center !important;">${board.id}</td>
+                        		<td style="text-align: center !important;">${board.rNum}</td>
                         	</tr>
                         </c:forEach>
                     </tbody>
