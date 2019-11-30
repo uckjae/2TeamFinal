@@ -99,22 +99,18 @@ let charLimit = 4000;
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${noticeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${noticeWrite.bIdx}">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">${noticeWrite.content}</textarea>
+				<div class="mt-3 text-right">
+					<label > 
+						<input type="checkbox" id="isTop" name="isTop" value="1"  
+						   <c:if test="${noticeWrite.isTop() }"> checked </c:if>
+						> 공지 설정
+					</label>
+				</div>
+				
 				<div class="text-right" id="lengthBox"> 
 					<span id="total-characters"></span>/<span id="max"></span>
 				</div>
-				<div class="mt-3 text-right">
-					<label class="mr-3"> 
-						<input type="radio" id="isTop" name="isTop" value="1"  
-						   <c:if test="${noticeWrite.isTop() }"> checked </c:if>
-						>고정체크
-					</label>
-					<label> 
-						<input type="radio" id="isTop" name="isTop" value="0" 
-						     <c:if test="${!noticeWrite.isTop() }"> checked </c:if> 
-						>고정해제
-					</label>
-				
-				</div>
+
 				<div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 
