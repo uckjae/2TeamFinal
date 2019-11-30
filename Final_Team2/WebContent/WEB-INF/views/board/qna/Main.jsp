@@ -103,8 +103,8 @@
                     <tbody>
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
-                            <td>${board.bIdx}</td>
-                            <td class="sorting_1">
+                            <td style="text-align: center !important;">${board.bIdx}</td>
+                            <td class="sorting_1" >
                             <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx}, '${board.id }')" href="#">
                             	<c:choose>
                             		<c:when test="${! board.isPublic() }">
@@ -115,12 +115,12 @@
                             		</c:otherwise>
                             	</c:choose>
                             	${board.title}</a></td>
-            	            <td class="center">${board.id}</td>
-                            <td class="center">
+            	            <td style="text-align: center !important;">${board.id}</td>
+                            <td style="text-align: center !important;">
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
 
-                            <td class="center">${board.rNum}</td>
+                            <td style="text-align: center !important;">${board.rNum}</td>
                         </tr>
                     </c:forEach>
                    </tbody>
