@@ -10,8 +10,14 @@
 	<c:import url="/common/HeadTag.jsp" />
 	<title>추천 여행지</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style type="text/css">
+		.sub{
+		 font-family: 'Nanum Pen Script', cursive;
+		 }
+	
+	</style>
 	<script type="text/javascript">
-		let servicekey = "o2dopDVzLQoFs5lEezEbhHtXdV5dzsM33ApDJHV5cQwaf3b8lc3d6EQZyiar3sm8uB60h53CrvB00yqzaoNt7g%3D%3D";
+		let servicekey = "63HZEzzQ3RIwBc9B%2FQsElWfkL%2Fnzn0m0IgVFIMFruudG7cwoL3kx6Dpk0W%2FpHGGTIWVUL3EKsRFhDD%2ForaA0kA%3D%3D";
 		$(function(){
 			init();
 		});
@@ -84,7 +90,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>서울</span>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><h3 class='sub'>서울</h3>"
 								+"<div class='contain'>"
 								+'		<a href="TravelDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -97,7 +103,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>인천</span>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><h3 class='sub'>인천</h3>"
 								+"<div class='contain'>"
 								+'		<a href="TravelDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -110,7 +116,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-1 > #area1').append("<div class='col-md-4'><span>경기</span>"
+						$('#contentId-1 > #area1').append("<div class='col-md-4'><h3 class='sub'>경기</h3>"
 								+"<div class='contain'>"
 								+'		<a href="TravelDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -125,7 +131,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>서울</span>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><h3 class='sub'>서울</h3>"
 								+"<div class='contain'>"
 								+'		<a href="FestivalDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -138,7 +144,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>인천</span>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><h3 class='sub'>인천</h3>"
 								+"<div class='contain'>"
 								+'		<a href="FestivalDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -151,7 +157,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-2 > #area2').append("<div class='col-md-4'><span>경기</span>"
+						$('#contentId-2 > #area2').append("<div class='col-md-4'><h3 class='sub'>경기</h3>"
 								+"<div class='contain'>"
 								+'		<a href="FestivalDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -166,7 +172,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>서울</span>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><h3 class='sub'>서울</h3>"
 								+"<div class='contain'>"
 								+'		<a href="CourseAPIDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -179,7 +185,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>인천</span>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><h3 class='sub'>인천</h3>"
 								+"<div class='contain'>"
 								+'		<a href="CourseAPIDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -192,7 +198,7 @@
 				let myData = data.response.body.items.item;
 				console.log(myData);
 				//$.each(myData, function(index, element){
-						$('#contentId-3 > #area3').append("<div class='col-md-4'><span>경기</span>"
+						$('#contentId-3 > #area3').append("<div class='col-md-4'><h3 class='sub'>경기</h3>"
 								+"<div class='contain'>"
 								+'		<a href="CourseAPIDetail.do?contentId='+ myData.contentid +'" class="gallery img d-flex align-items-center" style="background-image: url('+myData.firstimage+');">'
 								+ '			<span id="text">' + myData.title + '</span>'
@@ -246,8 +252,7 @@ html, body {
     <c:import url="/common/Top.jsp" />
     <div class="content">
 		<div class="comment-form-wrap pt-xl-2">
-			
-			<h1 class="text-center mb-3 bread" style="font-size: 60px;">추천 여행지</h1>
+			<h1 class="text-center mb-3 bread" style="font-size: 60px; font-family: 'Jua', sans-serif;">추천 여행지</h1>
 			
 			<!-- <div class="col-md-9">
 				<form action="#" class="search-property-1">
@@ -284,14 +289,14 @@ html, body {
 		<!-- Main 화면 Top -->
 		<div id="mainContentBox" class="content">
 			<div id="contentId-1">
-				<h4>관광지</h4>
+				<h1 style="font-family: 'Nanum Pen Script', cursive;">관광지</h1>
 				<div class="row" id="area1" style="width: 100%; height:100%;">
 					
 				</div><hr>
 			</div>
 			
 			<div id="contentId-2">
-				<h3>여행축제</h3>
+				<h1 style="font-family: 'Nanum Pen Script', cursive;">여행축제</h1>
 				<div class="row" id="area2" style="width: 100%; height:100%;">
 					
 				</div><hr>
@@ -299,7 +304,7 @@ html, body {
 			</div>
 			
 			<div id="contentId-3">
-				<h3>여행코스</h3>
+				<h1 style="font-family: 'Nanum Pen Script', cursive;">여행코스</h1>
 				<div class="row" id="area3" style="width: 100%; height:100%;">
 					
 				</div><hr>

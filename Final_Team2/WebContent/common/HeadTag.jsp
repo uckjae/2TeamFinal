@@ -52,4 +52,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script src="sweetalert2.all.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+	
+	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Gaegu|Hi+Melody|Jua|Nanum+Gothic+Coding|Nanum+Pen+Script|Noto+Sans+KR|Sunflower:300|Yeon+Sung&display=swap" rel="stylesheet">
 </head>
