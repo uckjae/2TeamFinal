@@ -14,7 +14,7 @@
 	#main{
 		background-repeat : no-repeat;
 		background-size : cover;
-		background-image: url("images/mainimg.jpg");
+		background-image: url("images/main.webp");
 		width: 100%; 
 		height: 100%;
 	}

@@ -240,7 +240,7 @@ html, body {
 }
 </style>
 </head>
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" >
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
