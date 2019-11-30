@@ -19,16 +19,20 @@
         body {
             height: 100%;
         }
+        .ds{
+        	width: 100%;
+        	height: 280px;
+        	border: 1px solid #ced4da;
+        	border-radius:5px;
+        }
+        
     </style>
     <script type="text/javascript">
     	$(function(){
     		setReadNum(${qnaDetail.bIdx});
-    		$("#replybtn").click(function(){
-    			$.ajax({
-    				
-    			});
-    		});
     	});
+    	
+    	
     </script>
 </head>
 
@@ -43,13 +47,14 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>
                 <input type="text" class="form-control mb-3" id="title" name="title" value="${ qnaDetail.title}" readonly>
-                <textarea id="content" rows="10" style="width: 100%" readonly>
+                <div id="content" rows="10" class="ds">
                 	<c:out value="${qnaDetail.content}" escapeXml="false"/>
-                </textarea>
+                </div>
                 <div class="text-right">
+                <br>
                 	<c:if test="${qnaDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                 		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='QnABoardWrite.do?cmd=edit&bidx=${qnaDetail.bIdx}'">
-                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='QnABoardDelete.do?bidx=${qnaDetail.bIdx}'">
+                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="deleteAlert('QnABoardDelete.do?',${qnaDetail.bIdx})">
                 	</c:if>
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='QnABoardList.do'" >
                 </div>

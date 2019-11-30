@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.APICourseDetailService;
 import kr.or.bit.service.AdminListService;
 import kr.or.bit.service.AdminWriteService;
+import kr.or.bit.service.FestivalDetailService;
 import kr.or.bit.service.FreeBoardDeleteService;
 import kr.or.bit.service.FreeBoardDetailService;
 import kr.or.bit.service.FreeBoardListService;
@@ -26,14 +28,19 @@ import kr.or.bit.service.MTLFolderAddService;
 import kr.or.bit.service.MTLFolderDeleteService;
 import kr.or.bit.service.MTLFolderEditService;
 import kr.or.bit.service.MTLFolderListService;
+import kr.or.bit.service.MTListContentAddService;
 import kr.or.bit.service.MTListContentDeleteService;
 import kr.or.bit.service.MTListContentSevice;
 import kr.or.bit.service.MemberDeleteService;
+import kr.or.bit.service.MemberEditOkService;
 import kr.or.bit.service.MemberListService;
+import kr.or.bit.service.MemberService;
+import kr.or.bit.service.MyCourseBoardDeleteService;
 import kr.or.bit.service.MyCourseBoardDetail;
 import kr.or.bit.service.MyCourseBoardListService;
 import kr.or.bit.service.MyCourseBoardWrite;
 import kr.or.bit.service.MyCourseBoardWriteOkService;
+import kr.or.bit.service.MyInformationService;
 import kr.or.bit.service.NoticeBoardDeleteService;
 import kr.or.bit.service.NoticeBoardDetailService;
 import kr.or.bit.service.NoticeBoardListService;
@@ -49,7 +56,9 @@ import kr.or.bit.service.QnABoardDetailService;
 import kr.or.bit.service.QnABoardListService;
 import kr.or.bit.service.QnABoardWriteOkService;
 import kr.or.bit.service.QnABoardWriteService;
+
 import kr.or.bit.service.RegisterOkService;
+import kr.or.bit.service.TravelDetailService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -96,6 +105,11 @@ public class FrontController extends HttpServlet {
 		else if (url_Command.equals("/RegisterOk.do")) {
 			action = new RegisterOkService();
 			forward = action.execute(request, response);
+		}
+		// 아이디/비밀번호 찾기
+		else if (url_Command.equals("/Forgot.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/login/ForgotId.jsp");
 		}
 		
 		/* BOARD */	
@@ -163,6 +177,10 @@ public class FrontController extends HttpServlet {
 			action = new MyCourseBoardWriteOkService();
 			forward = action.execute(request, response);
 		}
+		else if (url_Command.equals("/MyCourseBoardDelete.do")) {
+			action = new MyCourseBoardDeleteService();
+			forward = action.execute(request, response);
+		}
 		// Notice Board
 		else if (url_Command.equals("/NoticeBoardList.do")) {
 			action = new NoticeBoardListService();
@@ -222,19 +240,15 @@ public class FrontController extends HttpServlet {
 			action =new MemberListService();
 			forward = action.execute(request, response);
 		}
-		// MemberDetail 화면
-		else if (url_Command.equals("/MemberDetail.do")) {
-			
-		}
-		// MemberEdit 화면
-		else if (url_Command.equals("/MemberEdit.do")) {
-		
-			
+		// Member
+		else if (url_Command.equals("/Member.do")) {
+			action =new MemberService();
+			forward = action.execute(request, response);
 		}
 		// MemberEdit 진행
 		else if (url_Command.equals("/MemberEditOk.do")) {
-			
-			
+			action =new MemberEditOkService();
+			forward = action.execute(request, response);
 		}
 		// MemberDelete 진헹
 		else if (url_Command.equals("/MemberDelete.do")) {			
@@ -243,9 +257,9 @@ public class FrontController extends HttpServlet {
 		}
 		
 		//여행리스트 폴더 보여주기 화면 
-		else if (url_Command.equals("/MTFolderList.do")) {			
+		else if (url_Command.equals("/MTFolderList.do")) {	
 			action = new MTLFolderListService();
-			forward = action.execute(request, response);			
+			forward = action.execute(request, response);
 		}
 		//여행리스트 폴더 추가하기
 		else if (url_Command.equals("/MTFolderListAdd.do")) {			
@@ -268,8 +282,16 @@ public class FrontController extends HttpServlet {
 			forward = action.execute(request,response);
 		}
 		//여행리스트 리스트 추가하기 
+		else if (url_Command.equals("/MTListContentAdd.do")) {	
+			action = new MTListContentAddService();
+			forward = action.execute(request,response);
+		}
 		//여행리스트 리스트 삭제하기
 		else if (url_Command.equals("/MTListDelete.do")) {			
+			action = new MTListContentDeleteService();
+			forward = action.execute(request,response);
+		}
+		else if (url_Command.equals("/ReplyDelete.do")) {			
 			action = new MTListContentDeleteService();
 			forward = action.execute(request,response);
 		}
@@ -278,17 +300,37 @@ public class FrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/CourseAPIMain.jsp");
 		}
+		else if (url_Command.equals("/CourseAPIDetail.do")) {			
+			action = new APICourseDetailService();
+			forward = action.execute(request, response);
+		}
 		//여행지
 		else if(url_Command.equals("/Travel.do")) {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Travel.jsp");
+			
+		}else if(url_Command.equals("/TravelDetail.do")) {
+			action = new TravelDetailService();
+			forward = action.execute(request, response);
+		//축제
+		}else if(url_Command.equals("/Festival.do")) {
+			forward = new ActionForward();
+			forward.setPath("/WEB-INF/views/api/Festival.jsp");
+			
+		}else if(url_Command.equals("/FestivalDetail.do")) {
+			action = new FestivalDetailService();
+			forward = action.execute(request, response);
 		}
-		
 		// 추천 여행지
 		else if (url_Command.equals("/Recommend.do")) {
 			forward = new ActionForward();
 			forward.setPath("/WEB-INF/views/api/Recommend.jsp");
 		}
+		// 마이페이지 내 정보 조회 
+		else if (url_Command.equals("/MyInformation.do")) {
+			action = new MyInformationService();
+			forward = action.execute(request, response);
+		} 
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {

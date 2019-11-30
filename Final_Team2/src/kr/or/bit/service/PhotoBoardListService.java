@@ -26,9 +26,7 @@ public class PhotoBoardListService implements Action{
 		}
 		request.setAttribute("boardlist", boardlist);
 		request.setAttribute("photolist", photolist);
-		forward.setPath("/WEB-INF/views/board/photo/Main.jsp");
-		//System.out.println(boardlist);
-		
+		forward.setPath("/WEB-INF/views/board/photo/Main.jsp");		
 		
 		return forward;
 	}

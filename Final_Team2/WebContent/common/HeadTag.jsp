@@ -14,7 +14,8 @@
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="css/magnific-popup.css">
-	
+	   <link rel="stylesheet" href="css/weather-icons.css"> 
+	   
 	<link rel="stylesheet" href="css/aos.css">
 	
 	<link rel="stylesheet" href="css/ionicons.min.css">
@@ -36,11 +37,19 @@
 	<script src="js/aos.js"></script>
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="js/google-map.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=490780f812ec4d1465f4c9d4b00baac0"></script>
+	<!-- <script src="js/google-map.js"></script> -->
 	
 	<script type="text/javascript" src="js/setReadNum.js"></script>
+	<script type="text/javascript" src="js/checkReadBoad.js"></script>
+	<script type="text/javascript" src="js/commonAlert.js"></script>
+	<script type="text/javascript" src="js/checkBoardContent.js"></script>
 	
 	<!-- fontawesome -->
 	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+	
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="sweetalert2.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 </head>

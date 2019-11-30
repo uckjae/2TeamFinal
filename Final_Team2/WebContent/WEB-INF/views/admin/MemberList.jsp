@@ -86,11 +86,15 @@
                     <c:forEach var="member" items="${members}"  varStatus="status" >
                     	<tr>
                             <td align="center">${status.count}</td>
-                            <td align="center">${member.id}</td>
+                            <td align="center">
+                            	<a href="Member.do?cmd=detail&id=${member.id}">
+									 ${member.id}
+								</a>
+                            </td>
                             <td align="center">${member.name}</td>
                             <td align="center">${member.hireDate}</td>
                             <td class="iconColumn">
-								<a href="MemberEdit.do?empno=${emp.empno}">
+								<a href="Member.do?cmd=edit&id=${member.id}">
 									<i class="fas fa-user-edit"></i>
 								</a>
 							</td>
@@ -103,9 +107,6 @@
                     </c:forEach>
                    </tbody>
                 </table>
-               <div class="text-right mt-3">
-					<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 추가 </a>
-				</div>
             </div>
         </div>
     </div>

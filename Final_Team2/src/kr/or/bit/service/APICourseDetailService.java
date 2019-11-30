@@ -6,13 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 
-public class MemberDetailService implements Action {
+public class APICourseDetailService implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		ActionForward forward = null;
-		
-		
+		ActionForward forward = new ActionForward();
+		int contentId = Integer.parseInt(request.getParameter("contentId"));
+		request.setAttribute("contentId", contentId);
+		forward.setPath("/WEB-INF/views/api/CourseAPIDetail.jsp");
 		return forward;
 	}
+
 }

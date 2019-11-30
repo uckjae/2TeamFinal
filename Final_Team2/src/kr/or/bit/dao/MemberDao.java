@@ -23,7 +23,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT ID, ISADMIN FROM MEMBER WHERE ID=? AND PWD=?";
+		String sql = "SELECT ID, ISADMIN, ISDISABLE FROM MEMBER WHERE ID=? AND PWD=?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -35,6 +35,7 @@ public class MemberDao {
 				member = new Member();
 				member.setId(rs.getString(1));
 				member.setAdmin(rs.getBoolean(2));
+				member.setDisable(rs.getBoolean(3));
 			}
 
 		} catch (SQLException e) {
@@ -53,8 +54,8 @@ public class MemberDao {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN, KAKAO) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0)";
+		String sql = "INSERT INTO MEMBER (ID, PWD, NAME, BIRTH, GENDER, ADDRESS, EMAIL, ISADMIN) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 0)";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -77,16 +78,22 @@ public class MemberDao {
 		return resultRow > 0 ? true : false;
 	}
 
-	public boolean updateMemeber(Member member) {
+	public boolean updateMemeber(String id, String name, String pwd, String address, int isDisable) {
 		int resultRow = 0;
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 
-		String sql = "";
+		String sql = "UPDATE MEMBER SET NAME = ?, PWD = ?, ADDRESS = ?, ISDISABLE = ? WHERE ID = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, address);
+			pstmt.setInt(4, isDisable);
+			pstmt.setString(5, id);
 
+			resultRow = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -119,17 +126,33 @@ public class MemberDao {
 	}
 
 	public Member getMemberById(String id) {
-		Member member = new Member();
+		Member member = null;
 
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String sql = "";
+		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, ISDISABLE, ISADMIN FROM MEMBER "
+				+ "WHERE ID = ? AND ISADMIN ! = 1";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, id);
 
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				member = new Member();
+				member.setId(id);
+				member.setPwd(rs.getString(2));
+				member.setName(rs.getString(3));
+				member.setBirth(rs.getString(4));
+				member.setHireDate(rs.getDate(5));
+				member.setGender(rs.getBoolean(6));
+				member.setAddress(rs.getString(7));
+				member.setEmail(rs.getString(8));
+				member.setDisable(rs.getBoolean(9));
+				member.setAdmin(rs.getBoolean(10));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -141,6 +164,34 @@ public class MemberDao {
 		return member;
 	}
 
+	public String getMemberIdByEmail(String email) {
+		String id = null;
+
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT ID FROM MEMBER " + "WHERE EMAIL = ?	AND ISADMIN ! = 1";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, email);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				id = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return id;
+	}
+
 	public List<Member> getMembersByIsAdmin(boolean isAdmin) {
 		Connection connection = DBHelper.getConnection();
 		PreparedStatement pstmt = null;
@@ -148,7 +199,7 @@ public class MemberDao {
 
 		List<Member> members = new ArrayList<Member>();
 
-		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, KAKAO FROM MEMBER WHERE ISADMIN = ?";
+		String sql = "SELECT ID, PWD, NAME, BIRTH, HIREDATE, GENDER, ADDRESS, EMAIL, ISDISABLE FROM MEMBER WHERE ISADMIN = ?";
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -165,7 +216,7 @@ public class MemberDao {
 				member.setGender(rs.getBoolean(6));
 				member.setAddress(rs.getString(7));
 				member.setEmail(rs.getString(8));
-				member.setKakao(rs.getBoolean(9));
+				member.setDisable(rs.getBoolean(9));
 				member.setAdmin(isAdmin);
 
 				members.add(member);
@@ -253,5 +304,28 @@ public class MemberDao {
 		}
 
 		return result;
+	}
+
+	public boolean updateTempPassword(String id, String pwd) {
+		int resultRow = 0;
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+
+		String sql = "UPDATE MEMBER SET PWD = ? WHERE ID = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, id);
+
+			resultRow = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+
+		return resultRow > 0 ? true : false;
 	}
 }

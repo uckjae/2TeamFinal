@@ -52,7 +52,10 @@
                     table.column(colIndex).search(searchText).column(2).search(deptno).draw();
                 }
             }
+            console.log("ddd");
+            console.log('${sessionScope.memberId}');
         });
+        
     </script>
 </head>
 
@@ -74,7 +77,7 @@
         			<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
         				<div class="project">
         					<div class="img">
-        						<img class="img-fluid" src="upload/${photo.photoName}" alt="코스 대표 사진">
+        						<img class="img-fluid" src="upload/${photo.photoName}" alt="코스 대표 사진" onError="this.src='images/scenery.png'">
         					</div>
         					<c:forEach var="board" items="${ MCBList}">
         						<c:if test="${photo.bIdx eq board.bIdx}">
@@ -84,7 +87,7 @@
         									${board.likeNum}
         								</h4>
         								<h3>
-        									<a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a>
+        									<a onclick="checkReadBoad(${sessionScope.memberId!=null} ,${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a>
         								</h3>
         							</div>
         						</c:if>
@@ -109,7 +112,7 @@
                     <c:forEach var="board" items="${MCBList}">
                     	<tr>
                             <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a href="MyCourseBoardDetail.do?bIdx=${board.bIdx}">${board.title}</a></td>
+                            <td class="sorting_1"><a onclick="checkReadBoad(${sessionScope.memberId!=null},${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a></td>
                             <td>${board.id}</td>
                             <td>
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />

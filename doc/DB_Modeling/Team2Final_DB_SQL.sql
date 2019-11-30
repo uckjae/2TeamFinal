@@ -243,7 +243,7 @@ CREATE TABLE Member (
 	Gender CHAR(1), /* 성별 */
 	Address VARCHAR2(50), /* 주소 */
 	Email VARCHAR2(100), /* 이메일 */
-	Kakao CHAR(1), /* 카카오계정연동여부 */
+	isDisable CHAR(1) DEFAULT 0, /* 비활성화 여부 */
 	isAdmin CHAR(1) NOT NULL /* 관리자여부 */
 );
 
@@ -265,7 +265,7 @@ COMMENT ON COLUMN Member.Address IS '주소';
 
 COMMENT ON COLUMN Member.Email IS '이메일';
 
-COMMENT ON COLUMN Member.Kakao IS '카카오계정연동여부';
+COMMENT ON COLUMN Member.isDisable IS '비활성화 여부';
 
 COMMENT ON COLUMN Member.isAdmin IS '관리자여부';
 
@@ -617,3 +617,8 @@ CREATE SEQUENCE TLCIdx_SEQ;--나의여행리스트 내용
 CREATE SEQUENCE RIdx_SEQ;--댓글
 CREATE SEQUENCE PhotoId_SEQ;--사진
 COMMIT;
+
+alter table mtlcontent modify (spotname varchar2(200));
+alter table mtlcontent modify (spotaddr varchar2(200));
+alter table mtlcontent modify (spotlink varchar2(500));
+commit;

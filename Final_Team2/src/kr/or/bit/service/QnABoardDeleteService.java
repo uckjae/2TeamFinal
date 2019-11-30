@@ -14,10 +14,10 @@ public class QnABoardDeleteService implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
 
-		int bIdx = Integer.parseInt(request.getParameter("bidx")) ;
+		int bIdx = Integer.parseInt(request.getParameter("bIdx")) ;
 
 		BoardDao dao = new BoardDao();
-		boolean result = dao.deleteQnABoard(bIdx);
+		boolean result = dao.deleteBoardBybIdx(bIdx);
 
 		String msg = "";
 		if (result) {
@@ -28,7 +28,8 @@ public class QnABoardDeleteService implements Action {
 
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "QnABoardList.do");
-
+		request.setAttribute("board_result", result);
+		
 		forward.setPath("/common/Redirect.jsp");
 		
 		return forward;

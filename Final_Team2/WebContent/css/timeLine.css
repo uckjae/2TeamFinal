@@ -30,8 +30,8 @@ img.image2{
 #conference-timeline .conference-center-line {
   position: absolute;
   width: 3px;
-  height: 79%;
-  left: 50%;
+  height: 100%;
+  left: 50%; 
   margin-left: -2px;
   background: #00b0bd;
   z-index: -1;
@@ -111,10 +111,10 @@ img.image2{
 .timeline-article .meta-date {
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 62px;
-  height: 62px;
-  margin-left: -31px;
+  left: 55%;
+  width: 150px;
+  height: 150px;
+  margin-left: -119px;
   color: #fff;
   border-radius: 100%;
   background: #00b0bd;
@@ -142,8 +142,8 @@ img.image2{
     margin: 0;
   }
   #conference-timeline .conference-center-line {
-    margin-left: 0;
-    left: 50px;
+    /* margin-left: 0;
+    left: 50px; */
   }
   .timeline-article .meta-date {
     margin-left: 0;

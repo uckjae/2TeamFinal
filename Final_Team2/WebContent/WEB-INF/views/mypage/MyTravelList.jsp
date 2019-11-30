@@ -25,44 +25,42 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <div class="container">
-    <div id="main">
-	<br><br><br><br> 
-		<h1><i class="flaticon-world mr-3"></i>나의 여행 리스트</h1>
-	<br>	 
-	<c:set var="mTLContentList" value ="${requestScope.mTLContent}"/>
-    		   <ul class="comment-list">
-                <li class="comment">
-              <!--     <div class="vcard bio">  --> 
-              
-              <!--  -->
-                  
-                   <c:forEach var="mTLContent" items="${mTLContentList}" >
-                   
-						<div class="vcard bio">
-							<!--이미지 경로 나중에 다시 설정하기 -->
-							<img src="upload/${mTLContent.image}" alt="trip image">
-						</div>
-							<div class="comment-body">
-							<h4>${ mTLContent.spotName}</h4>
-							<div class="meta">${mTLContent.spotDate}</div>
-							<p>
-								${ mTLContent.spotAddr} <a href="${ mTLContent.spotLink}"
-									class="btn btn-primary ml-3 mr-3">${ mTLContent.spotLink}</a> <a
+	<div class="container mt-7">
+		<div id="main">
+			<h1>
+				<i class="flaticon-world mr-3"></i>나의 여행 리스트
+			</h1>
+			<br>
+			<div class="col-md-10 offset-md-2">
+				<c:set var="mTLContentList" value="${requestScope.mTLContent}" />
+				<ul class="comment-list" >
+					<li class="comment">
+						<!--     <div class="vcard bio">  --> <!--  --> <c:forEach
+							var="mTLContent" items="${mTLContentList}">
+
+							<div class="vcard bio mb-3">
+								<img src="${mTLContent.image}" alt="trip image">
+							</div>
+							<div class="comment-body mb-3">
+								<h4>${ mTLContent.spotName}</h4>
+								<div class="meta">${mTLContent.spotDate}</div>
+								<p>주소 : ${ mTLContent.spotAddr}</p>
+								<p>링크 : ${ mTLContent.spotLink}</p>
+								<a
 									href="MTListDelete.do?tLCidx=${mTLContent.tLCidx}&tLidx=${ mTLContent.tLidx}"
 									class="btn btn-secondary">삭제 </a>
-							</p>
-						</div>
-					</c:forEach> 
-                  
-                </li>
-    		</ul>
-    		
-    		
-    		
-		   </div>		
-	  </div>
-	
+
+							</div>
+						</c:forEach>
+
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+	</div>
+
 	<script src="js/main.js"></script>
 </body>
 </html>

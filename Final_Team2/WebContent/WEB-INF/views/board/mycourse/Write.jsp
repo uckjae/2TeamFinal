@@ -57,7 +57,7 @@
             	<c:choose>
                 	 <c:when test="${isEdit}">edit</c:when>
                 	<c:otherwise>write </c:otherwise>
-                </c:choose> " method="post" enctype="multipart/form-data">
+                </c:choose>" method="post" enctype="multipart/form-data">
 	<!-- Vertical Timeline -->
 	<div class="content">
 	
@@ -66,7 +66,10 @@
 			<div id="conference-timeline">
 				<div class="row">
 					<div class="text-left">
-						<span>글번호 : &nbsp;&nbsp;${board.bIdx}</span>
+						<span>글번호 : <input type="number" id="bIdx" name="bIdx" value="${board.bIdx}" readonly="readonly"></span>
+						<input type="hidden" id="mCIdx" name="mCIdx" value="${board.mCidx}">
+						<input type="hidden" id="rNum" name="rNum" value="${board.rNum }">
+						<input type="hidden" id="likeNum" name="likeNum" value="${board.likeNum}">
 						&nbsp;&nbsp;
 						<span>작성자 : &nbsp;&nbsp;${board.id }</span>
 					</div>
@@ -85,8 +88,8 @@
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
-									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="${photo.photoName}" required>
-									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2-1]}" required>
+									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="upload/${photo.photoName}" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" required>
 									<div class="meta-date">
 										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 									</div>
@@ -97,12 +100,12 @@
 			      			<c:set var="number" value="${status1.index}"/>
 			      			<div class="timeline-article">
 			      				<div class="content-right-container">
-										<textarea class="input" name="area" cols="25" rows="5" required>
+										<textarea class="input" name="area" cols="25" rows="5" required style="margin-left: 80px;">
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
-									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="${photo.photoName}" required>
-									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2-1]}" required>
+									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="upload/${photo.photoName}" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" required>
 									<div class="meta-date">
 										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 									</div>
@@ -142,7 +145,7 @@
 				    <!-- Article -->
 				    <div class="content timeline-article">
 				        <div class="content-right-container">
-				          <textarea class = "input" id="area" name="area" cols="25" rows="5"></textarea>
+				          <textarea class = "input" id="area" name="area" cols="25" rows="5" style="margin-left: 80px;"></textarea>
 				          <span class="article-number">02</span>
 				          <input type="file" id="photo1" name="photo1" accept="image/*">
 				          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">

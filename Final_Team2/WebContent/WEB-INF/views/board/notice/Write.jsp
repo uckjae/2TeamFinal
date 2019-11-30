@@ -16,14 +16,51 @@ html, body {
 }
 </style>
 <script type="text/javascript">
+let charLimit = 4000;	
         $(function () {
             $('#summernote').summernote({
                 height: 400,
                 placeholder: "글을 입력하세요.",
+                popover: {
+                    image: [],
+                    link: [],
+                    air: []
+                  },
+                  callbacks: {
+						onKeyup: function(e) {
+						console.log("onKeydown");
+						console.log($(this).val());
+						let totalCharacters = stringToByte($(this).val());
+							if (totalCharacters > charLimit) {
+								$("#lengthBox").css("color", "red");
+							} else {
+								$("#lengthBox").css("color", "#999999");
+							}
+							
+						$("#total-characters").text(totalCharacters);
+						var t = e.currentTarget.innerText;
+						if (t.trim().length >= charLimit) {
+							if (e.keyCode != 8
+								&& !(e.keyCode >= 37 && e.keyCode <= 40)
+								&& e.keyCode != 46
+								&& !(e.keyCode == 88 && e.ctrlKey)
+								&& !(e.keyCode == 67 && e.ctrlKey))
+									e.preventDefault();
+								}
+							},
+						}
             }); 
             
-            $('.note-statusbar').hide();
+            $("#total-characters").text(stringToByte($('#summernote').val()));
+			$("#max").text(charLimit +"byte");
+			$('.note-statusbar').hide();
+			$("#frm").submit(vaildate);
         })
+        
+        function vaildate(){
+        	let result = checkBoardConten($('#title').val(), $('#summernote').val());
+        	return result;
+        }
 </script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -53,7 +90,7 @@ html, body {
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form action="NoticeBoardWriteOk.do?cmd=
+            <form id="frm" action="NoticeBoardWriteOk.do?cmd=
                <c:choose>
                    <c:when test="${isEdit}">edit</c:when>
                    <c:otherwise>write</c:otherwise>
@@ -61,23 +98,19 @@ html, body {
                 
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${noticeWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${noticeWrite.bIdx}">
-                <textarea rows="10" cols="60" id="summernote" name="summernote">
-                	${noticeWrite.content}
-				</textarea>
+                <textarea rows="10" cols="60" id="summernote" name="summernote">${noticeWrite.content}</textarea>
 				<div class="mt-3 text-right">
-
-					<label class="mr-3"> 
-						<input type="radio" id="isTop" name="isTop" value="1"  
+					<label > 
+						<input type="checkbox" id="isTop" name="isTop" value="1"  
 						   <c:if test="${noticeWrite.isTop() }"> checked </c:if>
-						>올리자
+						> 공지 설정
 					</label>
-					<label> 
-						<input type="radio" id="isTop" name="isTop" value="0" 
-						     <c:if test="${!noticeWrite.isTop() }"> checked </c:if> 
-						>말자
-					</label>
-				
 				</div>
+				
+				<div class="text-right" id="lengthBox"> 
+					<span id="total-characters"></span>/<span id="max"></span>
+				</div>
+
 				<div class="text-center">
                 <c:choose>
                 	 <c:when test="${isEdit}"> 

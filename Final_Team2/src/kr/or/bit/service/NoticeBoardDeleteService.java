@@ -17,7 +17,7 @@ public class NoticeBoardDeleteService implements Action{
 		int bIdx =Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		boolean noticeBoardDelete =dao.noticeDelete(bIdx);
+		boolean noticeBoardDelete =dao.deleteBoardBybIdx(bIdx);
 		
 		String msg="";
 		if(noticeBoardDelete) {
@@ -28,6 +28,7 @@ public class NoticeBoardDeleteService implements Action{
 		System.out.println("msg:"+msg);
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "NoticeBoardList.do");
+		request.setAttribute("board_result", noticeBoardDelete);
 		
 		forward.setPath("/common/Redirect.jsp");
 		

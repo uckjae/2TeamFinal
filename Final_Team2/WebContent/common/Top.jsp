@@ -43,16 +43,12 @@
 						<a href="Travel.do" class="nav-link"> <span>여행지</span></a>
 					</li>
 					
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> 코스</a>
-						<div class="dropdown-menu">
-	              			<a class="dropdown-item" href="CourseAPI.do" >여행코스</a>	
-	              			<a class="dropdown-item" href="#" >가이드북 다운로드</a>	
-              			</div>				
+					<li class="nav-item">
+						<a href="CourseAPI.do" class="nav-link"> <span>코스</span></a>
 					</li>
 					
 					<li class="nav-item">
-						<a href="#" class="nav-link"> <span>축제</span></a>
+						<a href="Festival.do" class="nav-link"> <span>축제</span></a>
 					</li>
 					
 					<li class="nav-item dropdown">
@@ -84,7 +80,7 @@
 									<li class="nav-item dropdown">
 										<a href="#" class="nav-link  dropdown-toggle"  data-toggle="dropdown"> My page</a>
 										<div class="dropdown-menu">
-					              			<a class="dropdown-item" href="#" target="_self">내정보조회</a>	
+					              			<a class="dropdown-item" href="MyInformation.do" target="_self">내정보조회</a>	
 					              			<a class="dropdown-item" href="MTFolderList.do" target="_self">내 여행리스트</a>	
 				              			</div>				
 									</li>

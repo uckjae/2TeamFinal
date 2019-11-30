@@ -12,7 +12,9 @@
 	}
 	
 	#main{
-		background-image: url("images/bg_1.jpg");
+		background-repeat : no-repeat;
+		background-size : cover;
+		background-image: url("images/main_1.jpg");
 		width: 100%; 
 		height: 100%;
 	}
@@ -26,7 +28,7 @@
 	
 	<div id="main">
 	<br><br><br><br><br>
-		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;메인 자리입니다. </h1>
+		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2조 파이팅 !!! </h1>
 	</div>
 	
 	<script src="js/main.js"></script>

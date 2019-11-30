@@ -13,13 +13,21 @@
 textarea{ 
 		  resize:none;
 }
-	/*  img {
-		max-width: 100%;
-		height:auto;
+	img {
+		width:600px;
+		height:600px;
 		background-size: cover;	
 		overflow: auto;
 		overflow: hidden;
-	}  */
+		
+	} 
+	.position {
+	position: relative;
+	margin-top: 3em;
+	margin-left: 10em;
+	margin-right: 10em;
+	border: 1px solid black;
+}
 </style>
 <script type="text/javascript">
 
@@ -27,11 +35,20 @@ $(document).ready(function(){
 	
 	$("#PhotoGo").click(function(){
 		if($("#title").val() == ""){
-			alert("제목을 입력해주세요");
-			$("title").focus();
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+		}else if($('#content').val() == ""){
+			alert("내용을 입력해주세요.");
+			$("#content").focus();
+		}else if($('#Photo').val() == ""){
+			alert("사진 1장을 첨부 해야합니다.");
+		}else if($('#Photo').val() !=""){
+			return true;
 		}
+		return false;
+		
 	});
-	 
+	
 	$('#Photo').change(function(){
 		var reader = new FileReader();
 		
@@ -43,14 +60,12 @@ $(document).ready(function(){
 		reader.readAsDataURL(this.files[0]);
 	});
 	
-	 $('#content').keyup(function() {
-	        if($(this).val().length > 200) {
-	            $(this).val($(this).val().substring(0, 200));
-	        }
-	    });
-
-
-	
+	$('#content').on('keyup', function() {
+		if(stringToByte($(this).val()) > 200) {
+			 errorAlert("글자수를 초과하셨습니다.");
+			 $(this).val($(this).val().substring(0, 200));
+		}
+	});
 });
 </script>
 </head>
@@ -67,85 +82,61 @@ $(document).ready(function(){
 			<c:set var="Edit" value="false"/>
 		</c:otherwise>
 	</c:choose>
+			
 		<section class="ftco-section">
-			<div class="container">
-				<div class="text">
-				<h3>
 				<c:choose>
 					<c:when test="${Edit }">
-						포토 게시판 글 수정
+					<div class="col-md-12 heading-section text-center ftco-animate fadeInUp ftco-animated">
+            		<h1 class="mb-3 bread">게시판 수정</h1>
+        			</div>
 					</c:when>
 					<c:otherwise>
-						포토 게시판 글 작성
-					</c:otherwise>
+					<div class="col-md-12 heading-section text-center ftco-animate fadeInUp ftco-animated">
+            		<h1 class="mb-3 bread">게시판 작성</h1>
+        			</div>
+        			</c:otherwise>
 				</c:choose>
-				</h3>
-	<form action="PhotoWriteOk.do?cmd=<c:choose>
+<form action="PhotoWriteOk.do?cmd=<c:choose>
 			<c:when test="${Edit }">edit&bidx=${photowrite.bIdx} </c:when>
-			<c:otherwise>write </c:otherwise>
-		</c:choose>" method="post" enctype="multipart/form-data">
-	
-					<table border="1" style="width: 800px; height: 800px" >
-					
-						<tr>
-							<td rowspan="3" style="background-color: lightgray" height="0">
-						
-							<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }" style="max-width: 100%; height: auto; display: block">
-						
-							</td>
-							<td>
-							<input type="text" name="title" id="title" value="${photowrite.title }+${photowrite.bIdx}" style="width: 100%" >
-							</td>
-						</tr>
-						
-						<tr>
-						<td rowspan="2" rows="12" cols="48">				
-							<textarea rows="12" cols="48" id="content" name="content">${photowrite.content }</textarea>
-							</td>
-						
-						</tr>
-						<tr>
-							
-						</tr>
-						
-						<tr>
-						<c:choose>
-							<c:when test="${Edit }">
-							<td>
-							<input id="PhotoGo" type="submit" value="수정" class="btn-primary" style="width: 50%;height: 100%">
-							</td>
-							</c:when>
-							<c:otherwise>
-							<td>
-							<input id="PhotoGo" type="submit" value="작성완료" class="btn-primary" style="width: 50%;height: 100%">
-							</td>
-							</c:otherwise>
-							</c:choose>
-							<td>
-							<input type="file" name="Photo" id="Photo" aceept="image/*">
-							</td>
-							<c:choose>
-								<c:when test="${Edit }">
-							<td>
-							<input type="reset" value="수정취소" class="btn-danger" style="width: 100%; height: 100%" onclick="'PhotoBoardList.do'">	
-							</td>
-							</c:when>
-							<c:otherwise>
-							<td>
-							<input type="reset" value="작성취소" class="btn-danger" style="width: 100%; height: 100%" onclick="'PhotoBoardList.do'">
-							</td>
-							</c:otherwise>
-							</c:choose>
-						</tr>
-						
-					</table>
-	</form>
-		
-				</div>
-			</div>
-
+				<c:otherwise>write </c:otherwise>
+				</c:choose>" method="post" enctype="multipart/form-data">
+	<div class="position" style="height: 720px">
+		<input type="text" class="form-control mb-3 input" id="title" name="title" value="${photowrite.title}"  placeholder="제목을 입력하세요">
+		<div class="col-lg-6" style="float: left">
+			
+				<img id="viewPhoto" name="viewPhoto" src="upload/${photo.photoName }">
+				<label class="btn btn-primary btn-file">
+				 <input type="file" name="Photo" id="Photo" accept="image/*">
+				</label>
+		</div>
+			<div class="col-lg-6" style="display: table-caption;">
+			
+			<textarea style="width: 600px; height: 600px;" placeholder="내용을 입력하세요" id="content" name="content">${photowrite.content }</textarea>
+			
+			<c:choose>
+				<c:when test="${Edit }">
+			<input type="reset" value="수정취소" class="btn btn-danger" onclick="location.href='PhotoBoardList.do'" style="float: right;margin-left: 50px">
+			<input id="PhotoGo" type="submit" value="수정" class="btn btn-primary" style=" float: right;">
+			</c:when>
+			<c:otherwise>
+			<input type="reset" value="작성취소" class="btn btn-danger"  onclick="location.href='PhotoBoardList.do'" style="float: right;margin-left: 50px">
+    		<input id="PhotoGo" type="submit" value="작성완료" class="btn btn-primary" style=" float: right;">
+			</c:otherwise>
+			</c:choose>
+			
+			
+			
+			
+			</div>						
+				
+				
+       		
+    		
+				
+			</div>	
+    		</form>
 		</section>
-
+	
 
 
 

@@ -17,7 +17,7 @@ public class NoticeBoardDetailService implements Action{
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		dao.FreeBoardAddReadNum(bIdx);
+		dao.setReadNum(bIdx);
 		NoticeBoard noticeBoard = dao.noticeDetail(bIdx);
 		
 		request.setAttribute("noticeBoard", noticeBoard);

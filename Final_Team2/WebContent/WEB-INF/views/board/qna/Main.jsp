@@ -30,8 +30,9 @@
 
             // 검색 th 칼럼 별로 할 수 있게 select 생성
             let ths = $('#dataTable > thead > tr > th');
+            $('#select').append('<option>전체</option>');
             ths.each(function (index, element) {
-                if (index < 2) // 앞에 두개만
+                if (index < 3) // 앞에 3개만
                     $('#select').append('<option>' + element.innerHTML + '</option>');
             });
 
@@ -46,23 +47,34 @@
 
             function tableSearch() {
                 let colIndex = document.querySelector('#select').selectedIndex;
-                let deptno = $("#deptSelect option:selected").val();
                 let searchText = $('.dataTables_filter input').val();
-
-                if (deptno == "*") {
-                    table.column(colIndex).search(searchText).column(2).search("").draw();
-                } else {
-                    table.column(colIndex).search(searchText).column(2).search(deptno).draw();
+				// 전체 검색
+                if(colIndex==0){
+                	table.search(searchText).draw();
+                } 
+            	// 컬럼 검색
+                else{
+                	table.column(colIndex-1).search(searchText).draw();
                 }
             }
         });
         
-        function showDetail(isPublic, bIdx){
-        	if(! isPublic && ${! sessionScope.isAdmin}){
-        		alert("관리자만 접근 가능합니다.");
+        function showDetail(isPublic, bIdx, writer){
+        	// 비공개 글일 경우 글쓴이 자신이거나, 관리자만 볼 수 있다. 
+        	let isWriter = (writer == '${sessionScope.memberId}');
+        	let isAdmin = ${sessionScope.isAdmin == 'true'};
+        	let isRead = (isAdmin || isWriter);
+        	
+        	 if(! isPublic && !isRead){
+        		 Swal.fire({
+                     icon: 'error',
+                     title: '접근 권한이 없습니다.',
+                     showConfirmButton: false,
+                     timer: 1000
+                   })
         	} else{
         		location.href="QnABoardDetail.do?bIdx="+bIdx;
-        	}
+        	} 
         }
     </script>
 </head>
@@ -91,19 +103,24 @@
                     <tbody>
                     <c:forEach var="board" items="${qnaList}">
                     	<tr>
-                            <td align="center">${board.bIdx}</td>
-                            <td class="sorting_1">
-                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx})" href="#">
-                            	<c:if test="${! board.isPublic() }">
-                            		<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
-                            	</c:if>
+                            <td style="text-align: center !important;">${board.bIdx}</td>
+                            <td class="sorting_1" >
+                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx}, '${board.id }')" href="#">
+                            	<c:choose>
+                            		<c:when test="${! board.isPublic() }">
+                            			<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
+                            		</c:when>
+                            		<c:otherwise>
+                            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            		</c:otherwise>
+                            	</c:choose>
                             	${board.title}</a></td>
-            	            <td align="center">${board.id}</td>
-                            <td align="center">
+            	            <td style="text-align: center !important;">${board.id}</td>
+                            <td style="text-align: center !important;">
                             	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
                             </td>
 
-                            <td align="center">${board.rNum}</td>
+                            <td style="text-align: center !important;">${board.rNum}</td>
                         </tr>
                     </c:forEach>
                    </tbody>

@@ -15,6 +15,12 @@
         body {
             height: 100%;
         }
+         .ds{
+        	width: 100%;
+        	height: 280px;
+        	border: 1px solid #ced4da;
+        	border-radius:5px;
+        }
     </style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -26,13 +32,14 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">자유 게시판</h1>
                 <input type="text" class="form-control mb-3" id="title" name="title" value="${freeDetail.title}" readonly>
-                <textarea id="content" rows="10" style="width: 100%" readonly>
+                <div id="content" rows="10" class="ds">
                 	<c:out value="${freeDetail.content}" escapeXml="false"/>
-                </textarea>
+                </div>
                 <div class="text-right">
+                <br>
                 	<c:if test="${freeDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                 		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='FreeBoardWrite.do?cmd=edit&bIdx=${freeDetail.bIdx}'">
-                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="location.href='FreeBoardDelete.do?bIdx=${freeDetail.bIdx}'">
+                  		  <input type="button" class="btn btn-primary" value="삭제" onclick="deleteAlert('FreeBoardDelete.do?',${freeDetail.bIdx})">
                 	</c:if>
                 	<input type="button" class="btn btn-primary" value="답글" onclick="location.href='FreeBoardReWrite.do?bIdx=${freeDetail.bIdx}'" >
                     <input type="button" class="btn btn-primary" value="목록" onclick="location.href='FreeBoardList.do'" >

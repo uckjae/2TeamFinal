@@ -16,7 +16,7 @@ public class FreeBoardDeleteService implements Action{
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		boolean freeBoardDelete = dao.freeBoardDelete(bIdx);
+		boolean freeBoardDelete = dao.deleteBoardBybIdx(bIdx);
 		
 		String msg = "";
 		if(freeBoardDelete) {
@@ -26,6 +26,7 @@ public class FreeBoardDeleteService implements Action{
 		}
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "FreeBoardList.do");
+		request.setAttribute("board_result", freeBoardDelete);
 
 		forward.setPath("/common/Redirect.jsp");
 		
