@@ -297,9 +297,9 @@ body {
 								
 								var txtDiv = $('<div class="text">');
 								var link = $('<a>');
-									$(link).attr("href","FestivalDetail.do?contentId="+myData4.contentid);
+									$(link).attr("href","FestivalDetail.do?contentId="+element.contentid);
 									var spotName = $('<h6>');
-										$(spotName).text(myData4.title);
+										$(spotName).text(element.title);
 								$(link).append(spotName);
 								$(txtDiv).append(link);
 								
@@ -425,7 +425,9 @@ body {
 								</div>
 						</div>
 				</div>
-					
+				<div class="text-right">
+				<a href="Festival.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				</div>
 	</section>
 <!--  모달창 첫 화면 -->	
 <div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
