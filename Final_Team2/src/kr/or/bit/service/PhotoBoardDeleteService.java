@@ -15,10 +15,10 @@ public class PhotoBoardDeleteService implements Action{
 		int bIdx = Integer.parseInt(request.getParameter("bIdx"));
 		
 		BoardDao dao = new BoardDao();
-		int result = dao.photoDelete(bIdx);
+		boolean result = dao.deleteBoardBybIdx(bIdx);
 		System.out.println(result);
 		String msg = "";
-		if(result > 0) {
+		if(result) {
 			msg = "글 삭제 완료";
 		}else {
 			msg = "글삭제 실패";
@@ -26,7 +26,7 @@ public class PhotoBoardDeleteService implements Action{
 		
 		request.setAttribute("board_msg", msg);
 		request.setAttribute("board_url", "PhotoBoardList.do");
-		request.setAttribute("board_result", result > 0);
+		request.setAttribute("board_result", result);
 		
 		forward.setPath("/common/Redirect.jsp");
 

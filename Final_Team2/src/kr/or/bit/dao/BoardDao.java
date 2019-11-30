@@ -254,58 +254,6 @@ public class BoardDao {
 	 * DBHelper.close(pstmt); DBHelper.close(connection); } }
 	 */
 
-	// 자유 게시판 게시글 삭제하기
-	public boolean freeBoardDelete(int bIdx) {
-		int resultRow = 0;
-		int depth = 0, refer = 0, reBidx = 0;
-
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet resultSet = null;
-
-		String depthRefer = "SELECT DEPTH, REFER FROM FREEBOARD WHERE BIDX=?";
-		String ohterboard = "SELECT BIDX FROM FREEBOARD WHERE REFER=? AND DEPTH >= ?";
-		String fsql = "DELETE FROM FREEBOARD WHERE BIDX=?";
-
-		try {
-			pstmt = connection.prepareStatement(depthRefer);
-			pstmt.setInt(1, bIdx);
-			resultSet = pstmt.executeQuery();
-			if (resultSet.next()) {
-				depth = resultSet.getInt(1);
-				refer = resultSet.getInt(2);
-			}
-
-			connection.setAutoCommit(false);
-
-			pstmt = connection.prepareStatement(ohterboard);
-			pstmt.setInt(1, refer);
-			pstmt.setInt(2, depth);
-			resultSet = pstmt.executeQuery();
-			while (resultSet.next()) {
-				reBidx = resultSet.getInt(1);
-				pstmt = connection.prepareStatement(fsql);
-				pstmt.setInt(1, reBidx);
-				pstmt.executeUpdate();
-				
-				resultRow = deleteBoardBybIdx(connection, pstmt, reBidx);
-			}
-			
-			connection.commit();
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-		return resultRow > 0 ? true : false;
-	}
-
 	// 자유 게시판 게시글 수정하기
 	public boolean freeBoardEdit(String title, String content, int bIdx) {
 		int resultRow = 0;
@@ -488,38 +436,6 @@ public class BoardDao {
 			DBHelper.close(connection);
 		}
 		return bIdx;
-	}
-
-	// 공지 게시판 게시글 삭제하기
-	public boolean noticeDelete(int bIdx) {
-		int resultRow = 0;
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-
-		String sql1 = "DELETE FROM NOTICEBOARD WHERE BIDX=?";
-
-		try {
-			connection.setAutoCommit(false);
-			pstmt = connection.prepareStatement(sql1);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-
-			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-
-			connection.commit();
-
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-		return resultRow > 0 ? true : false;
 	}
 
 	// 공지 게시판 게시글 수정하기
@@ -705,43 +621,6 @@ public class BoardDao {
 		return bIdx;
 	}
 
-	// Q&A 게시판 게시글 삭제하기
-	public boolean deleteQnABoard(int bIdx) {
-		int resultRow = 0;
-
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-
-		String qnaSql = "DELETE FROM QNABOARD WHERE BIDX=?";
-
-		try {
-			connection.setAutoCommit(false);
-
-			// QNABOARD 데이터 삭제
-			pstmt = connection.prepareStatement(qnaSql);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-
-			// BOARD 데이터 삭제
-			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-
-			connection.commit();
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-
-		return resultRow > 0 ? true : false;
-	}
-
 	// Q&A 게시판 게시글 수정하기
 	public boolean updateQnABoard(int bIdx, String title, String content, int isPublic) {
 		int resultRow = 0;
@@ -898,38 +777,6 @@ public class BoardDao {
 			DBHelper.close(pstmt);
 		}
 
-		return result;
-	}
-
-	// 포토 게시판 게시글 삭제하기
-	public int photoDelete(int bIdx) {
-		int result = 0;
-		Connection conn = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-
-		String photoSql = "DELETE FROM PHOTO WHERE BIDX=?";
-
-		try {
-			conn.setAutoCommit(false);
-			pstmt = conn.prepareStatement(photoSql);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-
-			result = deleteBoardBybIdx(conn, pstmt, bIdx);
-
-			conn.commit();
-		} catch (Exception e) {
-			try {
-				conn.rollback();
-
-			} catch (SQLException e1) {
-				System.out.println(e1.getMessage());
-			}
-
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(conn);
-		}
 		return result;
 	}
 
@@ -1283,47 +1130,6 @@ public class BoardDao {
 	// 나만의 코스 게시판 게시글 조회수 증가
 	public boolean getCourseReadNum() {
 		return false;
-	}
-
-	// 나만의 코스 게시판 게시글 삭제하기
-	public boolean courseDelete(int bIdx) {
-		int resultRow = 0;
-
-		Connection connection = DBHelper.getConnection();
-		PreparedStatement pstmt = null;
-		String photoDelete = "DELETE FROM PHOTO WHERE BIDX = ?";
-		String courseDelete = "DELETE FROM MCBOARD WHERE BIDX=?";
-
-		try {
-			connection.setAutoCommit(false);
-			
-			//사진삭제
-			pstmt = connection.prepareStatement(photoDelete);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-			// MCBOARD 데이터 삭제
-			pstmt = connection.prepareStatement(courseDelete);
-			pstmt.setInt(1, bIdx);
-			pstmt.executeUpdate();
-			System.out.println("boardDao courseDelete() mCB삭제");
-			// BOARD 데이터 삭제
-			resultRow = deleteBoardBybIdx(connection, pstmt, bIdx);
-			System.out.println("boardDao courseDelete() board삭제");
-			connection.commit();
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
-			e.printStackTrace();
-		} finally {
-			DBHelper.close(pstmt);
-			DBHelper.close(connection);
-		}
-
-		return resultRow > 0 ? true : false;
 	}
 
 	// 나만의 코스 게시판 게시글 수정하기
@@ -1700,14 +1506,13 @@ public class BoardDao {
 		return resultRow > 0 ? true : false;
 	}
 
-	public int deleteBoardBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
+	public boolean deleteBoardBybIdx(int bIdx) {
 		int resultRow = 0;
-
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		
 		String sql = "DELETE FROM BOARD WHERE BIDX = ?";
 		try {
-			// 댓글 삭제
-			deleteReplyBybIdx(connection, pstmt, bIdx);
-			
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, bIdx);
 
@@ -1716,22 +1521,6 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 
-		return resultRow;
-	}
-	
-	private int deleteReplyBybIdx(Connection connection, PreparedStatement pstmt, int bIdx) {
-		int resultRow = 0;
-
-		String sql = "DELETE FROM REPLY WHERE BIDX = ?";
-		try {
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setInt(1, bIdx);
-
-			resultRow = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-
-		return resultRow;
+		return resultRow > 0 ? true : false;
 	}
 }
