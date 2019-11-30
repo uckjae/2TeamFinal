@@ -351,7 +351,7 @@ body {
 						$("#tlidx").val(element.tlidx);
 						$("#innerModalIntro").append(
 								element.name 
-								+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mb-3 mt-0' onclick = 'submitFn("+element.tlidx+")'>"  
+								+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mt-1 mb-1' onclick = 'submitFn("+element.tlidx+")'>"  
 							 	+ "<br>"
 						);
 						

@@ -30,9 +30,6 @@ public class MTListContentAddService implements Action {
 		String spotName= request.getParameter("spotName");
 		String image = request.getParameter("mTLimage");
 	//	Date spotDate = null;
-		System.out.println("tLidx : " + tLidx);
-		System.out.println("spotName : " + spotName);
-		System.out.println("image : " + image);
 		/* String 날짜;
 			SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
 			String 변환된날짜 = fm.parse(날짜);
@@ -41,14 +38,19 @@ public class MTListContentAddService implements Action {
 		String spotDate = request.getParameter("spotDate");	
 		String spotAddr = request.getParameter("spotAddr");
 		String spotLink = request.getParameter("spotLink");
-		System.out.println("tLidx : " + tLidx);
-		System.out.println("spotName : " + spotName);
-		System.out.println("image : " + image);
-		System.out.println("spotDate : " + spotDate);
-		System.out.println("spotAddr : " + spotAddr );
-		System.out.println("spotLink : " + spotLink);
 		int resultRow = boardDao.mTListContentAdd(tLidx,spotName,image,spotDate,spotAddr,spotLink);
-		forward.setPath("MTFolderList.do");
+		
+		String msg = "";
+		System.out.println(resultRow);
+		if(resultRow > 0) {
+			msg = "나의 여행리스트에 추가되었습니다.";
+		} else {
+			msg = "나의 여행리스트에 추가에 실패하였습니다.";
+		}
+		request.setAttribute("board_msg",msg );
+		request.setAttribute("board_url", "MTFolderList.do");
+		request.setAttribute("board_result", (resultRow > 0));
+		forward.setPath("/common/Redirect.jsp");
 		return forward;
 	}
 

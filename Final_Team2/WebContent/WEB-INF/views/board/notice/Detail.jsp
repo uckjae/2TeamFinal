@@ -16,6 +16,12 @@
         body {
             height: 100%;
         }
+         .ds{
+        	width: 100%;
+        	height: 280px;
+        	border: 1px solid #ced4da;
+        	border-radius:5px;
+        }
     </style>
     
 </head>
@@ -28,10 +34,11 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">공지사항 게시판</h1>
                 <input type="text" class="form-control mb-3" id="title" name="title" value="${noticeDetail.title}" readonly>
-                <textarea id="content" rows="10" style="width: 100%" readonly>
+                <div id="content" rows="10" class="ds">
                 	<c:out value="${noticeDetail.content}" escapeXml="false"/>
-                </textarea>
+                </div>
                 <div class="text-right">
+                <br>
                 	<c:if test="${noticeDetail.id == sessionScope.memberId || (sessionScope.memberId!=null && sessionScope.isAdmin == 'true')}">
                 		  <input type="button" class="btn btn-primary" value="수정" onclick="location.href='NoticeBoardWrite.do?cmd=edit&bIdx=${noticeDetail.bIdx}'">
                   		  <input type="button" class="btn btn-primary" value="삭제" onclick="deleteAlert('NoticeBoardDelete.do?',${noticeDetail.bIdx})">
