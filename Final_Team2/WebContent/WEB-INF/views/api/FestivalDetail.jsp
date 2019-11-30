@@ -278,25 +278,35 @@ body {
 			var range = "&radius=3000&listYN=Y";
 			var apilocation = "";
 			var addr5 = servicekey + paramNumOfRow + paramPageNo + arrange + array + contentType + xpos + x + ypos + y + type + range;
-			console.log(xpos);
 			apilocation = addr + "locationBasedList?" + addr5;
-			console.log(apilocation);
 			var around = "";
 			$.getJSON(apilocation, function(data4) {
 				console.log("in");
 				var myData4 = data4.response.body.items.item;
-				console.log(data4);
+				console.log(myData4);
 				$.each(myData4,function(index,element){	
 				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
 					var pj = $('<div class="project">');
 						var imgs = $('<div class="img" style="max-height:200px; width:auto;">');
 							var itag = $('<img class="img-fluid">');
 								around = element.firstimage;
-									itag.attr("src",around);
+									$(itag).attr("src",around);
+									$(itag).attr("onError","this.src='/images/default.png'");
+									$(itag).attr("alt","여행지사진");
 								$(imgs).append(itag);	
-							$(pj).append(imgs);
-							$(col).append(pj);
-							$("#here").append(col);
+								
+								var txtDiv = $('<div class="text">');
+								var link = $('<a>');
+									$(link).attr("href","FestivalDetail.do?contentId="+myData4.contentid);
+									var spotName = $('<h6>');
+										$(spotName).text(myData4.title);
+								$(link).append(spotName);
+								$(txtDiv).append(link);
+								
+								$(pj).append(imgs);
+								$(pj).append(txtDiv);
+								$(col).append(pj);
+								$("#here").append(col);
 					
 				});
 				

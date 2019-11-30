@@ -39,6 +39,7 @@
         								<a href="PhotoBoardDetail.do?bIdx=${board.bIdx }">${board.title }</a>
         								</h3>
         								<h5>${board.id }</h5>
+        								<h6><fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></h6>
         							</div>
         						</c:if>
         					</c:forEach>
@@ -49,7 +50,7 @@
         	</div>
         	</div>
 		    		<c:if test="${sessionScope.memberId !=null}">
-				    <div class="container">
+				   <div class="text-right" style=" margin-right: 180px; margin-bottom: 10px; ">
 				    <a href="PhotoWrite.do?cmd=write">
 				    	<input type="button" value="글작성" id="photo" name="photo">	
 				    </a>
