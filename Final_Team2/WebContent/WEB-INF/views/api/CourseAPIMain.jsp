@@ -63,7 +63,7 @@
 	     var img = $('<img>');
 	     $(img).attr('src',imagePath);
 	     $(img).attr('alt', 'No Image');
-	     $(img).attr('style', 'width:100%');
+	     $(img).attr('style', "background-image: url('"+ element.firstimage+"');");
 	     $(img).attr('class', 'gallery img d-flex align-items-center');
 	     var divText = $("<div class='mb-3'>");
 	     var textSize = $("<h5>");
