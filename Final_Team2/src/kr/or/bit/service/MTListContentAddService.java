@@ -48,7 +48,6 @@ public class MTListContentAddService implements Action {
 		System.out.println("spotAddr : " + spotAddr );
 		System.out.println("spotLink : " + spotLink);
 		int resultRow = boardDao.mTListContentAdd(tLidx,spotName,image,spotDate,spotAddr,spotLink);
-		System.out.println("resultRow : " + resultRow);
 		forward.setPath("MTFolderList.do");
 		return forward;
 	}
