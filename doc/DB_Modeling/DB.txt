@@ -1,4 +1,51 @@
 /* Board */
+DROP TABLE Board 
+	CASCADE CONSTRAINTS;
+
+/* FreeBoard */
+DROP TABLE FreeBoard 
+	CASCADE CONSTRAINTS;
+
+/* Reply */
+DROP TABLE Reply 
+	CASCADE CONSTRAINTS;
+
+/* BoardList */
+DROP TABLE BoardList 
+	CASCADE CONSTRAINTS;
+
+/* BoardType */
+DROP TABLE BoardType 
+	CASCADE CONSTRAINTS;
+
+/* Photo */
+DROP TABLE Photo 
+	CASCADE CONSTRAINTS;
+
+/* Member */
+DROP TABLE Member 
+	CASCADE CONSTRAINTS;
+
+/* MyTravelList */
+DROP TABLE MTList 
+	CASCADE CONSTRAINTS;
+
+/* MyTravelListContent */
+DROP TABLE MTLContent 
+	CASCADE CONSTRAINTS;
+
+/* NoticeBoard */
+DROP TABLE NoticeBoard 
+	CASCADE CONSTRAINTS;
+
+/* MyCourseBoard */
+DROP TABLE MCBoard 
+	CASCADE CONSTRAINTS;
+
+/* LikeMemberList */
+DROP TABLE LMList 
+	CASCADE CONSTRAINTS;
+
 CREATE TABLE Board (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
