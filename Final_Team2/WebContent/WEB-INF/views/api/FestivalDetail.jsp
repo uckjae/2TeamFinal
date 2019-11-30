@@ -282,7 +282,7 @@ body {
 			$.getJSON(apilocation, function(data4) {
 			
 				var myData4 = data4.response.body.items.item;
-				
+
 				$.each(myData4,function(index,element){	
 				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
 					var pj = $('<div class="project">');
@@ -413,9 +413,10 @@ body {
 			<div class="position" id="map"></div>
 			
 			<div id="mainContentBox" class="content">
+				<h4>주변축제</h4>
+				<hr>
 				<div class="row" id="here">
 					
-								
 							
 									
 								</div>
