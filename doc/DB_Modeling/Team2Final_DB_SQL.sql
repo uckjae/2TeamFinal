@@ -617,3 +617,8 @@ CREATE SEQUENCE TLCIdx_SEQ;--나의여행리스트 내용
 CREATE SEQUENCE RIdx_SEQ;--댓글
 CREATE SEQUENCE PhotoId_SEQ;--사진
 COMMIT;
+
+alter table mtlcontent modify (spotname varchar2(200));
+alter table mtlcontent modify (spotaddr varchar2(200));
+alter table mtlcontent modify (spotlink varchar2(500));
+commit;
