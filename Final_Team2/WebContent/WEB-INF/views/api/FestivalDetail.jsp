@@ -287,11 +287,17 @@ body {
 				var myData4 = data4.response.body.items.item;
 				console.log(data4);
 				$.each(myData4,function(index,element){	
-					around = element.firstimage2;
-					var itag = $('<img class="img-fluid">');
-					itag.attr("src",around);
-					console.log(itag);
-					$("#imginfo").append(itag);
+				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
+					var pj = $('<div class="project">');
+						var imgs = $('<div class="img" style="max-height:200px; width:auto;">');
+							var itag = $('<img class="img-fluid">');
+								around = element.firstimage;
+									itag.attr("src",around);
+								$(imgs).append(itag);	
+							$(pj).append(imgs);
+							$(col).append(pj);
+							$("#here").append(col);
+					
 				});
 				
 				
@@ -401,21 +407,15 @@ body {
 			<div class="position" id="map"></div>
 			
 			<div id="mainContentBox" class="content">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
-							<div class="project">
-								<div class="img" style="max-height:150px; width:auto;" id="imginfo">
+				<div class="row" id="here">
+					
 								
 							
 									
 								</div>
 						</div>
 				</div>
-							
-			</div>
-		</div>
-			
-		</div>
+					
 	</section>
 <!--  모달창 첫 화면 -->	
 <div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
