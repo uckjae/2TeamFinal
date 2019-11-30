@@ -31,8 +31,8 @@ img.image2{
   position: absolute;
   width: 3px;
   height: 100%;
- /*  left: 50%;  */
- /*  margin-left: -2px; */
+  left: 50%; 
+  margin-left: -2px;
   background: #00b0bd;
   z-index: -1;
 }
