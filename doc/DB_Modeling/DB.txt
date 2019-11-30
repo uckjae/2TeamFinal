@@ -51,7 +51,7 @@ CREATE TABLE Board (
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
 	Title VARCHAR2(100) NOT NULL, /* 글제목 */
 	Content VARCHAR2(4000) NOT NULL, /* 글내용 */
-	WDate TIMESTAMP, /* 작성일 */
+	WDate TIMESTAMP DEFAULT SYSTIMESTAMP, /* 작성일 */
 	RNum NUMBER NOT NULL, /* 조회수 */
 	BCode NUMBER NOT NULL /* 게시판코드 */
 );
@@ -123,7 +123,7 @@ CREATE TABLE Reply (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	RContent VARCHAR2(500) NOT NULL, /* 댓글내용 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
-	RWDate TIMESTAMP /* 작성일 */
+	RWDate TIMESTAMP DEFAULT SYSTIMESTAMP /* 작성일 */
 );
 
 COMMENT ON TABLE Reply IS 'Reply';
@@ -234,7 +234,7 @@ CREATE TABLE Member (
 	PWD VARCHAR2(30) NOT NULL, /* 비밀번호 */
 	Name VARCHAR2(15) NOT NULL, /* 이름 */
 	Birth CHAR(6), /* 생년월일 */
-	HIREDATE DATE, /* 가입일 */
+	HIREDATE DATE DEFAULT SYSDATE, /* 가입일 */
 	Gender CHAR(1), /* 성별 */
 	Address VARCHAR2(50), /* 주소 */
 	Email VARCHAR2(100), /* 이메일 */
