@@ -8,63 +8,86 @@
 <c:import url="/common/HeadTag.jsp" />
 <title>여행지 메인</title>
 <script type="text/javascript">
-$(function(){
-	$("#areaSel").change(function(){
-		console.log("in");
+
+	let contentCount = 10; // 한번에 로드되는 api 데이터 갯수
+	let pageNo = 1;
+	let paging = false;
+	let pagingStop = false;
+	$(function(){
 		getDatas();
+		
+		$("#areaSel").change(function(){
+			pageNo = 1;
+			paging = false;
+			pagingStop = false;
+			$("#dataBox").empty();
+			getDatas();
+		});
+		
+		$(window).scroll(function(){
+            let $window = $(this);
+            let scrollTop = $window.scrollTop();
+            let windowHeight = $window.height();
+            let documentHeight = $(document).height();
+            
+            // scrollbar의 thumb가 바닥 전 20px까지 도달 하면 리스트를 가져온다.
+            if( scrollTop + windowHeight + 20 > documentHeight ){
+                getDatas();
+            }
+        })
 	});
 	
 	function goCourseDetail(ogu) {
-		console.log($(ogu).val());
 		location.href = "TravellDetail.do?contentId=" + $(ogu).val();
 	}
-	getDatas("");
-});
-	
-function getDatas(code){
-	let areacode = $("#areaSel").val();
-	
-	var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-	var servicekey = "serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
-	var paramContentTypeId = "&contentTypeId=12"
-	var ParamAreaCode = "&areaCode=";
-	var paramAppTest = "&MobileApp=AppTest&MobileOS=ETC";
-	var pramArrange = "&arrange=A";
-	var paramNumOfRows = "&numOfRows=20";
-	var paramPageNo =  "&pageNo=";
-	var pramAreaBasedList ="areaBasedList?";
-	var type = "&_type=json";
-	var pramList = "&listYN=Y";
-	
-	var api = addr + pramAreaBasedList + servicekey + paramPageNo +"1" +
-	          paramNumOfRows + paramAppTest + pramArrange + paramContentTypeId
-	          + ParamAreaCode+ areacode + pramList + type; 
+
+	function getDatas(){
+		let areacode = $("#areaSel").val();
 		
-	$.getJSON(api,function(data){
-		var myData = data.response.body.items.item;
-		console.log(myData);
-		$("#dataBox").empty();
-		$.each(myData,function(index,element){
-			$('#dataBox').append(
-					"<div class='row'>"
-						+"<div class='col-md-3'>"
-							+"<img src="+ element.firstimage2 + ">"
-						+"</div>"
-						+"<div class='col-md-9'>"
-							+"<div class='col-md-12'>"
-								+ "<a href='TravelDetail.do?contentId="+ element.contentid+"'>" + element.title
-							+"</div>"
-							+"<div class='col-md-12'>"
-								
-							+"</div>"
-						+"</div>"
-					+"</div><hr>"
-				);
+		if (pagingStop || (pageNo!=1 && paging))
+			return;
+		
+		paging = true;
+		var addr = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+		var servicekey = "serviceKey=ckJdBLYy4BEBjKn2aXypvENewx09cAsw8TX96K6Ck%2BCnpp7C8GNon1%2FIvuVRGU4XX8U4dcQxppyEf1pt52NXZA%3D%3D";
+		var paramContentTypeId = "&contentTypeId=12"
+		var ParamAreaCode = "&areaCode=";
+		var paramAppTest = "&MobileApp=AppTest&MobileOS=ETC";
+		var pramArrange = "&arrange=A";
+		var paramNumOfRows = "&numOfRows=" + contentCount;
+		var paramPageNo = "&pageNo=" + pageNo;
+		var pramAreaBasedList = "areaBasedList?";
+		var type = "&_type=json";
+		var pramList = "&listYN=Y";
+
+		var api = addr + pramAreaBasedList + servicekey + paramPageNo
+				+ paramNumOfRows + paramAppTest + pramArrange
+				+ paramContentTypeId + ParamAreaCode + areacode + pramList
+				+ type;
+		
+		$.getJSON(api, function(data) {
+			var myData = data.response.body.items.item;
+			if (myData != undefined && myData.length > 0) {
+				++pageNo;
+				$.each(myData, function(index, element) {
+					let imagePath = (element.firstimage2 == undefined)?"./images/notImage.jpg":element.firstimage2;
+					$('#dataBox').append(
+							"<div class='row'>" + "<div class='col-md-3'>"
+									+ "<img src="+ imagePath + ">"
+									+ "</div>" + "<div class='col-md-9'>"
+									+ "<div class='col-md-12'>"
+									+ "<a href='TravelDetail.do?contentId="
+									+ element.contentid + "'>" + element.title
+									+ "</div>" + "<div class='col-md-12'>"
+									+ "</div>" + "</div>" + "</div><hr>");
+				});
+				paging = false;	
+			} else {
+				pagingStop = true;
+				paging = false;	
+			}
 		});
-});
-};
-
-
+	}
 </script>
 <style type="text/css">
 html, body {
@@ -105,13 +128,6 @@ img {
 		</div>
 
 		<div id="dataBox"></div>
-		<div class="pagination-sm mt-3 mb-3" style="text-align: center">
-			<a href="#" class="btn btn-primary">&laquo;</a> <a href="#"
-				class="btn btn-primary">1</a> <a href="#" class="btn btn-primary">2</a>
-			<a href="#" class="btn btn-primary">3</a> <a href="#"
-				class="btn btn-primary">4</a> <a href="#" class="btn btn-primary">5</a>
-			<a href="#" class="btn btn-primary">&raquo;</a>
-		</div>
 	</div>
 
 </body>

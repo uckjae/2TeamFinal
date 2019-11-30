@@ -17,7 +17,7 @@ public class QnABoardDeleteService implements Action {
 		int bIdx = Integer.parseInt(request.getParameter("bIdx")) ;
 
 		BoardDao dao = new BoardDao();
-		boolean result = dao.deleteQnABoard(bIdx);
+		boolean result = dao.deleteBoardBybIdx(bIdx);
 
 		String msg = "";
 		if (result) {

@@ -57,13 +57,13 @@
            }
        });
        
-       function showDetail(isPublic, bIdx){
+       /* function showDetail(isPublic, bIdx){
        		if(! isPublic && ${! sessionScope.isAdmin}){
        			alert("관리자만 접근 가능합니다.");
        		} else{
-       			location.href="QnABoardDetail.do?bIdx="+bIdx;
+       			location.href="FreeBoardDetail.do?bIdx="+bIdx;
        		}
-       }
+       } */
         function showDetail(bIdx){
         	//관리자 거나 회원이거
         	
