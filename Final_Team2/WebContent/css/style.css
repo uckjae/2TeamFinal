@@ -8097,7 +8097,7 @@ h3 > a {
         height: 2px;
         bottom: 0;
         left: 0;
-        background: #346294  ;
+        background: #ffffff;
         visibility: visible;
         -webkit-transform: scaleX(0);
         -moz-transform: scaleX(0);
@@ -8242,7 +8242,7 @@ h3 > a {
 
 .navbar-brand {
   font-weight: 900;
-  font-size: 26px; }
+  font-size: 28px; }
   .navbar-brand span {
     font-weight: 900; }
 
@@ -8849,7 +8849,7 @@ h3 > a {
       top: -25px;
       left: 10px;
       padding: .4em .7em;
-      background: #d39f97;
+      background: #346294;
       font-weight: 400;
       font-size: 14px;
       color: #fff;
