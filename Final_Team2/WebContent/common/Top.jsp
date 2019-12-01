@@ -72,7 +72,6 @@
 										<div class="dropdown-menu">
 					              			<a class="dropdown-item" href="AdminList.do" target="_self">관리자</a>	
 					              			<a class="dropdown-item" href="MemberList.do" target="_self">회원관리</a>	
-					              			<a class="dropdown-item" href="#" target="_self">통계관리</a>	
 				              			</div>				
 									</li>
 								</c:when>
