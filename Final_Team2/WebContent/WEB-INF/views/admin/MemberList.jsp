@@ -85,20 +85,20 @@
                     <tbody>
                     <c:forEach var="member" items="${members}"  varStatus="status" >
                     	<tr>
-                            <td align="center">${status.count}</td>
+                            <td style="text-align: center !important;">${status.count}</td>
                             <td align="center">
                             	<a href="Member.do?cmd=detail&id=${member.id}">
 									 ${member.id}
 								</a>
                             </td>
-                            <td align="center">${member.name}</td>
-                            <td align="center">${member.hireDate}</td>
-                            <td class="iconColumn">
+                            <td style="text-align: center !important;">${member.name}</td>
+                            <td style="text-align: center !important;">${member.hireDate}</td>
+                            <td class="iconColumn" style="text-align: center !important;">
 								<a href="Member.do?cmd=edit&id=${member.id}">
 									<i class="fas fa-user-edit"></i>
 								</a>
 							</td>
-							<td class="iconColumn">
+							<td class="iconColumn" style="text-align: center !important;">
 								<a href="#" data-toggle="modal" data-target="#deleteModal" data-cmd="member" data-delete-id="${member.id}">
 									<i class="fas fa-trash-alt"></i>
 								</a>

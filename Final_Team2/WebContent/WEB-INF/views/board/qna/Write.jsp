@@ -3,7 +3,15 @@
 
 <!DOCTYPE html>
 <html>
- 
+<c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
+<c:choose>
+	<c:when test="${qnaWrite.bIdx > 0}">
+		<c:set var="isEdit" value="true"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="isEdit" value="false"/>
+	</c:otherwise>
+</c:choose>
 <head>
     <c:import url="/common/HeadTag.jsp" />
 
@@ -58,6 +66,12 @@
         
         function vaildate(){
         	let result = checkBoardConten($('#title').val(), $('#summernote').val());
+
+        	if(${isEdit})
+        		 $("#frm").attr("action","QnABoardWriteOk.do?cmd=edit");	
+        	 else
+        		 $("#frm").attr("action","QnABoardWriteOk.do?cmd=write");
+
         	return result;
         }
     </script>
@@ -69,15 +83,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-	<c:set var="qnaWrite" value="${requestScope.qnaWrite}"/>
-	<c:choose>
-		<c:when test="${qnaWrite.bIdx > 0}">
-			<c:set var="isEdit" value="true"/>
-		</c:when>
-		<c:otherwise>
-			<c:set var="isEdit" value="false"/>
-		</c:otherwise>
-	</c:choose>
+
     <div class="content">
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">
@@ -90,11 +96,7 @@
                  	</c:otherwise>
                 </c:choose> 
             </h1>
-            <form id="frm" class="p-5 bg-light" method="post" 
-            	<c:choose>
-                	 <c:when test="${isEdit}">action="QnABoardWriteOk.do?cmd=edit"</c:when>
-                	<c:otherwise>action="QnABoardWriteOk.do?cmd=write"</c:otherwise>
-                </c:choose>>
+            <form id="frm" class="p-5 bg-light" method="post" >
                 <input type="text" class="form-control mb-3" id="title" name="title" placeholder="글 제목" value="${qnaWrite.title}">
                 <input type="hidden" id="bIdx" name="bIdx" value="${qnaWrite.bIdx}">
                 <textarea rows="10" cols="60" id="summernote" name="summernote">${ qnaWrite.content }</textarea>
