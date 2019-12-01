@@ -119,13 +119,13 @@ img {
 	<!-- Top -->
 	<c:import url="/common/Top.jsp" />
 	<div class="content">
-
-		<div class="col-md align-items-end">
+		<form action="#" class="search-property-1" style="margin-bottom: 10px;">
+		<div class="col-md align-items-end" style="padding: 0;">
 			<div class="form-group">
 				<label for="#"></label>
 				<div class="form-field">
-					<div class="select-wrap">
-						<select name="areaSel" id="areaSel" class="form-control">
+					<div class="select-wrap font-pen">
+						<select name="areaSel" id="areaSel" class="form-control font-size-25">
 							<option value="1">서울</option>
 							<option value="31">경기</option>
 							<option value="2">인천</option>
@@ -134,7 +134,7 @@ img {
 				</div>
 			</div>
 		</div>
-
+	</form>
 		<div id="dataBox"></div>
 	</div>
 

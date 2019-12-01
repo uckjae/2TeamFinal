@@ -10323,10 +10323,10 @@ textarea.form-control {
   content: "|";
 }
 .font-jua {
-	font-family: 'Jua', sans-serif;
+	font-family: 'Jua', sans-serif ;
 }
 .font-pen {
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Nanum Pen Script', cursive !important;
 }
 .font-size-25{
 	font-size: 25px !important;
