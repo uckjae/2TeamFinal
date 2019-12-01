@@ -98,10 +98,7 @@ body {
 			
 			$(".spotName").val(myData.title);
 
-			if (window.sessionStorage) {
-                sessionStorage.setItem('spotName', myData.title);
-                var spotName = sessionStorage.getItem('spotName');
-            }
+		
 
 			$.each(myData, function(key, value) {
 				if (key == "overview") {
@@ -353,7 +350,7 @@ body {
 			dataType: "json",
 			success : function (data){
 				
-				$("#modalIntroBtn").css("display","none");
+				
 				if($.type(data) == 'array') {
 					$.each(data, function(index,element){
 						$("#tlidx").val(element.tlidx);
@@ -368,10 +365,13 @@ body {
 						
 					});
 				} else {
+					console.log("데이터 이름: " + data.name);
+					console.log("데이터 tlidx : " + data.tlidx);
 					$("#tlidx").val(data.tlidx);
-					$("#innerModalIntro").html(
+					$("#innerModalIntro").append(
+
 							data.name 
-							+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mb-3 mt-0' onclick = 'submitFn("+data.tlidx+")'>"  
+							+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mt-1 mb-1' onclick = 'submitFn("+data.tlidx+")'>"  
 						 	+ "<br>"
 					);	
 				} 
@@ -423,7 +423,7 @@ body {
 			<div id="mainContentBox" class="content">
 				<h4>주변축제</h4>
 				<hr>
-				<div class="row" id="here">
+				<div class="row gallery img d-flex align-items-center" id="here">
 					
 							
 									
@@ -434,8 +434,9 @@ body {
 				<a href="Festival.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
 				</div>
 	</section>
+	<c:import url="/common/MTLModal.jsp" />
 <!--  모달창 첫 화면 -->	
-<div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -455,13 +456,13 @@ body {
 		  </form>    
         </div>
         <div class="modal-footer">
-        <!-- <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 ">  -->
+        <input type="submit" class="btn btn-primary" value="여행리스트에 추가하기 "> 
        <button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
         </div>
        
       </div>
     </div>
-  </div>	
+  </div> -->	
 <!-- 모달창  폴더 -->
 
 </body>

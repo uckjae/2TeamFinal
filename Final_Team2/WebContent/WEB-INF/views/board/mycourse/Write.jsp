@@ -81,7 +81,7 @@
 			<div id="conference-timeline">
 				<div class="row">
 					<div class="text-left">
-						<span>글번호 : <input type="number" id="bIdx" name="bIdx" value="${board.bIdx}" readonly="readonly"></span>
+						<span>글번호 : <input type="text" id="bIdx" name="bIdx" value="${board.bIdx}" readonly="readonly" style="width: 50px; border: none;"></span>
 						<input type="hidden" id="mCIdx" name="mCIdx" value="${board.mCidx}">
 						<input type="hidden" id="rNum" name="rNum" value="${board.rNum }">
 						<input type="hidden" id="likeNum" name="likeNum" value="${board.likeNum}">

@@ -17,8 +17,19 @@
     			data : {cmd:"disable",id : $("#id").val() , email : $("#email").val(), content : $("#content").val()},
     			success : function(data){
     				console.log(data);
+    				if(data=='true'){
+    					successAlert("관리자에게 문의메일을 전송했습니다.");
+    				}
+    				else{
+    					errorAlert("메일 발송 실패!");
+    				}
+    			},
+    			error : function(){
+    				errorAlert("메일 발송 실패!");
     			}
     		});
+    		
+    	   	return false;
     	}
     </script>
 </head>
@@ -33,15 +44,15 @@
       <div class="container">
       	<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
-            <span class="subheading">SORRY</span>
+            <span class="subheading font-pen" style="font-size: 30px">SORRY</span>
             <h2 class="mt-4 mb-4">서비스 이용이 제한되었습니다.</h2>
-            <p>관리자에게 문의바랍니다.</p>
+            <p class="font-pen" style="font-size: 30px">관리자에게 문의바랍니다.</p>
           </div>
         </div>
 
         <div class="row block-9">
           <div class="col-md-7 order-md-last d-flex">
-            <form action="#" class="bg-light p-4 p-md-5 contact-form" id="frm">
+            <form  action="#" class="bg-light p-4 p-md-5 contact-form" id="frm">
               <div class="form-group">
                 <input type="text" class="form-control" id="id" name="id" placeholder="Your Name" value="${member.name }" readonly>
               </div>
