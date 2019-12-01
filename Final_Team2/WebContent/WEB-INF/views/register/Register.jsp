@@ -150,6 +150,7 @@
 				console.log(data);
 				emailCode = data;
 				$("#emailCodeControl").removeAttr("hidden","");
+				$("#codeBox").removeAttr("hidden","");
 			}
 		});
 	}
@@ -163,6 +164,8 @@
 				  timer: 1500
 				}).then(function(){
 					 $("#emailCodeControl").attr("hidden","hidden");
+					 $("#codeBox").attr("hidden","hidden");
+					 
 					 $("#email").attr("readonly","readonly");
 					 $("#sendEmail").text("인증 완료");
 					 $("#sendEmail").attr("disabled","disabled"); 
@@ -229,152 +232,165 @@
 </script>
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target"
+	data-offset="300">
 
-    <!-- Top -->
-    <c:import url="/common/Top.jsp" />
+	<!-- Top -->
+	<c:import url="/common/Top.jsp" />
 
-    <!-- Contant -->
-    <div class="container mt-7">
-        <!-- <div class="row justify-content-center pb-5"> -->
-          <!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
-                <h2 class="text-center mb-3">REGISTER</h2>
-                <form action="RegisterOk.do" class="search-property-1" method="post" name="form">
-                    <div class="row">
-                        <div class="col-lg-6 offset-lg-3 mb-3">
-                            <div class="form-group">
-                                <label for="#">ID</label>
-                                <div class="form-field">
-                                    <input type="text" class="form-control" id="id" name="id" placeholder="enter your id" autofocus="autofocus">
-                                	<div  id="checkId" hidden></div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class ="row">
-                        <div class="col-lg-4 offset-lg-3 align-items-end mb-3 form-group">
-                           <!--  <div class="form-group"> -->
-                                <label for="#">EMAIL</label>
-                                <div class=" form-field">                             
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
-                      				       
-                     
-                              </div> 				       
-                           </div>  
-                                
-                           <div class="col-lg-2 align-items-end mb-3">
-                            <div class="form-group">
-                                <label for="#">&nbsp;</label>
-                                <div class=" form-field">                             
-							          <button class="btn btn-primary form-control" type="button" id="sendEmail"> 이메일 인증 </button>				       
-                                </div>
-                              </div> 				       
-                           </div>     
-                        </div>
-                                  
-                        <div class ="row">
-                        <div class="col-lg-4 offset-lg-3 align-items-end mb-3">
-                            <div class="form-group">
-                                <div class=" form-field" id="emailCodeControl" hidden="hidden">                             
-                                    <input type="email" class="form-control" id="emailCode" name="emailCode" placeholder="check email code"> 				       
-                                </div>
-                              </div> 				       
-                           </div>  
-                                
-                           <div class="col-lg-2 align-items-end mb-3">
-                            <div class="form-group">
-                                <div class="input-group-append form-field">                             
-							          <button class="btn btn-primary form-control" type="button"id="checkEmailCode"> 인증 확인 </button>				       
-                                </div>
-                              </div> 				       
-                           </div>     
-                        </div>          
-                                  
-                                  
-                                  
-                                  
-                                  
-<!--                                  <div class="col-lg-2 align-items-end mb-3">
-                                <div class="form-field" id="emailCodeControl" hidden="hidden">
-                                    <input type="text" class="form-control" id="emailCode" name="emailCode" placeholder="check email code">
-                                	<div class="input-group-append">
-							          <button class="btn btn-primary" type="button" id="checkEmailCode"> 인증 확인 </button>
-							        </div>
-                                </div>
-                            </div> -->
-                        
-                          
-                      <div class ="row">  
-                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
-                            <div class="form-group">
-                                <label for="#">NAME</label>
-                                <div class="form-field">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="enter your name" >
-                                    <div  id="checkName" hidden></div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                      <div class ="row">
-                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
-                            <div class="form-group">
-                                <label for="#">PASSWORD</label>
-                                <div class="form-field">
-                                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="enter your password">
-                                    <div  id="checkPwd" hidden></div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                         <div class ="row">
-                        <div class="col-lg-6 offset-lg-3  align-items-end mb-3">
-                            <div class="form-group">
-                                <label for="#">BIRTH</label>
-                                <div class="form-field">
-                                <div class="row">
-                                	<div class="col-lg-6 ">
-                                		 <input type="text" class="form-control" id="birth" name="birth" maxlength="6" onkeypress="inNumber()" oninput="maxLengthCheck(this)"> 
-                                		 <div  id="checkBirth" hidden></div>
-                                	</div>
-                                	
-                                	<div class="col-lg-6 "> 
-                                		<input type="text" class="form-control" id="gender" name="gender"  maxlength="1" oninput="maxLengthCheck(this)" onkeypress="inGender()" >
-                                	</div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class ="row">
-                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
-                            <div class="form-group">
-                                <label for="#">ADDRESS</label>
-                                <input type="text" id="postCode" name="postCode"  class="form-control" placeholder="우편번호" aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
-						        <div class="input-group-append">
-						          <button class="btn btn-primary" type="button" id="openPostCode">
-						            <i class="fas fa-search"></i>
-						          </button>
-						        </div>
-                                <div class="form-field">
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="주소" readonly>
-                                </div>
-                            </div>
-                        </div>
-                         </div>
-                          <div class ="row">
-                        <div class="col-lg-6 offset-lg-3">
-                            <div class="form-group">
-                                <div class="form-field">
-                                    <input type="submit" value="REGISTER" class="form-control btn btn-primary">
-                                </div>
-                            </div>
-                        </div>
-                  </div>
-                </form>
-            </div>
-        <!-- </div> -->
-   <!-- </div> -->
+	<!-- Contant -->
+	<div class="container mt-7">
+		<!-- <div class="row justify-content-center pb-5"> -->
+		<!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
+		<h2 class="text-center mb-3">REGISTER</h2>
+		<form action="RegisterOk.do" class="search-property-1" method="post"
+			name="form">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3 mb-3">
+					<div class="form-group">
+						<label for="#">ID</label>
+						<div class="form-field">
+							<input type="text" class="form-control" id="id" name="id"
+								placeholder="enter your id" autofocus="autofocus">
+							<div id="checkId" hidden></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 offset-lg-3 align-items-end mb-3 form-group">
+					<!--  <div class="form-group"> -->
+					<label for="#">EMAIL</label>
+					<div class=" form-field">
+						<input type="email" class="form-control" id="email" name="email"
+							placeholder="enter your email">
 
+
+					</div>
+				</div>
+
+				<div class="col-lg-2 align-items-end mb-3">
+					<div class="form-group">
+						<label for="#">&nbsp;</label>
+						<div class=" form-field">
+							<button class="btn btn-primary form-control" type="button"
+								id="sendEmail">이메일 인증</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 offset-lg-3 align-items-end mb-3">
+					<div class="form-group">
+						<div class=" form-field" id="emailCodeControl" hidden="hidden">
+							<input type="email" class="form-control" id="emailCode"
+								name="emailCode" placeholder="check email code">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 align-items-end mb-3" id="codeBox"
+					hidden="hidden">
+					<div class="form-group">
+						<div class="input-group-append form-field">
+							<button class="btn btn-primary form-control" type="button"
+								id="checkEmailCode">인증 확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3 align-items-end mb-3">
+					<div class="form-group">
+						<label for="#">NAME</label>
+						<div class="form-field">
+							<input type="text" class="form-control" id="name" name="name"
+								placeholder="enter your name">
+							<div id="checkName" hidden></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3 align-items-end mb-3">
+					<div class="form-group">
+						<label for="#">PASSWORD</label>
+						<div class="form-field">
+							<input type="password" class="form-control" id="pwd" name="pwd"
+								placeholder="enter your password">
+							<div id="checkPwd" hidden></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3  align-items-end mb-3">
+					<div class="form-group">
+						<label for="#">BIRTH</label>
+						<div class="form-field">
+							<div class="row">
+								<div class="col-lg-6 ">
+									<input type="text" class="form-control" id="birth" name="birth"
+										maxlength="6" onkeypress="inNumber()"
+										oninput="maxLengthCheck(this)">
+									<div id="checkBirth" hidden></div>
+								</div>
+
+								<div class="col-lg-6 ">
+									<input type="text" class="form-control" id="gender"
+										name="gender" maxlength="1" oninput="maxLengthCheck(this)"
+										onkeypress="inGender()">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5 offset-lg-3 align-items-end mb-3">
+					<div class="form-group">
+						<label for="#">ADDRESS</label> <input type="number" id="postCode"
+							name="postCode" class="form-control" placeholder="우편번호"
+							aria-label="Search" aria-describedby="basic-addon2"
+							style="height: 50px" readonly>
+					</div>
+				</div>
+
+				<div class="col-lg-1 align-items-end mb-3">
+					<div class="form-group">
+						<label for="#">&nbsp;</label>
+						<div class="input-group-append form-field">
+							<button class="btn btn-primary form-control" type="button"
+								id="openPostCode">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3 align-items-end mb-3">
+					<div class="form-group">
+						<div class="input-group-append form-field">
+							<input type="text" class="form-control" id="address"
+								name="address" placeholder="주소" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-1">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="form-group">
+						<div class="form-field">
+							<input type="submit" value="REGISTER"
+								class="form-control btn btn-primary">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 
 </html>

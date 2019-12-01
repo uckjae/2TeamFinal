@@ -66,7 +66,8 @@
 	     $(img).attr('style', "background-image: url('"+ element.firstimage+"');");
 	     $(img).attr('class', 'gallery img d-flex align-items-center');
 	     var divText = $("<div class='mb-3'>");
-	     var textSize = $("<h5>");
+	     $(divText).css('text-align','center');
+	     var textSize = $("<h3>");
 	
 	     var aTag = $('<a>');
 	
@@ -172,15 +173,15 @@
 		<div class="row mb-4 mt-10">
 			<div class="col-md-11 offset-md-1">
 				<form action="#" class="search-property-1">
-					<div class="row">					
-					     <div class="col-lg align-items-end">
+					<div class="row font-pen">					
+					     <div class="col-lg align-items-end" >
                             <div class="form-group">
                                 <label for="#"></label>
                                 <div class="form-field">
-                                    <div class="select-wrap">
+                                    <div class="select-wrap" >
                                         <select name="orderSel" id="orderSel" class="form-control" onchange="orderSelFn()">
-                                            <option value="new">최신순으로 보기</option>
-                                            <option value="old">오래된순으로 보기</option>
+                                            <option value="new" class="font-size-25">최신순으로 보기</option>
+                                            <option value="old" class="font-size-25">오래된순으로 보기</option>
                                         </select>
                                     </div>
                                 </div>
