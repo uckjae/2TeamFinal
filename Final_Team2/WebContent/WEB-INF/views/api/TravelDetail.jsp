@@ -133,8 +133,14 @@ $(function(){
 			var rs = dfs_xy_conv("toXY", data.response.body.items.item.mapy, data.response.body.items.item.mapx);
 			var date = new Date();
 			var year = date.getFullYear();
-			var month = date.getMonth() + 1;
+			var month = date.getMonth()+1;
+			if(month<10){
+				month = "0" + month;
+			}
 			var day = date.getDate();
+			if(day<10){
+				day = "0" + day; 
+			}
 			var hour = date.getHours();
 			var minutes = date.getMinutes();
 			if (minutes < 41) {
@@ -392,5 +398,8 @@ $(function(){
 			</div>
 		</div>
 	</div>
+	<div class="text-right">
+				<a href="Travel.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				</div>
 </body>
 </html>
