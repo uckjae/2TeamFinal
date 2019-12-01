@@ -47,7 +47,7 @@ DROP TABLE LMList
 	CASCADE CONSTRAINTS;
 
 /* QnABoard */
-DROP TABLE TABLE 
+DROP TABLE QnABoard 
 	CASCADE CONSTRAINTS;
 
 /* Board */
@@ -429,28 +429,28 @@ COMMENT ON COLUMN LMList.ID IS '아이디';
 COMMENT ON COLUMN LMList.isLike IS '추천여부';
 
 /* QnABoard */
-CREATE TABLE TABLE (
-	QIdx <지정 되지 않음> NOT NULL, /* QnA게시판식별번호 */
+CREATE TABLE QnABoard (
+	QIdx NUMBER NOT NULL, /* QnA게시판식별번호 */
 	BIDX NUMBER NOT NULL, /* 글번호 */
-	COL2 <지정 되지 않음> NOT NULL /* 공개여부 */
+	isPublic CHAR(1) NOT NULL /* 공개여부 */
 );
 
-COMMENT ON TABLE TABLE IS 'QnABoard';
+COMMENT ON TABLE QnABoard IS 'QnABoard';
 
-COMMENT ON COLUMN TABLE.QIdx IS 'QnA게시판식별번호';
+COMMENT ON COLUMN QnABoard.QIdx IS 'QnA게시판식별번호';
 
-COMMENT ON COLUMN TABLE.BIDX IS '글번호';
+COMMENT ON COLUMN QnABoard.BIDX IS '글번호';
 
-COMMENT ON COLUMN TABLE.COL2 IS '공개여부';
+COMMENT ON COLUMN QnABoard.isPublic IS '공개여부';
 
-CREATE UNIQUE INDEX PK_TABLE
-	ON TABLE (
+CREATE UNIQUE INDEX PK_QnABoard
+	ON QnABoard (
 		QIdx ASC
 	);
 
-ALTER TABLE TABLE
+ALTER TABLE QnABoard
 	ADD
-		CONSTRAINT PK_TABLE
+		CONSTRAINT PK_QnABoard
 		PRIMARY KEY (
 			QIdx
 		);
@@ -585,9 +585,9 @@ ALTER TABLE LMList
 			ID
 		)ON DELETE CASCADE;
 
-ALTER TABLE TABLE
+ALTER TABLE QnABoard
 	ADD
-		CONSTRAINT FK_Board_TO_TABLE
+		CONSTRAINT FK_Board_TO_QnABoard
 		FOREIGN KEY (
 			BIDX
 		)
@@ -595,8 +595,6 @@ ALTER TABLE TABLE
 			BIDX
 		)ON DELETE CASCADE;
 
-
-    
 /* INIT DATA */		
 INSERT INTO BOARDTYPE(BTYPE,BTYPENAME) VALUES(10, '일반');
 INSERT INTO BOARDTYPE(BTYPE,BTYPENAME) VALUES(20, '계층');
@@ -626,4 +624,3 @@ alter table mtlcontent modify (spotname varchar2(200));
 alter table mtlcontent modify (spotaddr varchar2(200));
 alter table mtlcontent modify (spotlink varchar2(500));
 commit;
-
