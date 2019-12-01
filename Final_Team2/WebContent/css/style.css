@@ -8875,7 +8875,7 @@ h3 > a {
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.7); }
+      color: rgba(255, 255, 255); }
     .project .text h3 {
       font-size: 20px;
       font-weight: 600;
@@ -8908,7 +8908,8 @@ h3 > a {
       color: #fff;
       font-size: 20px; }
   .project:hover .text .price, .project:focus .text .price {
-    background: #c3bdbd  ; }
+    color: black;
+    background: #c3bdbd ; }
   .project:hover .icon, .project:focus .icon {
     opacity: 1; }
   .project:hover img, .project:focus img {
