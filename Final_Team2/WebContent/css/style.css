@@ -5669,6 +5669,7 @@ button.bg-dark:focus {
   align-items: flex-start !important; }
 
 .align-items-end {
+   padding: 0;
   -webkit-box-align: end !important;
   -ms-flex-align: end !important;
   align-items: flex-end !important; }

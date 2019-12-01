@@ -75,8 +75,8 @@ function getDatas(code){
 							+"</div>"
 							+"<div class='col-md-9'>"
 								+"<div class='col-md-12'>"
-									+ "<a href='FestivalDetail.do?contentId="+ element.contentid+"'>" + element.title
-								+"</div>"
+									+ "<a href='FestivalDetail.do?contentId="+ element.contentid+"'><h2>" + element.title
+								+"</h2></div>"
 								+"<div class='col-md-12'>"
 									
 								+"</div>"
@@ -112,7 +112,7 @@ function getDatas(code){
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
 <div class="container mt-7">
-
+<form action="#" class="search-property-1" style="margin-bottom: 10px;">
 <div class="col-md align-items-end">
 							<div class="form-group">
 								<label for="#"></label>
@@ -127,6 +127,7 @@ function getDatas(code){
 								</div>
 							</div>
 						</div>
+						</form>
 <div  id="dataBox"></div>
 </div>
 </body>
