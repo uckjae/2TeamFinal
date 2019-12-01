@@ -85,17 +85,17 @@
                     <tbody>
                     <c:forEach var="admin" items="${admins}"  varStatus="status" >
                     	<tr>
-                            <td align="center">${status.count}</td>
+                            <td style="text-align: center !important;">${status.count}</td>
                             <td align="center">${admin.id}</td>
-                            <td align="center">${admin.name}</td>
-                            <td align="center">${admin.hireDate}</td>
-                            <td class="iconColumn">
+                            <td style="text-align: center !important;">${admin.name}</td>
+                            <td style="text-align: center !important;">${admin.hireDate}</td>
+                            <td class="iconColumn" style="text-align: center !important;">
 								<a href="#" data-toggle="modal" data-target="#writeModal"  
 										data-cmd="edit"  data-id="${admin.id}" data-name="${admin.name}" data-pwd="${admin.pwd }">
 									<i class="fas fa-user-edit"></i>
 								</a>
 							</td>
-							<td class="iconColumn">
+							<td class="iconColumn" style="text-align: center !important;">
 								<a href="#" data-toggle="modal" data-target="#deleteModal" data-cmd="admin" data-delete-id="${admin.id}">
 									<i class="fas fa-trash-alt"></i>
 								</a>

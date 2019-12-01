@@ -21,7 +21,7 @@
  		temp.val($(location).attr('href')).select();
  		document.execCommand("copy");
  		temp.remove();
- 		alert("링크가 클립보드로 복사 되었습니다.");
+ 		successAlert("링크가 클립보드로 복사 되었습니다.");
  	}
 
  </script>
