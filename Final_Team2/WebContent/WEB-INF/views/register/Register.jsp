@@ -373,7 +373,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mt-1">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="form-group">
 						<div class="form-field">
