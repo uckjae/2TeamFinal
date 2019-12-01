@@ -13,6 +13,11 @@
 	$(function(){
 		changReplyHeader();
 		$("#reply").click(function(){
+			if($("#replyContent").val()==""){
+				warningAlert("내용을 입력하세요.");
+				return;	
+			}
+			
 			 $.ajax({
 			        type:'POST',
 			        url : "WriteReply",
