@@ -125,7 +125,6 @@ body {
 
 				}else if(key =="firstimage2"){
 					image = value;
-					
 				}
 			});
 				getLocation();
