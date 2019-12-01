@@ -8849,7 +8849,7 @@ h3 > a {
       top: -25px;
       left: 10px;
       padding: .4em .7em;
-      background: #d39f97;
+      background: #346294;
       font-weight: 400;
       font-size: 14px;
       color: #fff;
@@ -8875,7 +8875,7 @@ h3 > a {
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: rgba(0, 0, 0, 0.5); }
+      color: rgba(255, 255, 255, 0.7); }
     .project .text h3 {
       font-size: 20px;
       font-weight: 600;
@@ -8883,7 +8883,7 @@ h3 > a {
       .project .text h3 a {
         color: #000000; }
     .project .text .star span {
-      color: #346294  ; }
+      color: #346294  ; } 
     .project .text .star .rate a {
       color: rgba(0, 0, 0, 0.3); }
   .project .icon {
@@ -8908,7 +8908,7 @@ h3 > a {
       color: #fff;
       font-size: 20px; }
   .project:hover .text .price, .project:focus .text .price {
-    background: #346294  ; }
+    background: #c3bdbd  ; }
   .project:hover .icon, .project:focus .icon {
     opacity: 1; }
   .project:hover img, .project:focus img {
