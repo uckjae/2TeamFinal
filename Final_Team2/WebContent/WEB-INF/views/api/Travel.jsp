@@ -85,8 +85,8 @@
 									+ "</div>" + "<div class='col-md-9'>"
 									+ "<div class='col-md-12'>"
 									+ "<a href='TravelDetail.do?contentId="
-									+ element.contentid + "'>" + element.title
-									+ "</div>" + "<div class='col-md-12'>"
+									+ element.contentid + "'><h2>" + element.title
+									+ "</h2></div>" + "<div class='col-md-12'>"
 									+ "</div>" + "</div>" + "</div><hr>");
 				});
 				paging = false;	
