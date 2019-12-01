@@ -99,12 +99,12 @@
 			      			<c:set var="number" value="${status1.index }"/>
 			      			<div class="timeline-article">
 			      				<div class="content-left-container">
-										<textarea class="input" name="area" cols="19" rows="5" style="overflow: auto;" required>
+										<textarea class="input" name="area" cols="19" rows="5" style="overflow: auto;" maxlength="100" required>
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
-									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="upload/${photo.photoName}" required>
-									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" required>
+									<input type="file" id="photo${number}" name="photo${number}" accept="image/*" value="upload/${photo.photoName}" maxlength="100" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" maxlength="100" required>
 									<div class="meta-date">
 										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 									</div>
@@ -115,12 +115,12 @@
 			      			<c:set var="number" value="${status1.index}"/>
 			      			<div class="timeline-article">
 			      				<div class="content-right-container">
-										<textarea class="input" name="area" cols="19" rows="5" required style="margin-left: 80px; overflow: auto;">
+										<textarea class="input" name="area" cols="19" rows="5" required style="margin-left: 80px; overflow: auto;" maxlength="100">
 											${board.contentsList[number*2]}
 										</textarea>
 										<span class="article-number">${number+1}</span>
-									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="upload/${photo.photoName}" required>
-									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" required>
+									<input type="file" id="photo${number}" name="photo${number }" accept="image/*" value="upload/${photo.photoName}" maxlength="100" required>
+									<input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" value="${board.contentsList[number*2+1]}" maxlength="100" required>
 									<div class="meta-date">
 										<img class="image2" id="view${number}" src="upload/${photo.photoName }" alt="여행지사진" onError="this.src='images/scenery.png'">
 									</div>
@@ -148,8 +148,8 @@
 					    <div class="content-left-container">
 					        <textarea class = "input" name="area" cols="19" rows="5" style="overflow: auto;"></textarea>
 					        <span class="article-number">01</span>
-					        <input type="file" id="photo0" name="photo0" accept="image/*">
-					        <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
+					        <input type="file" id="photo0" name="photo0" accept="image/*" maxlength="100">
+					        <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" maxlength="100">
 					    </div>
 			        	<div class="meta-date">
 							<img class="image2" id="view0" src="images/scenery.png" alt="여행지 사진">
@@ -160,10 +160,10 @@
 				    <!-- Article -->
 				    <div class="content timeline-article">
 				        <div class="content-right-container">
-				          <textarea class = "input" id="area" name="area" cols="19" rows="5" style="margin-left: 80px; overflow: auto;"></textarea>
+				          <textarea class = "input" id="area" name="area" cols="19" rows="5" style="margin-left: 80px; overflow: auto;" maxlength="100"></textarea>
 				          <span class="article-number">02</span>
-				          <input type="file" id="photo1" name="photo1" accept="image/*">
-				          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;">
+				          <input type="file" id="photo1" name="photo1" accept="image/*" maxlength="100">
+				          <input class = "input" type="text" name="content" placeholder="관광지 이름" style="float: right; text-align: center;" maxlength="100">
 				        </div>
 				        <div class="meta-date">
 				          <img alt="여행지 사진" id="view1" class="image2" src="images/scenery.png">
