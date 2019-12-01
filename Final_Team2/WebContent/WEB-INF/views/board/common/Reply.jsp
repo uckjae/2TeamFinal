@@ -24,7 +24,7 @@
 			        	changReplyHeader();
 			        },
 			        error:function(request, status, error){
-			            alert("댓글 작성 실패!");
+			            errorAlert("댓글 작성 실패!");
 			       }
 			    });
 		});
