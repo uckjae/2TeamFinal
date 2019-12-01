@@ -282,7 +282,10 @@ body {
 			
 				var myData4 = data4.response.body.items.item;
 
-				$.each(myData4,function(index,element){	
+				$.each(myData4,function(index,element){ 
+					if(element.firstimage == null){
+						around = element.firstimage
+					}else {
 				var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
 					var pj = $('<div class="project">');
 						var imgs = $('<div class="img" style="max-height:200px; width:auto;">');
@@ -305,7 +308,7 @@ body {
 								$(pj).append(txtDiv);
 								$(col).append(pj);
 								$("#here").append(col);
-					
+					}
 				});
 				
 				
