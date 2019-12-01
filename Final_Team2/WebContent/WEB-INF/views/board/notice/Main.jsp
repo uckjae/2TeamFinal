@@ -78,47 +78,54 @@ html, body {
 		<div class="comment-form-wrap pt-xl-2">
 			<h1 class="text-center mb-3 bread">공지사항</h1>
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable">
-					<thead>
-						<tr>
-							<th width="10%">No</th>
-							<th width="60%">제목</th>
-							<th width="20%">작성일</th>
-							<th width="10%">조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-
-						<c:forEach var="topnotice" items="${noticeList}">
-							<c:if test="${topnotice.isTop == 'true'}">
-								<tr style="background-color : #ededed ;">
-									<td width="10%" style="color : red; text-align: center !important;">
-										<input type="button" class='btn notice'  value="공지">
-									</td>
-									<td width="60%" class="sorting_1">
-										<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}" style="color : red ;">${topnotice.title}</a>
-									</td>
-									<td width="20%" style="text-align: center !important;">
-										<fmt:formatDate value="${topnotice.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-									</td>
-									<td width="10%" style="text-align: center !important;">${topnotice.rNum}</td>
+				<c:choose>
+            		<c:when test="${noticeList.size() < 1 }">
+           				<jsp:include page="../common/NoBoard.jsp"/>
+           			</c:when>
+            		<c:otherwise>
+						<table class="table table-bordered" id="dataTable">
+							<thead>
+								<tr>
+									<th width="10%">No</th>
+									<th width="60%">제목</th>
+									<th width="20%">작성일</th>
+									<th width="10%">조회수</th>
 								</tr>
-							</c:if>
-						</c:forEach>
-
-						<c:forEach var="boardList" items="${noticeList}">
-							<tr >
-								<td width="10%" style="text-align: center !important;">${boardList.bIdx}</td>
-								<td width="60%" class="sorting_1" >
-									<a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
-								<td width="20%" style="text-align: center !important;">
-									<fmt:formatDate value="${boardList.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-								</td>
-								<td width="10%" style="text-align: center !important;">${boardList.rNum}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+							</thead>
+							<tbody>
+		
+								<c:forEach var="topnotice" items="${noticeList}">
+									<c:if test="${topnotice.isTop == 'true'}">
+										<tr style="background-color : #ededed ;">
+											<td width="10%" style="color : red; text-align: center !important;">
+												<input type="button" class='btn notice'  value="공지">
+											</td>
+											<td width="60%" class="sorting_1">
+												<a href="NoticeBoardDetail.do?bIdx=${topnotice.bIdx}" style="color : red ;">${topnotice.title}</a>
+											</td>
+											<td width="20%" style="text-align: center !important;">
+												<fmt:formatDate value="${topnotice.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+											</td>
+											<td width="10%" style="text-align: center !important;">${topnotice.rNum}</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+		
+								<c:forEach var="boardList" items="${noticeList}">
+									<tr >
+										<td width="10%" style="text-align: center !important;">${boardList.bIdx}</td>
+										<td width="60%" class="sorting_1" >
+											<a href="NoticeBoardDetail.do?bIdx=${boardList.bIdx}">${boardList.title}</a></td>
+										<td width="20%" style="text-align: center !important;">
+											<fmt:formatDate value="${boardList.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+										</td>
+										<td width="10%" style="text-align: center !important;">${boardList.rNum}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+            		</c:otherwise>
+           		</c:choose>
 			</div>
 			<c:if test="${sessionScope.isAdmin == 'true'}">
 				<div class="text-right mt-3">
