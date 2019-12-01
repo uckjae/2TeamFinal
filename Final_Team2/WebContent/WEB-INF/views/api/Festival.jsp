@@ -113,11 +113,11 @@ function getDatas(code){
     <c:import url="/common/Top.jsp" />
 <div class="container mt-7">
 <form action="#" class="search-property-1" style="margin-bottom: 10px;">
-<div class="col-md align-items-end">
+<div class="col-md align-items-end" style="padding: 0;">
 							<div class="form-group">
 								<label for="#"></label>
 								<div class="form-field">
-									<div class="select-wrap">
+									<div class="select-wrap font-pen">
 										<select name="areaSel" id="areaSel" class="form-control">
 											<option value="1">서울</option>
 											<option value="31">경기</option>

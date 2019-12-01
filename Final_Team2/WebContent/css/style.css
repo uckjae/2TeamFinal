@@ -5669,7 +5669,6 @@ button.bg-dark:focus {
   align-items: flex-start !important; }
 
 .align-items-end {
-   padding: 0;
   -webkit-box-align: end !important;
   -ms-flex-align: end !important;
   align-items: flex-end !important; }
@@ -10324,10 +10323,10 @@ textarea.form-control {
   content: "|";
 }
 .font-jua {
-	font-family: 'Jua', sans-serif;
+	font-family: 'Jua', sans-serif ;
 }
 .font-pen {
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Nanum Pen Script', cursive !important;
 }
 .font-size-25{
 	font-size: 25px !important;
