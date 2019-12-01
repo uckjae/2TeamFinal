@@ -244,7 +244,7 @@ html, body {
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-    <div class="content">
+    <div class="container mt-7">
 		<div class="comment-form-wrap pt-xl-2">
 			<h1 class="text-center mb-3 bread" style="font-size: 60px; font-family: 'Jua', sans-serif;">추천 여행지</h1>
 			

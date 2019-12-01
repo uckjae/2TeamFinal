@@ -216,7 +216,7 @@
 						<div class="col-md align-self-end">
 							<div class="form-group">
 								<div class="form-field col-xl-6">
-								<i class = > </i>
+								
 									<input type="button" value="검색"
 										class="form-control btn btn-primary" onclick="searchFn()">
 								</div>
