@@ -46,6 +46,11 @@ DROP TABLE MCBoard
 DROP TABLE LMList 
 	CASCADE CONSTRAINTS;
 
+/* QnABoard */
+DROP TABLE QnABoard 
+	CASCADE CONSTRAINTS;
+
+/* Board */
 CREATE TABLE Board (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
@@ -231,12 +236,12 @@ ALTER TABLE Photo
 /* Member */
 CREATE TABLE Member (
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
-	PWD VARCHAR2(200) NOT NULL, /* 비밀번호 */
+	PWD VARCHAR2(30) NOT NULL, /* 비밀번호 */
 	Name VARCHAR2(15) NOT NULL, /* 이름 */
 	Birth CHAR(6), /* 생년월일 */
 	HIREDATE TIMESTAMP DEFAULT SYSTIMESTAMP, /* 가입일 */
 	Gender CHAR(1), /* 성별 */
-	Address VARCHAR2(50), /* 주소 */
+	Address VARCHAR2(100), /* 주소 */
 	Email VARCHAR2(100), /* 이메일 */
 	ISDISABLE CHAR(1), /* 활동중지 */
 	isAdmin CHAR(1) NOT NULL /* 관리자여부 */
@@ -269,11 +274,23 @@ CREATE UNIQUE INDEX PK_Member
 		ID ASC
 	);
 
+CREATE UNIQUE INDEX UIX_Member
+	ON Member (
+		Email ASC
+	);
+
 ALTER TABLE Member
 	ADD
 		CONSTRAINT PK_Member
 		PRIMARY KEY (
 			ID
+		);
+
+ALTER TABLE Member
+	ADD
+		CONSTRAINT UK_Member
+		UNIQUE (
+			Email
 		);
 
 /* MyTravelList */
@@ -345,7 +362,7 @@ ALTER TABLE MTLContent
 /* NoticeBoard */
 CREATE TABLE NoticeBoard (
 	NIdx NUMBER NOT NULL, /* 공지사항게시판식별번호 */
-	BIDX NUMBER, /* 글번호 */
+	BIDX NUMBER NOT NULL, /* 글번호 */
 	isTop CHAR(1) /* 상단위치여부 */
 );
 
@@ -398,9 +415,9 @@ ALTER TABLE MCBoard
 
 /* LikeMemberList */
 CREATE TABLE LMList (
-	MCIdx NUMBER, /* 나만의코스게시판식별번호 */
-	ID VARCHAR2(20), /* 아이디 */
-	isLike CHAR(1) /* 추천여부 */
+	MCIdx NUMBER NOT NULL, /* 나만의코스게시판식별번호 */
+	ID VARCHAR2(20) NOT NULL, /* 아이디 */
+	isLike CHAR(1) NOT NULL /* 추천여부 */
 );
 
 COMMENT ON TABLE LMList IS 'LikeMemberList';
@@ -411,6 +428,33 @@ COMMENT ON COLUMN LMList.ID IS '아이디';
 
 COMMENT ON COLUMN LMList.isLike IS '추천여부';
 
+/* QnABoard */
+CREATE TABLE QnABoard (
+	QIdx NUMBER NOT NULL, /* QnA게시판식별번호 */
+	BIDX NUMBER NOT NULL, /* 글번호 */
+	isPublic CHAR(1) NOT NULL /* 공개여부 */
+);
+
+COMMENT ON TABLE QnABoard IS 'QnABoard';
+
+COMMENT ON COLUMN QnABoard.QIdx IS 'QnA게시판식별번호';
+
+COMMENT ON COLUMN QnABoard.BIDX IS '글번호';
+
+COMMENT ON COLUMN QnABoard.isPublic IS '공개여부';
+
+CREATE UNIQUE INDEX PK_QnABoard
+	ON QnABoard (
+		QIdx ASC
+	);
+
+ALTER TABLE QnABoard
+	ADD
+		CONSTRAINT PK_QnABoard
+		PRIMARY KEY (
+			QIdx
+		);
+
 ALTER TABLE Board
 	ADD
 		CONSTRAINT FK_BoardList_TO_Board
@@ -419,7 +463,7 @@ ALTER TABLE Board
 		)
 		REFERENCES BoardList (
 			BCode
-		) ON DELETE CASCADE;
+		)ON DELETE CASCADE;
 
 ALTER TABLE Board
 	ADD
@@ -429,7 +473,7 @@ ALTER TABLE Board
 		)
 		REFERENCES Member (
 			ID
-		) ON DELETE CASCADE;
+		)ON DELETE CASCADE;
 
 ALTER TABLE FreeBoard
 	ADD
@@ -540,8 +584,17 @@ ALTER TABLE LMList
 		REFERENCES Member (
 			ID
 		)ON DELETE CASCADE;
-    
-    
+
+ALTER TABLE QnABoard
+	ADD
+		CONSTRAINT FK_Board_TO_QnABoard
+		FOREIGN KEY (
+			BIDX
+		)
+		REFERENCES Board (
+			BIDX
+		)ON DELETE CASCADE;
+
 /* INIT DATA */		
 INSERT INTO BOARDTYPE(BTYPE,BTYPENAME) VALUES(10, '일반');
 INSERT INTO BOARDTYPE(BTYPE,BTYPENAME) VALUES(20, '계층');
