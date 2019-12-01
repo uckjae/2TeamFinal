@@ -201,7 +201,7 @@ body {
 							if(element.obsrValue == 0){
 								$(icon).attr("class","wi wi-day-sunny");
 							}else{
-								$(icon).attr("class","wi wi-day-rain");
+								$(icon).attr("class","wi wi-rain");
 							}
 						}else if(element.category == "RN1"){
 							$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");

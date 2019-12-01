@@ -17,7 +17,7 @@ public class QnABoardWriteService implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-
+System.out.println("in QnABoardWriteService");
 		QnABoard qnaWrite = null;
 
 		String cmd = request.getParameter("cmd");
