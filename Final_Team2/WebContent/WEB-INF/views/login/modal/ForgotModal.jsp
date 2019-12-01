@@ -25,13 +25,13 @@
 				data : { cmd : "forgotId", email : $("#email").val()},
 				success : function(data){
 					if(data == 'true'){
-						alert('메일이 발송되었습니다.');
+						successAlert('메일이 발송되었습니다.');
 					}else{
-						alert(data);
+						warningAlert(data);
 					}
 				},
 				error:function(){
-					alert("메일발송에 실패했습니다.");
+					errorAlert("메일발송에 실패했습니다.");
 				}
 			})
 		})
@@ -42,15 +42,14 @@
 				url : "SendMail",
 				data : { cmd : "forgotPwd", id : $("#id1").val()},
 				success : function(data){
-					console.log(data);
 					if(data == 'true'){
-						alert('임시 비밀번호가 메일로 발송되었습니다.');
+						successAlert('임시 비밀번호가 메일로 발송되었습니다.');
 					}else{
-						alert(data);
+						warningAlert(data);
 					}
 				},
 				error:function(){
-					alert("메일발송에 실패했습니다.");
+					errorAlert("메일발송에 실패했습니다.");
 				}
 			})
 		})

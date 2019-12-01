@@ -46,7 +46,7 @@ public class SendMailServlet extends HttpServlet {
 		String subject = "";
 		String content = "";
 		if (cmd.equals("checkEmail")) {
-			subject = "[이곳저곳] 2조 보물이 보낸 행운의 편지";
+			subject = "[이곳저곳] 이메일 인증 ";
 			String receiver = request.getParameter("email");
 			
 			Pair<String, String> pair = MailHelper.getRegisterContent();
