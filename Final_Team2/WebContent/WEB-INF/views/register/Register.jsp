@@ -213,7 +213,7 @@
 			checkAddress=false;
 		else
 			checkAddress=true;
-		
+		console.log("checkEmail : " + checkEmail + " checkId : " + checkId + " checkName : " + checkName + " checkPwd : " + checkPwd + " checkBirth : " + checkBirth + " checkAddress : " + checkAddress)
 	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
 		   Swal.fire({
 				  icon: 'error',

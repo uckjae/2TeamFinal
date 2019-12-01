@@ -43,6 +43,7 @@ public class MyCourseBoardWriteOkService implements Action{
 		
 		Board board = new Board();
 		MCBoard mCBoard = new MCBoard();
+		List<Photo> tempPhotos = new ArrayList<Photo>();
 		List<Photo> photos = new ArrayList<Photo>();
 		
 		int bIdx = 0;
@@ -54,14 +55,14 @@ public class MyCourseBoardWriteOkService implements Action{
 		StringBuilder content = new StringBuilder();
 		for(int i=0; i<multi.getParameterValues("content").length; i++) {
 			
-			content.append(multi.getParameterValues("area")[i]);
+			content.append(multi.getParameterValues("area")[i].trim());
 			content.append("╊");
-			content.append(multi.getParameterValues("content")[i]);
+			content.append(multi.getParameterValues("content")[i].trim());
 			content.append("╊");
 		}
 		content.subSequence(0, content.length()-2);
-		System.out.println("content길이"+multi.getParameterValues("content"));
-		System.out.println("area 길이"+multi.getParameterValues("area"));
+		//System.out.println("content길이"+multi.getParameterValues("content"));
+		//System.out.println("area 길이"+multi.getParameterValues("area"));
 		
 		
 		
@@ -95,7 +96,10 @@ public class MyCourseBoardWriteOkService implements Action{
 				Photo photo = new Photo();
 				String file = (String)filenames.nextElement();
 				photo.setPhotoName(multi.getFilesystemName(file));
-				photos.add(photo);
+				tempPhotos.add(photo);
+			}
+			for(int i = tempPhotos.size()-1; i>=0; i--) {
+				photos.add(tempPhotos.get(i));
 			}
 			
 			bIdx = dao.courseWrite(board, mCBoard, photos);

@@ -41,7 +41,7 @@
     	#conference-timeline .conference-center-line {
 		  position: absolute;
 		  width: 3px;
-		  height: 70%;
+		  height: 80%;
 		  left: 50%;
 		  margin-left: -2px;
 		  background: #00b0bd;
