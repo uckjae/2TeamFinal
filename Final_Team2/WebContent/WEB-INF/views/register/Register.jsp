@@ -343,7 +343,7 @@
                         <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">ADDRESS</label>
-                                <input type="number" id="postCode" name="postCode"  class="form-control" placeholder="우편번호" aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
+                                <input type="text" id="postCode" name="postCode"  class="form-control" placeholder="우편번호" aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" readonly>
 						        <div class="input-group-append">
 						          <button class="btn btn-primary" type="button" id="openPostCode">
 						            <i class="fas fa-search"></i>

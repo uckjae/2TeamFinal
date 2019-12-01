@@ -8,6 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+function showDetail(bIdx){
+  	//관리자 거나 회원이거
+  	
+  	let result = (${sessionScope.memberId != null});
+  	console.log('result : '+result);
+  	checkReadBoad(result, bIdx, "PhotoBoardDetail.do");
+  }
+</script>
 <c:import url="/common/HeadTag.jsp" />
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -43,7 +52,8 @@
 		        									${board.rNum}
 		        								</h4>
 		        								<h3>
-		        								<a href="PhotoBoardDetail.do?bIdx=${board.bIdx }">${board.title }</a>
+		        								<a onclick="showDetail(${board.bIdx})"  href="#">
+		        								${board.title }</a>
 		        								</h3>
 		        								<h5>${board.id }</h5>
 		        								<h6><fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" /></h6>
