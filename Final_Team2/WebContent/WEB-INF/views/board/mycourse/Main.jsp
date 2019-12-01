@@ -133,7 +133,7 @@
                 
                 <c:if test="${sessionScope.memberId !=null}">
                 	<div class="text-right mt-3">
-						<a href="MyCourseBoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
+						<a href="MyCourseBoardWrite.do?cmd=write" class="btn btn-primary"> 글쓰기 </a>
 					</div>
                 </c:if>
             </div>
