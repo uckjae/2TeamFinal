@@ -201,7 +201,7 @@ $(function(){
 					$("#RestdateContent").append("<br>");
 					$("#RestdateContent").append("<br>");
 					$("#RestdateContent").append("<br>");
-					$(".spotDate").val("null");
+					$(".spotDate").val(null);
 				} else if (key == "usetime") {//이용시간			
 					$("#UsetimeContent").append("<div>" + value + "</div>");
 					$("#UsetimeContent").append("<br>");

@@ -26,11 +26,10 @@
 	<!-- Top -->
 	<c:import url="/common/Top.jsp" />
 	
-	<div id="main">
+	<div class="container-fluid" id="main">
 	<br><br><br><br><br>
 		<h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
 	</div>
-	
 	<script src="js/main.js"></script>
 </body>
 </html>

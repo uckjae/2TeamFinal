@@ -171,7 +171,7 @@
 	<div class="container mt-7">
 	
 		<div class="row mb-4 mt-10">
-			<div class="col-md-11 offset-md-1">
+			<div class="col-md-11 offset-md-1 pr-0">
 				<form action="#" class="search-property-1">
 					<div class="row font-pen">					
 					     <div class="col-lg align-items-end" >
@@ -204,7 +204,7 @@
 							</div>
 						</div>
 
-						<div class="col-md align-self-end">
+						<div class="col-md align-self-end pr-0">
 							<div class="form-group">								
 								<div class="form-field">
 								<div class="icon ml-2"><i class="ion-ios-search" style="color:black"></i></div>
@@ -214,9 +214,9 @@
 							</div>
 						</div>
 						
-						<div class="col-md align-self-end">
+						<div class="col-md align-self-end pl-0">
 							<div class="form-group">
-								<div class="form-field col-xl-6">
+								<div class="form-field col-xl-5 pl-0 pr-0">
 								
 									<input type="button" value="검색"
 										class="form-control btn btn-primary font-size-25" onclick="searchFn()">
