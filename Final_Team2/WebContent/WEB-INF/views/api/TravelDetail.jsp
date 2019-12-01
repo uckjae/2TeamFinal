@@ -295,7 +295,7 @@ $(function(){
 			</div>
 			<div id="MainContent" class="container"></div>
 
-			<div class="container">
+			<div class="container" style="color: black !important;">
 				<div class="container"><br><br><hr><h1>상세정보</h1><br><br></div>
 				
 				<div class="col-md-12">

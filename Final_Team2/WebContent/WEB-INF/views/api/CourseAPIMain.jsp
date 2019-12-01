@@ -16,7 +16,7 @@
         }
         
         .tagcloud .tagclouda {
-         font-size: 14px;
+         font-size: 18px;
           margin-right: 1rem;
         }
     </style>
@@ -42,10 +42,10 @@
 	    $.getJSON(api, function (data) {
 	
 	        var myItem = data.response.body.items.item;
-	        let control = "<a href='#' onclick='getData(\"all\")' id='all' class='tagclouda btn btn-secondary'>#전체</a>";
+	        let control = "<a href='#' onclick='getData(\"all\")' id='all' class='font-pen tagclouda btn btn-secondary'>#전체</a>";
 	        
 	        $.each(myItem, function(index, element){
-				control+="<a href='#' onclick='getData(\""+ element.code +"\")' id='"+ element.code +"' class='tagclouda btn btn-primary'>#"+element.name+"</a>";
+				control+="<a href='#' onclick='getData(\""+ element.code +"\")' id='"+ element.code +"' class='tagclouda btn btn-primary font-pen'>#"+element.name+"</a>";
 	        })
 	
 			$("#tagBox").append(control);
@@ -66,7 +66,8 @@
 	     $(img).attr('style', "background-image: url('"+ element.firstimage+"');");
 	     $(img).attr('class', 'gallery img d-flex align-items-center');
 	     var divText = $("<div class='mb-3'>");
-	     var textSize = $("<h5>");
+	     $(divText).css('text-align','center');
+	     var textSize = $("<h3>");
 	
 	     var aTag = $('<a>');
 	
@@ -92,8 +93,8 @@
 	function getData(code){
 	   $('#apibox').empty();
 	   if(oldCode != "")
-	      $("#"+oldCode).attr("class","btn btn-primary tagclouda");
-	   $("#"+code).attr("class","btn btn-secondary tagclouda");
+	      $("#"+oldCode).attr("class","btn btn-primary tagclouda font-pen");
+	   $("#"+code).attr("class","btn btn-secondary tagclouda font-pen");
 	
 	   let cat2="";
 	   if(code != "all"){ // 전체 클릭시
@@ -172,15 +173,15 @@
 		<div class="row mb-4 mt-10">
 			<div class="col-md-11 offset-md-1">
 				<form action="#" class="search-property-1">
-					<div class="row">					
-					     <div class="col-lg align-items-end">
+					<div class="row font-pen">					
+					     <div class="col-lg align-items-end" >
                             <div class="form-group">
                                 <label for="#"></label>
                                 <div class="form-field">
-                                    <div class="select-wrap">
-                                        <select name="orderSel" id="orderSel" class="form-control" onchange="orderSelFn()">
-                                            <option value="new">최신순으로 보기</option>
-                                            <option value="old">오래된순으로 보기</option>
+                                    <div class="select-wrap" >
+                                        <select name="orderSel" id="orderSel" class="form-control font-size-25" onchange="orderSelFn()">
+                                            <option value="new" class="font-size-25">최신순으로 보기</option>
+                                            <option value="old" class="font-size-25">오래된순으로 보기</option>
                                         </select>
                                     </div>
                                 </div>
@@ -193,10 +194,10 @@
 								<label for="#"></label>
 								<div class="form-field">
 									<div class="select-wrap">
-										<select name="areaSel" id="areaSel" class="form-control" onchange="areaSelFn()">
-											<option value="1">서울</option>
-											<option value="31">경기</option>
-											<option value="2">인천</option>
+										<select name="areaSel" id="areaSel" class="form-control font-size-25" onchange="areaSelFn()">
+											<option value="1" class="font-size-25">서울</option>
+											<option value="31" class="font-size-25">경기</option>
+											<option value="2" class="font-size-25">인천</option>
 										</select>
 									</div>
 								</div>
@@ -207,7 +208,7 @@
 							<div class="form-group">								
 								<div class="form-field">
 								<div class="icon ml-2"><i class="ion-ios-search" style="color:black"></i></div>
-									<input type="text" class="form-control"
+									<input type="text" class="form-control font-size-25"
 										placeholder="   검색어를 입력하세요" name="searchBar" id="searchBar">										
 								</div>
 							</div>
@@ -218,7 +219,7 @@
 								<div class="form-field col-xl-6">
 								
 									<input type="button" value="검색"
-										class="form-control btn btn-primary" onclick="searchFn()">
+										class="form-control btn btn-primary font-size-25" onclick="searchFn()">
 								</div>
 							</div>
 						</div>

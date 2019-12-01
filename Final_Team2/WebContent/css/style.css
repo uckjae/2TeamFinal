@@ -497,6 +497,10 @@ pre {
   padding-right: 15px;
   padding-left: 15px; }
 
+.col-md-12{
+	padding: 0px !important;
+}
+
 .col {
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -8037,14 +8041,14 @@ h1, h2, h3, h4, h5,
 .ftco-navbar-light {
   /* background: black !important; */
   position: absolute;
-  background-color: rgba( 0, 0, 0, 0.2 ) !important;
+  background-color: rgba( 0, 0, 0, 0.3 ) !important;
   top: 0;
   left: 0;
   right: 0;
   z-index: 3; }
   @media (max-width: 991.98px) {
     .ftco-navbar-light {
-      background-color: rgba( 0, 0, 0, 0.2 );
+      background-color: rgba( 255, 255, 255 );
       position: relative;
       top: 0;
       padding-top: 0;
@@ -9779,10 +9783,10 @@ textarea.form-control {
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: right;
-      margin-left:5em;
+      margin-left:1em;
       width: calc(100% - 15em); }
       .comment-list li .comment-body h3 {
-        font-size: 20px; }
+        font-size: 27px; }
       .comment-list li .comment-body .meta {
         text-transform: uppercase;
         font-size: 15px;
@@ -10323,8 +10327,11 @@ textarea.form-control {
   content: "|";
 }
 .font-jua {
-	font-family: 'Jua', sans-serif;
+	font-family: 'Jua', sans-serif ;
 }
 .font-pen {
-	font-family: 'Nanum Pen Script', cursive;
+	font-family: 'Nanum Pen Script', cursive !important;
+}
+.font-size-25{
+	font-size: 25px !important;
 }
