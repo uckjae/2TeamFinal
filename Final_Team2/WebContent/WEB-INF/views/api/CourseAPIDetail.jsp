@@ -328,6 +328,8 @@
     <div class="content" id="arroundContent">
     	
     </div>
-   
+   <div class="text-right">
+				<a href="CourseAPI.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				</div>
 </body>
 </html>
