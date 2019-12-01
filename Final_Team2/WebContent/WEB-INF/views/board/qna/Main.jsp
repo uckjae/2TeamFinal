@@ -90,41 +90,47 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread">Q & A</h1>
             <div class="table-responsive">
-                <table class="table table-bordered hover" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th width="10%" >NO</th>
-                            <th width="40%" >TITLE</th>
-                            <th width="20%" >WRITER</th>
-                            <th width="20%" >WRITE DATE</th>
-                            <th width="10%" >VIEWS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="board" items="${qnaList}">
-                    	<tr>
-                            <td style="text-align: center !important;">${board.bIdx}</td>
-                            <td class="sorting_1" >
-                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx}, '${board.id }')" href="#">
-                            	<c:choose>
-                            		<c:when test="${! board.isPublic() }">
-                            			<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
-                            		</c:when>
-                            		<c:otherwise>
-                            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            		</c:otherwise>
-                            	</c:choose>
-                            	${board.title}</a></td>
-            	            <td style="text-align: center !important;">${board.id}</td>
-                            <td style="text-align: center !important;">
-                            	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
-                            </td>
-
-                            <td style="text-align: center !important;">${board.rNum}</td>
-                        </tr>
-                    </c:forEach>
-                   </tbody>
-                </table>
+            	<c:choose>
+            		<c:when test="${qnaList.size() < 1 }">
+           				<jsp:include page="../common/NoBoard.jsp"/>
+           			</c:when>
+            		<c:otherwise>
+		                <table class="table table-bordered hover" id="dataTable">
+		                    <thead>
+		                        <tr>
+		                            <th width="10%" >NO</th>
+		                            <th width="40%" >TITLE</th>
+		                            <th width="20%" >WRITER</th>
+		                            <th width="20%" >WRITE DATE</th>
+		                            <th width="10%" >VIEWS</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                    <c:forEach var="board" items="${qnaList}">
+		                    	<tr>
+		                            <td style="text-align: center !important;">${board.bIdx}</td>
+		                            <td class="sorting_1" >
+		                            <a onclick="showDetail(${ board.isPublic() }, ${board.bIdx}, '${board.id }')" href="#">
+		                            	<c:choose>
+		                            		<c:when test="${! board.isPublic() }">
+		                            			<i class="fas fa-user-lock ml-2 mr-2 icon"></i>
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                            	${board.title}</a></td>
+		            	            <td style="text-align: center !important;">${board.id}</td>
+		                            <td style="text-align: center !important;">
+		                            	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
+		                            </td>
+		                            <td style="text-align: center !important;">${board.rNum}</td>
+		                        </tr>
+		                    </c:forEach>
+		                   </tbody>
+		                </table>
+            		</c:otherwise>
+            	</c:choose>
                 <c:if test="${sessionScope.memberId !=null}">
                 	<div class="text-right mt-3">
 						<a href="QnABoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>

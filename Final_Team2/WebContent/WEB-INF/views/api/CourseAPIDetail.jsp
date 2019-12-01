@@ -89,7 +89,13 @@
 				var date = new Date();
 				var year = date.getFullYear();
 				var month = date.getMonth()+1;
+				if(month<10){
+					month = "0" + month;
+				}
 				var day = date.getDate();
+				if(day<10){
+					day = "0" + day; 
+				}
 				var hour = date.getHours();
 				var minutes = date.getMinutes();
 				if(minutes<41){
@@ -104,19 +110,21 @@
 				var weatherApi = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib";
 				var weatherServiceKey = "?ServiceKey=" + "4Axvk6PyZ%2FHTR624%2B55Lt3tzBtDrMNWjR3vFCoC6bw8JgQgncE5vRstv58%2BxvNwYhj4Qh0jnrH9W2o1TwhKN0Q%3D%3D";
 				var baseTime = "&base_date="+year+month+day+hour+"00";
+				console.log("baseTime : " + baseTime);
 				var nx = "&nx="+xValue;
 				var ny = "&ny="+yValue;
 				var type = "&_type=json";
 				var weatherUrl = weatherApi + weatherServiceKey + baseTime + nx + ny + type;
 				var jsonWeatherUrl = {"weatherUrl": weatherUrl};
+				console.log("날씨 ajax시작 전");
 				$.ajax({
 					url: "Weather.ajax", 
 					dataType: 'json',
 					type:"GET",
 					data: jsonWeatherUrl,
 					success: function(weatherData){
-						//console.log("success");
-						//console.log(weatherData);
+						console.log("날씨 api success");
+						console.log(weatherData);
 						var icon = $('<i>');
 						var totalRain = $('<span>');
 						var degree = $('<span>');
@@ -125,8 +133,8 @@
 								
 								if(element.obsrValue == 0){
 									$(icon).attr("class","wi wi-day-sunny");
-								}else if(element.category > 1){
-									$(icon).attr("class","wi wi-day-rain");
+								}else{
+									$(icon).attr("class","wi wi-rain");
 								}
 							}else if(element.category == "RN1"){
 								$(totalRain).html("&nbsp;&nbsp;&nbsp;&nbsp;시간당 강수량 : "+ element.obsrValue +"ml");
@@ -138,9 +146,10 @@
 						$("#title").after(degree);
 						$("#title").after(icon);
 					},
-					/* error: function(jqXHR, textStatus, errorThrown){
+					error: function(jqXHR, textStatus, errorThrown){
+						console.log("날씨 ajax error");
 						console.log("error"+textStatus);
-					} */
+					}
 				});
 				//날씨api END!!
 				
@@ -319,6 +328,8 @@
     <div class="content" id="arroundContent">
     	
     </div>
-   
+   <div class="text-right">
+				<a href="CourseAPI.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				</div>
 </body>
 </html>

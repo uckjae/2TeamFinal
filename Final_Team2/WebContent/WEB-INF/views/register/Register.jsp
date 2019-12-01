@@ -250,11 +250,9 @@
                                 <div class=" form-field">
                               
                                     <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
-                                   
-                                	<div class="input-group-append"> 
+                                	<div class=""> 
 							          <button class="btn btn-primary" type="button" id="sendEmail"> 이메일 인증 </button>
-							           </div> 
-							       
+							         </div> 				       
                                 </div>
                                 <div class="form-field" id="emailCodeControl" hidden="hidden">
                                     <input type="text" class="form-control" id="emailCode" name="emailCode" placeholder="check email code">

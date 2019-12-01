@@ -111,7 +111,7 @@ function getDatas(code){
 
     <!-- Top -->
     <c:import url="/common/Top.jsp" />
-<div class="content">
+<div class="container mt-7">
 
 <div class="col-md align-items-end">
 							<div class="form-group">
