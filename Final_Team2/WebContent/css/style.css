@@ -8849,7 +8849,7 @@ h3 > a {
       top: -25px;
       left: 10px;
       padding: .4em .7em;
-      background: #346294;
+      background: #d39f97;
       font-weight: 400;
       font-size: 14px;
       color: #fff;
@@ -8875,7 +8875,7 @@ h3 > a {
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: rgba(0, 0, 0, 0.2); }
+      color: rgba(0, 0, 0, 0.5); }
     .project .text h3 {
       font-size: 20px;
       font-weight: 600;
