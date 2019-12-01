@@ -124,8 +124,8 @@ img {
 			<div class="form-group">
 				<label for="#"></label>
 				<div class="form-field">
-					<div class="select-wrap font-pen font-size-25">
-						<select name="areaSel" id="areaSel" class="form-control">
+					<div class="select-wrap font-pen">
+						<select name="areaSel" id="areaSel" class="form-control font-size-25">
 							<option value="1">서울</option>
 							<option value="31">경기</option>
 							<option value="2">인천</option>
