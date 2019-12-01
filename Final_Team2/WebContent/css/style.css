@@ -10329,3 +10329,6 @@ textarea.form-control {
 .font-pen {
 	font-family: 'Nanum Pen Script', cursive;
 }
+.font-size-25{
+	font-size: 25px !important;
+}

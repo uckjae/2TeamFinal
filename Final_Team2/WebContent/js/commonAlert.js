@@ -21,12 +21,12 @@ function callAlert(icon, message){
 
 function deleteAlert(cmd,bIdx){
 	Swal.fire({
-		  title: 'Are you sure?',
+		  title: '정말 삭제하시겠습니까?',
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Yes, delete it!'
+		  confirmButtonText: 'Yes'
 		}).then((result) => {
 		  if (result.value) {
 			location.href= cmd+"bIdx="+bIdx;
