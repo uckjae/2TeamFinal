@@ -91,6 +91,7 @@ $(function(){
 		/* 공통정보조회 -상세*/
 	$.getJSON(api2,function(data) {
    			var myData2 = data.response.body.items.item;
+   			$(".mTLimage").val(myData2.firstimage);
 			$.each(myData2, function(key, value) {
 				if (key == "title") {
 					$("#title").append("<div>" + value + "</div>");
@@ -123,7 +124,7 @@ $(function(){
 				if (myData == null) {
 					var img2 = $('<img>');
 					$(img2).attr("src", image);
-					$(".mTLimage").val(image);
+					
 					$("#imgarea").append(img2);
 				}else {
 					$.each(myData, function(index, element) {
