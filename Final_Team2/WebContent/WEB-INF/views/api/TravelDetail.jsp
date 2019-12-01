@@ -94,9 +94,11 @@ $(function(){
 			$.each(myData2, function(key, value) {
 				if (key == "title") {
 					$("#title").append("<div>" + value + "</div>");
+					$(".spotName").val(value);				
 				}else if (key == "overview") {
 					$("#MainContent").append("<div>" + value + "</div>");
 				}else if (key == "addr1") { //주소	 
+					$(".spotAddr").val(value);
 					$("#addrContent").append("<div>" + value + "</div>");
 					$("#addrContent").append("<br>");
 					$("#addrContent").append("<br>");
@@ -107,6 +109,7 @@ $(function(){
 					$("#DetailContent").append("<br>");
 					$("#DetailContent").append("<br>");
 					$("#DetailContent").append("<br>");
+					$(".spotLink").val(value);
 				}else if (key == "mapx") {
 					x = value;
 				}else if (key == "mapy") {
@@ -120,6 +123,7 @@ $(function(){
 				if (myData == null) {
 					var img2 = $('<img>');
 					$(img2).attr("src", image);
+					$(".mTLimage").val(image);
 					$("#imgarea").append(img2);
 				}else {
 					$.each(myData, function(index, element) {
@@ -197,11 +201,13 @@ $(function(){
 					$("#RestdateContent").append("<br>");
 					$("#RestdateContent").append("<br>");
 					$("#RestdateContent").append("<br>");
+					$(".spotDate").val("null");
 				} else if (key == "usetime") {//이용시간			
 					$("#UsetimeContent").append("<div>" + value + "</div>");
 					$("#UsetimeContent").append("<br>");
 					$("#UsetimeContent").append("<br>");
 					$("#UsetimeContent").append("<br>");
+					
 				} else if (key == "infocenter") {//문의 및 안내	
 					$("#InfocenterContent").append("<div>" + value + "</div>");
 					$("#InfocenterContent").append("<br>");
@@ -272,6 +278,55 @@ $(function(){
 		$("#kakaoLink").click(function(){
 		})
 	});
+function showTList(){
+	var jsonId = {"id":"${sessionScope.memberId}"};
+	$.ajax({
+		type :'POST',
+		url : "APIMTLFolderList",
+		data: jsonId,
+		dataType: "json",
+		success : function (data){
+			
+			
+			if($.type(data) == 'array') {
+				$.each(data, function(index,element){
+					$("#tlidx").val(element.tlidx);
+					console.log("모달창 이름"+element.name );
+					$("#innerModalIntro").append(
+							element.name 
+							+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mt-1 mb-1' onclick = 'submitFn("+element.tlidx+")'>"  
+						 	+ "<br>"
+						 	
+					);
+					
+					
+					//$("#innerModalIntro").append("<p><a href='#'  onclick='submitFn(element.tlidx)'>"+ element.name + "</a></p>");
+					
+				});
+			} else {
+				console.log("데이터 이름: " + data.name);
+				console.log("데이터 tlidx : " + data.tlidx);
+				$("#tlidx").val(data.tlidx);
+				$("#innerModalIntro").append(
+
+						data.name 
+						+ "<input type='button' value='추가하기' class='btn btn-primary ml-3 mt-1 mb-1' onclick = 'submitFn("+data.tlidx+")'>"  
+					 	+ "<br>"
+				);	
+			} 
+		},
+		error:function(request, status, error){
+			
+            alert("실패");
+       }
+	});
+	}	
+
+function submitFn(idx){
+	$("#frm").attr("action","MTListContentAdd.do?tlidx="+idx);
+	$("#frm").submit();
+}	
+	
 </script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -337,8 +392,9 @@ $(function(){
 			<div class="row" id="here"></div>
 		</div>
 	</section>
-	<!--  모달창 첫 화면 -->
-	<div class="modal fade" id="myTravelListModalIntro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<c:import url="/common/MTLModal.jsp" />
+	<!-- <!--  모달창 첫 화면 -->
+	<!-- <div class="modal fade" id="myTravelListModalTravel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -356,48 +412,10 @@ $(function(){
 				</form>
 			</div>
 		</div>
-	</div>
-	<!-- 모달창  폴더 -->
-	<div class="modal fade" id="myTravelListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"></h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<form id="frm" method="post">
-					<div class="modal-body" id="innerModal">
-						<c:set var="mTFolderList" value="${requestScope.mTList}"/>
-						<table class="table">
-							<tr>
-								<th class="pl-5">NO</th>
-								<th>폴더 리스트</th>
-								<th></th>
-								<th></th>
-							</tr>
-							<c:forEach var="mTFolder" items="${ mTFolderList}" varStatus="status">
-								<tr>
-									<td class="pl-5">${status.count}</td>
-									<td><a href="MTList.do?tLidx=${mTFolder.tLidx}">${ mTFolder.tLName}</a></td>
-									<td><a href="#" id="editbtn" class="btn btn-primary"
-										data-toggle="modal" data-target="#editModal1" data-cmd="edit"
-										data-edit-tlidx="${mTFolder.tLidx}"
-										data-edit-tlname="${mTFolder.tLName}">수정 </a></td>
-									<td><a href="MTFolderListDelete.do?tLidx=${mTFolder.tLidx}" class="btn btn-secondary"> 삭제 </a></td>
-								</tr>
-							</c:forEach>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" id="modalBtn">
-						<button id="deletebtn" class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+	</div> --> -->
+	
+
+	
 	<div class="text-right">
 				<a href="Travel.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
 	</div>

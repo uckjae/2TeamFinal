@@ -48,7 +48,7 @@
 			<c:if test="${useMyTravel}">
 				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#myTravelListModalIntro" onclick="showTList()">내 여행 리스트에 추가</a>	
 			</c:if>
-			
+
 		</div>
 	</div>
 </div>
