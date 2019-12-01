@@ -71,7 +71,7 @@
         		 $("#frm").attr("action","QnABoardWriteOk.do?cmd=edit");	
         	 else
         		 $("#frm").attr("action","QnABoardWriteOk.do?cmd=write");
-
+        	
         	return result;
         }
     </script>
