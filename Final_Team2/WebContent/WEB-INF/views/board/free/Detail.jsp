@@ -17,9 +17,10 @@
         }
          .ds{
         	width: 100%;
-        	height: 280px;
+        	min-height: 280px;
         	border: 1px solid #ced4da;
         	border-radius:5px;
+        	padding: 30px;
         }
     </style>
 </head>
