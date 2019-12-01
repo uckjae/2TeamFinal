@@ -398,5 +398,8 @@ $(function(){
 			</div>
 		</div>
 	</div>
+	<div class="text-right">
+				<a href="Travel.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				</div>
 </body>
 </html>

@@ -97,32 +97,40 @@
         		</c:forEach>
         	</div>
             <div class="table-responsive">
-                <table class="table table-bordered hover" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>TITLE</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                            <th>조회수</th>
-                            <th>추천수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="board" items="${MCBList}">
-                    	<tr>
-                            <td>${board.bIdx}</td>
-                            <td class="sorting_1"><a onclick="checkReadBoad(${sessionScope.memberId!=null},${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a></td>
-                            <td>${board.id}</td>
-                            <td>
-                            	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
-                            </td>
-                            <td>${board.rNum}</td>
-                            <td>${board.likeNum}</td>
-                        </tr>
-                    </c:forEach>
-                   </tbody>
-                </table>
+            	<c:choose>
+            		<c:when test="${MCBList.size() < 1 }">
+           				<jsp:include page="../common/NoBoard.jsp"/>
+           			</c:when>
+            		<c:otherwise>
+            			<table class="table table-bordered hover" id="dataTable">
+		                   <thead>
+		                       <tr>
+		                           <th>NO</th>
+		                           <th>TITLE</th>
+		                           <th>작성자</th>
+		                           <th>작성일</th>
+		                           <th>조회수</th>
+		                           <th>추천수</th>
+		                       </tr>
+		                   </thead>
+		                   <tbody>
+		                   <c:forEach var="board" items="${MCBList}">
+		                   	<tr>
+		                           <td>${board.bIdx}</td>
+		                           <td class="sorting_1"><a onclick="checkReadBoad(${sessionScope.memberId!=null},${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a></td>
+		                           <td>${board.id}</td>
+		                           <td>
+		                           	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
+		                           </td>
+		                           <td>${board.rNum}</td>
+		                           <td>${board.likeNum}</td>
+		                       </tr>
+		                   </c:forEach>
+		                  </tbody>
+		               </table>
+            		</c:otherwise>
+           		</c:choose>
+                
                 <c:if test="${sessionScope.memberId !=null}">
                 	<div class="text-right mt-3">
 						<a href="MyCourseBoardWrite.do?cmd=write" class="btn btn-primary"> 글작성 </a>
