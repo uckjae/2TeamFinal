@@ -212,7 +212,13 @@
 			checkAddress=false;
 		else
 			checkAddress=true;
-		
+		console.log("checkEmail" +checkEmail);
+		console.log("checkId" +checkId);
+		console.log("checkName" +checkName);
+		console.log("checkPwd" +checkPwd);
+		console.log("checkBirth" +checkBirth);
+		console.log("checkAddress" +checkAddress);
+		return false;
 	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
 		   Swal.fire({
 				  icon: 'error',
