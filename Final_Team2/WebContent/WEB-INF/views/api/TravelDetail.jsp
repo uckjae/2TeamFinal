@@ -173,7 +173,7 @@ $(function(){
 										if (element.category == "PTY") {
 											if (element.obsrValue == 0) {
 												$(icon).attr("class","wi wi-day-sunny");
-													}else if {
+													}else{
 														$(icon).attr("class","wi wi-day-rain");
 													}
 												}else if (element.category == "RN1") {
