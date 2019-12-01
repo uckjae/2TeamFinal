@@ -118,7 +118,7 @@ img {
 
 	<!-- Top -->
 	<c:import url="/common/Top.jsp" />
-	<div class="content">
+	<div class="container mt-7">
 		<form action="#" class="search-property-1" style="margin-bottom: 10px;">
 		<div class="col-md align-items-end" style="padding: 0;">
 			<div class="form-group">
