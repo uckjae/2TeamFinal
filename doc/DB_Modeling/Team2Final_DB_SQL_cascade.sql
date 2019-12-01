@@ -622,5 +622,6 @@ COMMIT;
 
 alter table mtlcontent modify (spotname varchar2(200));
 alter table mtlcontent modify (spotaddr varchar2(200));
-alter table mtlcontent modify (spotlink varchar2(500));
+alter table mtlcontent modify (spotlink varchar2(1500));
 commit;
+
