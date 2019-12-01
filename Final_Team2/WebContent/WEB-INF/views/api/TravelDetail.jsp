@@ -173,7 +173,7 @@ $(function(){
 										if (element.category == "PTY") {
 											if (element.obsrValue == 0) {
 												$(icon).attr("class","wi wi-day-sunny");
-													}else if (element.category > 1) {
+													}else if {
 														$(icon).attr("class","wi wi-day-rain");
 													}
 												}else if (element.category == "RN1") {
@@ -400,6 +400,6 @@ $(function(){
 	</div>
 	<div class="text-right">
 				<a href="Travel.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
-				</div>
+	</div>
 </body>
 </html>

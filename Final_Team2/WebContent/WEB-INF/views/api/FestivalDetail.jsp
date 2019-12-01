@@ -200,7 +200,7 @@ body {
 							
 							if(element.obsrValue == 0){
 								$(icon).attr("class","wi wi-day-sunny");
-							}else if(element.category > 1){
+							}else{
 								$(icon).attr("class","wi wi-day-rain");
 							}
 						}else if(element.category == "RN1"){
@@ -431,7 +431,7 @@ body {
 						</div>
 				</div>
 				<div class="text-right">
-				<a href="CourseAPI.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
+				<a href="Festival.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
 				</div>
 	</section>
 <!--  모달창 첫 화면 -->	
