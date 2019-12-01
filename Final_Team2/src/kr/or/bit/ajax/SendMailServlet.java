@@ -45,10 +45,11 @@ public class SendMailServlet extends HttpServlet {
 
 		String subject = "";
 		String content = "";
+		String sender = "bit_team2@naver.com";
 		if (cmd.equals("checkEmail")) {
 			subject = "[이곳저곳] 이메일 인증 ";
 			String receiver = request.getParameter("email");
-			
+
 			Pair<String, String> pair = MailHelper.getRegisterContent();
 			content = pair.getValue();
 
@@ -95,6 +96,20 @@ public class SendMailServlet extends HttpServlet {
 				sendMail(subject, member.getEmail(), content);
 				out.print(true);
 			} catch (Exception e) {
+				out.print("메일 발송에 실패했습니다.");
+			}
+		} else if (cmd.equals("disable")) {
+			subject = "[이곳저곳] 비활성화 계정 문의";
+			String id = request.getParameter("id");
+			String email = request.getParameter("email");
+			String mailContent = request.getParameter("content");
+
+			content = MailHelper.getDisableMemberContent(id, email, mailContent);
+			try {
+				sendMail(subject, "bit_team2@naver.com", content);
+				out.print(true);
+			} catch (Exception e) {
+				e.getLocalizedMessage();
 				out.print("메일 발송에 실패했습니다.");
 			}
 		}

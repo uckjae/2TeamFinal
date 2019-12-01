@@ -26,6 +26,7 @@ public class LoginService implements Action {
 		String path = "Login.do";
 		if (member != null) {
 			if (member.isDisable()) {
+				request.setAttribute("member", member);
 				path = "/WEB-INF/views/login/Disable.jsp";
 			} else {
 				request.getSession().setAttribute("memberId", member.getId());

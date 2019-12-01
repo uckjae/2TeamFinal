@@ -170,7 +170,7 @@
 							
 							var col = $('<div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">');
 							var pjt = $('<div class="project">');
-							var imgDiv = $('<div class="img" style="max-height:105px; width:auto;">');
+							var imgDiv = $('<div class="img" style="max-height:200px; width:auto;">');
 								var img = $('<img class="img-fluid">');
 								$(img).attr("src",element.firstimage);
 								$(img).attr("onError",'this.src="/images/scenery.png"');

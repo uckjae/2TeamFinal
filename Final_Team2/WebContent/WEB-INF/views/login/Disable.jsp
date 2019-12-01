@@ -3,9 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-
+<c:set var="member" value="${requestScope.member}"/>
 <head>
     <c:import url="/common/HeadTag.jsp" />
+    <script type="text/javascript">
+    	$(function(){
+    		$("#frm").submit(submitFn);
+    	})
+    
+    	function submitFn(){
+    		$.ajax({
+    			url : "SendMail",
+    			data : {cmd:"disable",id : $("#id").val() , email : $("#email").val(), content : $("#content").val()},
+    			success : function(data){
+    				console.log(data);
+    			}
+    		});
+    	}
+    </script>
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -26,18 +41,15 @@
 
         <div class="row block-9">
           <div class="col-md-7 order-md-last d-flex">
-            <form action="#" class="bg-light p-4 p-md-5 contact-form">
+            <form action="#" class="bg-light p-4 p-md-5 contact-form" id="frm">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Name">
+                <input type="text" class="form-control" id="id" name="id" placeholder="Your Name" value="${member.name }" readonly>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email">
+                <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" value="${member.email }" readonly>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
-              </div>
-              <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                <textarea name="content" id="content" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
               </div>
               <div class="form-group text-right">
                 <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
@@ -55,7 +67,7 @@
 		          		</div>
 		          		<div>
 			          		<h3 class="mb-3">Address</h3>
-				            <p>198 West 21th Street, Suite 721 New York NY 10016</p>
+				            <p>서울특별시 강남구 테헤란로5길 11 YBM빌딩 2층</p>
 			            </div>
 			          </div>
 		          </div>
@@ -66,7 +78,7 @@
 		          		</div>
 		          		<div>
 			          		<h3 class="mb-3">Contact Number</h3>
-				            <p><a href="tel://1234567920">+ 1235 2355 98</a></p>
+				            <p><a href="tel://02-3453-5404">02-3453-5404</a></p>
 			            </div>
 			          </div>
 		          </div>
@@ -88,7 +100,7 @@
 		          		</div>
 		          		<div>
 			          		<h3 class="mb-3">Website</h3>
-				            <p><a href="#">이곳저곳.com</a></p>
+				            <p><a href="#">www.이곳저곳.com</a></p>
 			            </div>
 			          </div>
 		          </div>
