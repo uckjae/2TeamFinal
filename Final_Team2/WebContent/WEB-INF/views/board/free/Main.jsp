@@ -84,37 +84,44 @@
         <div class="comment-form-wrap pt-xl-2">
             <h1 class="text-center mb-3 bread" > 자유 게시판 </h1>
             <div class="table-responsive">
-                <table class="table table-bordered hover" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th width="10%" >NO</th>
-                            <th width="40%" >TITLE</th>
-                            <th width="20%" >DATE</th>
-                            <th width="20%" >WRITER</th>
-                            <th width="10%" >READNUM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="board" items="${freeList}">
-                        	<tr>
-                        		<td style="text-align: center !important;">${board.bIdx}</td>
-                        		<td><a onclick="showDetail(${board.bIdx})"  href="#">
-                        			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
-                        				&nbsp;&nbsp;&nbsp;&nbsp;
-                        			</c:forEach>
-                        			<c:if test="${board.depth > 0}">
-                        				<img src="images/re.gif" >
-                        			</c:if>
-                        			${board.title}</a></td>
-                        		<td style="text-align: center !important;">
-                            		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-                            	</td>
-                        		<td style="text-align: center !important;">${board.id}</td>
-                        		<td style="text-align: center !important;">${board.rNum}</td>
-                        	</tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+            	<c:choose>
+            		<c:when test="${freeList.size() < 1 }">
+           				<jsp:include page="../common/NoBoard.jsp"/>
+           			</c:when>
+            		<c:otherwise>
+		                <table class="table table-bordered hover" id="dataTable">
+		                    <thead>
+		                        <tr>
+		                            <th width="10%" >NO</th>
+		                            <th width="40%" >TITLE</th>
+		                            <th width="20%" >DATE</th>
+		                            <th width="20%" >WRITER</th>
+		                            <th width="10%" >READNUM</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        <c:forEach var="board" items="${freeList}">
+		                        	<tr>
+		                        		<td style="text-align: center !important;">${board.bIdx}</td>
+		                        		<td><a onclick="showDetail(${board.bIdx})"  href="#">
+		                        			<c:forEach var="depth" begin="1" end="${board.depth}" step="1">
+		                        				&nbsp;&nbsp;&nbsp;&nbsp;
+		                        			</c:forEach>
+		                        			<c:if test="${board.depth > 0}">
+		                        				<img src="images/re.gif" >
+		                        			</c:if>
+		                        			${board.title}</a></td>
+		                        		<td style="text-align: center !important;">
+		                            		<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+		                            	</td>
+		                        		<td style="text-align: center !important;">${board.id}</td>
+		                        		<td style="text-align: center !important;">${board.rNum}</td>
+		                        	</tr>
+		                        </c:forEach>
+		                    </tbody>
+		                </table>
+            		</c:otherwise>
+           		</c:choose>
             </div>
 			<div class="text-right mt-3">
 				<a href="FreeBoardWrite.do?cmd=write">
