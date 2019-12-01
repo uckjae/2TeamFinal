@@ -44,7 +44,7 @@
 		$("#name").on('keyup',validateName);
 		$("#pwd").on('keyup',validatePwd);
 		$("#birth").on('keyup',validateBirth);
-		$("form").submit(validate);
+		$("#form").submit(validate);
 	})
 	
 	function validateBirth(){
@@ -55,11 +55,9 @@
 		
 		checkBirth = getJumin.test($("#birth").val());
 		if(checkBirth){
-			checkBirth = true;
 			$("#gender").focus();
 			$("#checkBirth").attr("hidden","hidden");
 		}else{
-			checkBirth = false;
 			$("#checkBirth").removeAttr("hidden");
 			$("#checkBirth").text("주민등록번호 앞자리가 형식에 맞지 않습니다.");
 			$("#checkBirth").attr("style","color : red");
@@ -74,10 +72,8 @@
 		
 		checkName = getName.test($("#name").val());
 		if(checkName){
-			checkName = true;
 			$("#checkName").attr("hidden","hidden");
 		}else{
-			checkName = false;
 			$("#checkName").removeAttr("hidden");
 			$("#checkName").text("이름을 다시 확인해주세요.");
 			$("#checkName").attr("style","color : red");
@@ -92,10 +88,8 @@
 		
 		checkPwd = getCheck.test($("#pwd").val());
 		if(checkPwd){
-			checkPwd = true;
 			$("#checkPwd").attr("hidden","hidden");
 		}else{
-			checkPwd = false;
 			$("#checkPwd").removeAttr("hidden");
 			$("#checkPwd").text("형식에 맞지않는 비밀번호입니다.");
 			$("#checkPwd").attr("style","color : red");
@@ -103,13 +97,12 @@
 	}
 	
 	function validateId(){
-		let id = document.getElementById("id");
 		if( $("#id").val() == ""){
 			checkId = false;
 			return;
 		}
 		
-		checkId = getCheck.test($("#id").val())
+		checkId = getCheck.test($("#id").val());
 		if(!checkId) {
 			$("#checkId").text("형식에 맞지 않는 아이디입니다");
 			$("#checkId").attr("style","color : red");
@@ -138,19 +131,28 @@
 	
 	function sendMail(){
 		if( $("#email").val() == ""){
-			alert("이메일을 입력하세요");
+			warningAlert("이메일을 입력하세요");
 			$("#email").focus();
 			return;
 		}
 		
 		$.ajax({
-			url : "SendMail",
-			data : {cmd : "checkEmail", email : $("#email").val()},
+			url : "CheckMemberEmail",
+			data : {email : $("#email").val()},
 			success : function(data){
-				console.log(data);
-				emailCode = data;
-				$("#emailCodeControl").removeAttr("hidden","");
-				$("#codeBox").removeAttr("hidden","");
+				if(data == "true"){
+					warningAlert("이미 사용중인 이메일입니다.");
+				}else {
+					$.ajax({
+						url : "SendMail",
+						data : {cmd : "checkEmail", email : $("#email").val()},
+						success : function(data){
+							emailCode = data;
+							$("#emailCodeControl").removeAttr("hidden","");
+							$("#codeBox").removeAttr("hidden","");
+						}
+					});
+				}
 			}
 		});
 	}
@@ -180,7 +182,6 @@
 				}).then(function(){
 					checkEmail = false;
 				})
-			
 		}
 	}
 	
@@ -212,13 +213,7 @@
 			checkAddress=false;
 		else
 			checkAddress=true;
-		console.log("checkEmail" +checkEmail);
-		console.log("checkId" +checkId);
-		console.log("checkName" +checkName);
-		console.log("checkPwd" +checkPwd);
-		console.log("checkBirth" +checkBirth);
-		console.log("checkAddress" +checkAddress);
-		return false;
+		
 	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
 		   Swal.fire({
 				  icon: 'error',
@@ -243,8 +238,7 @@
 		<!-- <div class="row justify-content-center pb-5"> -->
 		<!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
 		<h2 class="text-center mb-3">REGISTER</h2>
-		<form action="RegisterOk.do" class="search-property-1" method="post"
-			name="form">
+		<form action="RegisterOk.do" class="search-property-1" method="post" id="form" name="form">
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3 mb-3">
 					<div class="form-group">
@@ -284,7 +278,7 @@
 				<div class="col-lg-4 offset-lg-3 align-items-end mb-3">
 					<div class="form-group">
 						<div class=" form-field" id="emailCodeControl" hidden="hidden">
-							<input type="email" class="form-control" id="emailCode"
+							<input type="text" class="form-control" id="emailCode"
 								name="emailCode" placeholder="check email code">
 						</div>
 					</div>
@@ -379,7 +373,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mt-1">
+			
+			<div class="row" style="margin-bottom: 30px;">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="form-group">
 						<div class="form-field">

@@ -497,6 +497,10 @@ pre {
   padding-right: 15px;
   padding-left: 15px; }
 
+.col-md-12{
+	padding: 0px !important;
+}
+
 .col {
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -9779,7 +9783,7 @@ textarea.form-control {
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: right;
-      margin-left:5em;
+      margin-left:1em;
       width: calc(100% - 15em); }
       .comment-list li .comment-body h3 {
         font-size: 20px; }

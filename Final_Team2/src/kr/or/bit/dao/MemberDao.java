@@ -305,6 +305,32 @@ public class MemberDao {
 
 		return result;
 	}
+	
+	public boolean isUseMemberEmail(String email) {
+		Connection connection = DBHelper.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		String sql = "SELECT EMAIL FROM MEMBER WHERE EMAIL = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+				result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBHelper.close(rs);
+			DBHelper.close(pstmt);
+			DBHelper.close(connection);
+		}
+		
+		return result;
+	}
 
 	public boolean updateTempPassword(String id, String pwd) {
 		int resultRow = 0;
