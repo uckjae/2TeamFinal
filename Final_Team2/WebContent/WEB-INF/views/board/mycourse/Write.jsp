@@ -35,6 +35,21 @@
 
     });       
     
+    function validatingSubmit(){
+    	var inputs = $('body').find('input');
+    	var isValidated = true;
+    	$.each(inputs, function(index, element) {
+    		if($(element).val()==null || $(element).val()==""){
+    			isValidated = false;
+    			
+    		}
+    	});
+    	if(isValidated){
+    		$("#inputForm").submit();
+    	}else{
+    		errorAlert("제목, 내용 , 사진을 모두 입력하세요");
+    	}
+    }
  
 </script>
 	
@@ -117,7 +132,7 @@
 				</c:forEach>
 				</div>
 				<div class="timeline-end">End</div>
-    	  <input type="submit" class="btn btn-primary btn-block" value="작성하기">
+    	  <input type="button" onclick="validatingSubmit()" class="btn btn-primary btn-block" value="작성하기">
           <input type="reset" class="btn btn-danger btn-block" value="취소하기" onclick="location.href='MyCourseBoardList.do'">
 			</div>
 		</c:when>
@@ -157,7 +172,7 @@
 				    <!-- // Article -->
 		      </div>
     	  <div class="timeline-end">End</div>
-    	  <input type="submit" class="btn btn-primary btn-block" value="작성하기">
+    	  <input type="button" onclick="validatingSubmit()" class="btn btn-primary btn-block" value="작성하기">
           <input type="reset" class="btn btn-danger btn-block" value="취소하기" onclick="location.href='MyCourseBoardList.do'">
  		 </div>
   
