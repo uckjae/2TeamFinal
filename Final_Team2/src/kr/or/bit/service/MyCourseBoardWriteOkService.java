@@ -98,9 +98,12 @@ public class MyCourseBoardWriteOkService implements Action{
 				photo.setPhotoName(multi.getFilesystemName(file));
 				tempPhotos.add(photo);
 			}
-			for(int i = tempPhotos.size()-1; i>=0; i--) {
+			
+			photos.add(tempPhotos.get(0));
+			for(int i = tempPhotos.size()-1; i>0; i--) { 
 				photos.add(tempPhotos.get(i));
-			}
+			 }
+			 
 			
 			bIdx = dao.courseWrite(board, mCBoard, photos);
 			if(bIdx <= 0) {
@@ -111,8 +114,7 @@ public class MyCourseBoardWriteOkService implements Action{
 				msg = "게시글 작성 완료!";
 			}
 		}else if(cmd.equals("edit")) {
-			System.out.println("bIdx" + multi.getParameter("bIdx"));
-			System.out.println("bidx" + multi.getParameter("bidx"));
+			System.out.println("EDIT IN");
 			
 			bIdx = Integer.parseInt(multi.getParameter("bIdx"));
 			rNum = Integer.parseInt(multi.getParameter("rNum"));
@@ -126,10 +128,14 @@ public class MyCourseBoardWriteOkService implements Action{
 			while(filenames.hasMoreElements()) {
 				Photo photo = new Photo();
 				String file = (String)filenames.nextElement();
-				photo.setbIdx(bIdx);
 				photo.setPhotoName(multi.getFilesystemName(file));
-				photos.add(photo);
+				tempPhotos.add(photo);
 			}
+			
+			photos.add(tempPhotos.get(0));
+			for(int i = tempPhotos.size()-1; i>0; i--) { 
+				photos.add(tempPhotos.get(i));
+			 }
 			
 			int result = dao.courseEdit(board, mCBoard, photos);
 			if(result <= 0) {
