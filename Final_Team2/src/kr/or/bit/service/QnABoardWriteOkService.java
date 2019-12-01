@@ -16,7 +16,7 @@ public class QnABoardWriteOkService implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = new ActionForward();
-
+		System.out.println("in QnABoardWriteOkService!!");
 		String memberId = (String) request.getSession().getAttribute("memberId");
 		String cmd = request.getParameter("cmd").trim();
 		String title = request.getParameter("title");
