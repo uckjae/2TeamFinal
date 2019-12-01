@@ -229,7 +229,7 @@
     <c:import url="/common/Top.jsp" />
 
     <!-- Contant -->
-    <div class="container" style="margin-top:7em">
+    <div class="container mt-7">
         <!-- <div class="row justify-content-center pb-5"> -->
           <!--   <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated"> -->
                 <h2 class="text-center mb-3">REGISTER</h2>
@@ -244,23 +244,60 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
+                        <div class ="row">
+                        <div class="col-lg-4 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">EMAIL</label>
                                 <div class=" form-field">                             
                                     <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
-                                	<div class=""> 
-							          <button class="btn btn-primary" type="button" id="sendEmail"> 이메일 인증 </button>
-							         </div> 				       
+                      				       
                                 </div>
+                              </div> 				       
+                           </div>  
+                                
+                           <div class="col-lg-2 align-items-end mb-3">
+                            <div class="form-group">
+                                <label for="#">&nbsp;</label>
+                                <div class=" form-field">                             
+							          <button class="btn btn-primary form-control" type="button" id="sendEmail"> 이메일 인증 </button>				       
+                                </div>
+                              </div> 				       
+                           </div>     
+                        </div>
+                                  
+                        <div class ="row">
+                        <div class="col-lg-4 offset-lg-3 align-items-end mb-3">
+                            <div class="form-group">
+                                <div class=" form-field" id="emailCodeControl" hidden="hidden">                             
+                                    <input type="email" class="form-control" id="emailCode" name="emailCode" placeholder="check email code"> 				       
+                                </div>
+                              </div> 				       
+                           </div>  
+                                
+                           <div class="col-lg-2 align-items-end mb-3">
+                            <div class="form-group">
+                                <div class="input-group-append form-field">                             
+							          <button class="btn btn-primary form-control" type="button"id="checkEmailCode"> 인증 확인 </button>				       
+                                </div>
+                              </div> 				       
+                           </div>     
+                        </div>          
+                                  
+                                  
+                                  
+                                  
+                                  
+<!--                                  <div class="col-lg-2 align-items-end mb-3">
                                 <div class="form-field" id="emailCodeControl" hidden="hidden">
                                     <input type="text" class="form-control" id="emailCode" name="emailCode" placeholder="check email code">
                                 	<div class="input-group-append">
 							          <button class="btn btn-primary" type="button" id="checkEmailCode"> 인증 확인 </button>
 							        </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> -->
+                        
+                          
+                          
                         <div class="col-lg-6 offset-lg-3 align-items-end mb-3">
                             <div class="form-group">
                                 <label for="#">NAME</label>

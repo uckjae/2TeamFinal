@@ -85,13 +85,13 @@
 									</li>
 								</c:otherwise>
 							</c:choose>
-							<li class="nav-item"><a href="Logout.do" class="nav-link" style="color :white;"><span>Logout</span></a></li>
+							<li class="nav-item"><a href="Logout.do" class="nav-link"><span>Logout</span></a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item">
 								<a href="Register.do" class="nav-link"> <span>회원가입</span></a>
 							</li>
-							<li class="nav-item"><a href="Login.do" class="nav-link" style="color :white;"><span>Login</span></a></li>
+							<li class="nav-item"><a href="Login.do" class="nav-link"><span>Login</span></a></li>
 						</c:otherwise>
 					</c:choose> 
 				</ul>
