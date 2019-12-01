@@ -200,7 +200,7 @@ body {
 							
 							if(element.obsrValue == 0){
 								$(icon).attr("class","wi wi-day-sunny");
-							}else if(element.category > 1){
+							}else{
 								$(icon).attr("class","wi wi-day-rain");
 							}
 						}else if(element.category == "RN1"){
