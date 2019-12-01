@@ -63,7 +63,7 @@
     	function delMember(){
     		//let href = "MemberDelete.do?cmd=myInfo&id=" + deleteId;
     		Swal.fire({
-  			  title: 'Are you sure?',
+  			  title: '정말로 탈퇴 하시겠습니까?',
   			  icon: 'warning',
   			  showCancelButton: true,
   			  confirmButtonColor: '#3085d6',
@@ -79,7 +79,7 @@
     	function checkPassword(){
     		(async () => {
     			const { value: password } = await Swal.fire({
-    			  title: 'Enter your password',
+    			  title: '비밀번호를 입력해 주세요',
     			  input: 'password',
     			  inputPlaceholder: 'Enter your password',
     			  inputAttributes: {

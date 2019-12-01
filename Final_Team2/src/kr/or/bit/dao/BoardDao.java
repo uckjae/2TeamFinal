@@ -927,10 +927,10 @@ public class BoardDao {
 				mCBoard.setbIdx(rs.getInt(1));
 				mCBoard.setId(rs.getString(2));
 				mCBoard.setTitle(rs.getString(3));
-				String[] contents = rs.getString(4).split("╊");
+				String[] contents = rs.getString(4).trim().split("╊");
 				ArrayList<String> contenstList = new ArrayList<String>();
 				for (int i = 0; i < contents.length; i++) {
-					contenstList.add(contents[i]);
+					contenstList.add(contents[i].trim());
 				}
 				mCBoard.setContentsList(contenstList);
 
@@ -940,7 +940,7 @@ public class BoardDao {
 				mCBoard.setmCidx(rs.getInt(8));
 				mCBoard.setLikeNum(rs.getInt(9));
 
-				String photoSql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=?";
+				String photoSql = "SELECT PHOTOID, BIDX, PHOTONAME FROM PHOTO WHERE BIDX=? ORDER BY BIDX DESC";
 				ArrayList<Photo> photoList = new ArrayList<Photo>();
 				pstmt = conn.prepareStatement(photoSql);
 				pstmt.setInt(1, bIdx);
@@ -1161,7 +1161,7 @@ public class BoardDao {
 			for (int i = 0; i < photos.size(); i++) {
 				Photo photo = photos.get(i);
 				pstmt = conn.prepareStatement(photoSql);
-				pstmt.setInt(1, photo.getbIdx());
+				pstmt.setInt(1, board.getbIdx());
 				pstmt.setString(2, photo.getPhotoName());
 				resultRow *= pstmt.executeUpdate();
 			}

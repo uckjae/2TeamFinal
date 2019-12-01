@@ -423,7 +423,7 @@ body {
 			<div id="mainContentBox" class="content">
 				<h4>주변축제</h4>
 				<hr>
-				<div class="row" id="here">
+				<div class="row gallery img d-flex align-items-center" id="here">
 					
 							
 									
