@@ -91,6 +91,7 @@ $(function(){
 		/* 공통정보조회 -상세*/
 	$.getJSON(api2,function(data) {
    			var myData2 = data.response.body.items.item;
+   			$(".mTLimage").val(myData2.firstimage);
 			$.each(myData2, function(key, value) {
 				if (key == "title") {
 					$("#title").append("<div>" + value + "</div>");
@@ -123,7 +124,7 @@ $(function(){
 				if (myData == null) {
 					var img2 = $('<img>');
 					$(img2).attr("src", image);
-					$(".mTLimage").val(image);
+					
 					$("#imgarea").append(img2);
 				}else {
 					$.each(myData, function(index, element) {
@@ -393,29 +394,6 @@ function submitFn(idx){
 		</div>
 	</section>
 	<c:import url="/common/MTLModal.jsp" />
-	<!-- <!--  모달창 첫 화면 -->
-	<!-- <div class="modal fade" id="myTravelListModalTravel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"></h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<form id="frm" method="post">
-					<div class="modal-body" id="innerModalIntro"></div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="modalIntroBtn" onclick="showTList()" value="목록보기">목록보기</button>
-						<button id="deletebtn" class="btn btn-secondary" type="button"data-dismiss="modal">취소</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div> --> -->
-	
-
-	
 	<div class="text-right">
 				<a href="Travel.do" class="btn btn-primary" style="margin-right: 150px"> 목록 </a>
 	</div>
