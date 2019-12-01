@@ -212,7 +212,13 @@
 			checkAddress=false;
 		else
 			checkAddress=true;
-		
+		console.log("checkEmail" +checkEmail);
+		console.log("checkId" +checkId);
+		console.log("checkName" +checkName);
+		console.log("checkPwd" +checkPwd);
+		console.log("checkBirth" +checkBirth);
+		console.log("checkAddress" +checkAddress);
+		return false;
 	   if(!(checkEmail && checkId && checkName && checkPwd && checkBirth && checkAddress)){
 		   Swal.fire({
 				  icon: 'error',
@@ -373,7 +379,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mt-1">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="form-group">
 						<div class="form-field">

@@ -5669,6 +5669,7 @@ button.bg-dark:focus {
   align-items: flex-start !important; }
 
 .align-items-end {
+   padding: 0;
   -webkit-box-align: end !important;
   -ms-flex-align: end !important;
   align-items: flex-end !important; }
@@ -8037,14 +8038,14 @@ h1, h2, h3, h4, h5,
 .ftco-navbar-light {
   /* background: black !important; */
   position: absolute;
-  background-color: rgba( 0, 0, 0, 0.2 ) !important;
+  background-color: rgba( 0, 0, 0, 0.3 ) !important;
   top: 0;
   left: 0;
   right: 0;
   z-index: 3; }
   @media (max-width: 991.98px) {
     .ftco-navbar-light {
-      background-color: rgba( 0, 0, 0, 0.2 );
+      background-color: rgba( 255, 255, 255 );
       position: relative;
       top: 0;
       padding-top: 0;
@@ -10327,4 +10328,7 @@ textarea.form-control {
 }
 .font-pen {
 	font-family: 'Nanum Pen Script', cursive;
+}
+.font-size-25{
+	font-size: 25px !important;
 }
