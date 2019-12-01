@@ -144,7 +144,7 @@
                              			<div class="form-field">
 		                                	<div class="row">
 			                                	<div class="col-lg-3">
-			                                	   <input type="number" id="postCode" name="postCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
+			                                	   <input type="text" id="postCode" name="postCode" value="${address[0]}"  class="form-control"  aria-label="Search" aria-describedby="basic-addon2" style="height: 50px" >
 			                                	</div>
 			                                	<div class="col-lg-9"> 
 			                                		<input type="text" class="form-control" id="address" name="address" value="${address[1] }" >

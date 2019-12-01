@@ -41,10 +41,6 @@
                 tableSearch();
             });
 
-            $("#deptSelect").change(function () {
-                tableSearch();
-            });
-
             function tableSearch() {
                 let colIndex = document.querySelector('#select').selectedIndex;
                 let searchText = $('.dataTables_filter input').val();

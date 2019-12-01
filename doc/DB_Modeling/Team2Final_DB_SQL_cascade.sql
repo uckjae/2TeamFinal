@@ -46,12 +46,17 @@ DROP TABLE MCBoard
 DROP TABLE LMList 
 	CASCADE CONSTRAINTS;
 
+/* QnABoard */
+DROP TABLE TABLE 
+	CASCADE CONSTRAINTS;
+
+/* Board */
 CREATE TABLE Board (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
 	Title VARCHAR2(100) NOT NULL, /* 글제목 */
 	Content VARCHAR2(4000) NOT NULL, /* 글내용 */
-	WDate TIMESTAMP DEFAULT SYSTIMESTAMP, /* 작성일 */
+	WDate TIMESTAMP, /* 작성일 */
 	RNum NUMBER NOT NULL, /* 조회수 */
 	BCode NUMBER NOT NULL /* 게시판코드 */
 );
@@ -123,7 +128,7 @@ CREATE TABLE Reply (
 	BIDX NUMBER NOT NULL, /* 글번호 */
 	RContent VARCHAR2(500) NOT NULL, /* 댓글내용 */
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
-	RWDate TIMESTAMP DEFAULT SYSTIMESTAMP /* 작성일 */
+	RWDate TIMESTAMP /* 작성일 */
 );
 
 COMMENT ON TABLE Reply IS 'Reply';
@@ -231,12 +236,12 @@ ALTER TABLE Photo
 /* Member */
 CREATE TABLE Member (
 	ID VARCHAR2(20) NOT NULL, /* 아이디 */
-	PWD VARCHAR2(200) NOT NULL, /* 비밀번호 */
+	PWD VARCHAR2(30) NOT NULL, /* 비밀번호 */
 	Name VARCHAR2(15) NOT NULL, /* 이름 */
 	Birth CHAR(6), /* 생년월일 */
-	HIREDATE TIMESTAMP DEFAULT SYSTIMESTAMP, /* 가입일 */
+	HIREDATE DATE, /* 가입일 */
 	Gender CHAR(1), /* 성별 */
-	Address VARCHAR2(50), /* 주소 */
+	Address VARCHAR2(100), /* 주소 */
 	Email VARCHAR2(100), /* 이메일 */
 	ISDISABLE CHAR(1), /* 활동중지 */
 	isAdmin CHAR(1) NOT NULL /* 관리자여부 */
@@ -269,11 +274,23 @@ CREATE UNIQUE INDEX PK_Member
 		ID ASC
 	);
 
+CREATE UNIQUE INDEX UIX_Member
+	ON Member (
+		Email ASC
+	);
+
 ALTER TABLE Member
 	ADD
 		CONSTRAINT PK_Member
 		PRIMARY KEY (
 			ID
+		);
+
+ALTER TABLE Member
+	ADD
+		CONSTRAINT UK_Member
+		UNIQUE (
+			Email
 		);
 
 /* MyTravelList */
@@ -345,7 +362,7 @@ ALTER TABLE MTLContent
 /* NoticeBoard */
 CREATE TABLE NoticeBoard (
 	NIdx NUMBER NOT NULL, /* 공지사항게시판식별번호 */
-	BIDX NUMBER, /* 글번호 */
+	BIDX NUMBER NOT NULL, /* 글번호 */
 	isTop CHAR(1) /* 상단위치여부 */
 );
 
@@ -398,9 +415,9 @@ ALTER TABLE MCBoard
 
 /* LikeMemberList */
 CREATE TABLE LMList (
-	MCIdx NUMBER, /* 나만의코스게시판식별번호 */
-	ID VARCHAR2(20), /* 아이디 */
-	isLike CHAR(1) /* 추천여부 */
+	MCIdx NUMBER NOT NULL, /* 나만의코스게시판식별번호 */
+	ID VARCHAR2(20) NOT NULL, /* 아이디 */
+	isLike CHAR(1) NOT NULL /* 추천여부 */
 );
 
 COMMENT ON TABLE LMList IS 'LikeMemberList';
@@ -411,6 +428,33 @@ COMMENT ON COLUMN LMList.ID IS '아이디';
 
 COMMENT ON COLUMN LMList.isLike IS '추천여부';
 
+/* QnABoard */
+CREATE TABLE TABLE (
+	QIdx <지정 되지 않음> NOT NULL, /* QnA게시판식별번호 */
+	BIDX NUMBER NOT NULL, /* 글번호 */
+	COL2 <지정 되지 않음> NOT NULL /* 공개여부 */
+);
+
+COMMENT ON TABLE TABLE IS 'QnABoard';
+
+COMMENT ON COLUMN TABLE.QIdx IS 'QnA게시판식별번호';
+
+COMMENT ON COLUMN TABLE.BIDX IS '글번호';
+
+COMMENT ON COLUMN TABLE.COL2 IS '공개여부';
+
+CREATE UNIQUE INDEX PK_TABLE
+	ON TABLE (
+		QIdx ASC
+	);
+
+ALTER TABLE TABLE
+	ADD
+		CONSTRAINT PK_TABLE
+		PRIMARY KEY (
+			QIdx
+		);
+
 ALTER TABLE Board
 	ADD
 		CONSTRAINT FK_BoardList_TO_Board
@@ -419,7 +463,7 @@ ALTER TABLE Board
 		)
 		REFERENCES BoardList (
 			BCode
-		) ON DELETE CASCADE;
+		)ON DELETE CASCADE;
 
 ALTER TABLE Board
 	ADD
@@ -429,7 +473,7 @@ ALTER TABLE Board
 		)
 		REFERENCES Member (
 			ID
-		) ON DELETE CASCADE;
+		)ON DELETE CASCADE;
 
 ALTER TABLE FreeBoard
 	ADD
@@ -540,7 +584,18 @@ ALTER TABLE LMList
 		REFERENCES Member (
 			ID
 		)ON DELETE CASCADE;
-    
+
+ALTER TABLE TABLE
+	ADD
+		CONSTRAINT FK_Board_TO_TABLE
+		FOREIGN KEY (
+			BIDX
+		)
+		REFERENCES Board (
+			BIDX
+		)ON DELETE CASCADE;
+
+
     
 /* INIT DATA */		
 INSERT INTO BOARDTYPE(BTYPE,BTYPENAME) VALUES(10, '일반');
