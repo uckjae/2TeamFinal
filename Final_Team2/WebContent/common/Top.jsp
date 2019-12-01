@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target font-jua" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="index.jsp">이곳저곳</a>
 			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
