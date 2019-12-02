@@ -252,7 +252,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-4 offset-lg-3 align-items-end mb-3 form-group">
+				<div class="col-lg-4 offset-lg-3 align-items-end mb-3 form-group pr-0">
 					<!--  <div class="form-group"> -->
 					<label for="#">EMAIL</label>
 					<div class=" form-field">
@@ -263,7 +263,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-2 align-items-end mb-3">
+				<div class="col-lg-2 align-items-end mb-3 pl-0">
 					<div class="form-group">
 						<label for="#">&nbsp;</label>
 						<div class=" form-field">
@@ -275,7 +275,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 offset-lg-3 align-items-end mb-3">
+				<div class="col-lg-4 offset-lg-3 align-items-end mb-3 pr-0">
 					<div class="form-group">
 						<div class=" form-field" id="emailCodeControl" hidden="hidden">
 							<input type="text" class="form-control" id="emailCode"
@@ -284,7 +284,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-2 align-items-end mb-3" id="codeBox"
+				<div class="col-lg-2 align-items-end mb-3 pl-0" id="codeBox"
 					hidden="hidden">
 					<div class="form-group">
 						<div class="input-group-append form-field">
@@ -342,7 +342,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-5 offset-lg-3 align-items-end mb-3">
+				<div class="col-lg-5 offset-lg-3 align-items-end mb-3 pr-0" >
 					<div class="form-group">
 						<label for="#">ADDRESS</label> <input type="number" id="postCode"
 							name="postCode" class="form-control" placeholder="우편번호"
@@ -350,8 +350,7 @@
 							style="height: 50px" readonly>
 					</div>
 				</div>
-
-				<div class="col-lg-1 align-items-end mb-3">
+				<div class="col-lg-1 align-items-end mb-3 pl-0" >
 					<div class="form-group">
 						<label for="#">&nbsp;</label>
 						<div class="input-group-append form-field">

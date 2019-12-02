@@ -103,25 +103,25 @@
             			<table class="table table-bordered hover" id="dataTable">
 		                   <thead>
 		                       <tr>
-		                           <th>NO</th>
+		                           <th width="10%">NO</th>
 		                           <th>TITLE</th>
-		                           <th>작성자</th>
-		                           <th>작성일</th>
-		                           <th>조회수</th>
-		                           <th>추천수</th>
+		                           <th width="15%">WRITER</th>
+		                           <th width="15%">DATE</th>
+		                           <th width="10%">조회수</th>
+		                           <th width="10%">추천수</th>
 		                       </tr>
 		                   </thead>
 		                   <tbody>
 		                   <c:forEach var="board" items="${MCBList}">
 		                   	<tr>
-		                           <td>${board.bIdx}</td>
+		                           <td style="text-align: center !important;">${board.bIdx}</td>
 		                           <td class="sorting_1"><a onclick="checkReadBoad(${sessionScope.memberId!=null},${board.bIdx}, 'MyCourseBoardDetail.do')" href="#">${board.title}</a></td>
-		                           <td>${board.id}</td>
-		                           <td>
+		                           <td style="text-align: center !important;">${board.id}</td>
+		                           <td style="text-align: center !important;">
 		                           	<fmt:formatDate value="${board.wDate}" pattern="yyyy-MM-dd   HH:mm:ss" />
 		                           </td>
-		                           <td>${board.rNum}</td>
-		                           <td>${board.likeNum}</td>
+		                           <td style="text-align: center !important;">${board.rNum}</td>
+		                           <td style="text-align: center !important;">${board.likeNum}</td>
 		                       </tr>
 		                   </c:forEach>
 		                  </tbody>
